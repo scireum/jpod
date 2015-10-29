@@ -1,0 +1,72 @@
+<html>
+<body>
+This package implements the low level document and its datatypes according to 
+the pdf specification.
+<p>
+Every PDF document is finally composed using COS primitive and composite objects.
+These objects are aggregated to a COSDocument.
+
+The available primitives are 
+<ul>
+<li>Boolean: true or false</li>
+<li>Name: A special unique string like object, most often used as a key for dictionaries.</li>
+<li>Fixed: A fixed point real number.</li>
+<li>Integer: An integer number</li>
+<li>String: A string object</li>
+</ul>
+
+COS objects are composed using 
+<ul>
+<li>Array: A dynamic indexed collection implementation.</li>
+<li>Dictionary: A associative (Map) data structure.</li>
+</ul>
+
+Kind of hybrid structure is a 
+<ul>
+<li>Stream: A sequence of bytes, combined with a dictionary with additional
+information about the stream itself.</li>
+</ul>
+</p>
+
+<p>
+This implementation uses a special object representing "null", COSNull. A lookup 
+in a composite will never return an ordinary Java null, always 
+COSNull, so you are never forced to check (obj == null || obj.isFoo()).
+Another useful convention is the "marshalling" using the "as&lt;COSType>" 
+flavor of methods. This methods will return either Java "null" 
+or an instance of the requested type. These conventions help around the 
+sometimes lazy implemented data structures of the PDF documents available out 
+there.
+</p>
+
+<p>
+In a COS structure, other standalone objects and substructures can be referenced. This is 
+represented using COSIndirectObject. An indirect object is not returned by the 
+standard accessors or iterators from composite COS objects, you will always receive the 
+dereferenced COS object. To access the reference itself, you have to use the 
+"basic" flavor of methods.
+</p>
+
+<p>
+Based on these purely technical objects without PDF domain specific behavior
+the meaningful data types like "Rectangle", "Page" and so on are defined. 
+This is reflected in the framework provided by COSBasedObject, the super class
+for all PDF domain objects. Only a few are defined directly in the COS level
+itself, the most of them are found in the "pd" package.
+</p>
+
+<p>
+While this seems not to be too complicated, this implementation is a 
+quite complex and powerful one, supporting things like
+<ul>
+<li>update propagation</li>
+<li>lazy reading</li>
+<li>swapping</li>
+<li>state management (for example for simple undo)</li>
+<li>preserve COS invariants that in most implementations lead to failures in the 
+resulting documents that are hard to debug, like constraints on containement, 
+identity etc.</li>
+</ul>
+</p>
+</body>
+</html>

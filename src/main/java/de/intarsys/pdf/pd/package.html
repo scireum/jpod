@@ -1,0 +1,32 @@
+<html>
+<body>
+<p>
+The higher level building blocks of a PDF document. The PD level objects carry 
+the PDF document semantics like "this is a page" and "this is a image".
+
+The PD objects itself are built upon COS objects, sometimes primitives like 
+COSString or COSName, but most often COSDictionary and COSStream.
+</p>
+
+<p>
+This implementation is guided by the following rules:
+<ul>
+<li>META class structure:<br />
+Every PD class is accompanied with a META class defining META information and acting as a factory.</li>
+<li>Factory creation:<br />
+The PD level object is created or looked up using the factory methods provided by its META class.</li>
+<li>Identity:<br />
+A PD object is always 1:1 associated with a COSObject.</li>
+<li>COSObject and Java return types:<br/>
+The return types of the PDObject level methods are as follows: 
+All "cos" prefixed methods reference back to the COS level and return COSObjects. 
+All other methods return (or act upon) either higher level data structures like CDS or PD itself or plain Java objects.</li>
+<li>COSObject, COSNull and plain null:<br/>
+All methods with a COSObject in return signature will never return plain Java null, but COSNull.
+Methods that are already narrowed to a specific subtype, like COSName, will return either
+an instance of that type or Java null.</li>
+</ul>
+</p>
+
+</body>
+</html>

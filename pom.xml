@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Made with all the love in the world
+  ~ by scireum in Remshalden, Germany
+  ~
+  ~ Copyright by scireum GmbH
+  ~ http://www.scireum.de - info@scireum.de
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.scireum</groupId>
+        <artifactId>sirius-parent</artifactId>
+        <version>1.8</version>
+    </parent>
+    <artifactId>jpod</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <name>jpod</name>
+    <description>
+        This is a fork of http://sourceforge.net/projects/jpodlib/ as developement seems to be freezed.
+        We're providing some bug fixes along with delpoyments to maven.
+    </description>
+
+    <licenses>
+        <license>
+            <name>BSD</name>
+            <url>http://www.opensource.org/licenses/BSD-3-Clause</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.intarsys.opensource</groupId>
+            <artifactId>iscwt</artifactId>
+            <version>5.5</version>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.media</groupId>
+                    <artifactId>jai-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.media</groupId>
+                    <artifactId>jai-codec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>de.intarsys.opensource</groupId>
+            <artifactId>isrt</artifactId>
+            <version>4.10</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>de.intarsys.opensource</groupId>
+            <artifactId>jbig2</artifactId>
+            <version>5.5.1</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+</project>
