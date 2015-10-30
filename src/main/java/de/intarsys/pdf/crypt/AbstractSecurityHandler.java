@@ -35,52 +35,51 @@ import de.intarsys.pdf.st.STDocument;
 
 /**
  * An abstract superclass for implementing {@link ISecurityHandler}.
- * 
  */
 public abstract class AbstractSecurityHandler implements ISecurityHandler {
 
-	private COSDictionary cosEncryption;
+    private COSDictionary cosEncryption;
 
-	private COSEncryption encryption;
+    private COSEncryption encryption;
 
-	private STDocument stDoc;
+    private STDocument stDoc;
 
-	protected AbstractSecurityHandler() {
-		super();
-	}
+    protected AbstractSecurityHandler() {
+        super();
+    }
 
-	public void attach(STDocument stDoc) {
-		if (stDoc == null) {
-			return;
-		}
-		this.stDoc = stDoc;
-		cosEncryption = stDoc.cosGetTrailer().get(COSTrailer.DK_Encrypt)
-				.asDictionary();
-		encryption = (COSEncryption) COSEncryption.META
-				.createFromCos(cosEncryption);
-	}
+    @Override
+    public void attach(STDocument stDoc) {
+        if (stDoc == null) {
+            return;
+        }
+        this.stDoc = stDoc;
+        cosEncryption = stDoc.cosGetTrailer().get(COSTrailer.DK_Encrypt).asDictionary();
+        encryption = (COSEncryption) COSEncryption.META.createFromCos(cosEncryption);
+    }
 
-	public COSDictionary cosGetEncryption() {
-		return cosEncryption;
-	}
+    public COSDictionary cosGetEncryption() {
+        return cosEncryption;
+    }
 
-	public void detach(STDocument stDoc) throws COSSecurityException {
-		this.stDoc = null;
-	}
+    @Override
+    public void detach(STDocument stDoc) throws COSSecurityException {
+        this.stDoc = null;
+    }
 
-	public COSEncryption getEncryption() {
-		return encryption;
-	}
+    public COSEncryption getEncryption() {
+        return encryption;
+    }
 
-	public void initialize(STDocument stDoc) {
-		this.stDoc = stDoc;
-		cosEncryption = stDoc.cosGetTrailer().get(COSTrailer.DK_Encrypt)
-				.asDictionary();
-		encryption = (COSEncryption) COSEncryption.META
-				.createFromCos(cosEncryption);
-	}
+    @Override
+    public void initialize(STDocument stDoc) {
+        this.stDoc = stDoc;
+        cosEncryption = stDoc.cosGetTrailer().get(COSTrailer.DK_Encrypt).asDictionary();
+        encryption = (COSEncryption) COSEncryption.META.createFromCos(cosEncryption);
+    }
 
-	public STDocument stGetDoc() {
-		return stDoc;
-	}
+    @Override
+    public STDocument stGetDoc() {
+        return stDoc;
+    }
 }

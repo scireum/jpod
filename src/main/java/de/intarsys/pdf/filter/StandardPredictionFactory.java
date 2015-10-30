@@ -29,42 +29,38 @@
  */
 package de.intarsys.pdf.filter;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSInteger;
+
+import java.io.IOException;
 
 /**
  * The standard implementation for the {@link IPredictionFactory}.
  */
 public class StandardPredictionFactory implements IPredictionFactory {
-	public IPrediction createPrediction(COSDictionary options)
-			throws IOException {
-		COSInteger value;
-		int predictor;
+    @Override
+    public IPrediction createPrediction(COSDictionary options) throws IOException {
+        COSInteger value;
+        int predictor;
 
-		value = options.get(Prediction.DK_Predictor).asInteger();
-		if (value == null) {
-			predictor = 1;
-		} else {
-			predictor = value.intValue();
-		}
+        value = options.get(Prediction.DK_Predictor).asInteger();
+        if (value == null) {
+            predictor = 1;
+        } else {
+            predictor = value.intValue();
+        }
 
-		if (predictor == Prediction.None) {
-			return new NoPrediction(options);
-		}
-		if (predictor == Prediction.TIFF) {
-			return new TIFFPrediction(options);
-		}
-		if (predictor >= Prediction.PNGNone) {
-			// according to spec actual function used should be encoded in the
-			// data
-			return new PNGOptimumPrediction(options);
-		}
-		throw new IOException("unknown predictor: " + predictor);
-	}
-
-	public StandardPredictionFactory() {
-		super();
-	}
+        if (predictor == Prediction.None) {
+            return new NoPrediction(options);
+        }
+        if (predictor == Prediction.TIFF) {
+            return new TIFFPrediction(options);
+        }
+        if (predictor >= Prediction.PNGNone) {
+            // according to spec actual function used should be encoded in the
+            // data
+            return new PNGOptimumPrediction(options);
+        }
+        throw new IOException("unknown predictor: " + predictor);
+    }
 }

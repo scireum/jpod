@@ -29,112 +29,112 @@
  */
 package de.intarsys.pdf.crypt;
 
-import java.security.MessageDigest;
+import de.intarsys.pdf.cos.COSObjectKey;
 
 import javax.crypto.Cipher;
-
-import de.intarsys.pdf.cos.COSObjectKey;
+import java.security.MessageDigest;
 
 /**
  * An abstract superclass for the default implementation of
  * {@link ICryptHandler}. The concrete implementations provide the standard RC4
  * and AES algorithms.
- * 
  */
-abstract public class StandardCryptHandler extends AbstractCryptHandler {
-	/** The cipher object to be used in encrypting/decrypting */
-	protected Cipher cipher;
+public abstract class StandardCryptHandler extends AbstractCryptHandler {
+    /**
+     * The cipher object to be used in encrypting/decrypting
+     */
+    protected Cipher cipher;
 
-	/** The message digest used throughout the encryption/decryption */
-	protected MessageDigest md;
+    /**
+     * The message digest used throughout the encryption/decryption
+     */
+    protected MessageDigest md;
 
-	/** A buffer for the bytes stemming from the generation number */
-	private byte[] generationBytes = new byte[2];
+    /**
+     * A buffer for the bytes stemming from the generation number
+     */
+    private byte[] generationBytes = new byte[2];
 
-	/** A buffer for the bytes stemming from the object number */
-	private byte[] objectBytes = new byte[3];
+    /**
+     * A buffer for the bytes stemming from the object number
+     */
+    private byte[] objectBytes = new byte[3];
 
-	/**
-	 * The key that was computed for the encryption instance.
-	 */
-	private byte[] cryptKey;
+    /**
+     * The key that was computed for the encryption instance.
+     */
+    private byte[] cryptKey;
 
-	abstract protected byte[] basicDecrypt(byte[] data, byte[] encryptionKey,
-			int objectNum, int genNum) throws COSSecurityException;
+    protected abstract byte[] basicDecrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
+            throws COSSecurityException;
 
-	abstract protected byte[] basicEncrypt(byte[] data, byte[] encryptionKey,
-			int objectNum, int genNum) throws COSSecurityException;
+    protected abstract byte[] basicEncrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
+            throws COSSecurityException;
 
-	protected void updateHash(byte[] encryptionKey, int objectNum, int genNum) {
-		md.reset();
-		md.update(encryptionKey);
-		objectBytes[0] = (byte) (objectNum & 0xff);
-		objectNum = objectNum >> 8;
-		objectBytes[1] = (byte) (objectNum & 0xff);
-		objectNum = objectNum >> 8;
-		objectBytes[2] = (byte) (objectNum & 0xff);
-		md.update(objectBytes);
-		generationBytes[0] = (byte) (genNum & 0xff);
-		genNum = genNum >> 8;
-		generationBytes[1] = (byte) (genNum & 0xff);
-		md.update(generationBytes);
-	}
+    protected void updateHash(byte[] encryptionKey, int objectNum, int genNum) {
+        md.reset();
+        md.update(encryptionKey);
+        objectBytes[0] = (byte) (objectNum & 0xff);
+        objectNum = objectNum >> 8;
+        objectBytes[1] = (byte) (objectNum & 0xff);
+        objectNum = objectNum >> 8;
+        objectBytes[2] = (byte) (objectNum & 0xff);
+        md.update(objectBytes);
+        generationBytes[0] = (byte) (genNum & 0xff);
+        genNum = genNum >> 8;
+        generationBytes[1] = (byte) (genNum & 0xff);
+        md.update(generationBytes);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.ISecurityHandler#decrypt(de.intarsys.pdf.cos.COSObjectKey,
-	 *      byte[])
-	 */
-	public byte[] decrypt(COSObjectKey objectKey, byte[] bytes)
-			throws COSSecurityException {
-		if (bytes == null) {
-			return null;
-		}
-		if (objectKey == null) {
-			return bytes;
-		}
-		synchronized (this) {
-			return basicDecrypt(bytes, getCryptKey(), objectKey
-					.getObjectNumber(), objectKey.getGenerationNumber());
-		}
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.ISecurityHandler#decrypt(de.intarsys.pdf.cos.COSObjectKey,
+     *      byte[])
+     */
+    @Override
+    public byte[] decrypt(COSObjectKey objectKey, byte[] bytes) throws COSSecurityException {
+        if (bytes == null) {
+            return null;
+        }
+        if (objectKey == null) {
+            return bytes;
+        }
+        synchronized (this) {
+            return basicDecrypt(bytes, getCryptKey(), objectKey.getObjectNumber(), objectKey.getGenerationNumber());
+        }
+    }
 
-	public StandardCryptHandler() {
-		super();
-	}
+    protected int length;
 
-	protected int length;
+    public void initialize(byte[] pCryptKey) throws COSSecurityException {
+        cryptKey = pCryptKey;
+        length = cryptKey.length + 5;
+        if (length > 16) {
+            length = 16;
+        }
+    }
 
-	public void initialize(byte[] pCryptKey) throws COSSecurityException {
-		cryptKey = pCryptKey;
-		length = cryptKey.length + 5;
-		if (length > 16) {
-			length = 16;
-		}
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.ISecurityHandler#encrypt(de.intarsys.pdf.cos.COSObjectKey,
+     *      byte[])
+     */
+    @Override
+    public byte[] encrypt(COSObjectKey objectKey, byte[] bytes) throws COSSecurityException {
+        if (bytes == null) {
+            return null;
+        }
+        if (objectKey == null) {
+            return bytes;
+        }
+        synchronized (this) {
+            return basicEncrypt(bytes, getCryptKey(), objectKey.getObjectNumber(), objectKey.getGenerationNumber());
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.ISecurityHandler#encrypt(de.intarsys.pdf.cos.COSObjectKey,
-	 *      byte[])
-	 */
-	public byte[] encrypt(COSObjectKey objectKey, byte[] bytes)
-			throws COSSecurityException {
-		if (bytes == null) {
-			return null;
-		}
-		if (objectKey == null) {
-			return bytes;
-		}
-		synchronized (this) {
-			return basicEncrypt(bytes, getCryptKey(), objectKey
-					.getObjectNumber(), objectKey.getGenerationNumber());
-		}
-	}
-
-	protected byte[] getCryptKey() {
-		return cryptKey;
-	}
+    protected byte[] getCryptKey() {
+        return cryptKey;
+    }
 }

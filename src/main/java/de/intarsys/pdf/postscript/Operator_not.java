@@ -30,26 +30,27 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_not implements IOperator {
-	public static Operator_not Instance;
+    public static Operator_not Instance;
 
-	static {
-		Instance = new Operator_not();
-	}
+    static {
+        Instance = new Operator_not();
+    }
 
-	private Operator_not() {
-		super();
-	}
+    private Operator_not() {
+        super();
+    }
 
-	public void execute(Handler handler) throws ParseException {
-		Object element;
+    @Override
+    public void execute(Handler handler) throws ParseException {
+        Object element;
 
-		element = handler.pop();
-		if (element instanceof Integer) {
-			handler.push(new Integer(~((Integer) element).intValue()));
-		}
-		if (element instanceof Boolean) {
-			handler.push(new Boolean(!((Boolean) element).booleanValue()));
-		}
-		throw new ParseException();
-	}
+        element = handler.pop();
+        if (element instanceof Integer) {
+            handler.push(Integer.valueOf(~((Integer) element).intValue()));
+        }
+        if (element instanceof Boolean) {
+            handler.push(Boolean.valueOf(!((Boolean) element).booleanValue()));
+        }
+        throw new ParseException();
+    }
 }

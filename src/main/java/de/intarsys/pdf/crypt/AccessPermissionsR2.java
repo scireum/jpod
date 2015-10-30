@@ -31,40 +31,47 @@ package de.intarsys.pdf.crypt;
 
 class AccessPermissionsR2 extends AbstractAccessPermissions {
 
-	public AccessPermissionsR2(PermissionFlags flags) {
-		super(flags);
-	}
+    AccessPermissionsR2(PermissionFlags flags) {
+        super(flags);
+    }
 
-	public boolean mayAssemble() {
-		return mayModify();
-	}
+    @Override
+    public boolean mayAssemble() {
+        return mayModify();
+    }
 
-	public boolean mayCopy() {
-		return flags.mayCopy();
-	}
+    @Override
+    public boolean mayCopy() {
+        return flags.mayCopy();
+    }
 
-	public boolean mayExtract() {
-		return mayCopy();
-	}
+    @Override
+    public boolean mayExtract() {
+        return mayCopy();
+    }
 
-	public boolean mayFillForm() {
-		return mayModifyAnnotation() || mayModify();
-	}
+    @Override
+    public boolean mayFillForm() {
+        return mayModifyAnnotation() || mayModify();
+    }
 
-	public boolean mayModify() {
-		return flags.mayModify();
-	}
+    @Override
+    public boolean mayModify() {
+        return flags.mayModify();
+    }
 
-	public boolean mayModifyAnnotation() {
-		return flags.mayModifyAnnotation();
-	}
+    @Override
+    public boolean mayModifyAnnotation() {
+        return flags.mayModifyAnnotation();
+    }
 
-	public boolean mayPrint() {
-		return flags.mayPrint();
-	}
+    @Override
+    public boolean mayPrint() {
+        return flags.mayPrint();
+    }
 
-	public boolean mayPrintHighQuality() {
-		return mayPrint();
-	}
-
+    @Override
+    public boolean mayPrintHighQuality() {
+        return mayPrint();
+    }
 }

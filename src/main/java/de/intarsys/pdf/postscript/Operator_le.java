@@ -30,28 +30,28 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_le implements IOperator {
-	public static Operator_le Instance;
+    public static Operator_le Instance;
 
-	static {
-		Instance = new Operator_le();
-	}
+    static {
+        Instance = new Operator_le();
+    }
 
-	private Operator_le() {
-		super();
-	}
+    private Operator_le() {
+        super();
+    }
 
-	public void execute(Handler handler) throws ParseException {
-		Object o2 = handler.pop();
-		Object o1 = handler.pop();
-		if (o1 instanceof Number && o2 instanceof Number) {
-			handler.push(((Number) o1).doubleValue() <= ((Number) o2)
-					.doubleValue());
-			return;
-		}
-		if (o1 instanceof String && o2 instanceof String) {
-			handler.push(((String) o1).compareTo((String) o2) <= 0);
-			return;
-		}
-		throw new ParseException("operandes to not comparable");
-	}
+    @Override
+    public void execute(Handler handler) throws ParseException {
+        Object o2 = handler.pop();
+        Object o1 = handler.pop();
+        if (o1 instanceof Number && o2 instanceof Number) {
+            handler.push(((Number) o1).doubleValue() <= ((Number) o2).doubleValue());
+            return;
+        }
+        if (o1 instanceof String && o2 instanceof String) {
+            handler.push(((String) o1).compareTo((String) o2) <= 0);
+            return;
+        }
+        throw new ParseException("operandes to not comparable");
+    }
 }

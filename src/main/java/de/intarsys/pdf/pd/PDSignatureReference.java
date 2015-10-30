@@ -37,134 +37,127 @@ import de.intarsys.pdf.cos.COSString;
 
 /**
  * This object specifies details on the signature.
- * 
  */
 public class PDSignatureReference extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDSignatureReference(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDSignatureReference(object);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_Type_SigRef = COSName.constant("SigRef"); //$NON-NLS-1$
+    public static final COSName CN_Type_SigRef = COSName.constant("SigRef"); //$NON-NLS-1$
 
-	public static final COSName DK_TransformMethod = COSName
-			.constant("TransformMethod"); //$NON-NLS-1$
+    public static final COSName DK_TransformMethod = COSName.constant("TransformMethod"); //$NON-NLS-1$
 
-	public static final COSName DK_TransformParams = COSName
-			.constant("TransformParams"); //$NON-NLS-1$
+    public static final COSName DK_TransformParams = COSName.constant("TransformParams"); //$NON-NLS-1$
 
-	public static final COSName DK_Data = COSName.constant("Data"); //$NON-NLS-1$
+    public static final COSName DK_Data = COSName.constant("Data"); //$NON-NLS-1$
 
-	public static final COSName DK_DigestMethod = COSName
-			.constant("DigestMethod"); //$NON-NLS-1$
+    public static final COSName DK_DigestMethod = COSName.constant("DigestMethod"); //$NON-NLS-1$
 
-	public static final COSName DK_DigestValue = COSName
-			.constant("DigestValue"); //$NON-NLS-1$
+    public static final COSName DK_DigestValue = COSName.constant("DigestValue"); //$NON-NLS-1$
 
-	public static final COSName DK_DigestLocation = COSName
-			.constant("DigestLocation"); //$NON-NLS-1$
+    public static final COSName DK_DigestLocation = COSName.constant("DigestLocation"); //$NON-NLS-1$
 
-	public static final String DIGESTMETHOD_MD5 = "MD5"; //$NON-NLS-1$
+    public static final String DIGESTMETHOD_MD5 = "MD5"; //$NON-NLS-1$
 
-	public static final String DIGESTMETHOD_SHA1 = "SHA1"; //$NON-NLS-1$
+    public static final String DIGESTMETHOD_SHA1 = "SHA1"; //$NON-NLS-1$
 
-	private static final String DEFAULT_DIGESTMETHOD = DIGESTMETHOD_MD5; //$NON-NLS-1$
+    private static final String DEFAULT_DIGESTMETHOD = DIGESTMETHOD_MD5; //$NON-NLS-1$
 
-	protected PDSignatureReference(COSObject object) {
-		super(object);
-	}
+    protected PDSignatureReference(COSObject object) {
+        super(object);
+    }
 
-	public COSObject cosGetData() {
-		COSObject data = cosGetField(DK_Data);
-		return data.isNull() ? null : data;
-	}
+    public COSObject cosGetData() {
+        COSObject data = cosGetField(DK_Data);
+        return data.isNull() ? null : data;
+    }
 
-	public COSArray cosGetDigestLocation() {
-		return cosGetField(DK_DigestLocation).asArray();
-	}
+    public COSArray cosGetDigestLocation() {
+        return cosGetField(DK_DigestLocation).asArray();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
-	 */
-	@Override
-	protected COSName cosGetExpectedType() {
-		return CN_Type_SigRef;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
+     */
+    @Override
+    protected COSName cosGetExpectedType() {
+        return CN_Type_SigRef;
+    }
 
-	public void cosSetData(COSObject data) {
-		cosSetField(DK_Data, data);
-	}
+    public void cosSetData(COSObject data) {
+        cosSetField(DK_Data, data);
+    }
 
-	public String getDigestMethod() {
-		COSName cosDigestMethod = cosGetField(DK_DigestMethod).asName();
-		if (cosDigestMethod == null) {
-			return DEFAULT_DIGESTMETHOD;
-		}
-		return cosDigestMethod.stringValue();
-	}
+    public String getDigestMethod() {
+        COSName cosDigestMethod = cosGetField(DK_DigestMethod).asName();
+        if (cosDigestMethod == null) {
+            return DEFAULT_DIGESTMETHOD;
+        }
+        return cosDigestMethod.stringValue();
+    }
 
-	public byte[] getDigestValue() {
-		COSString cosDigestValue = cosGetField(DK_DigestValue).asString();
-		if (cosDigestValue == null) {
-			return null;
-		}
-		return cosDigestValue.byteValue();
-	}
+    public byte[] getDigestValue() {
+        COSString cosDigestValue = cosGetField(DK_DigestValue).asString();
+        if (cosDigestValue == null) {
+            return null;
+        }
+        return cosDigestValue.byteValue();
+    }
 
-	public PDTransformMethod getTransformMethod() {
-		return (PDTransformMethod) PDTransformMethod.META
-				.createFromCos(cosGetField(DK_TransformMethod));
-	}
+    public PDTransformMethod getTransformMethod() {
+        return (PDTransformMethod) PDTransformMethod.META.createFromCos(cosGetField(DK_TransformMethod));
+    }
 
-	public PDTransformParams getTransformParams() {
-		return (PDTransformParams) PDTransformParams.META
-				.createFromCos(cosGetField(DK_TransformParams));
-	}
+    public PDTransformParams getTransformParams() {
+        return (PDTransformParams) PDTransformParams.META.createFromCos(cosGetField(DK_TransformParams));
+    }
 
-	public void setDigestMethod(String digestMethod) {
-		COSName cosDigestMethod = null;
-		if (digestMethod != null) {
-			cosDigestMethod = COSName.create(digestMethod);
-		}
-		cosSetField(DK_DigestMethod, cosDigestMethod);
-	}
+    public void setDigestMethod(String digestMethod) {
+        COSName cosDigestMethod = null;
+        if (digestMethod != null) {
+            cosDigestMethod = COSName.create(digestMethod);
+        }
+        cosSetField(DK_DigestMethod, cosDigestMethod);
+    }
 
-	public void setDigestValue(byte[] digest) {
-		COSString cosDigestValue = null;
-		if (digest != null) {
-			cosDigestValue = COSString.create(digest);
-		}
-		cosSetField(DK_DigestValue, cosDigestValue);
-	}
+    public void setDigestValue(byte[] digest) {
+        COSString cosDigestValue = null;
+        if (digest != null) {
+            cosDigestValue = COSString.create(digest);
+        }
+        cosSetField(DK_DigestValue, cosDigestValue);
+    }
 
-	public void setTransformMethod(PDTransformMethod method) {
-		COSObject cosMethod = null;
-		if (method != null) {
-			cosMethod = method.cosGetObject();
-		}
-		cosSetField(DK_TransformMethod, cosMethod);
-	}
+    public void setTransformMethod(PDTransformMethod method) {
+        COSObject cosMethod = null;
+        if (method != null) {
+            cosMethod = method.cosGetObject();
+        }
+        cosSetField(DK_TransformMethod, cosMethod);
+    }
 
-	public void setTransformParams(PDTransformParams params) {
-		COSObject cosParams = null;
-		if (params != null) {
-			cosParams = params.cosGetObject();
-		}
-		cosSetField(DK_TransformParams, cosParams);
-	}
+    public void setTransformParams(PDTransformParams params) {
+        COSObject cosParams = null;
+        if (params != null) {
+            cosParams = params.cosGetObject();
+        }
+        cosSetField(DK_TransformParams, cosParams);
+    }
 }

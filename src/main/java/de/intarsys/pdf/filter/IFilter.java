@@ -29,21 +29,19 @@
  */
 package de.intarsys.pdf.filter;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSStream;
 
+import java.io.IOException;
+
 /**
- * 
+ *
  */
 public interface IFilter {
-	public byte[] encode(byte[] source, int offset, int length)
-			throws IOException;
+    byte[] encode(byte[] source, int offset, int length) throws IOException;
 
-	public byte[] decode(byte[] source, int offset, int length)
-			throws IOException;
+    byte[] decode(byte[] source, int offset, int length) throws IOException;
 
-	public void setStream(COSStream stream);
+    void setStream(COSStream stream);
 
-	public COSStream getStream();
+    COSStream getStream();
 }

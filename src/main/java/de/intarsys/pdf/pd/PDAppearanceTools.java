@@ -29,148 +29,134 @@
  */
 package de.intarsys.pdf.pd;
 
-import java.util.HashSet;
-import java.util.Iterator;
-
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 
+import java.util.HashSet;
+import java.util.Iterator;
+
 /**
  * A tool class for common tasks with {@link PDAppearance} instances.
- * 
  */
 public class PDAppearanceTools {
-	static protected PDForm createAppearanceForm() {
-		PDForm form = (PDForm) PDForm.META.createNew();
-		return form;
-	}
+    private PDAppearanceTools() {
+    }
 
-	public static boolean createState(PDAppearance appearance, String state) {
-		boolean result = false;
-		COSName cosState = COSName.create(state);
+    protected static PDForm createAppearanceForm() {
+        return (PDForm) PDForm.META.createNew();
+    }
 
-		//
-		COSName[] keys = new COSName[] { PDAppearance.DK_N, PDAppearance.DK_R,
-				PDAppearance.DK_D };
-		for (COSName key : keys) {
-			COSDictionary dict = appearance.cosGetDict().get(key)
-					.asDictionary();
-			if (dict != null) {
-				COSObject form = dict.get(cosState);
-				if (form.isNull()) {
-					dict.put(cosState, createAppearanceForm().cosGetObject());
-					result = true;
-				}
-			}
-		}
-		return result;
-	}
+    public static boolean createState(PDAppearance appearance, String state) {
+        boolean result = false;
+        COSName cosState = COSName.create(state);
 
-	/**
-	 * Given a PDAppearance, return the /D (down) appearance for the state
-	 * "state".
-	 * 
-	 * @param appearance
-	 *            The PDAppearance structure containing the appearance
-	 *            descriptions
-	 * @return Given a PDAppearance, return the /D (down) appearance for the
-	 *         state "state".
-	 */
-	public static PDForm getDownAppearance(PDAppearance appearance,
-			COSName state) {
-		PDForm form = appearance.getDownAppearance(state);
-		if (form == null) {
-			form = createAppearanceForm();
-			appearance.setDownAppearance(state, form);
-		}
-		return form;
-	}
+        //
+        COSName[] keys = {PDAppearance.DK_N, PDAppearance.DK_R, PDAppearance.DK_D};
+        for (COSName key : keys) {
+            COSDictionary dict = appearance.cosGetDict().get(key).asDictionary();
+            if (dict != null) {
+                COSObject form = dict.get(cosState);
+                if (form.isNull()) {
+                    dict.put(cosState, createAppearanceForm().cosGetObject());
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
 
-	/**
-	 * Given a PDAppearance, return the /N (normal) appearance for the state
-	 * "state".
-	 * 
-	 * @param appearance
-	 *            The PDAppearance structure containing the appearance
-	 *            descriptions
-	 * @return Given a PDAppearance, return the /N (normal) appearance for the
-	 *         state "state".
-	 */
-	public static PDForm getNormalAppearance(PDAppearance appearance,
-			COSName state) {
-		PDForm form = appearance.getNormalAppearance(state);
-		if (form == null) {
-			form = createAppearanceForm();
-			appearance.setNormalAppearance(state, form);
-		}
-		return form;
-	}
+    /**
+     * Given a PDAppearance, return the /D (down) appearance for the state
+     * "state".
+     *
+     * @param appearance The PDAppearance structure containing the appearance
+     *                   descriptions
+     * @return Given a PDAppearance, return the /D (down) appearance for the
+     * state "state".
+     */
+    public static PDForm getDownAppearance(PDAppearance appearance, COSName state) {
+        PDForm form = appearance.getDownAppearance(state);
+        if (form == null) {
+            form = createAppearanceForm();
+            appearance.setDownAppearance(state, form);
+        }
+        return form;
+    }
 
-	/**
-	 * Given a PDAppearance, return the /R (rollover) appearance for the state
-	 * "state".
-	 * 
-	 * @param appearance
-	 *            The PDAppearance structure containing the appearance
-	 *            descriptions
-	 * @return Given a PDAppearance, return the /R (rollover) appearance for the
-	 *         state "state".
-	 */
-	public static PDForm getRolloverAppearance(PDAppearance appearance,
-			COSName state) {
-		PDForm form = appearance.getRolloverAppearance(state);
-		if (form == null) {
-			form = createAppearanceForm();
-			appearance.setRolloverAppearance(state, form);
-		}
-		return form;
-	}
+    /**
+     * Given a PDAppearance, return the /N (normal) appearance for the state
+     * "state".
+     *
+     * @param appearance The PDAppearance structure containing the appearance
+     *                   descriptions
+     * @return Given a PDAppearance, return the /N (normal) appearance for the
+     * state "state".
+     */
+    public static PDForm getNormalAppearance(PDAppearance appearance, COSName state) {
+        PDForm form = appearance.getNormalAppearance(state);
+        if (form == null) {
+            form = createAppearanceForm();
+            appearance.setNormalAppearance(state, form);
+        }
+        return form;
+    }
 
-	public static void renameState(PDAppearance appearance, String oldState,
-			String newState) {
-		COSName cosOldState = COSName.create(oldState);
-		COSName cosNewState = COSName.create(newState);
+    /**
+     * Given a PDAppearance, return the /R (rollover) appearance for the state
+     * "state".
+     *
+     * @param appearance The PDAppearance structure containing the appearance
+     *                   descriptions
+     * @return Given a PDAppearance, return the /R (rollover) appearance for the
+     * state "state".
+     */
+    public static PDForm getRolloverAppearance(PDAppearance appearance, COSName state) {
+        PDForm form = appearance.getRolloverAppearance(state);
+        if (form == null) {
+            form = createAppearanceForm();
+            appearance.setRolloverAppearance(state, form);
+        }
+        return form;
+    }
 
-		COSName[] keys = new COSName[] { PDAppearance.DK_N, PDAppearance.DK_R,
-				PDAppearance.DK_D };
-		for (COSName key : keys) {
-			COSDictionary dict = appearance.cosGetDict().get(key)
-					.asDictionary();
-			if (dict != null) {
-				COSObject form = dict.get(cosOldState);
-				if (!form.isNull()) {
-					dict.remove(cosOldState);
-					dict.put(cosNewState, form);
-				}
-			}
-		}
-	}
+    public static void renameState(PDAppearance appearance, String oldState, String newState) {
+        COSName cosOldState = COSName.create(oldState);
+        COSName cosNewState = COSName.create(newState);
 
-	public static void resetAppearance(COSDictionary appearanceDict) {
-		if (appearanceDict == null) {
-			return;
-		}
-		for (Iterator i = new HashSet(appearanceDict.keySet()).iterator(); i
-				.hasNext();) {
-			COSName appKey = (COSName) i.next();
-			COSObject appValue = appearanceDict.get(appKey);
-			if (appValue instanceof COSDictionary) {
-				COSDictionary appValueDict = (COSDictionary) appValue;
-				for (Iterator j = new HashSet(appValueDict.keySet()).iterator(); j
-						.hasNext();) {
-					COSName stateKey = (COSName) j.next();
-					appValueDict.put(stateKey, PDForm.META.createNew()
-							.cosGetObject());
-				}
-			} else {
-				appearanceDict.put(appKey, PDForm.META.createNew()
-						.cosGetObject());
-			}
-		}
-	}
+        COSName[] keys = {PDAppearance.DK_N, PDAppearance.DK_R, PDAppearance.DK_D};
+        for (COSName key : keys) {
+            COSDictionary dict = appearance.cosGetDict().get(key).asDictionary();
+            if (dict != null) {
+                COSObject form = dict.get(cosOldState);
+                if (!form.isNull()) {
+                    dict.remove(cosOldState);
+                    dict.put(cosNewState, form);
+                }
+            }
+        }
+    }
 
-	public static void resetAppearance(PDAppearance appearance) {
-		resetAppearance(appearance.cosGetDict());
-	}
+    public static void resetAppearance(COSDictionary appearanceDict) {
+        if (appearanceDict == null) {
+            return;
+        }
+        for (Iterator i = new HashSet(appearanceDict.keySet()).iterator(); i.hasNext(); ) {
+            COSName appKey = (COSName) i.next();
+            COSObject appValue = appearanceDict.get(appKey);
+            if (appValue instanceof COSDictionary) {
+                COSDictionary appValueDict = (COSDictionary) appValue;
+                for (Iterator j = new HashSet(appValueDict.keySet()).iterator(); j.hasNext(); ) {
+                    COSName stateKey = (COSName) j.next();
+                    appValueDict.put(stateKey, PDForm.META.createNew().cosGetObject());
+                }
+            } else {
+                appearanceDict.put(appKey, PDForm.META.createNew().cosGetObject());
+            }
+        }
+    }
+
+    public static void resetAppearance(PDAppearance appearance) {
+        resetAppearance(appearance.cosGetDict());
+    }
 }

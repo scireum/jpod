@@ -36,24 +36,26 @@ import de.intarsys.pdf.cos.COSObject;
  * The implementation of a multiple master type 1 font.
  */
 public class PDFontMMType1 extends PDFontType1 {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDFontType1.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDFontType1.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDFontMMType1(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDFontMMType1(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDFontMMType1(COSObject object) {
-		super(object);
-	}
+    protected PDFontMMType1(COSObject object) {
+        super(object);
+    }
 }

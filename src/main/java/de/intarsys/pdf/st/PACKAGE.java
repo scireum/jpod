@@ -29,15 +29,17 @@
  */
 package de.intarsys.pdf.st;
 
-import java.util.logging.Logger;
-
 import de.intarsys.tools.logging.LogTools;
 import de.intarsys.tools.message.MessageBundle;
 import de.intarsys.tools.message.MessageBundleTools;
 
-public class PACKAGE {
-	public final static MessageBundle Messages = MessageBundleTools
-			.getMessageBundle(PACKAGE.class);
+import java.util.logging.Logger;
 
-	public final static Logger Log = LogTools.getLogger(PACKAGE.class);
+public class PACKAGE {
+    public static final MessageBundle Messages = MessageBundleTools.getMessageBundle(PACKAGE.class);
+
+    public static final Logger Log = LogTools.getLogger(PACKAGE.class);
+
+    private PACKAGE() {
+    }
 }

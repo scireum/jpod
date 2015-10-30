@@ -33,23 +33,20 @@ import de.intarsys.pdf.pd.IResourcesProvider;
 
 /**
  * An interface for all owners of PDF content streams.
- * 
  */
 public interface IContentStreamProvider extends IResourcesProvider {
 
-	/**
-	 * The {@link CSContent} contained in this.
-	 * 
-	 * @return The {@link CSContent} contained in this.
-	 */
-	public CSContent getContentStream();
+    /**
+     * The {@link CSContent} contained in this.
+     *
+     * @return The {@link CSContent} contained in this.
+     */
+    CSContent getContentStream();
 
-	/**
-	 * Assign the new {@link CSContent} to this.
-	 * 
-	 * @param content
-	 *            The new content
-	 */
-	public void setContentStream(CSContent content);
-
+    /**
+     * Assign the new {@link CSContent} to this.
+     *
+     * @param content The new content
+     */
+    void setContentStream(CSContent content);
 }

@@ -31,89 +31,96 @@ package de.intarsys.pdf.crypt;
 
 /**
  * Provide full access to PDF features.
- * 
  */
 public final class AccessPermissionsFull implements IAccessPermissions {
 
-	final private static AccessPermissionsFull active = new AccessPermissionsFull();
+    private static final AccessPermissionsFull active = new AccessPermissionsFull();
 
-	public static AccessPermissionsFull get() {
-		return active;
-	}
+    public static AccessPermissionsFull get() {
+        return active;
+    }
 
-	private AccessPermissionsFull() {
-		super();
-	}
+    private AccessPermissionsFull() {
+        super();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.IAccessPermissions#mayAssemble()
-	 */
-	public final boolean mayAssemble() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.IAccessPermissions#mayAssemble()
+     */
+    @Override
+    public boolean mayAssemble() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.IAccessPermissions#mayCopy()
-	 */
-	public final boolean mayCopy() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.IAccessPermissions#mayCopy()
+     */
+    @Override
+    public boolean mayCopy() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.IAccessPermissions#mayExtract()
-	 */
-	public final boolean mayExtract() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.IAccessPermissions#mayExtract()
+     */
+    @Override
+    public boolean mayExtract() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.IAccessPermissions#mayFillForm()
-	 */
-	public final boolean mayFillForm() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.IAccessPermissions#mayFillForm()
+     */
+    @Override
+    public boolean mayFillForm() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.IAccessPermissions#mayModify()
-	 */
-	public final boolean mayModify() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.IAccessPermissions#mayModify()
+     */
+    @Override
+    public boolean mayModify() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.IAccessPermissions#mayModifyAnnotation()
-	 */
-	public final boolean mayModifyAnnotation() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.IAccessPermissions#mayModifyAnnotation()
+     */
+    @Override
+    public boolean mayModifyAnnotation() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.IAccessPermissions#mayPrint()
-	 */
-	public final boolean mayPrint() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.IAccessPermissions#mayPrint()
+     */
+    @Override
+    public boolean mayPrint() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.encryption.IAccessPermissions#mayPrintHighQuality()
-	 */
-	public final boolean mayPrintHighQuality() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.encryption.IAccessPermissions#mayPrintHighQuality()
+     */
+    @Override
+    public boolean mayPrintHighQuality() {
+        return true;
+    }
 }

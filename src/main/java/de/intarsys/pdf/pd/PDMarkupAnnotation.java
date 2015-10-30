@@ -38,153 +38,149 @@ import de.intarsys.pdf.cos.COSObject;
  * A generic markup annotation implementation.
  */
 public class PDMarkupAnnotation extends PDAnnotation {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAnnotation.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDAnnotation.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDMarkupAnnotation(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDMarkupAnnotation(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName DK_CreationDate = COSName
-			.constant("CreationDate");
+    public static final COSName DK_CreationDate = COSName.constant("CreationDate");
 
-	public static final COSName DK_Subj = COSName.constant("Subj");
+    public static final COSName DK_Subj = COSName.constant("Subj");
 
-	public static final COSName DK_T = COSName.constant("T");
+    public static final COSName DK_T = COSName.constant("T");
 
-	public static final COSName DK_Popup = COSName.constant("Popup");
+    public static final COSName DK_Popup = COSName.constant("Popup");
 
-	public static final COSName DK_CA = COSName.constant("CA");
+    public static final COSName DK_CA = COSName.constant("CA");
 
-	public static final COSName DK_L = COSName.constant("L");
+    public static final COSName DK_L = COSName.constant("L");
 
-	public static final COSName DK_RC = COSName.constant("RC");
+    public static final COSName DK_RC = COSName.constant("RC");
 
-	public static final COSName DK_Vertices = COSName.constant("Vertices");
+    public static final COSName DK_Vertices = COSName.constant("Vertices");
 
-	public static final COSName CN_Subtype_Ink = COSName.constant("Ink");
+    public static final COSName CN_Subtype_Ink = COSName.constant("Ink");
 
-	public static final COSName CN_Subtype_Square = COSName.constant("Square");
+    public static final COSName CN_Subtype_Square = COSName.constant("Square");
 
-	public static final COSName CN_Subtype_Circle = COSName.constant("Circle");
+    public static final COSName CN_Subtype_Circle = COSName.constant("Circle");
 
-	public static final COSName CN_Subtype_Line = COSName.constant("Line");
+    public static final COSName CN_Subtype_Line = COSName.constant("Line");
 
-	public static final COSName CN_Subtype_Polygon = COSName
-			.constant("Polygon");
+    public static final COSName CN_Subtype_Polygon = COSName.constant("Polygon");
 
-	public static final COSName CN_Subtype_PolyLine = COSName
-			.constant("PolyLine");
+    public static final COSName CN_Subtype_PolyLine = COSName.constant("PolyLine");
 
-	public static final COSName DK_InkList = COSName.constant("InkList");
+    public static final COSName DK_InkList = COSName.constant("InkList");
 
-	public static final COSName DK_IC = COSName.constant("IC");
+    public static final COSName DK_IC = COSName.constant("IC");
 
-	public static final COSName DK_IRT = COSName.constant("IRT");
+    public static final COSName DK_IRT = COSName.constant("IRT");
 
-	protected PDMarkupAnnotation(COSObject object) {
-		super(object);
-	}
+    protected PDMarkupAnnotation(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public COSObject cosSetField(COSName name, COSObject cosObj) {
-		if (!DK_M.equals(name)) {
-			touch();
-		}
-		return super.cosSetField(name, cosObj);
-	}
+    @Override
+    public COSObject cosSetField(COSName name, COSObject cosObj) {
+        if (!DK_M.equals(name)) {
+            touch();
+        }
+        return super.cosSetField(name, cosObj);
+    }
 
-	public CDSDate getCreationDate() {
-		return CDSDate.createFromCOS(cosGetField(DK_CreationDate).asString());
-	}
+    public CDSDate getCreationDate() {
+        return CDSDate.createFromCOS(cosGetField(DK_CreationDate).asString());
+    }
 
-	public float[] getInnerColor() {
-		return getFieldFixedArray(DK_IC, null);
-	}
+    public float[] getInnerColor() {
+        return getFieldFixedArray(DK_IC, null);
+    }
 
-	public PDAnnotation getInReplyTo() {
-		return (PDAnnotation) PDAnnotation.META
-				.createFromCos(cosGetField(DK_IRT));
-	}
+    public PDAnnotation getInReplyTo() {
+        return (PDAnnotation) PDAnnotation.META.createFromCos(cosGetField(DK_IRT));
+    }
 
-	public double getOpacity() {
-		return getFieldFixed(DK_CA, 1);
-	}
+    public double getOpacity() {
+        return getFieldFixed(DK_CA, 1);
+    }
 
-	public PDAnnotation getPopup() {
-		return (PDAnnotation) PDAnnotation.META
-				.createFromCos(cosGetField(DK_Popup));
-	}
+    public PDAnnotation getPopup() {
+        return (PDAnnotation) PDAnnotation.META.createFromCos(cosGetField(DK_Popup));
+    }
 
-	public String getRichContent() {
-		return getFieldString(DK_RC, "");
-	}
+    public String getRichContent() {
+        return getFieldString(DK_RC, "");
+    }
 
-	public String getSubject() {
-		return getFieldString(DK_Subj, "");
-	}
+    public String getSubject() {
+        return getFieldString(DK_Subj, "");
+    }
 
-	@Override
-	public String getSubtypeLabel() {
-		if (CN_Subtype_Circle.equals(cosGetSubtype())) {
-			return "Circle";
-		} else if (CN_Subtype_Ink.equals(cosGetSubtype())) {
-			return "Freehand";
-		} else if (CN_Subtype_Line.equals(cosGetSubtype())) {
-			return "Line";
-		} else if (CN_Subtype_Polygon.equals(cosGetSubtype())) {
-			return "Polygon";
-		} else if (CN_Subtype_PolyLine.equals(cosGetSubtype())) {
-			return "Polyline";
-		} else if (CN_Subtype_Square.equals(cosGetSubtype())) {
-			return "Square";
-		} else {
-			return "Annotation";
-		}
-	}
+    @Override
+    public String getSubtypeLabel() {
+        if (CN_Subtype_Circle.equals(cosGetSubtype())) {
+            return "Circle";
+        } else if (CN_Subtype_Ink.equals(cosGetSubtype())) {
+            return "Freehand";
+        } else if (CN_Subtype_Line.equals(cosGetSubtype())) {
+            return "Line";
+        } else if (CN_Subtype_Polygon.equals(cosGetSubtype())) {
+            return "Polygon";
+        } else if (CN_Subtype_PolyLine.equals(cosGetSubtype())) {
+            return "Polyline";
+        } else if (CN_Subtype_Square.equals(cosGetSubtype())) {
+            return "Square";
+        } else {
+            return "Annotation";
+        }
+    }
 
-	public String getText() {
-		return getFieldString(DK_T, "");
-	}
+    public String getText() {
+        return getFieldString(DK_T, "");
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAnnotation#isMarkupAnnotation()
-	 */
-	@Override
-	public boolean isMarkupAnnotation() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAnnotation#isMarkupAnnotation()
+     */
+    @Override
+    public boolean isMarkupAnnotation() {
+        return true;
+    }
 
-	public void setInnerColor(float[] color) {
-		setFieldFixedArray(DK_IC, color);
-	}
+    public void setInnerColor(float[] color) {
+        setFieldFixedArray(DK_IC, color);
+    }
 
-	public void setOpacity(float value) {
-		setFieldFixed(DK_CA, value);
-	}
+    public void setOpacity(float value) {
+        setFieldFixed(DK_CA, value);
+    }
 
-	public void setPopup(PDPopupAnnotation popup) {
-		setFieldObject(DK_Popup, popup);
-	}
+    public void setPopup(PDPopupAnnotation popup) {
+        setFieldObject(DK_Popup, popup);
+    }
 
-	public void setSubject(String value) {
-		setFieldString(DK_Subj, value);
-	}
+    public void setSubject(String value) {
+        setFieldString(DK_Subj, value);
+    }
 
-	public void setText(String text) {
-		setFieldString(DK_T, text);
-	}
+    public void setText(String text) {
+        setFieldString(DK_T, text);
+    }
 }

@@ -33,13 +33,16 @@ package de.intarsys.pdf.app.appearance;
  * A VM singleton for the {@link IAppearanceCreatorRegistry}.
  */
 public class AppearanceCreatorRegistry {
-	private static IAppearanceCreatorRegistry ACTIVE = new StandardAppearanceCreatorRegistry();
+    private static IAppearanceCreatorRegistry ACTIVE = new StandardAppearanceCreatorRegistry();
 
-	public static IAppearanceCreatorRegistry get() {
-		return ACTIVE;
-	}
+    private AppearanceCreatorRegistry() {
+    }
 
-	public static void set(IAppearanceCreatorRegistry active) {
-		ACTIVE = active;
-	}
+    public static IAppearanceCreatorRegistry get() {
+        return ACTIVE;
+    }
+
+    public static void set(IAppearanceCreatorRegistry active) {
+        ACTIVE = active;
+    }
 }

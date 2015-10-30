@@ -34,33 +34,33 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * Use tensor product shading when filling the shape.
- * 
  */
 public class PDTensorProductShading extends PDShading {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDShading.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDShading.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDTensorProductShading(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDTensorProductShading(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDTensorProductShading(COSObject object) {
-		super(object);
-	}
+    protected PDTensorProductShading(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public int getShadingType() {
-		return SHADING_TYPE_TENSORPRODUCT;
-	}
+    @Override
+    public int getShadingType() {
+        return SHADING_TYPE_TENSORPRODUCT;
+    }
 }

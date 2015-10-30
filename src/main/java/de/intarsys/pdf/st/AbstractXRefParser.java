@@ -29,53 +29,50 @@
  */
 package de.intarsys.pdf.st;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.parser.COSDocumentParser;
 import de.intarsys.pdf.parser.COSLoadError;
 import de.intarsys.pdf.parser.COSLoadException;
 import de.intarsys.pdf.parser.COSLoadWarning;
 import de.intarsys.tools.randomaccess.IRandomAccess;
 
+import java.io.IOException;
+
 /**
  * An abstract parser for the PDF XRef information.
- * 
  */
 public abstract class AbstractXRefParser {
-	private STDocument doc;
+    private STDocument doc;
 
-	private COSDocumentParser parser;
+    private COSDocumentParser parser;
 
-	public AbstractXRefParser(STDocument doc, COSDocumentParser parser) {
-		this.doc = doc;
-		this.parser = parser;
-	}
+    protected AbstractXRefParser(STDocument doc, COSDocumentParser parser) {
+        this.doc = doc;
+        this.parser = parser;
+    }
 
-	protected STDocument getDoc() {
-		return doc;
-	}
+    protected STDocument getDoc() {
+        return doc;
+    }
 
-	protected COSDocumentParser getParser() {
-		return parser;
-	}
+    protected COSDocumentParser getParser() {
+        return parser;
+    }
 
-	/**
-	 * Parser the {@link STXRefSection} from the <code>randomAccess</code>.
-	 * 
-	 * @param randomAcces
-	 * @return The parsed {@link STXRefSection}
-	 * @throws IOException
-	 * @throws COSLoadException
-	 */
-	abstract public STXRefSection parse(IRandomAccess randomAcces)
-			throws IOException, COSLoadException;
+    /**
+     * Parser the {@link STXRefSection} from the {@code randomAccess}.
+     *
+     * @param randomAcces
+     * @return The parsed {@link STXRefSection}
+     * @throws IOException
+     * @throws COSLoadException
+     */
+    public abstract STXRefSection parse(IRandomAccess randomAcces) throws IOException, COSLoadException;
 
-	protected void handleWarning(COSLoadWarning warning)
-			throws COSLoadException {
-		parser.handleWarning(warning);
-	}
+    protected void handleWarning(COSLoadWarning warning) throws COSLoadException {
+        parser.handleWarning(warning);
+    }
 
-	protected void handleError(COSLoadError error) throws COSLoadException {
-		parser.handleError(error);
-	}
+    protected void handleError(COSLoadError error) throws COSLoadException {
+        parser.handleError(error);
+    }
 }

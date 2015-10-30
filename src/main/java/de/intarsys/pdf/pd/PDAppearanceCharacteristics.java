@@ -36,182 +36,184 @@ import de.intarsys.pdf.cos.COSStream;
 
 /**
  * More details on the appearance of an annotation.
- * 
  */
 public class PDAppearanceCharacteristics extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDAppearanceCharacteristics(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDAppearanceCharacteristics(object);
+        }
 
-		protected boolean isIndirect() {
-			return false;
-		}
-	}
+        @Override
+        protected boolean isIndirect() {
+            return false;
+        }
+    }
 
-	static public final COSName DK_AC = COSName.constant("AC"); //$NON-NLS-1$ 
+    public static final COSName DK_AC = COSName.constant("AC"); //$NON-NLS-1$
 
-	static public final COSName DK_BC = COSName.constant("BC"); //$NON-NLS-1$ 
+    public static final COSName DK_BC = COSName.constant("BC"); //$NON-NLS-1$
 
-	static public final COSName DK_BG = COSName.constant("BG"); //$NON-NLS-1$ 
+    public static final COSName DK_BG = COSName.constant("BG"); //$NON-NLS-1$
 
-	static public final COSName DK_CA = COSName.constant("CA"); //$NON-NLS-1$ 
+    public static final COSName DK_CA = COSName.constant("CA"); //$NON-NLS-1$
 
-	static public final COSName DK_I = COSName.constant("I"); //$NON-NLS-1$ 
+    public static final COSName DK_I = COSName.constant("I"); //$NON-NLS-1$
 
-	static public final COSName DK_IF = COSName.constant("IF"); //$NON-NLS-1$
+    public static final COSName DK_IF = COSName.constant("IF"); //$NON-NLS-1$
 
-	static public final COSName DK_IX = COSName.constant("IX"); //$NON-NLS-1$
+    public static final COSName DK_IX = COSName.constant("IX"); //$NON-NLS-1$
 
-	static public final COSName DK_R = COSName.constant("R"); //$NON-NLS-1$
+    public static final COSName DK_R = COSName.constant("R"); //$NON-NLS-1$
 
-	static public final COSName DK_RC = COSName.constant("RC"); //$NON-NLS-1$
+    public static final COSName DK_RC = COSName.constant("RC"); //$NON-NLS-1$
 
-	static public final COSName DK_RI = COSName.constant("RI"); //$NON-NLS-1$
+    public static final COSName DK_RI = COSName.constant("RI"); //$NON-NLS-1$
 
-	static public final int TP_CAPTION_ONLY = 0;
+    public static final int TP_CAPTION_ONLY = 0;
 
-	static public final int TP_ICON_ONLY = 1;
+    public static final int TP_ICON_ONLY = 1;
 
-	static public final int TP_CAPTION_BELOW_ICON = 2;
+    public static final int TP_CAPTION_BELOW_ICON = 2;
 
-	static public final int TP_CAPTION_ABOVE_ICON = 3;
+    public static final int TP_CAPTION_ABOVE_ICON = 3;
 
-	static public final int TP_CAPTION_RIGHT_OF_ICON = 4;
+    public static final int TP_CAPTION_RIGHT_OF_ICON = 4;
 
-	static public final int TP_CAPTION_LEFT_OF_ICON = 5;
+    public static final int TP_CAPTION_LEFT_OF_ICON = 5;
 
-	static public final int TP_CAPTION_OVERLAIS_ICON = 6;
+    public static final int TP_CAPTION_OVERLAIS_ICON = 6;
 
-	/**
-	 * The name for the caption entry.
-	 * <p>
-	 * The name could have following values (not complete):
-	 * </p>
-	 * <ul>
-	 * <li>0: No icon, caption only
-	 * <li>1: No caption; icon only
-	 * <li>2: Caption below the icon
-	 * <li>3: Caption above the icon
-	 * <li>4: Caption to the right of the icon
-	 * <li>5: Caption to the left of the icon
-	 * <li>6: Caption overlaid directly on the icon
-	 * </ul>
-	 */
-	static public final COSName DK_TP = COSName.constant("TP"); //$NON-NLS-1$
+    /**
+     * The name for the caption entry.
+     * <p>
+     * The name could have following values (not complete):
+     * </p>
+     * <ul>
+     * <li>0: No icon, caption only
+     * <li>1: No caption; icon only
+     * <li>2: Caption below the icon
+     * <li>3: Caption above the icon
+     * <li>4: Caption to the right of the icon
+     * <li>5: Caption to the left of the icon
+     * <li>6: Caption overlaid directly on the icon
+     * </ul>
+     */
+    public static final COSName DK_TP = COSName.constant("TP"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDAppearanceCharacteristics(COSObject object) {
-		super(object);
-	}
+    protected PDAppearanceCharacteristics(COSObject object) {
+        super(object);
+    }
 
-	public float[] getBackgroundColor() {
-		return getFieldFixedArray(DK_BG, null);
-	}
+    public float[] getBackgroundColor() {
+        return getFieldFixedArray(DK_BG, null);
+    }
 
-	public float[] getBorderColor() {
-		return getFieldFixedArray(DK_BC, null);
-	}
+    public float[] getBorderColor() {
+        return getFieldFixedArray(DK_BC, null);
+    }
 
-	public String getDownCaption() {
-		return getFieldString(DK_AC, null);
-	}
+    public String getDownCaption() {
+        return getFieldString(DK_AC, null);
+    }
 
-	public COSStream cosGetDownIcon() {
-		return cosGetField(DK_IX).asStream();
-	}
+    public COSStream cosGetDownIcon() {
+        return cosGetField(DK_IX).asStream();
+    }
 
-	public PDIconFit getIconFit() {
-		COSObject cosObject = cosGetField(DK_IF);
-		if (cosObject.isNull()) {
-			return null;
-		}
-		return (PDIconFit) PDIconFit.META.createFromCos(cosObject);
-	}
+    public PDIconFit getIconFit() {
+        COSObject cosObject = cosGetField(DK_IF);
+        if (cosObject.isNull()) {
+            return null;
+        }
+        return (PDIconFit) PDIconFit.META.createFromCos(cosObject);
+    }
 
-	public String getNormalCaption() {
-		return getFieldString(DK_CA, null);
-	}
+    public String getNormalCaption() {
+        return getFieldString(DK_CA, null);
+    }
 
-	public COSStream cosGetNormalIcon() {
-		return cosGetField(DK_I).asStream();
-	}
+    public COSStream cosGetNormalIcon() {
+        return cosGetField(DK_I).asStream();
+    }
 
-	public int getTextPosition() {
-		return getFieldInt(DK_TP, TP_CAPTION_ONLY);
-	}
+    public int getTextPosition() {
+        return getFieldInt(DK_TP, TP_CAPTION_ONLY);
+    }
 
-	public String getRolloverCaption() {
-		return getFieldString(DK_RC, null);
-	}
+    public String getRolloverCaption() {
+        return getFieldString(DK_RC, null);
+    }
 
-	public COSStream cosGetRolloverIcon() {
-		return cosGetField(DK_RI).asStream();
-	}
+    public COSStream cosGetRolloverIcon() {
+        return cosGetField(DK_RI).asStream();
+    }
 
-	public int getRotation() {
-		return getFieldInt(DK_R, 0);
-	}
+    public int getRotation() {
+        return getFieldInt(DK_R, 0);
+    }
 
-	public void setBackgroundColor(float[] newBackgroundColor) {
-		setFieldFixedArray(DK_BG, newBackgroundColor);
-	}
+    public void setBackgroundColor(float[] newBackgroundColor) {
+        setFieldFixedArray(DK_BG, newBackgroundColor);
+    }
 
-	public void setBorderColor(float[] newBorderColor) {
-		setFieldFixedArray(DK_BC, newBorderColor);
-	}
+    public void setBorderColor(float[] newBorderColor) {
+        setFieldFixedArray(DK_BC, newBorderColor);
+    }
 
-	public void setDownCaption(String newDownCaption) {
-		setFieldString(DK_AC, newDownCaption);
-	}
+    public void setDownCaption(String newDownCaption) {
+        setFieldString(DK_AC, newDownCaption);
+    }
 
-	public COSStream cosSetDownIcon(COSStream newDownIcon) {
-		return cosSetField(DK_IX, newDownIcon).asStream();
-	}
+    public COSStream cosSetDownIcon(COSStream newDownIcon) {
+        return cosSetField(DK_IX, newDownIcon).asStream();
+    }
 
-	public void setIconFit(PDIconFit newIconFit) {
-		setFieldObject(DK_IF, newIconFit);
-	}
+    public void setIconFit(PDIconFit newIconFit) {
+        setFieldObject(DK_IF, newIconFit);
+    }
 
-	public void setNormalCaption(String newNormalCaption) {
-		setFieldString(DK_CA, newNormalCaption);
-	}
+    public void setNormalCaption(String newNormalCaption) {
+        setFieldString(DK_CA, newNormalCaption);
+    }
 
-	public COSStream cosSetNormalIcon(COSStream newNormalIcon) {
-		return cosSetField(DK_I, newNormalIcon).asStream();
-	}
+    public COSStream cosSetNormalIcon(COSStream newNormalIcon) {
+        return cosSetField(DK_I, newNormalIcon).asStream();
+    }
 
-	public void setTextPosition(int newPositionTextIcon) {
-		if (newPositionTextIcon != TP_CAPTION_ONLY) { // default
-			setFieldInt(DK_TP, newPositionTextIcon);
-		} else {
-			cosRemoveField(DK_TP);
-		}
-	}
+    public void setTextPosition(int newPositionTextIcon) {
+        if (newPositionTextIcon != TP_CAPTION_ONLY) { // default
+            setFieldInt(DK_TP, newPositionTextIcon);
+        } else {
+            cosRemoveField(DK_TP);
+        }
+    }
 
-	public void setRolloverCaption(String newRolloverCaption) {
-		setFieldString(DK_RC, newRolloverCaption);
-	}
+    public void setRolloverCaption(String newRolloverCaption) {
+        setFieldString(DK_RC, newRolloverCaption);
+    }
 
-	public COSStream cosSetRolloverIcon(COSStream newRolloverIcon) {
-		return cosSetField(DK_RI, newRolloverIcon).asStream();
-	}
+    public COSStream cosSetRolloverIcon(COSStream newRolloverIcon) {
+        return cosSetField(DK_RI, newRolloverIcon).asStream();
+    }
 
-	public void setRotation(int newRotation) {
-		if (newRotation != 0) {
-			setFieldInt(DK_R, newRotation);
-		} else {
-			cosRemoveField(DK_R);
-		}
-	}
+    public void setRotation(int newRotation) {
+        if (newRotation != 0) {
+            setFieldInt(DK_R, newRotation);
+        } else {
+            cosRemoveField(DK_R);
+        }
+    }
 }

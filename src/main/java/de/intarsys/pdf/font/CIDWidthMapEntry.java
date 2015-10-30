@@ -30,34 +30,34 @@
 package de.intarsys.pdf.font;
 
 /**
- * 
+ *
  */
 public class CIDWidthMapEntry {
-	private int start;
+    private int start;
 
-	private int stop;
+    private int stop;
 
-	private int width;
+    private int width;
 
-	/**
-	 * 
-	 */
-	public CIDWidthMapEntry(int start, int stop, int width) {
-		super();
-		this.start = start;
-		this.stop = stop;
-		this.width = width;
-	}
+    /**
+     *
+     */
+    public CIDWidthMapEntry(int start, int stop, int width) {
+        super();
+        this.start = start;
+        this.stop = stop;
+        this.width = width;
+    }
 
-	public int getStart() {
-		return start;
-	}
+    public int getStart() {
+        return start;
+    }
 
-	public int getStop() {
-		return stop;
-	}
+    public int getStop() {
+        return stop;
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    public int getWidth() {
+        return width;
+    }
 }

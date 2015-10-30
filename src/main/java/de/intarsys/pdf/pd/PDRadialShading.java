@@ -34,33 +34,33 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * Use radial shading for filling the shape.
- * 
  */
 public class PDRadialShading extends PDShading {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDShading.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDShading.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDRadialShading(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDRadialShading(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDRadialShading(COSObject object) {
-		super(object);
-	}
+    protected PDRadialShading(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public int getShadingType() {
-		return SHADING_TYPE_RADIAL;
-	}
+    @Override
+    public int getShadingType() {
+        return SHADING_TYPE_RADIAL;
+    }
 }

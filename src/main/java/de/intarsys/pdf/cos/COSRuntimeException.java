@@ -31,22 +31,21 @@ package de.intarsys.pdf.cos;
 
 /**
  * An exception indicating an unexpected COS related error at runtime.
- * 
  */
 public class COSRuntimeException extends RuntimeException {
-	public COSRuntimeException() {
-		super();
-	}
+    public COSRuntimeException() {
+        super();
+    }
 
-	public COSRuntimeException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public COSRuntimeException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public COSRuntimeException(String message) {
-		super(message);
-	}
+    public COSRuntimeException(String message) {
+        super(message);
+    }
 
-	public COSRuntimeException(Throwable cause) {
-		super(cause);
-	}
+    public COSRuntimeException(Throwable cause) {
+        super(cause);
+    }
 }

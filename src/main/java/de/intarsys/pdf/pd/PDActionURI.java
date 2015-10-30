@@ -39,74 +39,74 @@ import de.intarsys.pdf.cos.COSString;
  * The URI action.
  * <p>
  * When executed the action focuses a viewer to a new destination.
- * 
  */
 public class PDActionURI extends PDAction {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAction.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDAction.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDActionURI(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDActionURI(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	static public final COSName CN_ActionType_URI = COSName.constant("URI"); //$NON-NLS-1$ 
+    public static final COSName CN_ActionType_URI = COSName.constant("URI"); //$NON-NLS-1$
 
-	public static final COSName DK_URI = COSName.constant("URI"); //$NON-NLS-1$
+    public static final COSName DK_URI = COSName.constant("URI"); //$NON-NLS-1$
 
-	public static final COSName DK_IsMap = COSName.constant("IsMap"); //$NON-NLS-1$
+    public static final COSName DK_IsMap = COSName.constant("IsMap"); //$NON-NLS-1$
 
-	static public PDActionURI createNew(String uri) {
-		PDActionURI result = (PDActionURI) PDActionURI.META.createNew();
-		result.setURI(uri);
-		return result;
-	}
+    public static PDActionURI createNew(String uri) {
+        PDActionURI result = (PDActionURI) PDActionURI.META.createNew();
+        result.setURI(uri);
+        return result;
+    }
 
-	protected PDActionURI(COSObject object) {
-		super(object);
-	}
+    protected PDActionURI(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public COSName cosGetExpectedActionType() {
-		return CN_ActionType_URI;
-	}
+    @Override
+    public COSName cosGetExpectedActionType() {
+        return CN_ActionType_URI;
+    }
 
-	public String getURI() {
-		COSString cosURI = cosGetField(DK_URI).asString();
-		if (cosURI == null) {
-			return null;
-		}
-		return cosURI.stringValue();
-	}
+    public String getURI() {
+        COSString cosURI = cosGetField(DK_URI).asString();
+        if (cosURI == null) {
+            return null;
+        }
+        return cosURI.stringValue();
+    }
 
-	public boolean isMap() {
-		COSBoolean cosMap = cosGetField(DK_IsMap).asBoolean();
-		if (cosMap == null) {
-			return false;
-		}
-		return cosMap.booleanValue();
-	}
+    public boolean isMap() {
+        COSBoolean cosMap = cosGetField(DK_IsMap).asBoolean();
+        if (cosMap == null) {
+            return false;
+        }
+        return cosMap.booleanValue();
+    }
 
-	public void setMap(boolean map) {
-		if (!map) {
-			// the default
-			cosRemoveField(DK_IsMap);
-		} else {
-			cosSetField(DK_IsMap, COSBoolean.create(map));
-		}
-	}
+    public void setMap(boolean map) {
+        if (!map) {
+            // the default
+            cosRemoveField(DK_IsMap);
+        } else {
+            cosSetField(DK_IsMap, COSBoolean.create(map));
+        }
+    }
 
-	public void setURI(String uri) {
-		setFieldString(DK_URI, uri);
-	}
+    public void setURI(String uri) {
+        setFieldString(DK_URI, uri);
+    }
 }

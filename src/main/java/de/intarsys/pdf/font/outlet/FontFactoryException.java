@@ -31,20 +31,19 @@ package de.intarsys.pdf.font.outlet;
 
 public class FontFactoryException extends Exception {
 
-	public FontFactoryException() {
-		super();
-	}
+    public FontFactoryException() {
+        super();
+    }
 
-	public FontFactoryException(String message) {
-		super(message);
-	}
+    public FontFactoryException(String message) {
+        super(message);
+    }
 
-	public FontFactoryException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public FontFactoryException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public FontFactoryException(Throwable cause) {
-		super(cause);
-	}
-
+    public FontFactoryException(Throwable cause) {
+        super(cause);
+    }
 }

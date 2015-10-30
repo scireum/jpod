@@ -34,7 +34,7 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * A processor (interpreter) object for action definition objects.
- * 
+ * <p>
  * <p>
  * This objects calls the "statements" of an "action script" one by one in a
  * given event context.
@@ -42,18 +42,16 @@ import de.intarsys.pdf.cos.COSObject;
  * The action definition remains "untyped" to allow for the different definition
  * forms (for example in GoTo actions this may be a String, a Name, an Array or
  * a Dictionary).
- * 
  */
 public interface IActionProcessor {
 
-	/**
-	 * Process an <code>actionDefinition</code> of type
-	 * <code>actionType</code> caused by <code>event</code>.
-	 * 
-	 * @param event
-	 * @param actionType
-	 * @param actionDefinition
-	 */
-	public void process(TriggerEvent event, COSName actionType,
-			COSObject actionDefinition);
+    /**
+     * Process an {@code actionDefinition} of type
+     * {@code actionType} caused by {@code event}.
+     *
+     * @param event
+     * @param actionType
+     * @param actionDefinition
+     */
+    void process(TriggerEvent event, COSName actionType, COSObject actionDefinition);
 }

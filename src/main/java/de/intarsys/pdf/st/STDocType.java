@@ -33,45 +33,46 @@ package de.intarsys.pdf.st;
  * Instances of this class describe the contents of an STDocument.
  */
 public class STDocType {
-	private String typeName;
+    private String typeName;
 
-	private String version;
+    private String version;
 
-	public STDocType() {
-		super();
-	}
+    public STDocType() {
+        super();
+    }
 
-	public STDocType(String typeName, String version) {
-		super();
-		setTypeName(typeName);
-		setVersion(version);
-	}
+    public STDocType(String typeName, String version) {
+        super();
+        setTypeName(typeName);
+        setVersion(version);
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public String getTypeName() {
-		return typeName;
-	}
+    public String getTypeName() {
+        return typeName;
+    }
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
-	}
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
 
-	public String toString() {
-		return getTypeName() + "-" + getVersion(); //$NON-NLS-1$
-	}
+    @Override
+    public String toString() {
+        return getTypeName() + "-" + getVersion(); //$NON-NLS-1$
+    }
 
-	public boolean isFDF() {
-		return "FDF".equals(typeName); //$NON-NLS-1$
-	}
+    public boolean isFDF() {
+        return "FDF".equals(typeName); //$NON-NLS-1$
+    }
 
-	public boolean isPDF() {
-		return "PDF".equals(typeName); //$NON-NLS-1$
-	}
+    public boolean isPDF() {
+        return "PDF".equals(typeName); //$NON-NLS-1$
+    }
 }

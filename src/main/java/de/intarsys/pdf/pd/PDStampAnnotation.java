@@ -37,66 +37,65 @@ import de.intarsys.pdf.cos.COSObject;
  * A stamp annotation.
  */
 public class PDStampAnnotation extends PDMarkupAnnotation {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDMarkupAnnotation.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDMarkupAnnotation.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDStampAnnotation(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDStampAnnotation(object);
+        }
+    }
 
-	/**
-	 * The meta class instance
-	 */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_Subtype_Stamp = COSName.constant("Stamp");
+    public static final COSName CN_Subtype_Stamp = COSName.constant("Stamp");
 
-	public static final COSName DK_Name = COSName.constant("Name");
+    public static final COSName DK_Name = COSName.constant("Name");
 
-	public static final COSName CN_DRAFT = COSName.constant("Draft");
+    public static final COSName CN_DRAFT = COSName.constant("Draft");
 
-	public PDStampAnnotation(COSObject object) {
-		super(object);
-	}
+    public PDStampAnnotation(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	protected COSName cosGetExpectedSubtype() {
-		return PDStampAnnotation.CN_Subtype_Stamp;
-	}
+    @Override
+    protected COSName cosGetExpectedSubtype() {
+        return PDStampAnnotation.CN_Subtype_Stamp;
+    }
 
-	@Override
-	public float getDefaultHeight() {
-		return 30;
-	}
+    @Override
+    public float getDefaultHeight() {
+        return 30;
+    }
 
-	@Override
-	public float getDefaultWidth() {
-		return 30;
-	}
+    @Override
+    public float getDefaultWidth() {
+        return 30;
+    }
 
-	public COSName getIconName() {
-		return cosGetField(DK_Name).asName();
-	}
+    public COSName getIconName() {
+        return cosGetField(DK_Name).asName();
+    }
 
-	@Override
-	public float getMinHeight() {
-		return 30;
-	}
+    @Override
+    public float getMinHeight() {
+        return 30;
+    }
 
-	@Override
-	public float getMinWidth() {
-		return 30;
-	}
+    @Override
+    public float getMinWidth() {
+        return 30;
+    }
 
-	public COSName setIconName(COSName name) {
-		return cosSetField(DK_Name, name).asName();
-	}
+    public COSName setIconName(COSName name) {
+        return cosSetField(DK_Name, name).asName();
+    }
 }

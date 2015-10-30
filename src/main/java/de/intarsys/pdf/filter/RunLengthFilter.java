@@ -29,42 +29,40 @@
  */
 package de.intarsys.pdf.filter;
 
+import de.intarsys.pdf.cos.COSDictionary;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import de.intarsys.pdf.cos.COSDictionary;
-
 /**
- * 
+ *
  */
 public class RunLengthFilter extends StreamBasedFilter {
-	/**
-	 * 
-	 */
-	public RunLengthFilter(COSDictionary options) {
-		super(options);
-	}
+    /**
+     *
+     */
+    public RunLengthFilter(COSDictionary options) {
+        super(options);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.StreamBasedFilter#createInputFilterStream(java.io.InputStream)
-	 */
-	@Override
-	protected InputStream createInputFilterStream(InputStream is)
-			throws IOException {
-		return new RunLengthInputStream(is);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.StreamBasedFilter#createInputFilterStream(java.io.InputStream)
+     */
+    @Override
+    protected InputStream createInputFilterStream(InputStream is) throws IOException {
+        return new RunLengthInputStream(is);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.StreamBasedFilter#createOutputFilterStream(java.io.OutputStream)
-	 */
-	@Override
-	protected OutputStream createOutputFilterStream(OutputStream os)
-			throws IOException {
-		return new RunLengthOutputStream(os);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.StreamBasedFilter#createOutputFilterStream(java.io.OutputStream)
+     */
+    @Override
+    protected OutputStream createOutputFilterStream(OutputStream os) throws IOException {
+        return new RunLengthOutputStream(os);
+    }
 }

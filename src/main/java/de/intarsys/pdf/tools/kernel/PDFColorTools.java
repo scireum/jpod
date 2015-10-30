@@ -31,16 +31,18 @@ package de.intarsys.pdf.tools.kernel;
 
 public class PDFColorTools {
 
-	static public float[] fixColorValues(float[] values) {
-		// adobe acrobat has been seen to create invalid color values for
-		// widgets
-		if (values == null) {
-			return null;
-		}
-		for (int i = 0; i < values.length; i++) {
-			values[i] = Math.max(Math.min(values[i], 1), 0);
-		}
-		return values;
-	}
+    private PDFColorTools() {
+    }
 
+    public static float[] fixColorValues(float[] values) {
+        // adobe acrobat has been seen to create invalid color values for
+        // widgets
+        if (values == null) {
+            return null;
+        }
+        for (int i = 0; i < values.length; i++) {
+            values[i] = Math.max(Math.min(values[i], 1), 0);
+        }
+        return values;
+    }
 }

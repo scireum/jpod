@@ -30,24 +30,25 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_exch implements IOperator {
-	public static Operator_exch Instance;
+    public static Operator_exch Instance;
 
-	static {
-		Instance = new Operator_exch();
-	}
+    static {
+        Instance = new Operator_exch();
+    }
 
-	private Operator_exch() {
-		super();
-	}
+    private Operator_exch() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Object element1;
-		Object element2;
+    @Override
+    public void execute(Handler handler) {
+        Object element1;
+        Object element2;
 
-		element2 = handler.pop();
-		element1 = handler.pop();
+        element2 = handler.pop();
+        element1 = handler.pop();
 
-		handler.push(element2);
-		handler.push(element1);
-	}
+        handler.push(element2);
+        handler.push(element1);
+    }
 }

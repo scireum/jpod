@@ -29,10 +29,6 @@
  */
 package de.intarsys.pdf.pd;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
 import de.intarsys.pdf.content.CSContent;
 import de.intarsys.pdf.content.CSDeviceBasedInterpreter;
 import de.intarsys.pdf.content.CSOperation;
@@ -46,297 +42,295 @@ import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.font.PDFont;
 import de.intarsys.pdf.font.PDFontTools;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * A internal representation of the parsed {@link CSContent} for the default
  * appearance content stream fragment in a {@link PDAcroFormField}.
- * 
  */
 public class DefaultAppearance {
 
-	/**
-	 * An embedded "device" to gather information from the default appearance
-	 * string.
-	 */
-	public class DefaultAppearanceDevice extends CSVirtualDevice {
+    /**
+     * An embedded "device" to gather information from the default appearance
+     * string.
+     */
+    public class DefaultAppearanceDevice extends CSVirtualDevice {
 
-		@Override
-		protected void basicSetNonStrokeColorSpace(PDColorSpace colorSpace) {
-			nonStrokeColorSpace = colorSpace;
-		}
+        @Override
+        protected void basicSetNonStrokeColorSpace(PDColorSpace colorSpace) {
+            nonStrokeColorSpace = colorSpace;
+        }
 
-		@Override
-		protected void basicSetNonStrokeColorValues(float[] values) {
-			nonStrokeColorValues = values;
-		}
+        @Override
+        protected void basicSetNonStrokeColorValues(float[] values) {
+            nonStrokeColorValues = values;
+        }
 
-		@Override
-		protected void basicSetStrokeColorSpace(PDColorSpace colorSpace) {
-			strokeColorSpace = colorSpace;
-		}
+        @Override
+        protected void basicSetStrokeColorSpace(PDColorSpace colorSpace) {
+            strokeColorSpace = colorSpace;
+        }
 
-		@Override
-		protected void basicSetStrokeColorValues(float[] values) {
-			strokeColorValues = values;
-		}
+        @Override
+        protected void basicSetStrokeColorValues(float[] values) {
+            strokeColorValues = values;
+        }
 
-		@Override
-		public void textSetFont(COSName name, PDFont paramFont, float size) {
-			fontName = name;
-			fontSize = size;
-		}
-	}
+        @Override
+        public void textSetFont(COSName name, PDFont paramFont, float size) {
+            fontName = name;
+            fontSize = size;
+        }
+    }
 
-	private PDAcroFormNode node;
+    private PDAcroFormNode node;
 
-	protected COSName fontName;
+    protected COSName fontName;
 
-	protected float fontSize;
+    protected float fontSize;
 
-	protected float[] nonStrokeColorValues;
+    protected float[] nonStrokeColorValues;
 
-	protected PDColorSpace nonStrokeColorSpace;
+    protected PDColorSpace nonStrokeColorSpace;
 
-	protected float[] strokeColorValues;
+    protected float[] strokeColorValues;
 
-	protected PDColorSpace strokeColorSpace;
+    protected PDColorSpace strokeColorSpace;
 
-	public DefaultAppearance(PDAcroFormNode node) {
-		super();
-		this.node = node;
-		CSDeviceBasedInterpreter interpreter;
-		interpreter = new CSDeviceBasedInterpreter(null,
-				new DefaultAppearanceDevice());
-		interpreter.process(node.getDefaultAppearanceContent(), node
-				.getAcroForm().getDefaultResources());
-	}
+    public DefaultAppearance(PDAcroFormNode node) {
+        super();
+        this.node = node;
+        CSDeviceBasedInterpreter interpreter;
+        interpreter = new CSDeviceBasedInterpreter(null, new DefaultAppearanceDevice());
+        interpreter.process(node.getDefaultAppearanceContent(), node.getAcroForm().getDefaultResources());
+    }
 
-	protected COSName addFontResource(PDAcroForm form, PDFont font) {
-		PDResources resources = form.getDefaultResources();
-		if (resources == null) {
-			resources = (PDResources) PDResources.META.createNew();
-			form.setDefaultResources(resources);
-		}
-		COSDictionary fontResources = resources
-				.cosGetResources(PDResources.CN_RT_Font);
-		if (fontResources == null) {
-			fontResources = resources.cosInitResources(PDResources.CN_RT_Font);
-		}
-		for (Iterator i = fontResources.keySet().iterator(); i.hasNext();) {
-			COSName fontKey = (COSName) i.next();
-			COSObject fontValue = fontResources.get(fontKey);
-			if (fontValue.equals(font.cosGetObject())) {
-				return fontKey;
-			}
-		}
-		return resources.createFontResource(font);
-	}
+    protected COSName addFontResource(PDAcroForm form, PDFont font) {
+        PDResources resources = form.getDefaultResources();
+        if (resources == null) {
+            resources = (PDResources) PDResources.META.createNew();
+            form.setDefaultResources(resources);
+        }
+        COSDictionary fontResources = resources.cosGetResources(PDResources.CN_RT_Font);
+        if (fontResources == null) {
+            fontResources = resources.cosInitResources(PDResources.CN_RT_Font);
+        }
+        for (Iterator i = fontResources.keySet().iterator(); i.hasNext(); ) {
+            COSName fontKey = (COSName) i.next();
+            COSObject fontValue = fontResources.get(fontKey);
+            if (fontValue.equals(font.cosGetObject())) {
+                return fontKey;
+            }
+        }
+        return resources.createFontResource(font);
+    }
 
-	protected COSName addFontResource(PDFont font) {
-		return addFontResource(node.getAcroForm(), font);
-	}
+    protected COSName addFontResource(PDFont font) {
+        return addFontResource(node.getAcroForm(), font);
+    }
 
-	protected void cleanupFontResources(PDAcroForm form) {
-		// collect used font keys
-		Set referencedKeys = getReferencedFontKeys(form);
+    protected void cleanupFontResources(PDAcroForm form) {
+        // collect used font keys
+        Set referencedKeys = getReferencedFontKeys(form);
 
-		// determine overhead
-		Set overhead = new HashSet();
-		COSDictionary fontDict = form.getDefaultResources().cosGetResources(
-				PDResources.CN_RT_Font);
-		if (fontDict != null) {
-			for (Iterator i = fontDict.keySet().iterator(); i.hasNext();) {
-				COSName key = (COSName) i.next();
-				if (!referencedKeys.contains(key)) {
-					overhead.add(key);
-				}
-			}
-			// remove overhead
-			for (Iterator i = overhead.iterator(); i.hasNext();) {
-				COSName key = (COSName) i.next();
-				fontDict.remove(key);
-			}
-		}
-	}
+        // determine overhead
+        Set overhead = new HashSet();
+        COSDictionary fontDict = form.getDefaultResources().cosGetResources(PDResources.CN_RT_Font);
+        if (fontDict != null) {
+            for (Iterator i = fontDict.keySet().iterator(); i.hasNext(); ) {
+                COSName key = (COSName) i.next();
+                if (!referencedKeys.contains(key)) {
+                    overhead.add(key);
+                }
+            }
+            // remove overhead
+            for (Iterator i = overhead.iterator(); i.hasNext(); ) {
+                COSName key = (COSName) i.next();
+                fontDict.remove(key);
+            }
+        }
+    }
 
-	protected void collectDefaultAppearanceFonts(PDAcroFormNode pNode, Set keys) {
-		// check usage in default appearance
-		COSName fontKey = pNode.getDefaultAppearanceFontName();
-		if (fontKey != null) {
-			keys.add(fontKey);
-		}
+    protected void collectDefaultAppearanceFonts(PDAcroFormNode pNode, Set keys) {
+        // check usage in default appearance
+        COSName fontKey = pNode.getDefaultAppearanceFontName();
+        if (fontKey != null) {
+            keys.add(fontKey);
+        }
 
-		//
-		if (pNode.getGenericChildren() == null) {
-			return;
-		}
-		for (Iterator i = pNode.getGenericChildren().iterator(); i.hasNext();) {
-			PDAcroFormNode child = (PDAcroFormNode) i.next();
-			collectDefaultAppearanceFonts(child, keys);
-		}
-	}
+        //
+        if (pNode.getGenericChildren() == null) {
+            return;
+        }
+        for (Iterator i = pNode.getGenericChildren().iterator(); i.hasNext(); ) {
+            PDAcroFormNode child = (PDAcroFormNode) i.next();
+            collectDefaultAppearanceFonts(child, keys);
+        }
+    }
 
-	protected void contentReplaceColor(float[] color) {
-		CSContent appearance = node.getDefaultAppearanceContent();
-		CSContent content = CSContent.createNew();
-		CSOperation op = null;
-		switch (color.length) {
-		case 1: {
-			op = new CSOperation(CSOperators.CSO_g);
-			break;
-		}
-		case 3: {
-			op = new CSOperation(CSOperators.CSO_rg);
-			break;
-		}
-		case 4: {
-			op = new CSOperation(CSOperators.CSO_k);
-			break;
-		}
-		}
-		for (int index = 0; index < color.length; index++) {
-			op.addOperand(COSFixed.create(color[index]));
-		}
-		if (appearance == null) {
-			content.addOperation(op);
-		} else {
-			// copy / modify stream
-			int len = appearance.size();
-			boolean replaced = false;
-			for (int i = 0; i < len; i++) {
-				CSOperation operation = appearance.getOperation(i);
-				if (operation.matchesOperator(CSOperators.CSO_g)
-						|| operation.matchesOperator(CSOperators.CSO_rg)
-						|| operation.matchesOperator(CSOperators.CSO_k)) {
-					content.addOperation(op);
-					replaced = true;
-				} else {
-					content.addOperation(operation);
-				}
-			}
-			if (!replaced) {
-				content.addOperation(op);
-			}
-		}
-		node.setDefaultAppearanceContent(content);
-	}
+    protected void contentReplaceColor(float[] color) {
+        CSContent appearance = node.getDefaultAppearanceContent();
+        CSContent content = CSContent.createNew();
+        CSOperation op = null;
+        switch (color.length) {
+            case 1: {
+                op = new CSOperation(CSOperators.CSO_g);
+                break;
+            }
+            case 3: {
+                op = new CSOperation(CSOperators.CSO_rg);
+                break;
+            }
+            case 4: {
+                op = new CSOperation(CSOperators.CSO_k);
+                break;
+            }
+        }
+        for (int index = 0; index < color.length; index++) {
+            op.addOperand(COSFixed.create(color[index]));
+        }
+        if (appearance == null) {
+            content.addOperation(op);
+        } else {
+            // copy / modify stream
+            int len = appearance.size();
+            boolean replaced = false;
+            for (int i = 0; i < len; i++) {
+                CSOperation operation = appearance.getOperation(i);
+                if (operation.matchesOperator(CSOperators.CSO_g)
+                    || operation.matchesOperator(CSOperators.CSO_rg)
+                    || operation.matchesOperator(CSOperators.CSO_k)) {
+                    content.addOperation(op);
+                    replaced = true;
+                } else {
+                    content.addOperation(operation);
+                }
+            }
+            if (!replaced) {
+                content.addOperation(op);
+            }
+        }
+        node.setDefaultAppearanceContent(content);
+    }
 
-	protected void contentReplaceFont(COSName pFontName) {
-		CSContent appearance = node.getDefaultAppearanceContent();
-		CSContent content = CSContent.createNew();
-		CSOperation op = new CSOperation(CSOperators.CSO_Tf);
-		op.addOperand(pFontName);
-		op.addOperand(COSInteger.create(0));
-		if (appearance == null) {
-			content.addOperation(op);
-		} else {
-			// copy / modify stream
-			int len = appearance.size();
-			boolean replaced = false;
-			for (int i = 0; i < len; i++) {
-				CSOperation operation = appearance.getOperation(i);
-				if (operation.matchesOperator(CSOperators.CSO_Tf)) {
-					if (operation.operandSize() >= 2) {
-						op.setOperand(1, operation.getOperand(1));
-					}
-					content.addOperation(op);
-					replaced = true;
-				} else {
-					content.addOperation(operation);
-				}
-			}
-			if (!replaced) {
-				content.addOperation(op);
-			}
-		}
-		node.setDefaultAppearanceContent(content);
-	}
+    protected void contentReplaceFont(COSName pFontName) {
+        CSContent appearance = node.getDefaultAppearanceContent();
+        CSContent content = CSContent.createNew();
+        CSOperation op = new CSOperation(CSOperators.CSO_Tf);
+        op.addOperand(pFontName);
+        op.addOperand(COSInteger.create(0));
+        if (appearance == null) {
+            content.addOperation(op);
+        } else {
+            // copy / modify stream
+            int len = appearance.size();
+            boolean replaced = false;
+            for (int i = 0; i < len; i++) {
+                CSOperation operation = appearance.getOperation(i);
+                if (operation.matchesOperator(CSOperators.CSO_Tf)) {
+                    if (operation.operandSize() >= 2) {
+                        op.setOperand(1, operation.getOperand(1));
+                    }
+                    content.addOperation(op);
+                    replaced = true;
+                } else {
+                    content.addOperation(operation);
+                }
+            }
+            if (!replaced) {
+                content.addOperation(op);
+            }
+        }
+        node.setDefaultAppearanceContent(content);
+    }
 
-	protected void contentReplaceSize(float pFontSize) {
-		CSContent appearance = node.getDefaultAppearanceContent();
-		CSContent content = CSContent.createNew();
-		CSOperation op = new CSOperation(CSOperators.CSO_Tf);
-		op.addOperand(COSName.create("Helv")); //$NON-NLS-1$
-		op.addOperand(COSFixed.create(pFontSize));
-		if (appearance == null) {
-			content.addOperation(op);
-		} else {
-			// copy / modify stream
-			int len = appearance.size();
-			boolean replaced = false;
-			for (int i = 0; i < len; i++) {
-				CSOperation operation = appearance.getOperation(i);
-				if (operation.matchesOperator(CSOperators.CSO_Tf)) {
-					if (operation.operandSize() >= 1) {
-						op.setOperand(0, operation.getOperand(0));
-					}
-					content.addOperation(op);
-					replaced = true;
-				} else {
-					content.addOperation(operation);
-				}
-			}
-			if (!replaced) {
-				content.addOperation(op);
-			}
-		}
-		node.setDefaultAppearanceContent(content);
-	}
+    protected void contentReplaceSize(float pFontSize) {
+        CSContent appearance = node.getDefaultAppearanceContent();
+        CSContent content = CSContent.createNew();
+        CSOperation op = new CSOperation(CSOperators.CSO_Tf);
+        op.addOperand(COSName.create("Helv")); //$NON-NLS-1$
+        op.addOperand(COSFixed.create(pFontSize));
+        if (appearance == null) {
+            content.addOperation(op);
+        } else {
+            // copy / modify stream
+            int len = appearance.size();
+            boolean replaced = false;
+            for (int i = 0; i < len; i++) {
+                CSOperation operation = appearance.getOperation(i);
+                if (operation.matchesOperator(CSOperators.CSO_Tf)) {
+                    if (operation.operandSize() >= 1) {
+                        op.setOperand(0, operation.getOperand(0));
+                    }
+                    content.addOperation(op);
+                    replaced = true;
+                } else {
+                    content.addOperation(operation);
+                }
+            }
+            if (!replaced) {
+                content.addOperation(op);
+            }
+        }
+        node.setDefaultAppearanceContent(content);
+    }
 
-	public PDFont getFont() {
-		PDResources resources = node.getAcroForm().getDefaultResources();
-		if (resources == null) {
-			return null;
-		}
-		return PDFontTools.getFont(resources, getFontName());
-	}
+    public PDFont getFont() {
+        PDResources resources = node.getAcroForm().getDefaultResources();
+        if (resources == null) {
+            return null;
+        }
+        return PDFontTools.getFont(resources, getFontName());
+    }
 
-	/**
-	 * parse the requested font color from the default appearance string
-	 * 
-	 * @return the font color used in the default appearance
-	 * 
-	 * @throws IllegalStateException
-	 */
-	public float[] getFontColorValues() {
-		return nonStrokeColorValues;
-	}
+    /**
+     * parse the requested font color from the default appearance string
+     *
+     * @return the font color used in the default appearance
+     * @throws IllegalStateException
+     */
+    public float[] getFontColorValues() {
+        return nonStrokeColorValues;
+    }
 
-	public COSName getFontName() {
-		return fontName;
-	}
+    public COSName getFontName() {
+        return fontName;
+    }
 
-	public float getFontSize() {
-		return fontSize;
-	}
+    public float getFontSize() {
+        return fontSize;
+    }
 
-	public PDAcroFormNode getNode() {
-		return node;
-	}
+    public PDAcroFormNode getNode() {
+        return node;
+    }
 
-	protected Set getReferencedFontKeys(PDAcroForm form) {
-		Set referencedKeys = new HashSet();
-		collectDefaultAppearanceFonts(form, referencedKeys);
-		return referencedKeys;
-	}
+    protected Set getReferencedFontKeys(PDAcroForm form) {
+        Set referencedKeys = new HashSet();
+        collectDefaultAppearanceFonts(form, referencedKeys);
+        return referencedKeys;
+    }
 
-	public void setFont(PDFont font) {
-		COSName cosFontName = addFontResource(font);
-		setFontName(cosFontName);
-		cleanupFontResources(node.getAcroForm());
-	}
+    public void setFont(PDFont font) {
+        COSName cosFontName = addFontResource(font);
+        setFontName(cosFontName);
+        cleanupFontResources(node.getAcroForm());
+    }
 
-	public void setFontColorValues(float[] color) {
-		contentReplaceColor(color);
-		nonStrokeColorValues = color;
-	}
+    public void setFontColorValues(float[] color) {
+        contentReplaceColor(color);
+        nonStrokeColorValues = color;
+    }
 
-	public void setFontName(COSName pFontName) {
-		contentReplaceFont(pFontName);
-		fontName = pFontName;
-	}
+    public void setFontName(COSName pFontName) {
+        contentReplaceFont(pFontName);
+        fontName = pFontName;
+    }
 
-	public void setFontSize(float pFontSize) {
-		contentReplaceSize(pFontSize);
-		fontSize = pFontSize;
-	}
+    public void setFontSize(float pFontSize) {
+        contentReplaceSize(pFontSize);
+        fontSize = pFontSize;
+    }
 }

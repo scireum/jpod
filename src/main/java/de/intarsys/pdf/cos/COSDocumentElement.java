@@ -42,26 +42,21 @@ import java.util.Set;
  * {@link de.intarsys.pdf.cos.COSObject}. A
  * {@link de.intarsys.pdf.cos.COSIndirectObject} is never seen by an application
  * level programmer, this is an internal construct only.
- *
  */
-abstract public class COSDocumentElement implements ICOSExceptionHandler {
+public abstract class COSDocumentElement implements ICOSExceptionHandler {
     protected COSDocumentElement() {
         //
     }
 
     /**
      * Accept a visitor object. The receiver selects the correct implementation
-     * in the <code>visitor</code> by "double dispatching".
+     * in the {@code visitor} by "double dispatching".
      *
-     * @param visitor
-     *            The object visiting the receiver.
-     *
+     * @param visitor The object visiting the receiver.
      * @return Object An object depending on the visitor semantics.
-     *
-     * @throws COSVisitorException
-     *             An exception depending on the visitor semantics.
+     * @throws COSVisitorException An exception depending on the visitor semantics.
      */
-    abstract public Object accept(ICOSObjectVisitor visitor) throws COSVisitorException;
+    public abstract Object accept(ICOSObjectVisitor visitor) throws COSVisitorException;
 
     /**
      * Add a backward reference to the container when the receiver is added to a
@@ -69,11 +64,10 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
      * for the object so far (direct/indirect), so we delegate to the old
      * container.
      *
-     * @param newContainer
-     *            the new container embedding the object
+     * @param newContainer the new container embedding the object
      * @return The new {@link ICOSContainer} associated with this.
      */
-    abstract protected ICOSContainer addContainer(ICOSContainer newContainer);
+    protected abstract ICOSContainer addContainer(ICOSContainer newContainer);
 
     /**
      * The {@link COSDocumentElement} suitable for use in an
@@ -83,11 +77,11 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
-    abstract public COSDocumentElement containable();
+    public abstract COSDocumentElement containable();
 
     /**
      * see copyDeep()
-     *
+     * <p>
      * <p>
      * This method keeps track of already copied objects to deal with cyclic
      * references.
@@ -95,9 +89,9 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
      *
      * @see de.intarsys.pdf.cos.COSObject#copyDeep()
      */
-    abstract protected COSObject copyDeep(Map copied);
+    protected abstract COSObject copyDeep(Map copied);
 
-    abstract protected COSDocumentElement copyShallowNested();
+    protected abstract COSDocumentElement copyShallowNested();
 
     /**
      * Return the real object. This is either the object itself or the object
@@ -105,7 +99,7 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
      *
      * @return The real object.
      */
-    abstract public COSObject dereference();
+    public abstract COSObject dereference();
 
     /**
      * Structurally compares another object with this one while keeping track of
@@ -115,10 +109,9 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
      * to avoid expensive comparisons of objects that have already been
      * compared.
      *
-     * @param o the object with which to compare
+     * @param o       the object with which to compare
      * @param visited a register of pairs of {@link COSObject}s that have
-     *            already been visited in the comparison
-     *
+     *                already been visited in the comparison
      * @return {@code true} if this object is the same as {@code} o
      */
     protected boolean equals(Object o, PairRegister visited) {
@@ -152,8 +145,8 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
          * @param a one element of the pair to check
          * @param b the other element of the pair to check
          * @return {@code true} if both {@code a} and {@code b} are direct
-         *         objects and this registry already contains the unordered pair
-         *         {@code (a, b)}; {@code false} otherwise
+         * objects and this registry already contains the unordered pair
+         * {@code (a, b)}; {@code false} otherwise
          */
         public boolean check(COSObject a, COSObject b) {
             if (!a.isIndirect() || !b.isIndirect()) {
@@ -178,7 +171,6 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
             set.add(b);
         }
 
-
         private <E> Set<E> newSet() {
             return Collections.newSetFromMap(new IdentityHashMap<E, Boolean>());
         }
@@ -196,14 +188,15 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
      *
      * @return The document where this is contained.
      */
-    abstract public COSDocument getDoc();
+    public abstract COSDocument getDoc();
 
     /*
      * (non-Javadoc)
      *
      * @see de.intarsys.pdf.cos.ICOSExceptionHandler#handleException(de.intarsys.pdf.cos.COSRuntimeException)
      */
-    public void handleException(COSRuntimeException ex) throws COSRuntimeException {
+    @Override
+    public void handleException(COSRuntimeException ex) {
         COSDocument doc = getDoc();
         if (doc != null) {
             doc.handleException(ex);
@@ -213,21 +206,21 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
     }
 
     /**
-     * Answer <code>true</code> if this element is a reference (a
+     * Answer {@code true} if this element is a reference (a
      * {@link COSIndirectObject}.
      *
-     * @return Answer <code>true</code> if this element is a reference.
+     * @return Answer {@code true} if this element is a reference.
      */
     public boolean isReference() {
         return false;
     }
 
     /**
-     * Answer <code>true</code> if this elements content is swapped to a
+     * Answer {@code true} if this elements content is swapped to a
      * persistent store.
      *
-     * @return Answer <code>true</code> if this elements content is swapped to
-     *         a persistent store.
+     * @return Answer {@code true} if this elements content is swapped to
+     * a persistent store.
      */
     public boolean isSwapped() {
         return false;
@@ -236,10 +229,9 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
     /**
      * Register the all indirect objects that can be reached from this with doc
      *
-     * @param doc
-     *            The container document
+     * @param doc The container document
      */
-    abstract protected void registerWith(COSDocument doc);
+    protected abstract void registerWith(COSDocument doc);
 
     /**
      * Remove a backward reference to the container when the receiver is removed
@@ -247,9 +239,8 @@ abstract public class COSDocumentElement implements ICOSExceptionHandler {
      * containment for the object so far (direct/indirect), so we delegate to
      * the old container.
      *
-     * @param oldContainer
-     *            the container that no longer embeds the receiver
+     * @param oldContainer the container that no longer embeds the receiver
      * @return The new {@link ICOSContainer} associated with this.
      */
-    abstract protected ICOSContainer removeContainer(ICOSContainer oldContainer);
+    protected abstract ICOSContainer removeContainer(ICOSContainer oldContainer);
 }

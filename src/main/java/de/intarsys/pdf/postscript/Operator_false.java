@@ -30,17 +30,18 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_false implements IOperator {
-	public static Operator_false Instance;
+    public static Operator_false Instance;
 
-	static {
-		Instance = new Operator_false();
-	}
+    static {
+        Instance = new Operator_false();
+    }
 
-	private Operator_false() {
-		super();
-	}
+    private Operator_false() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		handler.push(new Boolean(false));
-	}
+    @Override
+    public void execute(Handler handler) {
+        handler.push(Boolean.FALSE);
+    }
 }

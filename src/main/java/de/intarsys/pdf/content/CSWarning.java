@@ -33,19 +33,19 @@ package de.intarsys.pdf.content;
  * A warning while processing a content stream.
  */
 public class CSWarning extends CSException {
-	public CSWarning(String message) {
-		super(message);
-	}
+    public CSWarning(String message) {
+        super(message);
+    }
 
-	public CSWarning(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public CSWarning(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public CSWarning() {
-		super();
-	}
+    public CSWarning() {
+        super();
+    }
 
-	public CSWarning(Throwable cause) {
-		super(cause);
-	}
+    public CSWarning(Throwable cause) {
+        super(cause);
+    }
 }

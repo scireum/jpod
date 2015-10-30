@@ -29,10 +29,10 @@
  */
 package de.intarsys.pdf.font;
 
-import java.io.ByteArrayInputStream;
-
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
+
+import java.io.ByteArrayInputStream;
 
 /**
  * A CID indexed font.
@@ -41,117 +41,101 @@ import de.intarsys.pdf.cos.COSObject;
  * CID's.
  * <p>
  * This is a a subclass of PDFont only for implementation reasons.
- * 
  */
-abstract public class CIDFont extends PDFont {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDFont.MetaClass {
-		protected MetaClass(Class<?> instanceClass) {
-			super(instanceClass);
-		}
-	}
+public abstract class CIDFont extends PDFont {
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDFont.MetaClass {
+        protected MetaClass(Class<?> instanceClass) {
+            super(instanceClass);
+        }
+    }
 
-	public static final COSName DK_CIDSystemInfo = COSName
-			.constant("CIDSystemInfo"); //$NON-NLS-1$
+    public static final COSName DK_CIDSystemInfo = COSName.constant("CIDSystemInfo"); //$NON-NLS-1$
 
-	public static final COSName DK_DW = COSName.constant("DW"); //$NON-NLS-1$
+    public static final COSName DK_DW = COSName.constant("DW"); //$NON-NLS-1$
 
-	public static final COSName DK_W = COSName.constant("W"); //$NON-NLS-1$
+    public static final COSName DK_W = COSName.constant("W"); //$NON-NLS-1$
 
-	public static final COSName DK_DW2 = COSName.constant("DW2"); //$NON-NLS-1$
+    public static final COSName DK_DW2 = COSName.constant("DW2"); //$NON-NLS-1$
 
-	public static final COSName DK_W2 = COSName.constant("W2"); //$NON-NLS-1$
+    public static final COSName DK_W2 = COSName.constant("W2"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	private CIDWidthMap map = null;
+    private CIDWidthMap map = null;
 
-	protected CIDFont(COSObject object) {
-		super(object);
-	}
+    protected CIDFont(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFont#createBuiltinFontDescriptor()
-	 */
-	@Override
-	protected PDFontDescriptor createBuiltinFontDescriptor() {
-		return null;
-	}
+    public CIDSystemInfo getCIDSystemInfo() {
+        return (CIDSystemInfo) CIDSystemInfo.META.createFromCos(cosGetField(DK_CIDSystemInfo));
+    }
 
-	public CIDSystemInfo getCIDSystemInfo() {
-		return (CIDSystemInfo) CIDSystemInfo.META
-				.createFromCos(cosGetField(DK_CIDSystemInfo));
-	}
+    public CIDWidthMap getCIDWidthMap() {
+        if (map == null) {
+            map = (CIDWidthMap) CIDWidthMap.META.createFromCos(cosGetField(DK_W));
+        }
+        return map;
+    }
 
-	public CIDWidthMap getCIDWidthMap() {
-		if (map == null) {
-			map = (CIDWidthMap) CIDWidthMap.META
-					.createFromCos(cosGetField(DK_W));
-		}
-		return map;
-	}
+    public int getDefaultGlyphWidth() {
+        return getFieldInt(DK_DW, 1000);
+    }
 
-	public int getDefaultGlyphWidth() {
-		return getFieldInt(DK_DW, 1000);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.font.IFont#getFontStyle()
+     */
+    @Override
+    public PDFontStyle getFontStyle() {
+        return PDFontStyle.REGULAR;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.font.IFont#getFontStyle()
-	 */
-	@Override
-	public PDFontStyle getFontStyle() {
-		return PDFontStyle.REGULAR;
-	}
+    public abstract int getGlyphIndex(int cid);
 
-	abstract public int getGlyphIndex(int cid);
+    @Override
+    public PDGlyphs getGlyphsEncoded(int codepoint) {
+        throw new UnsupportedOperationException("CIDFont can not be used directly");
+    }
 
-	@Override
-	public PDGlyphs getGlyphsEncoded(int codepoint) {
-		throw new UnsupportedOperationException(
-				"CIDFont can not be used directly");
-	}
+    public int getGlyphWidthCID(int cid) {
+        CIDWidthMap map = getCIDWidthMap();
+        if (map == null) {
+            return getFieldInt(DK_DW, 1000);
+        }
+        int width = getCIDWidthMap().getWidth(cid);
+        if (width == -1) {
+            return getFieldInt(DK_DW, 1000);
+        }
+        return width;
+    }
 
-	public int getGlyphWidthCID(int cid) {
-		CIDWidthMap map = getCIDWidthMap();
-		if (map == null) {
-			return getFieldInt(DK_DW, 1000);
-		}
-		int width = getCIDWidthMap().getWidth(cid);
-		if (width == -1) {
-			return getFieldInt(DK_DW, 1000);
-		}
-		return width;
-	}
+    @Override
+    public int getGlyphWidthEncoded(int codepoint) {
+        throw new UnsupportedOperationException("CIDFont can not be used directly");
+    }
 
-	@Override
-	public int getGlyphWidthEncoded(int codepoint) {
-		throw new UnsupportedOperationException(
-				"CIDFont can not be used directly");
-	}
+    @Override
+    public PDGlyphs getNextGlyphsEncoded(ByteArrayInputStream is) {
+        throw new UnsupportedOperationException("CIDFont can not be used directly");
+    }
 
-	@Override
-	public PDGlyphs getNextGlyphsEncoded(ByteArrayInputStream is) {
-		throw new UnsupportedOperationException(
-				"CIDFont can not be used directly");
-	}
+    public void setCIDSystemInfo(CIDSystemInfo info) {
+        setFieldObject(DK_CIDSystemInfo, info);
+    }
 
-	public void setCIDSystemInfo(CIDSystemInfo info) {
-		setFieldObject(DK_CIDSystemInfo, info);
-	}
+    public void setCIDWidthMap(CIDWidthMap map) {
+        setFieldObject(DK_W, map);
+    }
 
-	public void setCIDWidthMap(CIDWidthMap map) {
-		setFieldObject(DK_W, map);
-	}
-
-	public void setDefaultGlyphWidth(int value) {
-		setFieldInt(DK_DW, value);
-	}
+    public void setDefaultGlyphWidth(int value) {
+        setFieldInt(DK_DW, value);
+    }
 }

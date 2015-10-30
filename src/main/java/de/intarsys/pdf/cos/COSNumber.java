@@ -32,37 +32,37 @@ package de.intarsys.pdf.cos;
 /**
  * Abstract superclass for numeric objects in a pdf document
  */
-abstract public class COSNumber extends COSPrimitiveObject {
-	protected COSNumber() {
-		//
-	}
+public abstract class COSNumber extends COSPrimitiveObject {
+    protected COSNumber() {
+        //
+    }
 
-	@Override
-	public COSNumber asNumber() {
-		return this;
-	}
+    @Override
+    public COSNumber asNumber() {
+        return this;
+    }
 
-	/**
-	 * Answer the value of the receiver as a float
-	 * 
-	 * @return Answer the value of the receiver as a float
-	 */
-	abstract public float floatValue();
+    /**
+     * Answer the value of the receiver as a float
+     *
+     * @return Answer the value of the receiver as a float
+     */
+    public abstract float floatValue();
 
-	/**
-	 * Answer the value of the receiver as a int
-	 * 
-	 * @return Answer the value of the receiver as a int
-	 */
-	abstract public int intValue();
+    /**
+     * Answer the value of the receiver as a int
+     *
+     * @return Answer the value of the receiver as a int
+     */
+    public abstract int intValue();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#isNumber()
-	 */
-	@Override
-	public boolean isNumber() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#isNumber()
+     */
+    @Override
+    public boolean isNumber() {
+        return true;
+    }
 }

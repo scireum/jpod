@@ -30,22 +30,23 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_exp implements IOperator {
-	public static Operator_exp Instance;
+    public static Operator_exp Instance;
 
-	static {
-		Instance = new Operator_exp();
-	}
+    static {
+        Instance = new Operator_exp();
+    }
 
-	private Operator_exp() {
-		super();
-	}
+    private Operator_exp() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		double operand1;
-		double operand2;
+    @Override
+    public void execute(Handler handler) {
+        double operand1;
+        double operand2;
 
-		operand2 = ((Number) handler.pop()).doubleValue();
-		operand1 = ((Number) handler.pop()).doubleValue();
-		handler.push(new Double(Math.pow(operand1, operand2)));
-	}
+        operand2 = ((Number) handler.pop()).doubleValue();
+        operand1 = ((Number) handler.pop()).doubleValue();
+        handler.push(new Double(Math.pow(operand1, operand2)));
+    }
 }

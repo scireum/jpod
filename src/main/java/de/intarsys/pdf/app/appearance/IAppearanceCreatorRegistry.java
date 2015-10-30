@@ -36,22 +36,20 @@ import de.intarsys.pdf.cos.COSName;
  * <p>
  * By convenience the VM singleton can be looked up in
  * {@link AppearanceCreatorRegistry}.
- * 
  */
 public interface IAppearanceCreatorRegistry {
 
-	/**
-	 * A collection of all registered {@link IAppearanceCreator} instances.
-	 * 
-	 * @return A collection of all registered {@link IAppearanceCreator}
-	 *         instances.
-	 */
-	public IAppearanceCreator[] getAppearanceCreators();
+    /**
+     * A collection of all registered {@link IAppearanceCreator} instances.
+     *
+     * @return A collection of all registered {@link IAppearanceCreator}
+     * instances.
+     */
+    IAppearanceCreator[] getAppearanceCreators();
 
-	public IAppearanceCreator lookupAppearanceCreator(COSName type);
+    IAppearanceCreator lookupAppearanceCreator(COSName type);
 
-	public void registerAppearanceCreator(IAppearanceCreator creator);
+    void registerAppearanceCreator(IAppearanceCreator creator);
 
-	public void unregisterAppearanceCreator(IAppearanceCreator creator);
-
+    void unregisterAppearanceCreator(IAppearanceCreator creator);
 }

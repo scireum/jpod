@@ -36,40 +36,41 @@ import de.intarsys.pdf.cos.COSObject;
  * at index 2*x and 2*x + 1 where x is the CID number. First byte is high order.
  */
 public class StreamBasedGIDMap extends CIDToGIDMap {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends CIDToGIDMap.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
-	}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends CIDToGIDMap.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/**
-	 * @param object
-	 */
-	protected StreamBasedGIDMap(COSObject object) {
-		super(object);
-	}
+    /**
+     * @param object
+     */
+    protected StreamBasedGIDMap(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.CIDToGIDMap#getGlyphIndex(de.intarsys.pdf.font.CID)
-	 */
-	@Override
-	public int getGlyphIndex(CharacterSelector cid) {
-		byte[] bytes = cosGetStream().getDecodedBytes();
-		int index = cid.getValue() << 1;
-		if (index < 0 || index + 1 >= bytes.length) {
-			return 0;
-		}
-		int result = (bytes[index] & 0xff);
-		result = (result << 8) + (bytes[index + 1] & 0xff);
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.CIDToGIDMap#getGlyphIndex(de.intarsys.pdf.font.CID)
+     */
+    @Override
+    public int getGlyphIndex(CharacterSelector cid) {
+        byte[] bytes = cosGetStream().getDecodedBytes();
+        int index = cid.getValue() << 1;
+        if (index < 0 || index + 1 >= bytes.length) {
+            return 0;
+        }
+        int result = (bytes[index] & 0xff);
+        result = (result << 8) + (bytes[index + 1] & 0xff);
+        return result;
+    }
 }

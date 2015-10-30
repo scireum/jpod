@@ -30,24 +30,25 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_ifelse implements IOperator {
-	public static Operator_ifelse Instance;
+    public static Operator_ifelse Instance;
 
-	static {
-		Instance = new Operator_ifelse();
-	}
+    static {
+        Instance = new Operator_ifelse();
+    }
 
-	private Operator_ifelse() {
-		super();
-	}
+    private Operator_ifelse() {
+        super();
+    }
 
-	public void execute(Handler handler) throws ParseException {
-		PSArray procFalse = (PSArray) handler.pop();
-		PSArray procTrue = (PSArray) handler.pop();
-		Boolean condition = (Boolean) handler.pop();
-		if (condition) {
-			procTrue.accept(handler);
-		} else {
-			procFalse.accept(handler);
-		}
-	}
+    @Override
+    public void execute(Handler handler) throws ParseException {
+        PSArray procFalse = (PSArray) handler.pop();
+        PSArray procTrue = (PSArray) handler.pop();
+        Boolean condition = (Boolean) handler.pop();
+        if (condition) {
+            procTrue.accept(handler);
+        } else {
+            procFalse.accept(handler);
+        }
+    }
 }

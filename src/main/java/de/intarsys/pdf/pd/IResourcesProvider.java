@@ -31,10 +31,9 @@ package de.intarsys.pdf.pd;
 
 /**
  * An interface for all owner of PDResources.
- * 
  */
 public interface IResourcesProvider {
-	public PDResources getResources();
+    PDResources getResources();
 
-	public void setResources(PDResources resources);
+    void setResources(PDResources resources);
 }

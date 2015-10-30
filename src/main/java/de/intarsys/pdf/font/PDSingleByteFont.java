@@ -29,88 +29,84 @@
  */
 package de.intarsys.pdf.font;
 
+import de.intarsys.pdf.cos.COSObject;
+
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 
-import de.intarsys.pdf.cos.COSObject;
-
 /**
  * A common superclass for the single byte encoded font flavors.
- * 
  */
-abstract public class PDSingleByteFont extends PDFont {
+public abstract class PDSingleByteFont extends PDFont {
 
-	private PDGlyphs[] cachedGlyphs = new PDGlyphs[256];
+    private PDGlyphs[] cachedGlyphs = new PDGlyphs[256];
 
-	// an array for the width of each glyph used
-	private int[] cachedWidths;
+    // an array for the width of each glyph used
+    private int[] cachedWidths;
 
-	public PDSingleByteFont(COSObject object) {
-		super(object);
-	}
+    protected PDSingleByteFont(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public PDGlyphs getGlyphsEncoded(int codepoint) {
-		// we can access the cache directly as we expect a one byte codepoint
-		PDGlyphs glyphs = cachedGlyphs[codepoint];
-		if (glyphs == null) {
-			glyphs = new PDGlyphs(this, codepoint);
-			cachedGlyphs[codepoint] = glyphs;
-		}
-		return glyphs;
-	}
+    @Override
+    public PDGlyphs getGlyphsEncoded(int codepoint) {
+        // we can access the cache directly as we expect a one byte codepoint
+        PDGlyphs glyphs = cachedGlyphs[codepoint];
+        if (glyphs == null) {
+            glyphs = new PDGlyphs(this, codepoint);
+            cachedGlyphs[codepoint] = glyphs;
+        }
+        return glyphs;
+    }
 
-	/**
-	 * The glyph width of a codepoint in the font. codepoint refers to the
-	 * encoded (possibly multibyte) value in the COSString.
-	 * <p>
-	 * In the standard case for single byte encoded fonts, the codepoint is the
-	 * index in the /Widths array, holding the glyph width.
-	 * <p>
-	 * For multibyte fonts, see {@link PDFontType0}.
-	 * 
-	 * @param codepoint
-	 *            The codepoint
-	 * 
-	 * @return The glyph width of a codepoint in the font
-	 */
-	@Override
-	public int getGlyphWidthEncoded(int codepoint) {
-		if (cachedWidths == null) {
-			cachedWidths = createWidths();
-		}
-		if (codepoint < 0 || codepoint > cachedWidths.length) {
-			return getMissingWidth();
-		}
-		return cachedWidths[codepoint];
-	}
+    /**
+     * The glyph width of a codepoint in the font. codepoint refers to the
+     * encoded (possibly multibyte) value in the COSString.
+     * <p>
+     * In the standard case for single byte encoded fonts, the codepoint is the
+     * index in the /Widths array, holding the glyph width.
+     * <p>
+     * For multibyte fonts, see {@link PDFontType0}.
+     *
+     * @param codepoint The codepoint
+     * @return The glyph width of a codepoint in the font
+     */
+    @Override
+    public int getGlyphWidthEncoded(int codepoint) {
+        if (cachedWidths == null) {
+            cachedWidths = createWidths();
+        }
+        if (codepoint < 0 || codepoint > cachedWidths.length) {
+            return getMissingWidth();
+        }
+        return cachedWidths[codepoint];
+    }
 
-	/**
-	 * The array of glyph widths.
-	 * 
-	 * @return The array of glyph widths.
-	 */
-	public int[] getGlyphWidths() {
-		if (cachedWidths == null) {
-			cachedWidths = createWidths();
-		}
-		return cachedWidths;
-	}
+    /**
+     * The array of glyph widths.
+     *
+     * @return The array of glyph widths.
+     */
+    public int[] getGlyphWidths() {
+        if (cachedWidths == null) {
+            cachedWidths = createWidths();
+        }
+        return cachedWidths;
+    }
 
-	@Override
-	public PDGlyphs getNextGlyphsEncoded(ByteArrayInputStream is) {
-		int codepoint = is.read();
-		if (codepoint == -1) {
-			return null;
-		}
-		return getGlyphsEncoded(codepoint);
-	}
+    @Override
+    public PDGlyphs getNextGlyphsEncoded(ByteArrayInputStream is) {
+        int codepoint = is.read();
+        if (codepoint == -1) {
+            return null;
+        }
+        return getGlyphsEncoded(codepoint);
+    }
 
-	@Override
-	public void invalidateCaches() {
-		super.invalidateCaches();
-		cachedWidths = null;
-		Arrays.fill(cachedGlyphs, null);
-	}
-
+    @Override
+    public void invalidateCaches() {
+        super.invalidateCaches();
+        cachedWidths = null;
+        Arrays.fill(cachedGlyphs, null);
+    }
 }

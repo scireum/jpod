@@ -30,32 +30,33 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_cvr implements IOperator {
-	public static Operator_cvr Instance;
+    public static Operator_cvr Instance;
 
-	static {
-		Instance = new Operator_cvr();
-	}
+    static {
+        Instance = new Operator_cvr();
+    }
 
-	private Operator_cvr() {
-		super();
-	}
+    private Operator_cvr() {
+        super();
+    }
 
-	public void execute(Handler handler) throws ParseException {
-		Object element;
+    @Override
+    public void execute(Handler handler) throws ParseException {
+        Object element;
 
-		element = handler.peek();
-		if (element instanceof Double) {
-			return;
-		}
-		handler.pop();
-		if (element instanceof Integer) {
-			handler.push(new Double(((Integer) element).intValue()));
-			return;
-		}
-		if (element instanceof String) {
-			handler.push(new Double(Double.parseDouble((String) element)));
-			return;
-		}
-		throw new ParseException();
-	}
+        element = handler.peek();
+        if (element instanceof Double) {
+            return;
+        }
+        handler.pop();
+        if (element instanceof Integer) {
+            handler.push(new Double(((Integer) element).intValue()));
+            return;
+        }
+        if (element instanceof String) {
+            handler.push(new Double(Double.parseDouble((String) element)));
+            return;
+        }
+        throw new ParseException();
+    }
 }

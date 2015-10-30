@@ -29,104 +29,101 @@
  */
 package de.intarsys.pdf.st;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.crypt.ISystemSecurityHandler;
 import de.intarsys.pdf.parser.COSLoadException;
+
+import java.io.IOException;
 
 /**
  * Represents an occupied object entry in a pdf xref table.
  */
 public class STXRefEntryOccupied extends STXRefEntry {
-	/** The offset of the entry */
-	private long offset;
+    /**
+     * The offset of the entry
+     */
+    private long offset;
 
-	public STXRefEntryOccupied(int objectNumber, int generationNumber,
-			long offset) {
-		super(objectNumber, generationNumber);
-		this.offset = offset;
-	}
+    public STXRefEntryOccupied(int objectNumber, int generationNumber, long offset) {
+        super(objectNumber, generationNumber);
+        this.offset = offset;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.storage.STXRefEntry#accept(de.intarsys.pdf.storage.IXRefEntryVisitor)
-	 */
-	@Override
-	public void accept(IXRefEntryVisitor visitor)
-			throws XRefEntryVisitorException {
-		visitor.visitFromOccupied(this);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.storage.STXRefEntry#accept(de.intarsys.pdf.storage.IXRefEntryVisitor)
+     */
+    @Override
+    public void accept(IXRefEntryVisitor visitor) throws XRefEntryVisitorException {
+        visitor.visitFromOccupied(this);
+    }
 
-	@Override
-	public STXRefEntry copy() {
-		return new STXRefEntryOccupied(getObjectNumber(),
-				getGenerationNumber(), getOffset());
-	}
+    @Override
+    public STXRefEntry copy() {
+        return new STXRefEntryOccupied(getObjectNumber(), getGenerationNumber(), getOffset());
+    }
 
-	@Override
-	public STXRefEntryOccupied fill(int pos) {
-		setOffset(pos);
-		return this;
-	}
+    @Override
+    public STXRefEntryOccupied fill(int pos) {
+        setOffset(pos);
+        return this;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.storage.STXRefEntry#getColumn1()
-	 */
-	@Override
-	public long getColumn1() {
-		return getOffset();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.storage.STXRefEntry#getColumn1()
+     */
+    @Override
+    public long getColumn1() {
+        return getOffset();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.storage.STXRefEntry#getColumn2()
-	 */
-	@Override
-	public int getColumn2() {
-		return getGenerationNumber();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.storage.STXRefEntry#getColumn2()
+     */
+    @Override
+    public int getColumn2() {
+        return getGenerationNumber();
+    }
 
-	public long getOffset() {
-		return offset;
-	}
+    public long getOffset() {
+        return offset;
+    }
 
-	/**
-	 * @see de.intarsys.pdf.st.STXRefEntry#isFree()
-	 */
-	@Override
-	public boolean isFree() {
-		return false;
-	}
+    /**
+     * @see de.intarsys.pdf.st.STXRefEntry#isFree()
+     */
+    @Override
+    public boolean isFree() {
+        return false;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.storage.STXRefEntry#loadObject(de.intarsys.pdf.cos.COSIndirectObject)
-	 */
-	@Override
-	public COSObject load(STDocument doc, ISystemSecurityHandler securityHandler)
-			throws IOException, COSLoadException {
-		doc.getRandomAccess().seek(getOffset());
-		return doc.getParser().parseIndirectObject(doc.getRandomAccess(),
-				securityHandler);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.storage.STXRefEntry#loadObject(de.intarsys.pdf.cos.COSIndirectObject)
+     */
+    @Override
+    public COSObject load(STDocument doc, ISystemSecurityHandler securityHandler) throws IOException, COSLoadException {
+        doc.getRandomAccess().seek(getOffset());
+        return doc.getParser().parseIndirectObject(doc.getRandomAccess(), securityHandler);
+    }
 
-	public void setOffset(long offset) {
-		this.offset = offset;
-	}
+    public void setOffset(long offset) {
+        this.offset = offset;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.writer.XRefEntry#unlink()
-	 */
-	@Override
-	protected void unlink() {
-		// do nothing
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.writer.XRefEntry#unlink()
+     */
+    @Override
+    protected void unlink() {
+        // do nothing
+    }
 }

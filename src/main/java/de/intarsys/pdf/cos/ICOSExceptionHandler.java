@@ -32,16 +32,13 @@ package de.intarsys.pdf.cos;
 /**
  * An object that can handle exceptions encountered when dealing with
  * {@link COSObject} instances.
- * 
  */
 public interface ICOSExceptionHandler {
-	/**
-	 * Handle <code>ex</code>, optionally rethrow.
-	 * 
-	 * @param ex
-	 *            The exceptioin to be handeled.
-	 * @throws COSRuntimeException
-	 */
-	public void handleException(COSRuntimeException ex)
-			throws COSRuntimeException;
+    /**
+     * Handle {@code ex}, optionally rethrow.
+     *
+     * @param ex The exceptioin to be handeled.
+     * @throws COSRuntimeException
+     */
+    void handleException(COSRuntimeException ex);
 }

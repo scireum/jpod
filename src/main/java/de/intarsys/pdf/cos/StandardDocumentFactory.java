@@ -29,28 +29,24 @@
  */
 package de.intarsys.pdf.cos;
 
-import java.io.IOException;
-import java.util.Map;
-
 import de.intarsys.pdf.parser.COSLoadException;
 import de.intarsys.tools.locator.ILocator;
 
+import java.io.IOException;
+import java.util.Map;
+
 /**
  * A simple factory that creates a new document from the locator.
- * 
  */
 public class StandardDocumentFactory implements ICOSDocumentFactory {
-	public StandardDocumentFactory() {
-		super();
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.ICOSDocumentFactory#createDocument(java.lang.Object)
-	 */
-	public COSDocument createDocument(ILocator locator, Map options)
-			throws COSLoadException, IOException {
-		return COSDocument.createFromLocator(locator, options);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.ICOSDocumentFactory#createDocument(java.lang.Object)
+     */
+    @Override
+    public COSDocument createDocument(ILocator locator, Map options) throws COSLoadException, IOException {
+        return COSDocument.createFromLocator(locator, options);
+    }
 }

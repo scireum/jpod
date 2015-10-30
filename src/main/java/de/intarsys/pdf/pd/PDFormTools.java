@@ -31,29 +31,27 @@ package de.intarsys.pdf.pd;
 
 /**
  * PDForm related tool methods.
- * 
  */
 public class PDFormTools {
-	/**
-	 * 
-	 */
-	private PDFormTools() {
-		// tool class
-	}
+    /**
+     *
+     */
+    private PDFormTools() {
+        // tool class
+    }
 
-	/**
-	 * Get or create the PDResourceDict for the PDForm lazy.
-	 * 
-	 * @param form
-	 *            The form to lookup (and create) the PDResourceDict.
-	 * @return The PDResourceDict for form.
-	 */
-	static public PDResources getResources(PDForm form) {
-		PDResources resources = form.getResources();
-		if (resources == null) {
-			resources = (PDResources) PDResources.META.createNew();
-			form.setResources(resources);
-		}
-		return resources;
-	}
+    /**
+     * Get or create the PDResourceDict for the PDForm lazy.
+     *
+     * @param form The form to lookup (and create) the PDResourceDict.
+     * @return The PDResourceDict for form.
+     */
+    public static PDResources getResources(PDForm form) {
+        PDResources resources = form.getResources();
+        if (resources == null) {
+            resources = (PDResources) PDResources.META.createNew();
+            form.setResources(resources);
+        }
+        return resources;
+    }
 }

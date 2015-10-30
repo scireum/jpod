@@ -32,28 +32,26 @@ package de.intarsys.pdf.filter;
 import de.intarsys.pdf.cos.COSDictionary;
 
 /**
- * 
+ *
  */
 public class PNGUpPrediction extends PNGPrediction {
-	public PNGUpPrediction(COSDictionary options) {
-		super(options);
-	}
+    public PNGUpPrediction(COSDictionary options) {
+        super(options);
+    }
 
-	public void decodeRow(byte[] source, int sourceOffset, byte[] result,
-			int resultOffset) {
-		int actualSourceOffset;
+    @Override
+    public void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
+        int actualSourceOffset;
 
-		actualSourceOffset = sourceOffset + 1;
+        actualSourceOffset = sourceOffset + 1;
 
-		if (sourceOffset == 0) {
-			System.arraycopy(source, actualSourceOffset, result, 0,
-					getResultRowSize());
-			return;
-		}
-		for (int index = 0; index < getResultRowSize(); index++) {
-			result[resultOffset + index] = (byte) (result[resultOffset
-					- getResultRowSize() + index] + source[actualSourceOffset
-					+ index]);
-		}
-	}
+        if (sourceOffset == 0) {
+            System.arraycopy(source, actualSourceOffset, result, 0, getResultRowSize());
+            return;
+        }
+        for (int index = 0; index < getResultRowSize(); index++) {
+            result[resultOffset + index] =
+                    (byte) (result[resultOffset - getResultRowSize() + index] + source[actualSourceOffset + index]);
+        }
+    }
 }

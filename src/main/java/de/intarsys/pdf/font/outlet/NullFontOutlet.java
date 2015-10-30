@@ -33,8 +33,8 @@ import de.intarsys.pdf.pd.PDDocument;
 
 public class NullFontOutlet implements IFontOutlet {
 
-	public IFontFactory lookupFontFactory(PDDocument doc) {
-		return new NullFontFactory();
-	}
-
+    @Override
+    public IFontFactory lookupFontFactory(PDDocument doc) {
+        return new NullFontFactory();
+    }
 }

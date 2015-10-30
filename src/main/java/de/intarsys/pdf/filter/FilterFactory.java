@@ -33,13 +33,16 @@ package de.intarsys.pdf.filter;
  * The VM singleton for accessing the {@link IFilterFactory}.
  */
 public class FilterFactory {
-	private static IFilterFactory ACTIVE = new StandardFilterFactory();
+    private static IFilterFactory ACTIVE = new StandardFilterFactory();
 
-	static public IFilterFactory get() {
-		return ACTIVE;
-	}
+    private FilterFactory() {
+    }
 
-	static public void set(IFilterFactory factory) {
-		ACTIVE = factory;
-	}
+    public static IFilterFactory get() {
+        return ACTIVE;
+    }
+
+    public static void set(IFilterFactory factory) {
+        ACTIVE = factory;
+    }
 }

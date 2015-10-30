@@ -40,84 +40,80 @@ import de.intarsys.pdf.cos.COSObject;
  * Support for lab color space.
  */
 public class PDCSLab extends PDCSCIEBased {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDCSCIEBased.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDCSCIEBased.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return new PDCSLab(object);
-		}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return new PDCSLab(object);
+        }
+    }
 
-	}
+    private static final float[] BlackPointDefault = {0.0f, 0.0f, 0.0f};
 
-	private static final float[] BlackPointDefault = new float[] { 0.0f, 0.0f,
-			0.0f };
+    public static final COSName DK_BlackPoint = COSName.constant("BlackPoint"); //$NON-NLS-1$
 
-	public static final COSName DK_BlackPoint = COSName.constant("BlackPoint"); //$NON-NLS-1$
+    public static final COSName DK_Range = COSName.constant("Range"); //$NON-NLS-1$
 
-	public static final COSName DK_Range = COSName.constant("Range"); //$NON-NLS-1$
+    public static final COSName DK_WhitePoint = COSName.constant("WhitePoint"); //$NON-NLS-1$
 
-	public static final COSName DK_WhitePoint = COSName.constant("WhitePoint"); //$NON-NLS-1$
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    private static final float[] RangeDefault = {-100.0f, 100.0f, -100.0f, 100.0f};
 
-	private static final float[] RangeDefault = new float[] { -100.0f, 100.0f,
-			-100.0f, 100.0f };
+    private float[] blackPoint;
 
-	private float[] blackPoint;
+    private float[] range;
 
-	private float[] range;
+    private float[] whitePoint;
 
-	private float[] whitePoint;
+    protected PDCSLab(COSObject object) {
+        super(object);
 
-	protected PDCSLab(COSObject object) {
-		super(object);
+        COSDictionary dict;
+        COSArray blackPointArray;
+        COSArray rangeArray;
+        COSArray whitePointArray;
 
-		COSDictionary dict;
-		COSArray blackPointArray;
-		COSArray rangeArray;
-		COSArray whitePointArray;
+        dict = ((COSArray) object).get(1).asDictionary();
+        // TODO 3 @ehk dict == null ?
+        blackPointArray = dict.get(PDCSLab.DK_BlackPoint).asArray();
+        if (blackPointArray == null) {
+            blackPoint = PDCSLab.BlackPointDefault;
+        } else {
+            blackPoint = new float[3];
+            for (int index = 0; index < blackPoint.length; index++) {
+                blackPoint[index] = ((COSNumber) blackPointArray.get(index)).floatValue();
+            }
+        }
 
-		dict = ((COSArray) object).get(1).asDictionary();
-		// TODO 3 @ehk dict == null ?
-		blackPointArray = dict.get(PDCSLab.DK_BlackPoint).asArray();
-		if (blackPointArray == null) {
-			blackPoint = PDCSLab.BlackPointDefault;
-		} else {
-			blackPoint = new float[3];
-			for (int index = 0; index < blackPoint.length; index++) {
-				blackPoint[index] = ((COSNumber) blackPointArray.get(index))
-						.floatValue();
-			}
-		}
+        rangeArray = dict.get(PDCSLab.DK_Range).asArray();
+        if (rangeArray == null) {
+            range = PDCSLab.RangeDefault;
+        } else {
+            range = new float[4];
 
-		rangeArray = dict.get(PDCSLab.DK_Range).asArray();
-		if (rangeArray == null) {
-			range = PDCSLab.RangeDefault;
-		} else {
-			range = new float[4];
+            for (int index = 0; index < 4; index++) {
+                range[index] = ((COSNumber) rangeArray.get(index)).floatValue();
+            }
+        }
 
-			for (int index = 0; index < 4; index++) {
-				range[index] = ((COSNumber) rangeArray.get(index)).floatValue();
-			}
-		}
+        whitePointArray = dict.get(PDCSLab.DK_WhitePoint).asArray();
+        whitePoint = new float[3];
+        for (int index = 0; index < whitePoint.length; index++) {
+            whitePoint[index] = ((COSNumber) whitePointArray.get(index)).floatValue();
+        }
+    }
 
-		whitePointArray = dict.get(PDCSLab.DK_WhitePoint).asArray();
-		whitePoint = new float[3];
-		for (int index = 0; index < whitePoint.length; index++) {
-			whitePoint[index] = ((COSNumber) whitePointArray.get(index))
-					.floatValue();
-		}
-	}
-
-	public float[] getWhitePoint() {
-		return whitePoint;
-	}
+    public float[] getWhitePoint() {
+        return whitePoint;
+    }
 }

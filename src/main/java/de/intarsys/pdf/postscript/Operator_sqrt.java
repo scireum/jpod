@@ -30,20 +30,21 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_sqrt implements IOperator {
-	public static Operator_sqrt Instance;
+    public static Operator_sqrt Instance;
 
-	static {
-		Instance = new Operator_sqrt();
-	}
+    static {
+        Instance = new Operator_sqrt();
+    }
 
-	private Operator_sqrt() {
-		super();
-	}
+    private Operator_sqrt() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		double operand;
+    @Override
+    public void execute(Handler handler) {
+        double operand;
 
-		operand = ((Number) handler.pop()).doubleValue();
-		handler.push(new Double(Math.sqrt(operand)));
-	}
+        operand = ((Number) handler.pop()).doubleValue();
+        handler.push(new Double(Math.sqrt(operand)));
+    }
 }

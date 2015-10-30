@@ -29,43 +29,45 @@
  */
 package de.intarsys.pdf.filter;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSDictionary;
 
+import java.io.IOException;
+
 /**
- * 
+ *
  */
 public class LZWFilter extends Filter {
-	/**
-	 * 
-	 */
-	public LZWFilter(COSDictionary options) {
-		super(options);
-	}
+    /**
+     *
+     */
+    public LZWFilter(COSDictionary options) {
+        super(options);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
-	 */
-	protected byte[] encode(byte[] source) throws IOException {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
+     */
+    @Override
+    protected byte[] encode(byte[] source) throws IOException {
+        return null;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
-	 */
-	protected byte[] decode(byte[] source) throws IOException {
-		byte[] decoded;
-		IPrediction prediction;
-		decoded = new LZWDecoder().decode(source);
-		if (getOptions() == null) {
-			return decoded;
-		}
-		prediction = PredictionFactory.get().createPrediction(getOptions());
-		return prediction.decode(decoded);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
+     */
+    @Override
+    protected byte[] decode(byte[] source) throws IOException {
+        byte[] decoded;
+        IPrediction prediction;
+        decoded = new LZWDecoder().decode(source);
+        if (getOptions() == null) {
+            return decoded;
+        }
+        prediction = PredictionFactory.get().createPrediction(getOptions());
+        return prediction.decode(decoded);
+    }
 }

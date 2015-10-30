@@ -36,56 +36,54 @@ import de.intarsys.pdf.cos.COSObject;
  * Separation color spaces.
  */
 public class PDCSSeparation extends PDCSSpecial {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDCSSpecial.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDCSSpecial.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return new PDCSSeparation(object);
-		}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return new PDCSSeparation(object);
+        }
+    }
 
-	}
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    private PDColorSpace alternate;
 
-	private PDColorSpace alternate;
+    private String name;
 
-	private String name;
+    private PDFunction tintTransform;
 
-	private PDFunction tintTransform;
+    protected PDCSSeparation(COSObject object) {
+        super(object);
 
-	protected PDCSSeparation(COSObject object) {
-		super(object);
+        name = cosGetArray().get(1).asName().stringValue();
 
-		name = cosGetArray().get(1).asName().stringValue();
+        // alternateSpace and tintTransform will be resolved lazily
+    }
 
-		// alternateSpace and tintTransform will be resolved lazily
-	}
+    public PDColorSpace getAlternate() {
+        if (alternate == null) {
+            alternate = (PDColorSpace) PDColorSpace.META.createFromCos(cosGetArray().get(2));
+        }
+        return alternate;
+    }
 
-	public PDColorSpace getAlternate() {
-		if (alternate == null) {
-			alternate = (PDColorSpace) PDColorSpace.META
-					.createFromCos(cosGetArray().get(2));
-		}
-		return alternate;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
-
-	public PDFunction getTintTransform() {
-		if (tintTransform == null) {
-			tintTransform = (PDFunction) PDFunction.META
-					.createFromCos(cosGetArray().get(3));
-		}
-		return tintTransform;
-	}
+    public PDFunction getTintTransform() {
+        if (tintTransform == null) {
+            tintTransform = (PDFunction) PDFunction.META.createFromCos(cosGetArray().get(3));
+        }
+        return tintTransform;
+    }
 }

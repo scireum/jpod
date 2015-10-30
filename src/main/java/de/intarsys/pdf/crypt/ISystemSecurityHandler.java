@@ -45,129 +45,120 @@ import de.intarsys.pdf.st.STDocument;
  */
 public interface ISystemSecurityHandler {
 
-	/**
-	 * Associate this {@link ISystemSecurityHandler} with a {@link STDocument}.
-	 * <p>
-	 * The {@link ISystemSecurityHandler} should add all its private information
-	 * to the document structure, in particular to the /Encrypt dictionary.
-	 * 
-	 * @param doc
-	 */
-	public void attach(STDocument doc) throws COSSecurityException;
+    /**
+     * Associate this {@link ISystemSecurityHandler} with a {@link STDocument}.
+     * <p>
+     * The {@link ISystemSecurityHandler} should add all its private information
+     * to the document structure, in particular to the /Encrypt dictionary.
+     *
+     * @param doc
+     */
+    void attach(STDocument doc) throws COSSecurityException;
 
-	/**
-	 * Perform an authentication. Authentication is in all versions forwarded to
-	 * the {@link ISecurityHandler}.
-	 * 
-	 * @throws COSSecurityException
-	 */
-	public void authenticate() throws COSSecurityException;
+    /**
+     * Perform an authentication. Authentication is in all versions forwarded to
+     * the {@link ISecurityHandler}.
+     *
+     * @throws COSSecurityException
+     */
+    void authenticate() throws COSSecurityException;
 
-	public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes)
-			throws COSSecurityException;
+    byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException;
 
-	public byte[] decryptStream(COSObjectKey key, COSDictionary dict,
-			byte[] bytes) throws COSSecurityException;
+    byte[] decryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException;
 
-	public byte[] decryptString(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException;
+    byte[] decryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException;
 
-	/**
-	 * Disassociate this {@link ISystemSecurityHandler} from {@link STDocument}.
-	 * <p>
-	 * The {@link ISystemSecurityHandler} should remove all its private
-	 * information from the document structure, in particular from the /Encrypt
-	 * dictionary.
-	 * 
-	 * @param doc
-	 */
-	public void detach(STDocument doc) throws COSSecurityException;
+    /**
+     * Disassociate this {@link ISystemSecurityHandler} from {@link STDocument}.
+     * <p>
+     * The {@link ISystemSecurityHandler} should remove all its private
+     * information from the document structure, in particular from the /Encrypt
+     * dictionary.
+     *
+     * @param doc
+     */
+    void detach(STDocument doc) throws COSSecurityException;
 
-	public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes)
-			throws COSSecurityException;
+    byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException;
 
-	public byte[] encryptStream(COSObjectKey key, COSDictionary dict,
-			byte[] bytes) throws COSSecurityException;
+    byte[] encryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException;
 
-	public byte[] encryptString(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException;
+    byte[] encryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException;
 
-	/**
-	 * The currently active container object in a read or write process.
-	 * 
-	 * @return The currently active container object.
-	 */
-	public COSCompositeObject getContextObject();
+    /**
+     * The currently active container object in a read or write process.
+     *
+     * @return The currently active container object.
+     */
+    COSCompositeObject getContextObject();
 
-	/**
-	 * The length of the encryption key in bits.
-	 * 
-	 * @return The length of the encryption key in bits.
-	 */
-	public int getLength();
+    /**
+     * The length of the encryption key in bits.
+     *
+     * @return The length of the encryption key in bits.
+     */
+    int getLength();
 
-	/**
-	 * The associated pluggable {@link ISecurityHandler}.
-	 * <p>
-	 * By default this is one of the {@link StandardSecurityHandler} instances,
-	 * implementing security behavior of the /Standard security defined in PDF
-	 * spec.
-	 * 
-	 * @return The associated pluggable {@link ISecurityHandler}.
-	 */
-	public ISecurityHandler getSecurityHandler();
+    /**
+     * The associated pluggable {@link ISecurityHandler}.
+     * <p>
+     * By default this is one of the {@link StandardSecurityHandler} instances,
+     * implementing security behavior of the /Standard security defined in PDF
+     * spec.
+     *
+     * @return The associated pluggable {@link ISecurityHandler}.
+     */
+    ISecurityHandler getSecurityHandler();
 
-	/**
-	 * Initialize this {@link ISystemSecurityHandler} with a {@link STDocument}.
-	 * <p>
-	 * The {@link ISystemSecurityHandler} should initialize its state from the
-	 * information in the document structure, in particular from the /Encrypt
-	 * dictionary.
-	 * 
-	 * @param doc
-	 * @throws COSSecurityException
-	 */
-	public void initialize(STDocument doc) throws COSSecurityException;
+    /**
+     * Initialize this {@link ISystemSecurityHandler} with a {@link STDocument}.
+     * <p>
+     * The {@link ISystemSecurityHandler} should initialize its state from the
+     * information in the document structure, in particular from the /Encrypt
+     * dictionary.
+     *
+     * @param doc
+     * @throws COSSecurityException
+     */
+    void initialize(STDocument doc) throws COSSecurityException;
 
-	/**
-	 * Pop the topmost container. This is called from the writer to
-	 * "contextualize" the encryption process.
-	 * 
-	 * @return The previously active container.
-	 */
-	public COSCompositeObject popContextObject();
+    /**
+     * Pop the topmost container. This is called from the writer to
+     * "contextualize" the encryption process.
+     *
+     * @return The previously active container.
+     */
+    COSCompositeObject popContextObject();
 
-	/**
-	 * Push the current container. This is called from the writer to
-	 * "contextualize" the encryption process.
-	 * 
-	 * @param object
-	 *            The new active container.
-	 */
-	public void pushContextObject(COSCompositeObject object);
+    /**
+     * Push the current container. This is called from the writer to
+     * "contextualize" the encryption process.
+     *
+     * @param object The new active container.
+     */
+    void pushContextObject(COSCompositeObject object);
 
-	/**
-	 * Assign a new {@link ISecurityHandler}.
-	 * 
-	 * @param securityHandler
-	 *            The new {@link ISecurityHandler}.
-	 * @throws COSSecurityException
-	 */
-	public void setSecurityHandler(ISecurityHandler securityHandler)
-			throws COSSecurityException;
+    /**
+     * Assign a new {@link ISecurityHandler}.
+     *
+     * @param securityHandler The new {@link ISecurityHandler}.
+     * @throws COSSecurityException
+     */
+    void setSecurityHandler(ISecurityHandler securityHandler) throws COSSecurityException;
 
-	/**
-	 * The associated {@link STDocument}.
-	 * 
-	 * @return The associated {@link STDocument}.
-	 */
-	public STDocument stGetDoc();
+    /**
+     * The associated {@link STDocument}.
+     *
+     * @return The associated {@link STDocument}.
+     */
+    STDocument stGetDoc();
 
-	/**
-	 * Upon writing a new trailer dictionary is created and must be propagated
-	 * to the {@link ISystemSecurityHandler}.
-	 * 
-	 * @param trailer
-	 */
-	public void updateTrailer(COSDictionary trailer);
+    /**
+     * Upon writing a new trailer dictionary is created and must be propagated
+     * to the {@link ISystemSecurityHandler}.
+     *
+     * @param trailer
+     */
+    void updateTrailer(COSDictionary trailer);
 }

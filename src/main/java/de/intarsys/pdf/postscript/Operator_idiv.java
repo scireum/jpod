@@ -30,22 +30,23 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_idiv implements IOperator {
-	public static Operator_idiv Instance;
+    public static Operator_idiv Instance;
 
-	static {
-		Instance = new Operator_idiv();
-	}
+    static {
+        Instance = new Operator_idiv();
+    }
 
-	private Operator_idiv() {
-		super();
-	}
+    private Operator_idiv() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		int operand1;
-		int operand2;
+    @Override
+    public void execute(Handler handler) {
+        int operand1;
+        int operand2;
 
-		operand2 = ((Integer) handler.pop()).intValue();
-		operand1 = ((Integer) handler.pop()).intValue();
-		handler.push(new Integer(operand1 / operand2));
-	}
+        operand2 = ((Integer) handler.pop()).intValue();
+        operand1 = ((Integer) handler.pop()).intValue();
+        handler.push(Integer.valueOf(operand1 / operand2));
+    }
 }

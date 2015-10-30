@@ -30,22 +30,23 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_index implements IOperator {
-	public static Operator_index Instance;
+    public static Operator_index Instance;
 
-	static {
-		Instance = new Operator_index();
-	}
+    static {
+        Instance = new Operator_index();
+    }
 
-	private Operator_index() {
-		super();
-	}
+    private Operator_index() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		int position;
-		Object element;
+    @Override
+    public void execute(Handler handler) {
+        int position;
+        Object element;
 
-		position = ((Integer) handler.pop()).intValue();
-		element = handler.get(handler.size() - 1 - position);
-		handler.push(element);
-	}
+        position = ((Integer) handler.pop()).intValue();
+        element = handler.get(handler.size() - 1 - position);
+        handler.push(element);
+    }
 }

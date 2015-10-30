@@ -40,146 +40,142 @@ import de.intarsys.pdf.cos.COSStream;
 
 /**
  * An object defining the shading to be used when filling a shape.
- * 
  */
 public abstract class PDShading extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class<?> paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class<?> paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public Class<?> getRootClass() {
-			return PDShading.class;
-		}
+        @Override
+        public Class<?> getRootClass() {
+            return PDShading.class;
+        }
 
-		@Override
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			COSDictionary cosDictionary;
+        @Override
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            COSDictionary cosDictionary;
 
-			if (object instanceof COSStream) {
-				// shading types 4-7
-				cosDictionary = object.asStream().getDict();
-			} else {
-				// shading types 1-3
-				cosDictionary = object.asDictionary();
-			}
-			int type = ((COSInteger) cosDictionary.get(DK_ShadingType))
-					.intValue();
-			switch (type) {
-			case SHADING_TYPE_FUNCTIONBASED:
-				return PDFunctionBasedShading.META;
-			case SHADING_TYPE_AXIAL:
-				return PDAxialShading.META;
-			case SHADING_TYPE_RADIAL:
-				return PDRadialShading.META;
-			case SHADING_TYPE_FREEFORM:
-				return PDFreeFormShading.META;
-			case SHADING_TYPE_LATTICEFORM:
-				return PDLatticeFormShading.META;
-			case SHADING_TYPE_COONS:
-				return PDCoonsShading.META;
-			case SHADING_TYPE_TENSORPRODUCT:
-				return PDTensorProductShading.META;
-			default:
-				object.handleException(new COSRuntimeException(
-						"unsupported shading type " + type));
-				return null;
-			}
-		}
-	}
+            if (object instanceof COSStream) {
+                // shading types 4-7
+                cosDictionary = object.asStream().getDict();
+            } else {
+                // shading types 1-3
+                cosDictionary = object.asDictionary();
+            }
+            int type = ((COSInteger) cosDictionary.get(DK_ShadingType)).intValue();
+            switch (type) {
+                case SHADING_TYPE_FUNCTIONBASED:
+                    return PDFunctionBasedShading.META;
+                case SHADING_TYPE_AXIAL:
+                    return PDAxialShading.META;
+                case SHADING_TYPE_RADIAL:
+                    return PDRadialShading.META;
+                case SHADING_TYPE_FREEFORM:
+                    return PDFreeFormShading.META;
+                case SHADING_TYPE_LATTICEFORM:
+                    return PDLatticeFormShading.META;
+                case SHADING_TYPE_COONS:
+                    return PDCoonsShading.META;
+                case SHADING_TYPE_TENSORPRODUCT:
+                    return PDTensorProductShading.META;
+                default:
+                    object.handleException(new COSRuntimeException("unsupported shading type " + type));
+                    return null;
+            }
+        }
+    }
 
-	private static final COSName DK_AntiAlias = COSName.constant("AntiAlias"); //$NON-NLS-1$
+    private static final COSName DK_AntiAlias = COSName.constant("AntiAlias"); //$NON-NLS-1$
 
-	private static final COSName DK_BBox = COSName.constant("BBox"); //$NON-NLS-1$
+    private static final COSName DK_BBox = COSName.constant("BBox"); //$NON-NLS-1$
 
-	private static final COSName DK_ColorSpace = COSName.constant("ColorSpace"); //$NON-NLS-1$
+    private static final COSName DK_ColorSpace = COSName.constant("ColorSpace"); //$NON-NLS-1$
 
-	protected static final COSName DK_ShadingType = COSName
-			.constant("ShadingType"); //$NON-NLS-1$
+    protected static final COSName DK_ShadingType = COSName.constant("ShadingType"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final int SHADING_TYPE_AXIAL = 2;
+    public static final int SHADING_TYPE_AXIAL = 2;
 
-	public static final int SHADING_TYPE_COONS = 6;
+    public static final int SHADING_TYPE_COONS = 6;
 
-	public static final int SHADING_TYPE_FREEFORM = 4;
+    public static final int SHADING_TYPE_FREEFORM = 4;
 
-	public static final int SHADING_TYPE_FUNCTIONBASED = 1;
+    public static final int SHADING_TYPE_FUNCTIONBASED = 1;
 
-	public static final int SHADING_TYPE_LATTICEFORM = 5;
+    public static final int SHADING_TYPE_LATTICEFORM = 5;
 
-	public static final int SHADING_TYPE_RADIAL = 3;
+    public static final int SHADING_TYPE_RADIAL = 3;
 
-	public static final int SHADING_TYPE_TENSORPRODUCT = 7;
+    public static final int SHADING_TYPE_TENSORPRODUCT = 7;
 
-	private boolean antiAlias;
+    private boolean antiAlias;
 
-	private CDSRectangle boundingBox;
+    private CDSRectangle boundingBox;
 
-	private PDColorSpace colorSpace;
+    private PDColorSpace colorSpace;
 
-	protected PDShading(COSObject object) {
-		super(object);
+    protected PDShading(COSObject object) {
+        super(object);
 
-		COSDictionary cosDictionary;
-		COSObject cosAntiAlias;
-		COSObject cosBBox;
+        COSDictionary cosDictionary;
+        COSObject cosAntiAlias;
+        COSObject cosBBox;
 
-		if (object instanceof COSStream) {
-			// shading types 4-7
-			cosDictionary = object.asStream().getDict();
-		} else {
-			// shading types 1-3
-			cosDictionary = object.asDictionary();
-		}
-		cosAntiAlias = cosDictionary.get(DK_AntiAlias);
-		if (cosAntiAlias.isNull()) {
-			antiAlias = false;
-		} else {
-			antiAlias = cosAntiAlias.asBoolean().booleanValue();
-		}
+        if (object instanceof COSStream) {
+            // shading types 4-7
+            cosDictionary = object.asStream().getDict();
+        } else {
+            // shading types 1-3
+            cosDictionary = object.asDictionary();
+        }
+        cosAntiAlias = cosDictionary.get(DK_AntiAlias);
+        if (cosAntiAlias.isNull()) {
+            antiAlias = false;
+        } else {
+            antiAlias = cosAntiAlias.asBoolean().booleanValue();
+        }
 
-		cosBBox = cosDictionary.get(DK_BBox);
-		if (cosBBox.isNull()) {
-			boundingBox = null;
-		} else {
-			boundingBox = CDSRectangle.createFromCOS(cosBBox.asArray());
-		}
+        cosBBox = cosDictionary.get(DK_BBox);
+        if (cosBBox.isNull()) {
+            boundingBox = null;
+        } else {
+            boundingBox = CDSRectangle.createFromCOS(cosBBox.asArray());
+        }
 
-		// color space will be resolved lazily
-	}
+        // color space will be resolved lazily
+    }
 
-	public CDSRectangle getBoundingBox() {
-		return boundingBox;
-	}
+    public CDSRectangle getBoundingBox() {
+        return boundingBox;
+    }
 
-	public PDColorSpace getColorSpace() {
-		if (colorSpace == null) {
-			COSDictionary cosDictionary;
+    public PDColorSpace getColorSpace() {
+        if (colorSpace == null) {
+            COSDictionary cosDictionary;
 
-			if (cosGetObject() instanceof COSStream) {
-				// shading types 4-7
-				cosDictionary = cosGetObject().asStream().getDict();
-			} else {
-				// shading types 1-3
-				cosDictionary = cosGetObject().asDictionary();
-			}
-			colorSpace = (PDColorSpace) PDColorSpace.META
-					.createFromCos(cosDictionary.get(DK_ColorSpace));
-		}
-		return colorSpace;
-	}
+            if (cosGetObject() instanceof COSStream) {
+                // shading types 4-7
+                cosDictionary = cosGetObject().asStream().getDict();
+            } else {
+                // shading types 1-3
+                cosDictionary = cosGetObject().asDictionary();
+            }
+            colorSpace = (PDColorSpace) PDColorSpace.META.createFromCos(cosDictionary.get(DK_ColorSpace));
+        }
+        return colorSpace;
+    }
 
-	public abstract int getShadingType();
+    public abstract int getShadingType();
 
-	public boolean isAntiAlias() {
-		return antiAlias;
-	}
+    public boolean isAntiAlias() {
+        return antiAlias;
+    }
 }

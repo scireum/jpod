@@ -29,23 +29,21 @@
  */
 package de.intarsys.pdf.app.acroform;
 
-import java.util.Map;
-
 import de.intarsys.pdf.pd.PDDocument;
+
+import java.util.Map;
 
 /**
  * A factory form {@link IFormHandler} instances. An {@link IFormHandler} is
  * always attached to a concrete {@link PDDocument}.
- * 
  */
 public interface IFormHandlerFactory {
-	/**
-	 * Get the {@link IFormHandler} related to {@link PDDocument}.
-	 * 
-	 * @param doc
-	 *            The document whose {@link IFormHandler} is requested.
-	 * @param options TODO
-	 * @return Get the {@link IFormHandler} related to {@link PDDocument}.
-	 */
-	public IFormHandler createFormHandler(PDDocument doc, Map options);
+    /**
+     * Get the {@link IFormHandler} related to {@link PDDocument}.
+     *
+     * @param doc     The document whose {@link IFormHandler} is requested.
+     * @param options TODO
+     * @return Get the {@link IFormHandler} related to {@link PDDocument}.
+     */
+    IFormHandler createFormHandler(PDDocument doc, Map options);
 }

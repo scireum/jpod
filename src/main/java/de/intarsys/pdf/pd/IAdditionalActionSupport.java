@@ -29,21 +29,20 @@
  */
 package de.intarsys.pdf.pd;
 
-import java.util.Set;
-
 import de.intarsys.pdf.cos.COSName;
+
+import java.util.Set;
 
 /**
  * A PD object that supports additional actions. Additional actions are actions
  * associated with a variety of trigger events.
- * 
  */
 public interface IAdditionalActionSupport {
-	public static final COSName DK_AA = COSName.constant("AA");  //$NON-NLS-1$
+    COSName DK_AA = COSName.constant("AA");  //$NON-NLS-1$
 
-	public PDAdditionalActions getAdditionalActions();
+    PDAdditionalActions getAdditionalActions();
 
-	public void setAdditionalActions(PDAdditionalActions actions);
+    void setAdditionalActions(PDAdditionalActions actions);
 
-	public Set getSupportedTriggerEvents();
+    Set getSupportedTriggerEvents();
 }

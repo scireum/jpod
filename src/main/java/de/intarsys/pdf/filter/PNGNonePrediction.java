@@ -32,13 +32,12 @@ package de.intarsys.pdf.filter;
 import de.intarsys.pdf.cos.COSDictionary;
 
 public class PNGNonePrediction extends PNGPrediction {
-	public PNGNonePrediction(COSDictionary options) {
-		super(options);
-	}
+    public PNGNonePrediction(COSDictionary options) {
+        super(options);
+    }
 
-	protected void decodeRow(byte[] source, int sourceOffset, byte[] result,
-			int resultOffset) {
-		System.arraycopy(source, sourceOffset + 1, result, resultOffset,
-				getResultRowSize());
-	}
+    @Override
+    protected void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
+        System.arraycopy(source, sourceOffset + 1, result, resultOffset, getResultRowSize());
+    }
 }

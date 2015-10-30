@@ -41,53 +41,53 @@ package de.intarsys.pdf.pd;
  * </ul>
  */
 public class OutlineItemFlags extends AbstractBitFlags {
-	static public final int Bit_Italic = 1;
+    public static final int Bit_Italic = 1;
 
-	static public final int Bit_Bold = 1 << 1;
+    public static final int Bit_Bold = 1 << 1;
 
-	private PDOutlineItem outlineItem;
+    private PDOutlineItem outlineItem;
 
-	public OutlineItemFlags(int value) {
-		super(value);
-	}
+    public OutlineItemFlags(int value) {
+        super(value);
+    }
 
-	public OutlineItemFlags(PDOutlineItem outlineItem) {
-		super(outlineItem, null);
-		this.outlineItem = outlineItem;
-	}
+    public OutlineItemFlags(PDOutlineItem outlineItem) {
+        super(outlineItem, null);
+        this.outlineItem = outlineItem;
+    }
 
-	protected PDOutlineItem getOutlineItem() {
-		return outlineItem;
-	}
+    protected PDOutlineItem getOutlineItem() {
+        return outlineItem;
+    }
 
-	@Override
-	protected int getValueInObject() {
-		return getOutlineItem().basicGetFlags();
-	}
+    @Override
+    protected int getValueInObject() {
+        return getOutlineItem().basicGetFlags();
+    }
 
-	public boolean isBold() {
-		return isSetAnd(Bit_Bold);
-	}
+    public boolean isBold() {
+        return isSetAnd(Bit_Bold);
+    }
 
-	public boolean isItalic() {
-		return isSetAnd(Bit_Italic);
-	}
+    public boolean isItalic() {
+        return isSetAnd(Bit_Italic);
+    }
 
-	public void setBold(boolean flag) {
-		set(Bit_Bold, flag);
-	}
+    public void setBold(boolean flag) {
+        set(Bit_Bold, flag);
+    }
 
-	public void setItalic(boolean flag) {
-		set(Bit_Italic, flag);
-	}
+    public void setItalic(boolean flag) {
+        set(Bit_Italic, flag);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.AbstractBitFlags#setValue(int)
-	 */
-	@Override
-	protected void setValueInObject(int newValue) {
-		getOutlineItem().basicSetFlags(newValue);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.AbstractBitFlags#setValue(int)
+     */
+    @Override
+    protected void setValueInObject(int newValue) {
+        getOutlineItem().basicSetFlags(newValue);
+    }
 }

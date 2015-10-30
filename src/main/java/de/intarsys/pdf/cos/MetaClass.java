@@ -33,39 +33,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MetaClass {
-	static private Map metaClasses = new HashMap();
+    private static Map metaClasses = new HashMap();
 
-	protected final Class instanceClass;
+    protected final Class instanceClass;
 
-	public MetaClass(Class instanceClass) {
-		super();
-		this.instanceClass = instanceClass;
-		register(this);
-	}
+    public MetaClass(Class instanceClass) {
+        super();
+        this.instanceClass = instanceClass;
+        register(this);
+    }
 
-	final public Class getInstanceClass() {
-		return instanceClass;
-	}
+    public final Class getInstanceClass() {
+        return instanceClass;
+    }
 
-	public Class getRootClass() {
-		return getInstanceClass();
-	}
+    public Class getRootClass() {
+        return getInstanceClass();
+    }
 
-	static public synchronized MetaClass lookup(Class clazz) {
-		MetaClass result = (MetaClass) metaClasses.get(clazz);
-		if (result == null) {
-			clazz.getClasses();
-			try {
-				Class.forName(clazz.getName());
-			} catch (ClassNotFoundException e) {
-				// ignore
-			}
-			result = (MetaClass) metaClasses.get(clazz);
-		}
-		return result;
-	}
+    public static synchronized MetaClass lookup(Class clazz) {
+        MetaClass result = (MetaClass) metaClasses.get(clazz);
+        if (result == null) {
+            clazz.getClasses();
+            try {
+                Class.forName(clazz.getName());
+            } catch (ClassNotFoundException e) {
+                // ignore
+            }
+            result = (MetaClass) metaClasses.get(clazz);
+        }
+        return result;
+    }
 
-	static private synchronized void register(MetaClass metaClass) {
-		metaClasses.put(metaClass.getInstanceClass(), metaClass);
-	}
+    private static synchronized void register(MetaClass metaClass) {
+        metaClasses.put(metaClass.getInstanceClass(), metaClass);
+    }
 }

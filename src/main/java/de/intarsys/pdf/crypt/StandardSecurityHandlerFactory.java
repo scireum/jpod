@@ -35,35 +35,35 @@ import de.intarsys.pdf.cos.COSName;
  * A standard implementation for the {@link ISecurityHandlerFactory}.
  */
 public class StandardSecurityHandlerFactory implements ISecurityHandlerFactory {
-	public static final COSName CN_Standard = COSName.constant("Standard"); //$NON-NLS-1$
+    public static final COSName CN_Standard = COSName.constant("Standard"); //$NON-NLS-1$
 
-	protected StandardSecurityHandlerFactory() {
-		super();
-	}
+    protected StandardSecurityHandlerFactory() {
+        super();
+    }
 
-	public static final COSName DK_R = COSName.constant("R"); //$NON-NLS-1$
+    public static final COSName DK_R = COSName.constant("R"); //$NON-NLS-1$
 
-	public ISecurityHandler getSecurityHandler(COSEncryption encryption)
-			throws COSSecurityException {
-		COSName name = encryption.getFilter();
-		if (name == null) {
-			throw new COSSecurityException("security handler not specified"); //$NON-NLS-1$
-		}
-		if (name.equals(CN_Standard)) {
-			int revision = encryption.getFieldInt(DK_R, 0);
-			if (revision == 2) {
-				return new StandardSecurityHandlerR2();
-			} else if (revision == 3) {
-				return new StandardSecurityHandlerR3();
-			} else if (revision == 4) {
-				return new StandardSecurityHandlerR4();
-			} else {
-				return new StandardSecurityHandlerR2();
-			}
-		}
+    @Override
+    public ISecurityHandler getSecurityHandler(COSEncryption encryption) throws COSSecurityException {
+        COSName name = encryption.getFilter();
+        if (name == null) {
+            throw new COSSecurityException("security handler not specified"); //$NON-NLS-1$
+        }
+        if (name.equals(CN_Standard)) {
+            int revision = encryption.getFieldInt(DK_R, 0);
+            if (revision == 2) {
+                return new StandardSecurityHandlerR2();
+            } else if (revision == 3) {
+                return new StandardSecurityHandlerR3();
+            } else if (revision == 4) {
+                return new StandardSecurityHandlerR4();
+            } else {
+                return new StandardSecurityHandlerR2();
+            }
+        }
 
-		// maybe provide a registry some day
-		throw new COSSecurityException("no security handler '" //$NON-NLS-1$
-				+ name.stringValue() + "'"); //$NON-NLS-1$
-	}
+        // maybe provide a registry some day
+        throw new COSSecurityException("no security handler '" //$NON-NLS-1$
+                                       + name.stringValue() + "'"); //$NON-NLS-1$
+    }
 }

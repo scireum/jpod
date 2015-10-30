@@ -37,86 +37,84 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * Application specific transparently handled data objects.
- * 
  */
 public class PDApplicationData extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDApplicationData(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDApplicationData(object);
+        }
+    }
 
-	static public final COSName DK_LastModified = COSName
-			.constant("LastModified");
+    public static final COSName DK_LastModified = COSName.constant("LastModified");
 
-	static public final COSName DK_Private = COSName.constant("Private");
+    public static final COSName DK_Private = COSName.constant("Private");
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/**
-	 * Create the receiver class from an already defined {@link COSDictionary}.
-	 * NEVER use the constructor directly.
-	 * 
-	 * @param object
-	 *            the PDDocument containing the new object
-	 */
-	protected PDApplicationData(COSObject object) {
-		super(object);
-	}
+    /**
+     * Create the receiver class from an already defined {@link COSDictionary}.
+     * NEVER use the constructor directly.
+     *
+     * @param object the PDDocument containing the new object
+     */
+    protected PDApplicationData(COSObject object) {
+        super(object);
+    }
 
-	/**
-	 * Assign the private data.
-	 * 
-	 * @param data
-	 *            The private data for this.
-	 * 
-	 * @return The /Private entry previously associated with this.
-	 */
-	public COSObject cosSetData(COSObject data) {
-		return cosSetField(DK_Private, data);
-	}
+    /**
+     * Assign the private data.
+     *
+     * @param data The private data for this.
+     * @return The /Private entry previously associated with this.
+     */
+    public COSObject cosSetData(COSObject data) {
+        return cosSetField(DK_Private, data);
+    }
 
-	/**
-	 * The private data entry or <code>COSNull</code>
-	 * 
-	 * @return The private data entry or <code>COSNull</code>
-	 */
-	public COSObject cosGetData() {
-		return cosGetField(DK_Private);
-	}
+    /**
+     * The private data entry or {@code COSNull}
+     *
+     * @return The private data entry or {@code COSNull}
+     */
+    public COSObject cosGetData() {
+        return cosGetField(DK_Private);
+    }
 
-	/**
-	 * The timestamp of th elast modification.
-	 * 
-	 * @return The timestamp of th elast modification.
-	 */
-	public CDSDate getLastModification() {
-		return CDSDate.createFromCOS(cosGetField(DK_LastModified).asString());
-	}
+    /**
+     * The timestamp of th elast modification.
+     *
+     * @return The timestamp of th elast modification.
+     */
+    public CDSDate getLastModification() {
+        return CDSDate.createFromCOS(cosGetField(DK_LastModified).asString());
+    }
 
-	/**
-	 * Assign a new timestamp for the last modification.
-	 */
-	public void touch() {
-		setFieldObject(DK_LastModified, new CDSDate());
-	}
+    /**
+     * Assign a new timestamp for the last modification.
+     */
+    public void touch() {
+        setFieldObject(DK_LastModified, new CDSDate());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#initializeFromScratch()
-	 */
-	protected void initializeFromScratch() {
-		super.initializeFromScratch();
-		touch();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#initializeFromScratch()
+     */
+    @Override
+    protected void initializeFromScratch() {
+        super.initializeFromScratch();
+        touch();
+    }
 }

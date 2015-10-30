@@ -31,27 +31,28 @@ package de.intarsys.pdf.app.acroform;
 
 /**
  * The singleton for accessing the VM {@link IFormHandlerFactory}.
- * 
  */
 public class FormHandlerFactory {
-	private static IFormHandlerFactory ACTIVE = new StandardFormHandlerFactory();
+    private static IFormHandlerFactory ACTIVE = new StandardFormHandlerFactory();
 
-	/**
-	 * The active {@link IFormHandlerFactory} for the VM.
-	 * 
-	 * @return The active Factory.
-	 */
-	public static IFormHandlerFactory get() {
-		return ACTIVE;
-	}
+    private FormHandlerFactory() {
+    }
 
-	/**
-	 * Set the active {@link IFormHandlerFactory} for the VM.
-	 * 
-	 * @param factory
-	 *            The new {@link IFormHandlerFactory} singleton.
-	 */
-	public static void set(IFormHandlerFactory factory) {
-		ACTIVE = factory;
-	}
+    /**
+     * The active {@link IFormHandlerFactory} for the VM.
+     *
+     * @return The active Factory.
+     */
+    public static IFormHandlerFactory get() {
+        return ACTIVE;
+    }
+
+    /**
+     * Set the active {@link IFormHandlerFactory} for the VM.
+     *
+     * @param factory The new {@link IFormHandlerFactory} singleton.
+     */
+    public static void set(IFormHandlerFactory factory) {
+        ACTIVE = factory;
+    }
 }

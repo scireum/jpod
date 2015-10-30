@@ -35,46 +35,46 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * A Type 1 based CID font.
- * 
  */
 public class CIDFontType0 extends CIDFont {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends CIDFont.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends CIDFont.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new CIDFontType0(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new CIDFontType0(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/**
-	 * @param object
-	 */
-	public CIDFontType0(COSObject object) {
-		super(object);
-	}
+    /**
+     * @param object
+     */
+    public CIDFontType0(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	protected COSName cosGetExpectedSubtype() {
-		return CN_Subtype_CIDFontType0;
-	}
+    @Override
+    protected COSName cosGetExpectedSubtype() {
+        return CN_Subtype_CIDFontType0;
+    }
 
-	@Override
-	public String getFontType() {
-		return "Type1";
-	}
+    @Override
+    public String getFontType() {
+        return "Type1";
+    }
 
-	@Override
-	public int getGlyphIndex(int cid) {
-		return cid;
-	}
+    @Override
+    public int getGlyphIndex(int cid) {
+        return cid;
+    }
 }

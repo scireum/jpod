@@ -29,71 +29,51 @@
  */
 package de.intarsys.pdf.filter;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSName;
+
+import java.io.IOException;
 
 /**
  * Factory to create pdf filtering streams by name.
  */
 public class StandardFilterFactory implements IFilterFactory {
-	public StandardFilterFactory() {
-	}
 
-	/**
-	 * Create an {@link IFilter} that can deliver decoded bytes.
-	 * 
-	 * @param filterName
-	 *            Filter name to lookup
-	 * @param options
-	 *            The options to use for the filter.
-	 * 
-	 * @return An {@link IFilter}
-	 * 
-	 * @throws IOException
-	 */
-	public IFilter createFilter(COSName filterName, COSDictionary options)
-			throws IOException {
-		IFilter result = null;
-		if (filterName.equals(Filter.CN_Filter_FlateDecode)) {
-			result = new FlateFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_Fl)) {
-			result = new FlateFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_ASCIIHexDecode)) {
-			result = new ASCIIHexFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_AHx)) {
-			result = new ASCIIHexFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_ASCII85Decode)) {
-			result = new ASCII85Filter(options);
-		} else if (filterName.equals(Filter.CN_Filter_A85)) {
-			result = new ASCII85Filter(options);
-		} else if (filterName.equals(Filter.CN_Filter_LZWDecode)) {
-			result = new LZWFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_LZW)) {
-			result = new LZWFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_RunLengthDecode)) {
-			result = new RunLengthFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_RL)) {
-			result = new RunLengthFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_CCITTFaxDecode)) {
-			result = new CCITTFaxFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_CCF)) {
-			result = new CCITTFaxFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_JBIG2Decode)) {
-			result = new JBIG2Filter(options);
-		} else if (filterName.equals(Filter.CN_Filter_DCTDecode)) {
-			result = new DCTFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_DCT)) {
-			result = new DCTFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_JPXDecode)) {
-			result = new JPXFilter(options);
-		} else if (filterName.equals(Filter.CN_Filter_Crypt)) {
-			result = new CryptFilter(options);
-		}
-		if (result == null) {
-			throw new IOException("unknown filter:" + filterName);
-		}
-		return result;
-	}
+    /**
+     * Create an {@link IFilter} that can deliver decoded bytes.
+     *
+     * @param filterName Filter name to lookup
+     * @param options    The options to use for the filter.
+     * @return An {@link IFilter}
+     * @throws IOException
+     */
+    @Override
+    public IFilter createFilter(COSName filterName, COSDictionary options) throws IOException {
+        IFilter result = null;
+        if (filterName.equals(Filter.CN_Filter_FlateDecode) || filterName.equals(Filter.CN_Filter_Fl)) {
+            result = new FlateFilter(options);
+        } else if (filterName.equals(Filter.CN_Filter_ASCIIHexDecode) || filterName.equals(Filter.CN_Filter_AHx)) {
+            result = new ASCIIHexFilter(options);
+        } else if (filterName.equals(Filter.CN_Filter_ASCII85Decode) || filterName.equals(Filter.CN_Filter_A85)) {
+            result = new ASCII85Filter(options);
+        } else if (filterName.equals(Filter.CN_Filter_LZWDecode) || filterName.equals(Filter.CN_Filter_LZW)) {
+            result = new LZWFilter(options);
+        } else if (filterName.equals(Filter.CN_Filter_RunLengthDecode) || filterName.equals(Filter.CN_Filter_RL)) {
+            result = new RunLengthFilter(options);
+        } else if (filterName.equals(Filter.CN_Filter_CCITTFaxDecode) || filterName.equals(Filter.CN_Filter_CCF)) {
+            result = new CCITTFaxFilter(options);
+        } else if (filterName.equals(Filter.CN_Filter_JBIG2Decode)) {
+            result = new JBIG2Filter(options);
+        } else if (filterName.equals(Filter.CN_Filter_DCTDecode) || filterName.equals(Filter.CN_Filter_DCT)) {
+            result = new DCTFilter(options);
+        } else if (filterName.equals(Filter.CN_Filter_JPXDecode)) {
+            result = new JPXFilter(options);
+        } else if (filterName.equals(Filter.CN_Filter_Crypt)) {
+            result = new CryptFilter(options);
+        }
+        if (result == null) {
+            throw new IOException("unknown filter:" + filterName);
+        }
+        return result;
+    }
 }

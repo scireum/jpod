@@ -35,223 +35,203 @@ import de.intarsys.pdf.cds.CDSDate;
  * The document information dictionary..
  */
 public class COSInfoDict extends COSBasedObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends COSBasedObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends COSBasedObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new COSInfoDict(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new COSInfoDict(object);
+        }
+    }
 
-	/** Well known attributes */
-	public static final COSName DK_CreationDate = COSName
-			.constant("CreationDate"); //$NON-NLS-1$
+    /**
+     * Well known attributes
+     */
+    public static final COSName DK_CreationDate = COSName.constant("CreationDate"); //$NON-NLS-1$
 
-	public static final COSName DK_Creator = COSName.constant("Creator"); //$NON-NLS-1$
+    public static final COSName DK_Creator = COSName.constant("Creator"); //$NON-NLS-1$
 
-	public static final COSName DK_ModDate = COSName.constant("ModDate"); //$NON-NLS-1$
+    public static final COSName DK_ModDate = COSName.constant("ModDate"); //$NON-NLS-1$
 
-	public static final COSName DK_Producer = COSName.constant("Producer"); //$NON-NLS-1$
+    public static final COSName DK_Producer = COSName.constant("Producer"); //$NON-NLS-1$
 
-	public static final COSName DK_Title = COSName.constant("Title"); //$NON-NLS-1$
+    public static final COSName DK_Title = COSName.constant("Title"); //$NON-NLS-1$
 
-	public static final COSName DK_Author = COSName.constant("Author"); //$NON-NLS-1$
+    public static final COSName DK_Author = COSName.constant("Author"); //$NON-NLS-1$
 
-	public static final COSName DK_Subject = COSName.constant("Subject"); //$NON-NLS-1$
+    public static final COSName DK_Subject = COSName.constant("Subject"); //$NON-NLS-1$
 
-	public static final COSName DK_Keywords = COSName.constant("Keywords"); //$NON-NLS-1$
+    public static final COSName DK_Keywords = COSName.constant("Keywords"); //$NON-NLS-1$
 
-	public static final COSName DK_Trapped = COSName.constant("Trapped"); //$NON-NLS-1$
+    public static final COSName DK_Trapped = COSName.constant("Trapped"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected COSInfoDict(COSObject object) {
-		super(object);
-	}
+    protected COSInfoDict(COSObject object) {
+        super(object);
+    }
 
-	/**
-	 * The /Author field in the info dictionary.
-	 * 
-	 */
-	public String getAuthor() {
-		return getFieldString(DK_Author, null);
-	}
+    /**
+     * The /Author field in the info dictionary.
+     */
+    public String getAuthor() {
+        return getFieldString(DK_Author, null);
+    }
 
-	/**
-	 * The /CreationDate field in the info dictionary.
-	 * 
-	 */
-	public CDSDate getCreationDate() {
-		return getFieldDate(DK_CreationDate, null);
-	}
+    /**
+     * The /CreationDate field in the info dictionary.
+     */
+    public CDSDate getCreationDate() {
+        return getFieldDate(DK_CreationDate, null);
+    }
 
-	/**
-	 * The /CreationDate field in the info dictionary as a {@link String}.
-	 * 
-	 */
-	public String getCreationDateString() {
-		return getFieldString(DK_CreationDate, null);
-	}
+    /**
+     * The /CreationDate field in the info dictionary as a {@link String}.
+     */
+    public String getCreationDateString() {
+        return getFieldString(DK_CreationDate, null);
+    }
 
-	/**
-	 * The /Creator field in the info dictionary.
-	 * 
-	 */
-	public String getCreator() {
-		return getFieldString(DK_Creator, null);
-	}
+    /**
+     * The /Creator field in the info dictionary.
+     */
+    public String getCreator() {
+        return getFieldString(DK_Creator, null);
+    }
 
-	/**
-	 * The /Keywords field in the info dictionary.
-	 * 
-	 */
-	public String getKeywords() {
-		return getFieldString(DK_Keywords, null);
-	}
+    /**
+     * The /Keywords field in the info dictionary.
+     */
+    public String getKeywords() {
+        return getFieldString(DK_Keywords, null);
+    }
 
-	/**
-	 * The /ModDate field in the info dictionary.
-	 * 
-	 */
-	public CDSDate getModDate() {
-		return getFieldDate(DK_ModDate, null);
-	}
+    /**
+     * The /ModDate field in the info dictionary.
+     */
+    public CDSDate getModDate() {
+        return getFieldDate(DK_ModDate, null);
+    }
 
-	/**
-	 * The /ModDate field in the info dictionary as a {@link String}.
-	 * 
-	 */
-	public String getModDateString() {
-		return getFieldString(DK_ModDate, null);
-	}
+    /**
+     * The /ModDate field in the info dictionary as a {@link String}.
+     */
+    public String getModDateString() {
+        return getFieldString(DK_ModDate, null);
+    }
 
-	/**
-	 * The /Producer field in the info dictionary.
-	 * 
-	 */
-	public String getProducer() {
-		return getFieldString(DK_Producer, null);
-	}
+    /**
+     * The /Producer field in the info dictionary.
+     */
+    public String getProducer() {
+        return getFieldString(DK_Producer, null);
+    }
 
-	/**
-	 * The /Subject field in the info dictionary.
-	 * 
-	 */
-	public String getSubject() {
-		return getFieldString(DK_Subject, null);
-	}
+    /**
+     * The /Subject field in the info dictionary.
+     */
+    public String getSubject() {
+        return getFieldString(DK_Subject, null);
+    }
 
-	/**
-	 * The /Title field in the info dictionary.
-	 * 
-	 */
-	public String getTitle() {
-		return getFieldString(DK_Title, null);
-	}
+    /**
+     * The /Title field in the info dictionary.
+     */
+    public String getTitle() {
+        return getFieldString(DK_Title, null);
+    }
 
-	/**
-	 * The /Trapped field in the info dictionary.
-	 * 
-	 */
-	public String getTrapped() {
-		return getFieldString(DK_Trapped, null);
-	}
+    /**
+     * The /Trapped field in the info dictionary.
+     */
+    public String getTrapped() {
+        return getFieldString(DK_Trapped, null);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSBasedObject#initializeFromScratch()
-	 */
-	@Override
-	protected void initializeFromScratch() {
-		super.initializeFromScratch();
-		cosSetField(DK_Creator, COSString
-				.create("jPod intarsys consulting pdf library") //$NON-NLS-1$
-		);
-		cosSetField(DK_CreationDate, new CDSDate().cosGetObject());
-		cosSetField(DK_Producer, COSString
-				.create("jPod intarsys consulting pdf library") //$NON-NLS-1$
-		);
-		cosSetField(DK_ModDate, new CDSDate().cosGetObject());
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSBasedObject#initializeFromScratch()
+     */
+    @Override
+    protected void initializeFromScratch() {
+        super.initializeFromScratch();
+        cosSetField(DK_Creator, COSString.create("jPod intarsys consulting pdf library") //$NON-NLS-1$
+        );
+        cosSetField(DK_CreationDate, new CDSDate().cosGetObject());
+        cosSetField(DK_Producer, COSString.create("jPod intarsys consulting pdf library") //$NON-NLS-1$
+        );
+        cosSetField(DK_ModDate, new CDSDate().cosGetObject());
+    }
 
-	/**
-	 * Set the /Author field in the info dictionary.
-	 * 
-	 */
-	public void setAuthor(String value) {
-		setFieldString(DK_Author, value);
-	}
+    /**
+     * Set the /Author field in the info dictionary.
+     */
+    public void setAuthor(String value) {
+        setFieldString(DK_Author, value);
+    }
 
-	/**
-	 * Set the /CreationDate field in the info dictionary.
-	 * 
-	 */
-	public void setCreationDate(String value) {
-		setFieldString(DK_CreationDate, value);
-	}
+    /**
+     * Set the /CreationDate field in the info dictionary.
+     */
+    public void setCreationDate(String value) {
+        setFieldString(DK_CreationDate, value);
+    }
 
-	/**
-	 * Set the /Creator field in the info dictionary.
-	 * 
-	 */
-	public void setCreator(String value) {
-		setFieldString(DK_Creator, value);
-	}
+    /**
+     * Set the /Creator field in the info dictionary.
+     */
+    public void setCreator(String value) {
+        setFieldString(DK_Creator, value);
+    }
 
-	/**
-	 * Set the /Keywords field in the info dictionary.
-	 * 
-	 */
-	public void setKeywords(String value) {
-		setFieldString(DK_Keywords, value);
-	}
+    /**
+     * Set the /Keywords field in the info dictionary.
+     */
+    public void setKeywords(String value) {
+        setFieldString(DK_Keywords, value);
+    }
 
-	/**
-	 * Set the /ModDate field in the info dictionary.
-	 * 
-	 */
-	public void setModDate(String value) {
-		setFieldString(DK_ModDate, value);
-	}
+    /**
+     * Set the /ModDate field in the info dictionary.
+     */
+    public void setModDate(String value) {
+        setFieldString(DK_ModDate, value);
+    }
 
-	/**
-	 * Set the /Producer field in the info dictionary.
-	 * 
-	 */
-	public void setProducer(String value) {
-		setFieldString(DK_Producer, value);
-	}
+    /**
+     * Set the /Producer field in the info dictionary.
+     */
+    public void setProducer(String value) {
+        setFieldString(DK_Producer, value);
+    }
 
-	/**
-	 * Set the /Subject field in the info dictionary.
-	 * 
-	 */
-	public void setSubject(String value) {
-		setFieldString(DK_Subject, value);
-	}
+    /**
+     * Set the /Subject field in the info dictionary.
+     */
+    public void setSubject(String value) {
+        setFieldString(DK_Subject, value);
+    }
 
-	/**
-	 * Set the /Title field in the info dictionary.
-	 * 
-	 */
-	public void setTitle(String value) {
-		setFieldString(DK_Title, value);
-	}
+    /**
+     * Set the /Title field in the info dictionary.
+     */
+    public void setTitle(String value) {
+        setFieldString(DK_Title, value);
+    }
 
-	/**
-	 * Set the /Trapped field in the info dictionary.
-	 * 
-	 */
-	public void setTrapped(String value) {
-		setFieldName(DK_Trapped, value);
-	}
+    /**
+     * Set the /Trapped field in the info dictionary.
+     */
+    public void setTrapped(String value) {
+        setFieldName(DK_Trapped, value);
+    }
 }

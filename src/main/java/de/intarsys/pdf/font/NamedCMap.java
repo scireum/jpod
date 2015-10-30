@@ -29,50 +29,50 @@
  */
 package de.intarsys.pdf.font;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import de.intarsys.pdf.content.CSContent;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.tools.stream.StreamTools;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
- * 
+ *
  */
 public class NamedCMap extends StreamBasedCMap {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends StreamBasedCMap.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
-	}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends StreamBasedCMap.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	static public CMap loadCMap(COSName name) {
-		ClassLoader loader = NamedCMap.class.getClassLoader();
-		InputStream is = loader.getResourceAsStream("cmaps/"
-				+ name.stringValue() + ".cmap");
-		if (is == null) {
-			return null;
-		}
-		try {
-			byte[] bytes = StreamTools.toByteArray(is);
-			NamedCMap map = new NamedCMap(name);
-			CSContent content = CSContent.createFromBytes(bytes);
-			map.initializeFromContent(content);
-			return map;
-		} catch (IOException e) {
-			return null;
-		}
-	}
+    public static CMap loadCMap(COSName name) {
+        ClassLoader loader = NamedCMap.class.getClassLoader();
+        InputStream is = loader.getResourceAsStream("cmaps/" + name.stringValue() + ".cmap");
+        if (is == null) {
+            return null;
+        }
+        try {
+            byte[] bytes = StreamTools.toByteArray(is);
+            NamedCMap map = new NamedCMap(name);
+            CSContent content = CSContent.createFromBytes(bytes);
+            map.initializeFromContent(content);
+            return map;
+        } catch (IOException ignored) {
+            return null;
+        }
+    }
 
-	protected NamedCMap(COSObject object) {
-		super(object);
-	}
+    protected NamedCMap(COSObject object) {
+        super(object);
+    }
 }

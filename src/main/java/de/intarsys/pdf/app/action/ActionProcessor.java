@@ -33,27 +33,29 @@ package de.intarsys.pdf.app.action;
  * A singleton for the {@link IActionProcessor}.
  */
 public class ActionProcessor {
-	/**
-	 * The current implementation of the {@link IActionProcessor}.
-	 */
-	private static IActionProcessor Active = new StandardActionProcessor();
+    /**
+     * The current implementation of the {@link IActionProcessor}.
+     */
+    private static IActionProcessor Active = new StandardActionProcessor();
 
-	/**
-	 * Set the active {@link IActionProcessor} for the VM.
-	 * 
-	 * @param active
-	 *            The new active {@link IActionProcessor}.
-	 */
-	public static void set(IActionProcessor active) {
-		Active = active;
-	}
+    private ActionProcessor() {
+    }
 
-	/**
-	 * The active {@link IActionHandlerRegistry} for the VM.
-	 * 
-	 * @return The active {@link IActionHandlerRegistry} for the VM.
-	 */
-	public static IActionProcessor get() {
-		return Active;
-	}
+    /**
+     * Set the active {@link IActionProcessor} for the VM.
+     *
+     * @param active The new active {@link IActionProcessor}.
+     */
+    public static void set(IActionProcessor active) {
+        Active = active;
+    }
+
+    /**
+     * The active {@link IActionHandlerRegistry} for the VM.
+     *
+     * @return The active {@link IActionHandlerRegistry} for the VM.
+     */
+    public static IActionProcessor get() {
+        return Active;
+    }
 }

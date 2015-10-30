@@ -31,50 +31,49 @@ package de.intarsys.pdf.font;
 
 /**
  * A special map from a character code to a character code.
- * 
  */
 public class CMapBFCharCodeMap extends CMapCharMap {
 
-	private final int destination;
+    private final int destination;
 
-	public CMapBFCharCodeMap(byte[] source, byte[] destination) {
-		super(source);
-		this.destination = CMap.toInt(destination);
-	}
+    public CMapBFCharCodeMap(byte[] source, byte[] destination) {
+        super(source);
+        this.destination = CMap.toInt(destination);
+    }
 
-	/**
-	 * The CID value for the codepoint.
-	 * 
-	 * @return The CID value for the codepoint.
-	 */
-	public int getDestination() {
-		return destination;
-	}
+    /**
+     * The CID value for the codepoint.
+     *
+     * @return The CID value for the codepoint.
+     */
+    public int getDestination() {
+        return destination;
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		if (source == codepoint) {
-			return new char[] { (char) destination };
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        if (source == codepoint) {
+            return new char[]{(char) destination};
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		if (source == codepoint) {
-			return destination;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCID(int codepoint) {
+        if (source == codepoint) {
+            return destination;
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		if (destination == cid) {
-			return source;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCodepoint(int cid) {
+        if (destination == cid) {
+            return source;
+        } else {
+            return 0;
+        }
+    }
 }

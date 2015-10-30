@@ -29,20 +29,20 @@
  */
 package de.intarsys.pdf.postscript;
 
-
 public class Operator_atan implements IOperator {
-	public static Operator_atan Instance;
+    public static Operator_atan Instance;
 
-	static {
-		Instance = new Operator_atan();
-	}
+    static {
+        Instance = new Operator_atan();
+    }
 
-	private Operator_atan() {
-		super();
-	}
+    private Operator_atan() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		// not sure what the java equivalent for this is
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public void execute(Handler handler) {
+        // not sure what the java equivalent for this is
+        throw new UnsupportedOperationException();
+    }
 }

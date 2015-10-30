@@ -30,19 +30,20 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_eq implements IOperator {
-	public static Operator_eq Instance;
+    public static Operator_eq Instance;
 
-	static {
-		Instance = new Operator_eq();
-	}
+    static {
+        Instance = new Operator_eq();
+    }
 
-	private Operator_eq() {
-		super();
-	}
+    private Operator_eq() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Object o1 = handler.pop();
-		Object o2 = handler.pop();
-		handler.push(o1.equals(o2));
-	}
+    @Override
+    public void execute(Handler handler) {
+        Object o1 = handler.pop();
+        Object o2 = handler.pop();
+        handler.push(o1.equals(o2));
+    }
 }

@@ -37,116 +37,116 @@ import java.io.Writer;
  * A writer that uses a PDF style encoding to map unicode to byte code.
  */
 public class MappedWriter extends Writer {
-	/** the encoding we use to encode the characters */
-	private Encoding encoding;
+    /**
+     * the encoding we use to encode the characters
+     */
+    private Encoding encoding;
 
-	/** the byte stream we write on */
-	private OutputStream outStream;
+    /**
+     * the byte stream we write on
+     */
+    private OutputStream outStream;
 
-	/**
-	 * Create a MappedWriter
-	 * 
-	 * @param out
-	 *            The underlying output byte stream.
-	 * @param encoding
-	 *            The encoding to use.
-	 */
-	public MappedWriter(OutputStream out, Encoding encoding) {
-		super(out);
-		setOutStream(out);
-		setEncoding(encoding);
-	}
+    /**
+     * Create a MappedWriter
+     *
+     * @param out      The underlying output byte stream.
+     * @param encoding The encoding to use.
+     */
+    public MappedWriter(OutputStream out, Encoding encoding) {
+        super(out);
+        setOutStream(out);
+        setEncoding(encoding);
+    }
 
-	/**
-	 * @see java.io.Writer#close()
-	 */
-	@Override
-	public void close() throws IOException {
-		synchronized (lock) {
-			if (outStream == null) {
-				return;
-			}
-			flush();
-			outStream.close();
-			outStream = null;
-		}
-	}
+    /**
+     * @see java.io.Writer#close()
+     */
+    @Override
+    public void close() throws IOException {
+        synchronized (lock) {
+            if (outStream == null) {
+                return;
+            }
+            flush();
+            outStream.close();
+            outStream = null;
+        }
+    }
 
-	/**
-	 * Check to make sure that the stream has not been closed
-	 * 
-	 * @throws IOException
-	 *             if the outStream is null.
-	 */
-	private void ensureOpen() throws IOException {
-		if (outStream == null) {
-			throw new IOException("Stream closed");
-		}
-	}
+    /**
+     * Check to make sure that the stream has not been closed
+     *
+     * @throws IOException if the outStream is null.
+     */
+    private void ensureOpen() throws IOException {
+        if (outStream == null) {
+            throw new IOException("Stream closed");
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.io.Writer#flush()
-	 */
-	@Override
-	public void flush() throws IOException {
-		synchronized (lock) {
-			outStream.flush();
-		}
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.io.Writer#flush()
+     */
+    @Override
+    public void flush() throws IOException {
+        synchronized (lock) {
+            outStream.flush();
+        }
+    }
 
-	/**
-	 * The encoding used by this writer.
-	 * 
-	 * @return The encoding used by this writer.
-	 */
-	public Encoding getEncoding() {
-		return encoding;
-	}
+    /**
+     * The encoding used by this writer.
+     *
+     * @return The encoding used by this writer.
+     */
+    public Encoding getEncoding() {
+        return encoding;
+    }
 
-	/**
-	 * The underlying output stream.
-	 * 
-	 * @return The underlying output stream.
-	 */
-	protected java.io.OutputStream getOutStream() {
-		return outStream;
-	}
+    /**
+     * The underlying output stream.
+     *
+     * @return The underlying output stream.
+     */
+    protected java.io.OutputStream getOutStream() {
+        return outStream;
+    }
 
-	/**
-	 * Set the encoding to be used by this writer.
-	 * 
-	 * @param encoding
-	 *            THe new encoding to be used.
-	 */
-	private void setEncoding(Encoding encoding) {
-		this.encoding = encoding;
-	}
+    /**
+     * Set the encoding to be used by this writer.
+     *
+     * @param encoding THe new encoding to be used.
+     */
+    private void setEncoding(Encoding encoding) {
+        this.encoding = encoding;
+    }
 
-	private void setOutStream(java.io.OutputStream newOutStream) {
-		outStream = newOutStream;
-	}
+    private void setOutStream(java.io.OutputStream newOutStream) {
+        outStream = newOutStream;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.io.Writer#write(char[], int, int)
-	 */
-	@Override
-	public void write(char[] cbuf, int off, int len) throws IOException {
-		synchronized (lock) {
-			ensureOpen();
-			if ((off < 0) || (off > cbuf.length) || (len < 0)
-					|| ((off + len) > cbuf.length) || ((off + len) < 0)) {
-				throw new IndexOutOfBoundsException();
-			} else if (len == 0) {
-				return;
-			}
-			int stop = off + len;
-			for (int i = off; i < stop; i++) {
-				encoding.putNextDecoded(outStream, cbuf[i]);
-			}
-		}
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.io.Writer#write(char[], int, int)
+     */
+    @Override
+    public void write(char[] cbuf, int off, int len) throws IOException {
+        synchronized (lock) {
+            ensureOpen();
+            if ((off < 0) || (off > cbuf.length) || (len < 0) || ((off + len) > cbuf.length) || ((off + len) < 0)) {
+                throw new IndexOutOfBoundsException();
+            }
+            if (len == 0) {
+                return;
+            }
+            int stop = off + len;
+            for (int i = off; i < stop; i++) {
+                encoding.putNextDecoded(outStream, cbuf[i]);
+            }
+        }
+    }
 }

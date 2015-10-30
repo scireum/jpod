@@ -39,77 +39,75 @@ import de.intarsys.pdf.encoding.GlyphNameMap;
  * The builtin encoding of AFM defined fonts.
  */
 public class AFMEncoding extends Encoding {
-	//
-	final private AFM afm;
+    //
+    private final AFM afm;
 
-	/**
-	 * AFMEncoding constructor comment.
-	 * 
-	 * @param afm
-	 *            The {@link AFM} object defining the encoding.
-	 */
-	public AFMEncoding(AFM afm) {
-		super();
-		this.afm = afm;
-	}
+    /**
+     * AFMEncoding constructor comment.
+     *
+     * @param afm The {@link AFM} object defining the encoding.
+     */
+    public AFMEncoding(AFM afm) {
+        super();
+        this.afm = afm;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seede.intarsys.pdf.encoding.Encoding#getCosObject(de.intarsys.pdf.cos.
-	 * COSDocument)
-	 */
-	@Override
-	public COSObject cosGetObject() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @seede.intarsys.pdf.encoding.Encoding#getCosObject(de.intarsys.pdf.cos.
+     * COSDocument)
+     */
+    @Override
+    public COSObject cosGetObject() {
+        return null;
+    }
 
-	/**
-	 * Return the underlying Adobe font metrics.
-	 * 
-	 * @return Return the wrapped Adobe font metrics.
-	 */
-	public AFM getAfm() {
-		return afm;
-	}
+    /**
+     * Return the underlying Adobe font metrics.
+     *
+     * @return Return the wrapped Adobe font metrics.
+     */
+    public AFM getAfm() {
+        return afm;
+    }
 
-	@Override
-	public int getDecoded(int codepoint) {
-		String glyphName = getGlyphName(codepoint);
-		if (glyphName == null) {
-			return -1;
-		} else {
-			return GlyphNameMap.Standard.getUnicode(glyphName);
-		}
-	}
+    @Override
+    public int getDecoded(int codepoint) {
+        String glyphName = getGlyphName(codepoint);
+        if (glyphName == null) {
+            return -1;
+        } else {
+            return GlyphNameMap.Standard.getUnicode(glyphName);
+        }
+    }
 
-	@Override
-	public int getEncoded(int character) {
-		String glyphName = GlyphNameMap.Standard.getGlyphName(character);
-		return getEncoded(glyphName);
-	}
+    @Override
+    public int getEncoded(int character) {
+        String glyphName = GlyphNameMap.Standard.getGlyphName(character);
+        return getEncoded(glyphName);
+    }
 
-	@Override
-	public int getEncoded(String name) {
-		AFMChar c = getAfm().getCharByName(name);
-		if (c != null) {
-			return c.getCode();
-		}
-		return -1;
-	}
+    @Override
+    public int getEncoded(String name) {
+        AFMChar c = getAfm().getCharByName(name);
+        if (c != null) {
+            return c.getCode();
+        }
+        return -1;
+    }
 
-	@Override
-	public String getGlyphName(int codePoint) {
-		AFMChar c = getAfm().getCharByCode(codePoint);
-		if (c != null) {
-			return c.getName();
-		}
-		return GlyphNameMap.GLYPH_NOTDEF;
-	}
+    @Override
+    public String getGlyphName(int codePoint) {
+        AFMChar c = getAfm().getCharByCode(codePoint);
+        if (c != null) {
+            return c.getName();
+        }
+        return GlyphNameMap.GLYPH_NOTDEF;
+    }
 
-	@Override
-	public String getName() {
-		return "AFMEncoding";
-	}
-
+    @Override
+    public String getName() {
+        return "AFMEncoding";
+    }
 }

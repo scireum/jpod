@@ -36,29 +36,29 @@ package de.intarsys.pdf.font;
  */
 public class CMapNotDefRangeMap extends CMapRangeMap {
 
-	private int destination;
+    private int destination;
 
-	public CMapNotDefRangeMap(byte[] start, byte[] end, int destination) {
-		super(start, end);
-		this.destination = destination;
-	}
+    public CMapNotDefRangeMap(byte[] start, byte[] end, int destination) {
+        super(start, end);
+        this.destination = destination;
+    }
 
-	protected int getDestination() {
-		return destination;
-	}
+    protected int getDestination() {
+        return destination;
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		return null;
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        return null;
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		return 0;
-	}
+    @Override
+    public int toCID(int codepoint) {
+        return 0;
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		return 0;
-	}
+    @Override
+    public int toCodepoint(int cid) {
+        return 0;
+    }
 }

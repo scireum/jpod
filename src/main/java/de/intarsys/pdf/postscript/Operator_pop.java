@@ -30,17 +30,18 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_pop implements IOperator {
-	public static Operator_pop Instance;
+    public static Operator_pop Instance;
 
-	static {
-		Instance = new Operator_pop();
-	}
+    static {
+        Instance = new Operator_pop();
+    }
 
-	private Operator_pop() {
-		super();
-	}
+    private Operator_pop() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		handler.pop();
-	}
+    @Override
+    public void execute(Handler handler) {
+        handler.pop();
+    }
 }

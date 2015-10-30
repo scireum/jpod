@@ -37,116 +37,124 @@ import de.intarsys.tools.string.StringTools;
 
 /**
  * A logical text field within an AcroForm.
- * 
  */
 public class PDAFTextField extends PDAcroFormField {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAcroFormField.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDAcroFormField.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDAFTextField(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDAFTextField(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDAFTextField(COSObject object) {
-		super(object);
-	}
+    protected PDAFTextField(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormField#cosGetExpectedFieldType()
-	 */
-	public COSName cosGetExpectedFieldType() {
-		return CN_FT_Tx;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormField#cosGetExpectedFieldType()
+     */
+    @Override
+    public COSName cosGetExpectedFieldType() {
+        return CN_FT_Tx;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormField#setValueString(java.lang.String)
-	 */
-	public void setValueString(String value) {
-		if (value == null) {
-			super.setValueString(value);
-			return;
-		}
-		// set V field of field dict
-		cosSetValue(COSString.createMultiLine(value));
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormField#setValueString(java.lang.String)
+     */
+    @Override
+    public void setValueString(String value) {
+        if (value == null) {
+            super.setValueString(value);
+            return;
+        }
+        // set V field of field dict
+        cosSetValue(COSString.createMultiLine(value));
+    }
 
-	public void setDefaultValue(String value) {
-		if (value == null) {
-			super.setDefaultValue(value);
-			return;
-		}
-		// set /DV field of field dict
-		cosSetDefaultValue(COSString.createMultiLine(value));
-	}
+    @Override
+    public void setDefaultValue(String value) {
+        if (value == null) {
+            super.setDefaultValue(value);
+            return;
+        }
+        // set /DV field of field dict
+        cosSetDefaultValue(COSString.createMultiLine(value));
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormField#getValueString()
-	 */
-	public String getValueString() {
-		COSObject value = cosGetValue();
-		if (value.isNull()) {
-			return null;
-		}
-		if (value instanceof COSString) {
-			return ((COSString) value).multiLineStringValue();
-		}
-		return value.stringValue();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormField#getValueString()
+     */
+    @Override
+    public String getValueString() {
+        COSObject value = cosGetValue();
+        if (value.isNull()) {
+            return null;
+        }
+        if (value instanceof COSString) {
+            return ((COSString) value).multiLineStringValue();
+        }
+        return value.stringValue();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormField#getDefaultValueString()
-	 */
-	public String getDefaultValueString() {
-		COSObject value = cosGetDefaultValue();
-		if (value.isNull()) {
-			return null;
-		}
-		if (value instanceof COSString) {
-			return ((COSString) value).multiLineStringValue();
-		}
-		return value.stringValue();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormField#getDefaultValueString()
+     */
+    @Override
+    public String getDefaultValueString() {
+        COSObject value = cosGetDefaultValue();
+        if (value.isNull()) {
+            return null;
+        }
+        if (value instanceof COSString) {
+            return ((COSString) value).multiLineStringValue();
+        }
+        return value.stringValue();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormField#isTypeTx()
-	 */
-	public boolean isTypeTx() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormField#isTypeTx()
+     */
+    @Override
+    public boolean isTypeTx() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormField#reset()
-	 */
-	public void reset() {
-		//
-		COSObject value = cosGetDefaultValue();
-		if (value.isNull()) {
-			value = COSString.create(StringTools.EMPTY);
-		} else {
-			value = value.copyOptional();
-		}
-		cosSetValue(value);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormField#reset()
+     */
+    @Override
+    public void reset() {
+        //
+        COSObject value = cosGetDefaultValue();
+        if (value.isNull()) {
+            value = COSString.create(StringTools.EMPTY);
+        } else {
+            value = value.copyOptional();
+        }
+        cosSetValue(value);
+    }
 }

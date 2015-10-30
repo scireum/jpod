@@ -33,64 +33,65 @@ package de.intarsys.pdf.cos;
  * Represents the boolean value "false".
  */
 public class COSFalse extends COSBoolean {
-	static public COSFalse create() {
-		return new COSFalse();
-	}
+    public static COSFalse create() {
+        return new COSFalse();
+    }
 
-	protected COSFalse() {
-		super();
-	}
+    protected COSFalse() {
+        super();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#basicToString()
-	 */
-	@Override
-	protected String basicToString() {
-		return "false"; //$NON-NLS-1$
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#basicToString()
+     */
+    @Override
+    protected String basicToString() {
+        return "false"; //$NON-NLS-1$
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSBoolean#booleanValue()
-	 */
-	@Override
-	public boolean booleanValue() {
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSBoolean#booleanValue()
+     */
+    @Override
+    public boolean booleanValue() {
+        return false;
+    }
 
-	@Override
-	protected COSObject copyBasic() {
-		return new COSFalse();
-	}
+    @Override
+    protected COSObject copyBasic() {
+        return new COSFalse();
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		return o instanceof COSFalse;
-	}
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof COSFalse;
+    }
 
-	/**
-	 * Returns an arbitrary number to avoid collisions
-	 * 
-	 * @return 17
-	 * @see Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		// arbitrary number to avoid collisions
-		return 17;
-	}
+    /**
+     * Returns an arbitrary number to avoid collisions
+     *
+     * @return 17
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        // arbitrary number to avoid collisions
+        return 17;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
-	 */
-	public Object saveState() {
-		COSObject result = new COSFalse();
-		result.container = this.container.saveStateContainer();
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
+     */
+    @Override
+    public Object saveState() {
+        COSObject result = new COSFalse();
+        result.container = this.container.saveStateContainer();
+        return result;
+    }
 }

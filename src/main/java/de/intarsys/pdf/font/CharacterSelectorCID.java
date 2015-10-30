@@ -33,43 +33,42 @@ package de.intarsys.pdf.font;
  * A selector based on a multi byte sequence.
  * <p>
  * The implementation limit defined upon a CID value is 65535 (two bytes).
- * 
  */
 public class CharacterSelectorCID extends CharacterSelector {
-	private int value;
+    private int value;
 
-	private byte[] bytes;
+    private byte[] bytes;
 
-	private int offset;
+    private int offset;
 
-	private int length;
+    private int length;
 
-	public CharacterSelectorCID(byte[] bytes, int offset, int length) {
-		super();
-		this.bytes = bytes;
-		this.offset = offset;
-		this.length = length;
-		value = CMap.toInt(bytes, offset, length);
-	}
+    public CharacterSelectorCID(byte[] bytes, int offset, int length) {
+        super();
+        this.bytes = bytes;
+        this.offset = offset;
+        this.length = length;
+        value = CMap.toInt(bytes, offset, length);
+    }
 
-	public CharacterSelectorCID(int value) {
-		super();
-		this.value = value;
-		length = 2;
-	}
+    public CharacterSelectorCID(int value) {
+        super();
+        this.value = value;
+        length = 2;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.CID#getLength()
-	 */
-	@Override
-	public int getLength() {
-		return length;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.CID#getLength()
+     */
+    @Override
+    public int getLength() {
+        return length;
+    }
 
-	@Override
-	public int getValue() {
-		return value;
-	}
+    @Override
+    public int getValue() {
+        return value;
+    }
 }

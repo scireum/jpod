@@ -33,16 +33,19 @@ package de.intarsys.pdf.crypt;
  * A VM singleton for the {@link ISecurityHandlerFactory}.
  */
 public class SecurityHandlerFactory {
-	/**
-	 * The default implementation for the factory.
-	 */
-	private static ISecurityHandlerFactory UNIQUE = new StandardSecurityHandlerFactory();
+    /**
+     * The default implementation for the factory.
+     */
+    private static ISecurityHandlerFactory UNIQUE = new StandardSecurityHandlerFactory();
 
-	public static void set(ISecurityHandlerFactory active) {
-		SecurityHandlerFactory.UNIQUE = active;
-	}
+    private SecurityHandlerFactory() {
+    }
 
-	public static ISecurityHandlerFactory get() {
-		return UNIQUE;
-	}
+    public static void set(ISecurityHandlerFactory active) {
+        SecurityHandlerFactory.UNIQUE = active;
+    }
+
+    public static ISecurityHandlerFactory get() {
+        return UNIQUE;
+    }
 }

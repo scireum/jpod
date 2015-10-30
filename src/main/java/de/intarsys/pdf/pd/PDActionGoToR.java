@@ -29,8 +29,6 @@
  */
 package de.intarsys.pdf.pd;
 
-import java.io.File;
-
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSBoolean;
 import de.intarsys.pdf.cos.COSDictionary;
@@ -39,102 +37,102 @@ import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.cos.COSString;
 import de.intarsys.pdf.tools.kernel.PDFFileTools;
 
+import java.io.File;
+
 /**
  * The GoToR action.
  * <p>
  * When executed the action focuses a viewer to a new destination.
- * 
  */
 public class PDActionGoToR extends PDAction {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAction.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDAction.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDActionGoToR(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDActionGoToR(object);
+        }
 
-		@Override
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			return PDActionGoToR.META;
-		}
-	}
+        @Override
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            return PDActionGoToR.META;
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_ActionType_GoToR = COSName.constant("GoToR");
+    public static final COSName CN_ActionType_GoToR = COSName.constant("GoToR");
 
-	public static final COSName DK_D = COSName.constant("D");
+    public static final COSName DK_D = COSName.constant("D");
 
-	public static final COSName DK_F = COSName.constant("F");
+    public static final COSName DK_F = COSName.constant("F");
 
-	public static final COSName DK_NewWindow = COSName.constant("NewWindow"); //$NON-NLS-1$
+    public static final COSName DK_NewWindow = COSName.constant("NewWindow"); //$NON-NLS-1$
 
-	private PDDestination destination;
+    private PDDestination destination;
 
-	protected PDActionGoToR(COSObject object) {
-		super(object);
-	}
+    protected PDActionGoToR(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public COSName cosGetExpectedActionType() {
-		return CN_ActionType_GoToR;
-	}
+    @Override
+    public COSName cosGetExpectedActionType() {
+        return CN_ActionType_GoToR;
+    }
 
-	public PDDestination getDestination() {
-		if (destination == null) {
-			COSObject destObject;
-			if (cosGetObject() instanceof COSDictionary) {
-				destObject = cosGetField(DK_D);
-			} else {
-				destObject = cosGetObject();
-			}
-			destination = (PDDestination) PDDestination.META
-					.createFromCos(destObject);
-		}
-		return destination;
-	}
+    public PDDestination getDestination() {
+        if (destination == null) {
+            COSObject destObject;
+            if (cosGetObject() instanceof COSDictionary) {
+                destObject = cosGetField(DK_D);
+            } else {
+                destObject = cosGetObject();
+            }
+            destination = (PDDestination) PDDestination.META.createFromCos(destObject);
+        }
+        return destination;
+    }
 
-	public File getFile() {
-		File file = null;
-		COSObject cosFileSpec = cosGetField(DK_F);
-		if (cosFileSpec instanceof COSString) {
-			String fileSpec = cosFileSpec.stringValue();
-			file = new File(PDFFileTools.toOSPath(fileSpec));
-		} else if (cosFileSpec instanceof COSDictionary) {
-			PDFileSpecification fileSpec = (PDFileSpecification) PDFileSpecification.META
-					.createFromCos(cosFileSpec);
-			String fileString = fileSpec.getFile();
-			if (fileString != null) {
-				file = new File(PDFFileTools.toOSPath(fileString));
-			}
-		}
-		return file;
-	}
+    public File getFile() {
+        File file = null;
+        COSObject cosFileSpec = cosGetField(DK_F);
+        if (cosFileSpec instanceof COSString) {
+            String fileSpec = cosFileSpec.stringValue();
+            file = new File(PDFFileTools.toOSPath(fileSpec));
+        } else if (cosFileSpec instanceof COSDictionary) {
+            PDFileSpecification fileSpec = (PDFileSpecification) PDFileSpecification.META.createFromCos(cosFileSpec);
+            String fileString = fileSpec.getFile();
+            if (fileString != null) {
+                file = new File(PDFFileTools.toOSPath(fileString));
+            }
+        }
+        return file;
+    }
 
-	@Override
-	protected void initializeFromCos() {
-		super.initializeFromCos();
-	}
+    @Override
+    protected void initializeFromCos() {
+        super.initializeFromCos();
+    }
 
-	@Override
-	public void invalidateCaches() {
-		destination = null;
-		super.invalidateCaches();
-	}
+    @Override
+    public void invalidateCaches() {
+        destination = null;
+        super.invalidateCaches();
+    }
 
-	public boolean isNewWindow() {
-		COSBoolean value = cosGetField(DK_NewWindow).asBoolean();
-		if (value == null) {
-			return false;
-		}
-		return value.booleanValue();
-	}
+    public boolean isNewWindow() {
+        COSBoolean value = cosGetField(DK_NewWindow).asBoolean();
+        if (value == null) {
+            return false;
+        }
+        return value.booleanValue();
+    }
 }

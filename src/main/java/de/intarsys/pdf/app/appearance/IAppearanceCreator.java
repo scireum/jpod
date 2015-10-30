@@ -39,36 +39,34 @@ import de.intarsys.pdf.pd.PDAppearance;
  * provide the correct visual feedback.
  */
 public interface IAppearanceCreator {
-	/**
-	 * Create a PDAppearance suitable to display annotation in its current
-	 * state. The implementation should use "appearance" when set, if not should
-	 * try to use the annotations PDAppearance. If none of both is set, it
-	 * should create a new one. The method should return the appearance it
-	 * worked upon.
-	 * <p>
-	 * The code should NOT manipulate (write to) the annotation. If a new
-	 * PDAppearance is to be created, it should be created and returned as the
-	 * methods result without connecting to the annotation.
-	 * <p>
-	 * To allow for "daisy chaining" calls, a appearance parameter is provided.
-	 * If it is null, the code should lookup the appearance in the annotation.
-	 * If nothing there, it should create a new one (again: without connecting
-	 * to the annotation).
-	 * 
-	 * @param annotation
-	 * @param appearance
-	 * @return the created appearance
-	 */
-	public PDAppearance createAppearance(PDAnnotation annotation,
-			PDAppearance appearance);
+    /**
+     * Create a PDAppearance suitable to display annotation in its current
+     * state. The implementation should use "appearance" when set, if not should
+     * try to use the annotations PDAppearance. If none of both is set, it
+     * should create a new one. The method should return the appearance it
+     * worked upon.
+     * <p>
+     * The code should NOT manipulate (write to) the annotation. If a new
+     * PDAppearance is to be created, it should be created and returned as the
+     * methods result without connecting to the annotation.
+     * <p>
+     * To allow for "daisy chaining" calls, a appearance parameter is provided.
+     * If it is null, the code should lookup the appearance in the annotation.
+     * If nothing there, it should create a new one (again: without connecting
+     * to the annotation).
+     *
+     * @param annotation
+     * @param appearance
+     * @return the created appearance
+     */
+    PDAppearance createAppearance(PDAnnotation annotation, PDAppearance appearance);
 
-	/**
-	 * The type of annotations this handler can process.
-	 * <p>
-	 * This is for example /Ink or /Circle.
-	 * 
-	 * @return The type of annotations this handler can process.
-	 */
-	public COSName getAnnotationType();
-
+    /**
+     * The type of annotations this handler can process.
+     * <p>
+     * This is for example /Ink or /Circle.
+     *
+     * @return The type of annotations this handler can process.
+     */
+    COSName getAnnotationType();
 }

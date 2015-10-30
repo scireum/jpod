@@ -29,8 +29,6 @@
  */
 package de.intarsys.pdf.st;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
@@ -40,92 +38,92 @@ import de.intarsys.pdf.parser.COSLoadException;
 import de.intarsys.tools.randomaccess.IRandomAccess;
 import de.intarsys.tools.randomaccess.RandomAccessByteArray;
 
+import java.io.IOException;
+
 /**
  * A COSStream containing other COSObjects.
  */
 public class COSObjectStream extends COSBasedObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends COSBasedObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends COSBasedObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new COSObjectStream(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new COSObjectStream(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_Type_ObjStm = COSName.constant("ObjStm"); //$NON-NLS-1$
+    public static final COSName CN_Type_ObjStm = COSName.constant("ObjStm"); //$NON-NLS-1$
 
-	public static final COSName DK_First = COSName.constant("First"); //$NON-NLS-1$
+    public static final COSName DK_First = COSName.constant("First"); //$NON-NLS-1$
 
-	public static final COSName DK_N = COSName.constant("N"); //$NON-NLS-1$
+    public static final COSName DK_N = COSName.constant("N"); //$NON-NLS-1$
 
-	public static final COSName DK_Extends = COSName.constant("Extends"); //$NON-NLS-1$
+    public static final COSName DK_Extends = COSName.constant("Extends"); //$NON-NLS-1$
 
-	private COSStream stream;
+    private COSStream stream;
 
-	private int[][] objectTable;
+    private int[][] objectTable;
 
-	private IRandomAccess randomAccess;
+    private IRandomAccess randomAccess;
 
-	protected COSObjectStream(COSObject stream) {
-		super(((COSStream) stream).getDict());
-		this.stream = (COSStream) stream;
-	}
+    protected COSObjectStream(COSObject stream) {
+        super(((COSStream) stream).getDict());
+        this.stream = (COSStream) stream;
+    }
 
-	public int getFirst() {
-		return getFieldInt(DK_First, -1);
-	}
+    public int getFirst() {
+        return getFieldInt(DK_First, -1);
+    }
 
-	public int getN() {
-		return getFieldInt(DK_N, 0);
-	}
+    public int getN() {
+        return getFieldInt(DK_N, 0);
+    }
 
-	private int getOffsetByIndex(int index, COSDocumentParser parser)
-			throws IOException {
-		if (objectTable == null) {
-			objectTable = new int[getN()][2];
-			getRandomAccess().seek(0);
-			for (int i = 0; i < objectTable.length; i++) {
-				objectTable[i][0] = parser.readInteger(getRandomAccess(), true);
-				objectTable[i][1] = parser.readInteger(getRandomAccess(), true);
-			}
-		}
-		return objectTable[index][1];
-	}
+    private int getOffsetByIndex(int index, COSDocumentParser parser) throws IOException {
+        if (objectTable == null) {
+            objectTable = new int[getN()][2];
+            getRandomAccess().seek(0);
+            for (int i = 0; i < objectTable.length; i++) {
+                objectTable[i][0] = parser.readInteger(getRandomAccess(), true);
+                objectTable[i][1] = parser.readInteger(getRandomAccess(), true);
+            }
+        }
+        return objectTable[index][1];
+    }
 
-	protected IRandomAccess getRandomAccess() throws IOException {
-		if (randomAccess == null) {
-			randomAccess = new RandomAccessByteArray(stream.getDecodedBytes());
-		}
-		return randomAccess;
-	}
+    protected IRandomAccess getRandomAccess() throws IOException {
+        if (randomAccess == null) {
+            randomAccess = new RandomAccessByteArray(stream.getDecodedBytes());
+        }
+        return randomAccess;
+    }
 
-	public COSObject loadObject(int index, COSDocumentParser parser)
-			throws IOException, COSLoadException {
-		if (index >= getN()) {
-			return null;
-		}
-		int offset = getOffsetByIndex(index, parser);
-		getRandomAccess().seek(getFirst() + offset);
-		return (COSObject) parser.parseElement(getRandomAccess());
-	}
+    public COSObject loadObject(int index, COSDocumentParser parser) throws IOException, COSLoadException {
+        if (index >= getN()) {
+            return null;
+        }
+        int offset = getOffsetByIndex(index, parser);
+        getRandomAccess().seek(getFirst() + offset);
+        return (COSObject) parser.parseElement(getRandomAccess());
+    }
 
-	public void parse(int index, COSDocumentParser parser) throws IOException,
-			COSLoadException {
-		if (index >= getN()) {
-			return;
-		}
-		int offset = getOffsetByIndex(index, parser);
-		getRandomAccess().seek(getFirst() + offset);
-		parser.parseElement(getRandomAccess());
-	}
+    public void parse(int index, COSDocumentParser parser) throws IOException, COSLoadException {
+        if (index >= getN()) {
+            return;
+        }
+        int offset = getOffsetByIndex(index, parser);
+        getRandomAccess().seek(getFirst() + offset);
+        parser.parseElement(getRandomAccess());
+    }
 }

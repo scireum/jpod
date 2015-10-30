@@ -34,54 +34,52 @@ import de.intarsys.pdf.cos.COSObjectKey;
 
 /**
  * The {@link ISystemSecurityHandler} implementing /V 3 of the PDF spec.
- * 
  */
 public class SystemSecurityHandlerV3 extends SystemSecurityHandler {
 
-	protected SystemSecurityHandlerV3(COSDictionary dict) {
-		super(dict);
-	}
+    protected SystemSecurityHandlerV3(COSDictionary dict) {
+        super(dict);
+    }
 
-	public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes)
-			throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 3");
-	}
+    @Override
+    public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 3");
+    }
 
-	public byte[] decryptStream(COSObjectKey key, COSDictionary dict,
-			byte[] bytes) throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 3");
-	}
+    @Override
+    public byte[] decryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 3");
+    }
 
-	public byte[] decryptString(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 3");
-	}
+    @Override
+    public byte[] decryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 3");
+    }
 
-	public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes)
-			throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 3");
-	}
+    @Override
+    public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 3");
+    }
 
-	public byte[] encryptStream(COSObjectKey key, COSDictionary dict,
-			byte[] bytes) throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 3");
-	}
+    @Override
+    public byte[] encryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 3");
+    }
 
-	public byte[] encryptString(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 3");
-	}
+    @Override
+    public byte[] encryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 3");
+    }
 
-	@Override
-	public int getVersion() {
-		return 3;
-	}
+    @Override
+    public int getVersion() {
+        return 3;
+    }
 
-	@Override
-	protected void initializeFromScratch() {
-		super.initializeFromScratch();
-		COSEncryption encryption = getEncryption();
-		encryption.setFieldInt(COSEncryption.DK_Length, DEFAULT_LENGTH);
-	}
-
+    @Override
+    protected void initializeFromScratch() {
+        super.initializeFromScratch();
+        COSEncryption encryption = getEncryption();
+        encryption.setFieldInt(COSEncryption.DK_Length, DEFAULT_LENGTH);
+    }
 }

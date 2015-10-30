@@ -29,13 +29,13 @@
  */
 package de.intarsys.pdf.app.acroform;
 
+import de.intarsys.tools.stream.StreamTools;
+import de.intarsys.tools.xml.EntityDecoder;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import de.intarsys.tools.stream.StreamTools;
-import de.intarsys.tools.xml.EntityDecoder;
 
 /**
  * A proxy implementation of an {@link IFormHandler}. This one resolves
@@ -44,31 +44,29 @@ import de.intarsys.tools.xml.EntityDecoder;
  */
 public class EntityFormHandler extends ProxyFormHandler {
 
-	private static final Logger Log = PACKAGE.Log;
+    private static final Logger Log = PACKAGE.Log;
 
-	public EntityFormHandler(IFormHandler delegate) {
-		super(delegate);
-	}
+    public EntityFormHandler(IFormHandler delegate) {
+        super(delegate);
+    }
 
-	protected String resolve(String value) {
-		EntityDecoder decoder = new EntityDecoder(new StringReader(value),
-				false);
-		try {
-			return StreamTools.toString(decoder);
-		} catch (IOException e) {
-			Log.log(Level.SEVERE, e.getMessage(), e);
-			return value;
-		} finally {
-			StreamTools.close(decoder);
-		}
-	}
+    protected String resolve(String value) {
+        EntityDecoder decoder = new EntityDecoder(new StringReader(value), false);
+        try {
+            return StreamTools.toString(decoder);
+        } catch (IOException e) {
+            Log.log(Level.SEVERE, e.getMessage(), e);
+            return value;
+        } finally {
+            StreamTools.close(decoder);
+        }
+    }
 
-	@Override
-	public void setFieldValue(Object fieldRef, Object value) {
-		if (value instanceof String) {
-			value = resolve((String) value);
-		}
-		super.setFieldValue(fieldRef, value);
-	}
-
+    @Override
+    public void setFieldValue(Object fieldRef, Object value) {
+        if (value instanceof String) {
+            value = resolve((String) value);
+        }
+        super.setFieldValue(fieldRef, value);
+    }
 }

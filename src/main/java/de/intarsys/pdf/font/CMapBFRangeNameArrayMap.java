@@ -29,64 +29,62 @@
  */
 package de.intarsys.pdf.font;
 
-import java.util.Iterator;
-
 import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.encoding.GlyphNameMap;
 
+import java.util.Iterator;
+
 /**
  * A special map from a character code range to a character name range.
- * 
  */
 public class CMapBFRangeNameArrayMap extends CMapRangeMap {
 
-	final private int[] destinationCodes;
+    private final int[] destinationCodes;
 
-	final private COSArray names;
+    private final COSArray names;
 
-	public CMapBFRangeNameArrayMap(byte[] start, byte[] end, COSArray names) {
-		super(start, end);
-		this.names = names;
-		destinationCodes = new int[names.size()];
-		int i = 0;
-		for (Iterator it = names.iterator(); it.hasNext();) {
-			COSObject name = ((COSObject) it.next()).asName();
-			if (name == null) {
-				destinationCodes[i] = 0;
-			} else {
-				destinationCodes[i] = GlyphNameMap.Standard.getUnicode(name
-						.stringValue());
-			}
-			i++;
-		}
-	}
+    public CMapBFRangeNameArrayMap(byte[] start, byte[] end, COSArray names) {
+        super(start, end);
+        this.names = names;
+        destinationCodes = new int[names.size()];
+        int i = 0;
+        for (Iterator it = names.iterator(); it.hasNext(); ) {
+            COSObject name = ((COSObject) it.next()).asName();
+            if (name == null) {
+                destinationCodes[i] = 0;
+            } else {
+                destinationCodes[i] = GlyphNameMap.Standard.getUnicode(name.stringValue());
+            }
+            i++;
+        }
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		int index = codepoint - start;
-		if (index < 0 || index >= destinationCodes.length) {
-			return null;
-		}
-		return new char[] { (char) (destinationCodes[index]) };
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        int index = codepoint - start;
+        if (index < 0 || index >= destinationCodes.length) {
+            return null;
+        }
+        return new char[]{(char) (destinationCodes[index])};
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		int index = codepoint - start;
-		if (index < 0 || index >= destinationCodes.length) {
-			return 0;
-		}
-		return destinationCodes[index];
-	}
+    @Override
+    public int toCID(int codepoint) {
+        int index = codepoint - start;
+        if (index < 0 || index >= destinationCodes.length) {
+            return 0;
+        }
+        return destinationCodes[index];
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		for (int i = 0; i < destinationCodes.length; i++) {
-			if (cid == destinationCodes[i]) {
-				return start + i;
-			}
-		}
-		return 0;
-	}
+    @Override
+    public int toCodepoint(int cid) {
+        for (int i = 0; i < destinationCodes.length; i++) {
+            if (cid == destinationCodes[i]) {
+                return start + i;
+            }
+        }
+        return 0;
+    }
 }

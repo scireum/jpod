@@ -32,11 +32,12 @@ package de.intarsys.pdf.filter;
 import de.intarsys.pdf.cos.COSDictionary;
 
 public abstract class PNGPrediction extends Prediction {
-	public PNGPrediction(COSDictionary options) {
-		super(options);
-	}
+    protected PNGPrediction(COSDictionary options) {
+        super(options);
+    }
 
-	public int computeSourceRowSize() {
-		return super.computeSourceRowSize() + 1;
-	}
+    @Override
+    public int computeSourceRowSize() {
+        return super.computeSourceRowSize() + 1;
+    }
 }

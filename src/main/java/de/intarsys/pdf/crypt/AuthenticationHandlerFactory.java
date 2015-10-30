@@ -37,13 +37,16 @@ package de.intarsys.pdf.crypt;
  */
 public class AuthenticationHandlerFactory {
 
-	private static IAuthenticationHandlerFactory ACTIVE = new StandardAuthenticationHandlerFactory();
+    private static IAuthenticationHandlerFactory ACTIVE = new StandardAuthenticationHandlerFactory();
 
-	static public IAuthenticationHandlerFactory get() {
-		return ACTIVE;
-	}
+    private AuthenticationHandlerFactory() {
+    }
 
-	static public void set(IAuthenticationHandlerFactory factory) {
-		ACTIVE = factory;
-	}
+    public static IAuthenticationHandlerFactory get() {
+        return ACTIVE;
+    }
+
+    public static void set(IAuthenticationHandlerFactory factory) {
+        ACTIVE = factory;
+    }
 }

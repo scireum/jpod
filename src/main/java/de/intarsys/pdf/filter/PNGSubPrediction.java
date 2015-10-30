@@ -32,42 +32,39 @@ package de.intarsys.pdf.filter;
 import de.intarsys.pdf.cos.COSDictionary;
 
 /**
- * 
- * 
+ *
+ *
  */
 public class PNGSubPrediction extends PNGPrediction {
-	public PNGSubPrediction(COSDictionary options) {
-		super(options);
-	}
+    public PNGSubPrediction(COSDictionary options) {
+        super(options);
+    }
 
-	@Override
-	protected void decodeRow(byte[] source, int sourceOffset, byte[] result,
-			int resultOffset) {
-		int bytesPerSample;
-		byte[] sample;
-		int sourceIndex;
-		int resultIndex;
+    @Override
+    protected void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
+        int bytesPerSample;
+        byte[] sample;
+        int sourceIndex;
+        int resultIndex;
 
-		bytesPerSample = (getBitsPerComponent() * getColors() + 7) / 8;
-		sample = new byte[bytesPerSample];
+        bytesPerSample = (getBitsPerComponent() * getColors() + 7) / 8;
+        sample = new byte[bytesPerSample];
 
-		sourceIndex = sourceOffset + 1;
-		resultIndex = resultOffset;
+        sourceIndex = sourceOffset + 1;
+        resultIndex = resultOffset;
 
-		System.arraycopy(source, sourceIndex, result, resultIndex,
-				bytesPerSample);
-		System.arraycopy(result, resultIndex, sample, 0, bytesPerSample);
-		sourceIndex = sourceIndex + bytesPerSample;
-		resultIndex = resultIndex + bytesPerSample;
+        System.arraycopy(source, sourceIndex, result, resultIndex, bytesPerSample);
+        System.arraycopy(result, resultIndex, sample, 0, bytesPerSample);
+        sourceIndex = sourceIndex + bytesPerSample;
+        resultIndex = resultIndex + bytesPerSample;
 
-		while ((resultIndex - resultOffset + bytesPerSample) <= getResultRowSize()) {
-			for (int index = 0; index < bytesPerSample; index++) {
-				result[resultIndex + index] = (byte) ((sample[index] + source[sourceIndex
-						+ index]) & 0xFF);
-			}
-			System.arraycopy(result, resultIndex, sample, 0, bytesPerSample);
-			sourceIndex = sourceIndex + bytesPerSample;
-			resultIndex = resultIndex + bytesPerSample;
-		}
-	}
+        while ((resultIndex - resultOffset + bytesPerSample) <= getResultRowSize()) {
+            for (int index = 0; index < bytesPerSample; index++) {
+                result[resultIndex + index] = (byte) ((sample[index] + source[sourceIndex + index]) & 0xFF);
+            }
+            System.arraycopy(result, resultIndex, sample, 0, bytesPerSample);
+            sourceIndex = sourceIndex + bytesPerSample;
+            resultIndex = resultIndex + bytesPerSample;
+        }
+    }
 }

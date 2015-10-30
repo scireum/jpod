@@ -36,33 +36,33 @@ import de.intarsys.pdf.cos.COSObject;
  * Device color space CMYK support.
  */
 public class PDCSDeviceCMYK extends PDCSDevice {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDCSDevice.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDCSDevice.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return SINGLETON;
-		}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return SINGLETON;
+        }
+    }
 
-	}
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    public static PDCSDeviceCMYK SINGLETON = new PDCSDeviceCMYK();
 
-	public static PDCSDeviceCMYK SINGLETON = new PDCSDeviceCMYK();
+    protected PDCSDeviceCMYK() {
+        super();
+    }
 
-	protected PDCSDeviceCMYK() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return CN_CS_DeviceCMYK.toString();
-	}
+    @Override
+    public String toString() {
+        return CN_CS_DeviceCMYK.toString();
+    }
 }

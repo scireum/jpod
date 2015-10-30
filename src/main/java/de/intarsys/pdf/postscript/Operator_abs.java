@@ -30,28 +30,29 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_abs implements IOperator {
-	public static Operator_abs Instance;
+    public static Operator_abs Instance;
 
-	static {
-		Instance = new Operator_abs();
-	}
+    static {
+        Instance = new Operator_abs();
+    }
 
-	private Operator_abs() {
-		super();
-	}
+    private Operator_abs() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Number element;
+    @Override
+    public void execute(Handler handler) {
+        Number element;
 
-		element = (Number) handler.peek();
-		if (element.doubleValue() > 0) {
-			return;
-		}
-		handler.pop();
-		if (element instanceof Integer) {
-			handler.push(new Integer(Math.abs(element.intValue())));
-			return;
-		}
-		handler.push(new Double(Math.abs(element.doubleValue())));
-	}
+        element = (Number) handler.peek();
+        if (element.doubleValue() > 0) {
+            return;
+        }
+        handler.pop();
+        if (element instanceof Integer) {
+            handler.push(Integer.valueOf(Math.abs(element.intValue())));
+            return;
+        }
+        handler.push(new Double(Math.abs(element.doubleValue())));
+    }
 }

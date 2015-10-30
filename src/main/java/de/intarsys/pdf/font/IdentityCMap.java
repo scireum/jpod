@@ -29,92 +29,88 @@
  */
 package de.intarsys.pdf.font;
 
+import de.intarsys.pdf.cos.COSName;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import de.intarsys.pdf.cos.COSName;
 
 /**
  * The generic 2 byte identity mapping (Identity-H and Identity-V).
  */
 public class IdentityCMap extends CMap {
 
-	public static final COSName CN_Identity_H = COSName.constant("Identity-H");
+    public static final COSName CN_Identity_H = COSName.constant("Identity-H");
 
-	public static final COSName CN_Identity_V = COSName.constant("Identity-V");
+    public static final COSName CN_Identity_V = COSName.constant("Identity-V");
 
-	public static IdentityCMap SINGLETON = new IdentityCMap();
+    public static IdentityCMap SINGLETON = new IdentityCMap();
 
-	public static CMap getSingleton(COSName name) {
-		if (name.equals(CN_Identity_H)) {
-			return IdentityCMap.SINGLETON;
-		} else if (name.equals(CN_Identity_V)) {
-			return IdentityCMap.SINGLETON;
-		} else {
-			return null;
-		}
-	}
+    public static CMap getSingleton(COSName name) {
+        if (name.equals(CN_Identity_H) || name.equals(CN_Identity_V)) {
+            return IdentityCMap.SINGLETON;
+        } else {
+            return null;
+        }
+    }
 
-	/**
-	 * @param object
-	 */
-	protected IdentityCMap() {
-		super(null);
-	}
+    /**
+     * @param object
+     */
+    protected IdentityCMap() {
+        super(null);
+    }
 
-	@Override
-	public char[] getChars(int codepoint) {
-		int decoded = getDecoded(codepoint);
-		if (decoded == -1) {
-			return null;
-		}
-		return new char[] { (char) decoded };
-	}
+    @Override
+    public char[] getChars(int codepoint) {
+        int decoded = getDecoded(codepoint);
+        if (decoded == -1) {
+            return null;
+        }
+        return new char[]{(char) decoded};
+    }
 
-	@Override
-	public int getDecoded(int value) {
-		return value;
-	}
+    @Override
+    public int getDecoded(int value) {
+        return value;
+    }
 
-	@Override
-	public int getEncoded(int character) {
-		return character;
-	}
+    @Override
+    public int getEncoded(int character) {
+        return character;
+    }
 
-	@Override
-	public int getNextDecoded(InputStream is) throws IOException {
-		int hb = is.read();
-		int lb = is.read();
-		if (hb == -1 || lb == -1) {
-			return -1;
-		}
-		return (hb << 8) + lb;
-	}
+    @Override
+    public int getNextDecoded(InputStream is) throws IOException {
+        int hb = is.read();
+        int lb = is.read();
+        if (hb == -1 || lb == -1) {
+            return -1;
+        }
+        return (hb << 8) + lb;
+    }
 
-	@Override
-	public int getNextEncoded(InputStream is) throws IOException {
-		int hb = is.read();
-		int lb = is.read();
-		if (hb == -1 || lb == -1) {
-			return -1;
-		}
-		return (hb << 8) + lb;
-	}
+    @Override
+    public int getNextEncoded(InputStream is) throws IOException {
+        int hb = is.read();
+        int lb = is.read();
+        if (hb == -1 || lb == -1) {
+            return -1;
+        }
+        return (hb << 8) + lb;
+    }
 
-	@Override
-	public void putNextDecoded(OutputStream os, int character)
-			throws IOException {
-		// write cid value high byte first
-		os.write((character >> 8) & 0xff);
-		os.write(character & 0xff);
-	}
+    @Override
+    public void putNextDecoded(OutputStream os, int character) throws IOException {
+        // write cid value high byte first
+        os.write((character >> 8) & 0xff);
+        os.write(character & 0xff);
+    }
 
-	@Override
-	public void putNextEncoded(OutputStream os, int codepoint)
-			throws IOException {
-		// write cid value high byte first
-		os.write((codepoint >> 8) & 0xff);
-		os.write(codepoint & 0xff);
-	}
+    @Override
+    public void putNextEncoded(OutputStream os, int codepoint) throws IOException {
+        // write cid value high byte first
+        os.write((codepoint >> 8) & 0xff);
+        os.write(codepoint & 0xff);
+    }
 }

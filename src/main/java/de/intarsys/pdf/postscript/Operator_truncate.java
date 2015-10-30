@@ -30,31 +30,32 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_truncate implements IOperator {
-	public static Operator_truncate Instance;
+    public static Operator_truncate Instance;
 
-	static {
-		Instance = new Operator_truncate();
-	}
+    static {
+        Instance = new Operator_truncate();
+    }
 
-	private Operator_truncate() {
-		super();
-	}
+    private Operator_truncate() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Number element;
-		double operand;
-		long result;
+    @Override
+    public void execute(Handler handler) {
+        Number element;
+        double operand;
+        long result;
 
-		element = (Number) handler.peek();
-		if (element instanceof Integer) {
-			return;
-		}
-		operand = element.doubleValue();
-		result = (long) operand;
-		if (result == operand) {
-			return;
-		}
-		handler.pop();
-		handler.push(new Double(result));
-	}
+        element = (Number) handler.peek();
+        if (element instanceof Integer) {
+            return;
+        }
+        operand = element.doubleValue();
+        result = (long) operand;
+        if (result == operand) {
+            return;
+        }
+        handler.pop();
+        handler.push(new Double(result));
+    }
 }

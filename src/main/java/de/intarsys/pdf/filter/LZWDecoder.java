@@ -72,179 +72,171 @@ import java.io.IOException;
  * A class for performing LZW decoding.
  */
 public class LZWDecoder {
-	byte[][] stringTable;
+    byte[][] stringTable;
 
-	int tableIndex;
+    int tableIndex;
 
-	int bitsToGet = 9;
+    int bitsToGet = 9;
 
-	int bytePointer;
+    int bytePointer;
 
-	int bitPointer;
+    int bitPointer;
 
-	int nextData = 0;
+    int nextData = 0;
 
-	int nextBits = 0;
+    int nextBits = 0;
 
-	int[] andTable = { 511, 1023, 2047, 4095 };
+    int[] andTable = {511, 1023, 2047, 4095};
 
-	public LZWDecoder() {
-		super();
-	}
+    // Returns the next 9, 10, 11 or 12 bits
+    public int getNextCode(byte[] data) {
+        // Attempt to get the next code. The exception is caught to make
+        // this robust to cases wherein the EndOfInformation code has been
+        // omitted from a strip. Examples of such cases have been observed
+        // in practice.
+        try {
+            nextData = (nextData << 8) | (data[bytePointer++] & 0xff);
+            nextBits += 8;
 
-	// Returns the next 9, 10, 11 or 12 bits
-	public int getNextCode(byte[] data) {
-		// Attempt to get the next code. The exception is caught to make
-		// this robust to cases wherein the EndOfInformation code has been
-		// omitted from a strip. Examples of such cases have been observed
-		// in practice.
-		try {
-			nextData = (nextData << 8) | (data[bytePointer++] & 0xff);
-			nextBits += 8;
+            if (nextBits < bitsToGet) {
+                nextData = (nextData << 8) | (data[bytePointer++] & 0xff);
+                nextBits += 8;
+            }
 
-			if (nextBits < bitsToGet) {
-				nextData = (nextData << 8) | (data[bytePointer++] & 0xff);
-				nextBits += 8;
-			}
+            int code = (nextData >> (nextBits - bitsToGet)) & andTable[bitsToGet - 9];
+            nextBits -= bitsToGet;
 
-			int code = (nextData >> (nextBits - bitsToGet))
-					& andTable[bitsToGet - 9];
-			nextBits -= bitsToGet;
+            return code;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Strip not terminated as expected: return EndOfInformation code.
+            return 257;
+        }
+    }
 
-			return code;
-		} catch (ArrayIndexOutOfBoundsException e) {
-			// Strip not terminated as expected: return EndOfInformation code.
-			return 257;
-		}
-	}
+    /**
+     * Add a new string to the string table.
+     *
+     * @param oldString
+     * @param newString
+     */
+    public void addStringToTable(byte[] oldString, byte newString) {
+        int length = oldString.length;
+        byte[] string = new byte[length + 1];
+        System.arraycopy(oldString, 0, string, 0, length);
+        string[length] = newString;
 
-	/**
-	 * Add a new string to the string table.
-	 * 
-	 * @param oldString
-	 * @param newString
-	 */
-	public void addStringToTable(byte[] oldString, byte newString) {
-		int length = oldString.length;
-		byte[] string = new byte[length + 1];
-		System.arraycopy(oldString, 0, string, 0, length);
-		string[length] = newString;
+        // Add this new String to the table
+        stringTable[tableIndex++] = string;
 
-		// Add this new String to the table
-		stringTable[tableIndex++] = string;
+        if (tableIndex == 511) {
+            bitsToGet = 10;
+        } else if (tableIndex == 1023) {
+            bitsToGet = 11;
+        } else if (tableIndex == 2047) {
+            bitsToGet = 12;
+        }
+    }
 
-		if (tableIndex == 511) {
-			bitsToGet = 10;
-		} else if (tableIndex == 1023) {
-			bitsToGet = 11;
-		} else if (tableIndex == 2047) {
-			bitsToGet = 12;
-		}
-	}
+    /**
+     * Add a new string to the string table.
+     *
+     * @param string
+     */
+    public void addStringToTable(byte[] string) {
+        // Add this new String to the table
+        stringTable[tableIndex++] = string;
 
-	/**
-	 * Add a new string to the string table.
-	 * 
-	 * @param string
-	 */
-	public void addStringToTable(byte[] string) {
-		// Add this new String to the table
-		stringTable[tableIndex++] = string;
+        if (tableIndex == 511) {
+            bitsToGet = 10;
+        } else if (tableIndex == 1023) {
+            bitsToGet = 11;
+        } else if (tableIndex == 2047) {
+            bitsToGet = 12;
+        }
+    }
 
-		if (tableIndex == 511) {
-			bitsToGet = 10;
-		} else if (tableIndex == 1023) {
-			bitsToGet = 11;
-		} else if (tableIndex == 2047) {
-			bitsToGet = 12;
-		}
-	}
+    /**
+     * Append {@code newString} to the end of {@code oldString}.
+     *
+     * @param oldString
+     * @param newString
+     */
+    public byte[] composeString(byte[] oldString, byte newString) {
+        int length = oldString.length;
+        byte[] string = new byte[length + 1];
+        System.arraycopy(oldString, 0, string, 0, length);
+        string[length] = newString;
 
-	/**
-	 * Append <code>newString</code> to the end of <code>oldString</code>.
-	 * 
-	 * @param oldString
-	 * @param newString
-	 * 
-	 */
-	public byte[] composeString(byte[] oldString, byte newString) {
-		int length = oldString.length;
-		byte[] string = new byte[length + 1];
-		System.arraycopy(oldString, 0, string, 0, length);
-		string[length] = newString;
+        return string;
+    }
 
-		return string;
-	}
+    /**
+     * Method to decode LZW compressed data.
+     *
+     * @param data The compressed data.
+     * @throws IOException
+     */
+    public byte[] decode(byte[] data) throws IOException {
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
 
-	/**
-	 * Method to decode LZW compressed data.
-	 * 
-	 * @param data
-	 *            The compressed data.
-	 * 
-	 * @throws IOException
-	 */
-	public byte[] decode(byte[] data) throws IOException {
-		ByteArrayOutputStream result = new ByteArrayOutputStream();
+        if ((data[0] == (byte) 0x00) && (data[1] == (byte) 0x01)) {
+            throw new RuntimeException("LZW flavour not supported.");
+        }
 
-		if ((data[0] == (byte) 0x00) && (data[1] == (byte) 0x01)) {
-			throw new RuntimeException("LZW flavour not supported.");
-		}
+        initializeStringTable();
 
-		initializeStringTable();
+        // Initialize pointers
+        bytePointer = 0;
+        bitPointer = 0;
 
-		// Initialize pointers
-		bytePointer = 0;
-		bitPointer = 0;
+        nextData = 0;
+        nextBits = 0;
 
-		nextData = 0;
-		nextBits = 0;
+        int code;
+        int oldCode = 0;
+        byte[] string;
 
-		int code;
-		int oldCode = 0;
-		byte[] string;
+        while ((code = getNextCode(data)) != 257) {
+            if (code == 256) {
+                initializeStringTable();
+                code = getNextCode(data);
 
-		while ((code = getNextCode(data)) != 257) {
-			if (code == 256) {
-				initializeStringTable();
-				code = getNextCode(data);
+                if (code == 257) {
+                    break;
+                }
+                result.write(stringTable[code]);
+                oldCode = code;
+            } else {
+                if (code < tableIndex) {
+                    string = stringTable[code];
+                    result.write(string);
+                    addStringToTable(stringTable[oldCode], string[0]);
+                    oldCode = code;
+                } else {
+                    string = stringTable[oldCode];
+                    string = composeString(string, string[0]);
+                    result.write(string);
+                    addStringToTable(string);
+                    oldCode = code;
+                }
+            }
+        }
 
-				if (code == 257) {
-					break;
-				}
-				result.write(stringTable[code]);
-				oldCode = code;
-			} else {
-				if (code < tableIndex) {
-					string = stringTable[code];
-					result.write(string);
-					addStringToTable(stringTable[oldCode], string[0]);
-					oldCode = code;
-				} else {
-					string = stringTable[oldCode];
-					string = composeString(string, string[0]);
-					result.write(string);
-					addStringToTable(string);
-					oldCode = code;
-				}
-			}
-		}
+        return result.toByteArray();
+    }
 
-		return result.toByteArray();
-	}
+    /**
+     * Initialize the string table.
+     */
+    public void initializeStringTable() {
+        stringTable = new byte[8192][];
 
-	/**
-	 * Initialize the string table.
-	 */
-	public void initializeStringTable() {
-		stringTable = new byte[8192][];
+        for (int i = 0; i < 256; i++) {
+            stringTable[i] = new byte[1];
+            stringTable[i][0] = (byte) i;
+        }
 
-		for (int i = 0; i < 256; i++) {
-			stringTable[i] = new byte[1];
-			stringTable[i][0] = (byte) i;
-		}
-
-		tableIndex = 258;
-		bitsToGet = 9;
-	}
+        tableIndex = 258;
+        bitsToGet = 9;
+    }
 }

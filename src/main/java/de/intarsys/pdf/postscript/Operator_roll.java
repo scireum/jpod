@@ -30,37 +30,38 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_roll implements IOperator {
-	public static Operator_roll Instance;
+    public static Operator_roll Instance;
 
-	static {
-		Instance = new Operator_roll();
-	}
+    static {
+        Instance = new Operator_roll();
+    }
 
-	private Operator_roll() {
-		super();
-	}
+    private Operator_roll() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		int elementCount;
-		int positionCount;
-		Object[] elements;
+    @Override
+    public void execute(Handler handler) {
+        int elementCount;
+        int positionCount;
+        Object[] elements;
 
-		positionCount = ((Integer) handler.pop()).intValue();
-		elementCount = ((Integer) handler.pop()).intValue();
+        positionCount = ((Integer) handler.pop()).intValue();
+        elementCount = ((Integer) handler.pop()).intValue();
 
-		if (positionCount < 0) {
-			positionCount = elementCount + positionCount;
-		}
+        if (positionCount < 0) {
+            positionCount = elementCount + positionCount;
+        }
 
-		elements = new Object[elementCount];
-		for (int index = positionCount - 1; index >= 0; index--) {
-			elements[index] = handler.pop();
-		}
-		for (int index = elementCount - 1; index >= positionCount; index--) {
-			elements[index] = handler.pop();
-		}
-		for (int index = 0; index < elementCount; index++) {
-			handler.push(elements[index]);
-		}
-	}
+        elements = new Object[elementCount];
+        for (int index = positionCount - 1; index >= 0; index--) {
+            elements[index] = handler.pop();
+        }
+        for (int index = elementCount - 1; index >= positionCount; index--) {
+            elements[index] = handler.pop();
+        }
+        for (int index = 0; index < elementCount; index++) {
+            handler.push(elements[index]);
+        }
+    }
 }

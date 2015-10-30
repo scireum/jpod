@@ -38,47 +38,50 @@ import de.intarsys.pdf.cos.COSStream;
  * The representation of embedded postscript programs
  */
 public class PDPostScript extends PDXObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDXObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDXObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDPostScript(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDPostScript(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	//
-	static public final COSName CN_Subtype_PS = COSName.constant("PS");
+    //
+    public static final COSName CN_Subtype_PS = COSName.constant("PS");
 
-	/**
-	 * Create the receiver class from an already defined {@link COSStream}.
-	 * NEVER use the constructor directly.
-	 * 
-	 * @param object
-	 *            the PDDocument containing the new object
-	 */
-	protected PDPostScript(COSObject object) {
-		super(object);
-	}
+    /**
+     * Create the receiver class from an already defined {@link COSStream}.
+     * NEVER use the constructor directly.
+     *
+     * @param object the PDDocument containing the new object
+     */
+    protected PDPostScript(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
-	 */
-	protected COSName cosGetExpectedSubtype() {
-		return CN_Subtype_PS;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
+     */
+    @Override
+    protected COSName cosGetExpectedSubtype() {
+        return CN_Subtype_PS;
+    }
 
-	public boolean isPostscript() {
-		return true;
-	}
+    @Override
+    public boolean isPostscript() {
+        return true;
+    }
 }

@@ -37,41 +37,42 @@ import de.intarsys.pdf.cos.COSObject;
  * A shading fill pattern.
  */
 public class PDShadingPattern extends PDPattern {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDPattern.MetaClass {
-		protected MetaClass(Class<?> paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDPattern.MetaClass {
+        protected MetaClass(Class<?> paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDShadingPattern(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDShadingPattern(object);
+        }
+    }
 
-	public static final COSName DK_Shading = COSName.constant("Shading"); //$NON-NLS-1$
+    public static final COSName DK_Shading = COSName.constant("Shading"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	private PDShading shading;
+    private PDShading shading;
 
-	protected PDShadingPattern(COSObject object) {
-		super(object);
-	}
+    protected PDShadingPattern(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public int getPatternType() {
-		return PATTERN_TYPE_SHADING;
-	}
+    @Override
+    public int getPatternType() {
+        return PATTERN_TYPE_SHADING;
+    }
 
-	public PDShading getShading() {
-		if (shading == null) {
-			shading = (PDShading) PDShading.META.createFromCos(cosGetField(DK_Shading));
-		}
-		return shading;
-	}
+    public PDShading getShading() {
+        if (shading == null) {
+            shading = (PDShading) PDShading.META.createFromCos(cosGetField(DK_Shading));
+        }
+        return shading;
+    }
 }

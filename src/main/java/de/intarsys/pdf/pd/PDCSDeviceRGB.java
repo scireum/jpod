@@ -36,34 +36,33 @@ import de.intarsys.pdf.cos.COSObject;
  * Device color space RGB support.
  */
 public class PDCSDeviceRGB extends PDCSDevice {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDCSDevice.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDCSDevice.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return SINGLETON;
-		}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return SINGLETON;
+        }
+    }
 
-	}
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    public static PDCSDeviceRGB SINGLETON = new PDCSDeviceRGB();
 
-	public static PDCSDeviceRGB SINGLETON = new PDCSDeviceRGB();
+    protected PDCSDeviceRGB() {
+        super();
+    }
 
-	protected PDCSDeviceRGB() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return CN_CS_DeviceRGB.toString();
-	}
-
+    @Override
+    public String toString() {
+        return CN_CS_DeviceRGB.toString();
+    }
 }

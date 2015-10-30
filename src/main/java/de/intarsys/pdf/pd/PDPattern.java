@@ -39,80 +39,79 @@ import de.intarsys.pdf.cos.COSStream;
 
 /**
  * A pattern to be used when filling a shape.
- *
  */
 public abstract class PDPattern extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class<?> paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class<?> paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public Class<?> getRootClass() {
-			return PDPattern.class;
-		}
+        @Override
+        public Class<?> getRootClass() {
+            return PDPattern.class;
+        }
 
-		@Override
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			COSDictionary dictionary;
-			int patternType;
+        @Override
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            COSDictionary dictionary;
+            int patternType;
 
-			if (object instanceof COSStream) {
-				dictionary = ((COSStream) object).getDict();
-			} else {
-				dictionary = object.asDictionary();
-			}
-			patternType = dictionary.get(DK_PatternType).asInteger().intValue();
+            if (object instanceof COSStream) {
+                dictionary = ((COSStream) object).getDict();
+            } else {
+                dictionary = object.asDictionary();
+            }
+            patternType = dictionary.get(DK_PatternType).asInteger().intValue();
 
-			switch (patternType) {
-			case PATTERN_TYPE_TILING:
-				return PDTilingPattern.META;
-			case PATTERN_TYPE_SHADING:
-				return PDShadingPattern.META;
-			default:
-				object.handleException(new COSRuntimeException(
-						"unsupported pattern type " + patternType)); //$NON-NLS-1$
-				return null;
-			}
-		}
-	}
+            switch (patternType) {
+                case PATTERN_TYPE_TILING:
+                    return PDTilingPattern.META;
+                case PATTERN_TYPE_SHADING:
+                    return PDShadingPattern.META;
+                default:
+                    object.handleException(new COSRuntimeException("unsupported pattern type "
+                                                                   + patternType)); //$NON-NLS-1$
+                    return null;
+            }
+        }
+    }
 
-	public static final COSName CN_Type_Pattern = COSName.constant("Pattern"); //$NON-NLS-1$
+    public static final COSName CN_Type_Pattern = COSName.constant("Pattern"); //$NON-NLS-1$
 
-	public static final COSName DK_Matrix = COSName.constant("Matrix"); //$NON-NLS-1$
-	public static final COSName DK_PatternType = COSName
-			.constant("PatternType"); //$NON-NLS-1$
+    public static final COSName DK_Matrix = COSName.constant("Matrix"); //$NON-NLS-1$
+    public static final COSName DK_PatternType = COSName.constant("PatternType"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final int PATTERN_TYPE_SHADING = 2;
+    public static final int PATTERN_TYPE_SHADING = 2;
 
-	public static final int PATTERN_TYPE_TILING = 1;
+    public static final int PATTERN_TYPE_TILING = 1;
 
-	protected PDPattern(COSObject object) {
-		super(object);
-	}
+    protected PDPattern(COSObject object) {
+        super(object);
+    }
 
-	public abstract int getPatternType();
+    public abstract int getPatternType();
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
-	 */
-	@Override
-	protected COSName cosGetExpectedType() {
-		return CN_Type_Pattern;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
+     */
+    @Override
+    protected COSName cosGetExpectedType() {
+        return CN_Type_Pattern;
+    }
 
-	public CDSMatrix getMatrix() {
-		return CDSMatrix.createFromCOS(cosGetField(DK_Matrix).asArray());
-	}
+    public CDSMatrix getMatrix() {
+        return CDSMatrix.createFromCOS(cosGetField(DK_Matrix).asArray());
+    }
 
     public void setMatrix(CDSMatrix matrix) {
         setFieldObject(DK_Matrix, matrix);

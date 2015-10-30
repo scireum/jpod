@@ -32,22 +32,21 @@ package de.intarsys.pdf.filter;
 import de.intarsys.pdf.cos.COSDictionary;
 
 public class NoPrediction extends Prediction {
-	public NoPrediction(COSDictionary options) {
-		super(options);
-	}
+    public NoPrediction(COSDictionary options) {
+        super(options);
+    }
 
-	public byte[] decode(byte[] source) {
-		return source;
-	}
+    @Override
+    public byte[] decode(byte[] source) {
+        return source;
+    }
 
-	protected void decodeRow(byte[] source, int sourceOffset, byte[] result,
-			int resultOffset) {
-		throw new InternalError(
-				"Program execution should not reach this point.");
-	}
+    @Override
+    protected void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
+        throw new InternalError("Program execution should not reach this point.");
+    }
 
-	public int getRowSize() {
-		throw new InternalError(
-				"Program execution should not reach this point.");
-	}
+    public int getRowSize() {
+        throw new InternalError("Program execution should not reach this point.");
+    }
 }

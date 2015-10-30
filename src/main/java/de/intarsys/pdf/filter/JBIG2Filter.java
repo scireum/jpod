@@ -29,66 +29,65 @@
  */
 package de.intarsys.pdf.filter;
 
-import java.io.IOException;
-
-
-import org.jpedal.jbig2.JBIG2Decoder;
-import org.jpedal.jbig2.JBIG2Exception;
-
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSStream;
+import org.jpedal.jbig2.JBIG2Decoder;
+import org.jpedal.jbig2.JBIG2Exception;
+
+import java.io.IOException;
 
 /**
- * 
+ *
  */
 public class JBIG2Filter extends Filter {
-	public static final COSName DK_JBIG2Globals = COSName
-			.constant("JBIG2Globals"); //$NON-NLS-1$
+    public static final COSName DK_JBIG2Globals = COSName.constant("JBIG2Globals"); //$NON-NLS-1$
 
-	/**
-	 * 
-	 */
-	public JBIG2Filter(COSDictionary options) {
-		super(options);
-	}
+    /**
+     *
+     */
+    public JBIG2Filter(COSDictionary options) {
+        super(options);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
-	 */
-	protected byte[] decode(byte[] source) throws IOException {
-		JBIG2Decoder decoder;
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
+     */
+    @Override
+    protected byte[] decode(byte[] source) throws IOException {
+        JBIG2Decoder decoder;
 
-		decoder = new JBIG2Decoder();
-		try {
-			if (getOptions() != null) {
-				COSStream globals;
+        decoder = new JBIG2Decoder();
+        try {
+            if (getOptions() != null) {
+                COSStream globals;
 
-				globals = getOptions().get(DK_JBIG2Globals).asStream();
-				if (globals != null) {
-					decoder.setGlobalData(globals.getDecodedBytes());
-				}
-			}
-			decoder.decodeJBIG2(source);
-		} catch (JBIG2Exception ex) {
-			IOException ioException;
+                globals = getOptions().get(DK_JBIG2Globals).asStream();
+                if (globals != null) {
+                    decoder.setGlobalData(globals.getDecodedBytes());
+                }
+            }
+            decoder.decodeJBIG2(source);
+        } catch (JBIG2Exception ex) {
+            IOException ioException;
 
-			ioException = new IOException();
-			ioException.initCause(ex);
-			throw ioException;
-		}
+            ioException = new IOException();
+            ioException.initCause(ex);
+            throw ioException;
+        }
 
-		return decoder.getPageAsJBIG2Bitmap(0).getData(true);
-	}
+        return decoder.getPageAsJBIG2Bitmap(0).getData(true);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
-	 */
-	protected byte[] encode(byte[] source) throws IOException {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
+     */
+    @Override
+    protected byte[] encode(byte[] source) throws IOException {
+        return null;
+    }
 }

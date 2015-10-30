@@ -37,97 +37,98 @@ import de.intarsys.pdf.cos.COSObject;
  * The /Text annotation.
  */
 public class PDTextAnnotation extends PDMarkupAnnotation {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDMarkupAnnotation.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDMarkupAnnotation.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDTextAnnotation(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDTextAnnotation(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_Subtype_Text = COSName.constant("Text");
+    public static final COSName CN_Subtype_Text = COSName.constant("Text");
 
-	public static final COSName DK_Name = COSName.constant("Name");
+    public static final COSName DK_Name = COSName.constant("Name");
 
-	public static final COSName DK_Open = COSName.constant("Open");
+    public static final COSName DK_Open = COSName.constant("Open");
 
-	public static final COSName DK_State = COSName.constant("State");
+    public static final COSName DK_State = COSName.constant("State");
 
-	public static final COSName DK_StateModel = COSName.constant("StateModel");
+    public static final COSName DK_StateModel = COSName.constant("StateModel");
 
-	protected PDTextAnnotation(COSObject object) {
-		super(object);
-	}
+    protected PDTextAnnotation(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	protected COSName cosGetExpectedSubtype() {
-		return PDTextAnnotation.CN_Subtype_Text;
-	}
+    @Override
+    protected COSName cosGetExpectedSubtype() {
+        return PDTextAnnotation.CN_Subtype_Text;
+    }
 
-	@Override
-	public float getDefaultHeight() {
-		return 30;
-	}
+    @Override
+    public float getDefaultHeight() {
+        return 30;
+    }
 
-	@Override
-	public float getDefaultWidth() {
-		return 30;
-	}
+    @Override
+    public float getDefaultWidth() {
+        return 30;
+    }
 
-	public COSName getIconName() {
-		return cosGetField(DK_Name).asName();
-	}
+    public COSName getIconName() {
+        return cosGetField(DK_Name).asName();
+    }
 
-	@Override
-	public float getMinHeight() {
-		return 10;
-	}
+    @Override
+    public float getMinHeight() {
+        return 10;
+    }
 
-	@Override
-	public float getMinWidth() {
-		return 10;
-	}
+    @Override
+    public float getMinWidth() {
+        return 10;
+    }
 
-	@Override
-	public String getSubtypeLabel() {
-		return "Text";
-	}
+    @Override
+    public String getSubtypeLabel() {
+        return "Text";
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAnnotation#isPrint()
-	 */
-	@Override
-	public boolean isPrint() {
-		// never print text annotations
-		// see implementation note 76 pdf 1.5
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAnnotation#isPrint()
+     */
+    @Override
+    public boolean isPrint() {
+        // never print text annotations
+        // see implementation note 76 pdf 1.5
+        return false;
+    }
 
-	public COSName setIconName(COSName name) {
-		return cosSetField(DK_Name, name).asName();
-	}
+    public COSName setIconName(COSName name) {
+        return cosSetField(DK_Name, name).asName();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAnnotation#supportsPrint()
-	 */
-	@Override
-	public boolean supportsPrint() {
-		// never print text annotations
-		// see implementation note 76 pdf 1.5
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAnnotation#supportsPrint()
+     */
+    @Override
+    public boolean supportsPrint() {
+        // never print text annotations
+        // see implementation note 76 pdf 1.5
+        return false;
+    }
 }

@@ -31,22 +31,21 @@ package de.intarsys.pdf.crypt;
 
 /**
  * An exceptional condition in the security handling.
- * 
  */
 public class COSSecurityException extends Exception {
-	public COSSecurityException() {
-		super();
-	}
+    public COSSecurityException() {
+        super();
+    }
 
-	public COSSecurityException(String message) {
-		super(message);
-	}
+    public COSSecurityException(String message) {
+        super(message);
+    }
 
-	public COSSecurityException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public COSSecurityException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public COSSecurityException(Throwable cause) {
-		super(cause);
-	}
+    public COSSecurityException(Throwable cause) {
+        super(cause);
+    }
 }

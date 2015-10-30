@@ -30,10 +30,10 @@
 package de.intarsys.pdf.st;
 
 /**
- * 
+ *
  */
 public class XRefEntryVisitorException extends Exception {
-	public XRefEntryVisitorException(Throwable cause) {
-		super(cause);
-	}
+    public XRefEntryVisitorException(Throwable cause) {
+        super(cause);
+    }
 }

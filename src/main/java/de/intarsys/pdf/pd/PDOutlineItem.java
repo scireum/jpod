@@ -40,192 +40,188 @@ import de.intarsys.pdf.cos.COSObject;
  * outline tree.
  */
 public class PDOutlineItem extends PDOutlineNode {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDOutlineNode.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDOutlineNode.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDOutlineItem(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDOutlineItem(object);
+        }
 
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			// there are documents around that do not correctly contain 
-			// a /Parent reference - so we can't really determine type but from 
-			// client context
-			if (object instanceof COSDictionary) {
-				return PDOutlineItem.META;
-			}
-			return super.doDetermineClass(object);
-		}
-	}
+        @Override
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            // there are documents around that do not correctly contain
+            // a /Parent reference - so we can't really determine type but from
+            // client context
+            if (object instanceof COSDictionary) {
+                return PDOutlineItem.META;
+            }
+            return super.doDetermineClass(object);
+        }
+    }
 
-	public static final COSName DK_A = COSName.constant("A"); //$NON-NLS-1$
+    public static final COSName DK_A = COSName.constant("A"); //$NON-NLS-1$
 
-	public static final COSName DK_C = COSName.constant("C"); //$NON-NLS-1$
+    public static final COSName DK_C = COSName.constant("C"); //$NON-NLS-1$
 
-	public static final COSName DK_Dest = COSName.constant("Dest"); //$NON-NLS-1$
+    public static final COSName DK_Dest = COSName.constant("Dest"); //$NON-NLS-1$
 
-	public static final COSName DK_F = COSName.constant("F"); //$NON-NLS-1$
+    public static final COSName DK_F = COSName.constant("F"); //$NON-NLS-1$
 
-	public static final COSName DK_Next = COSName.constant("Next"); //$NON-NLS-1$
+    public static final COSName DK_Next = COSName.constant("Next"); //$NON-NLS-1$
 
-	public static final COSName DK_Parent = COSName.constant("Parent"); //$NON-NLS-1$
+    public static final COSName DK_Parent = COSName.constant("Parent"); //$NON-NLS-1$
 
-	public static final COSName DK_Prev = COSName.constant("Prev"); //$NON-NLS-1$
+    public static final COSName DK_Prev = COSName.constant("Prev"); //$NON-NLS-1$
 
-	public static final COSName DK_SE = COSName.constant("SE"); //$NON-NLS-1$
+    public static final COSName DK_SE = COSName.constant("SE"); //$NON-NLS-1$
 
-	public static final COSName DK_Title = COSName.constant("Title"); //$NON-NLS-1$
+    public static final COSName DK_Title = COSName.constant("Title"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDOutlineItem(COSObject object) {
-		super(object);
-	}
+    protected PDOutlineItem(COSObject object) {
+        super(object);
+    }
 
-	/**
-	 * The flags as integer value.
-	 * 
-	 * @return The flags as integer value.
-	 */
-	public int basicGetFlags() {
-		return getFieldInt(DK_F, 0);
-	}
+    /**
+     * The flags as integer value.
+     *
+     * @return The flags as integer value.
+     */
+    public int basicGetFlags() {
+        return getFieldInt(DK_F, 0);
+    }
 
-	/**
-	 * Assign the flags from an integer value.
-	 * 
-	 * @param value
-	 *            The new flags
-	 */
-	public void basicSetFlags(int value) {
-		setFieldInt(DK_F, value);
-	}
+    /**
+     * Assign the flags from an integer value.
+     *
+     * @param value The new flags
+     */
+    public void basicSetFlags(int value) {
+        setFieldInt(DK_F, value);
+    }
 
-	/**
-	 * The color values to be used for this.
-	 * 
-	 * @return The color values to be used for this.
-	 */
-	public COSArray cosGetColor() {
-		return cosGetField(DK_C).asArray();
-	}
+    /**
+     * The color values to be used for this.
+     *
+     * @return The color values to be used for this.
+     */
+    public COSArray cosGetColor() {
+        return cosGetField(DK_C).asArray();
+    }
 
-	/**
-	 * The {@link PDAction} executed when the outline item is activated.
-	 * 
-	 * @return The {@link PDAction} executed when the outline item is activated.
-	 */
-	public PDAction getAction() {
-		return (PDAction) PDAction.META.createFromCos(cosGetField(DK_A));
-	}
+    /**
+     * The {@link PDAction} executed when the outline item is activated.
+     *
+     * @return The {@link PDAction} executed when the outline item is activated.
+     */
+    public PDAction getAction() {
+        return (PDAction) PDAction.META.createFromCos(cosGetField(DK_A));
+    }
 
-	/**
-	 * The {@link PDDestination} to be displayed when the outline item is
-	 * activated.
-	 * 
-	 * @return The {@link PDDestination} to be displayed when the outline item
-	 *         is activated.
-	 */
-	public PDDestination getDestination() {
-		return (PDDestination) PDDestination.META
-				.createFromCos(cosGetField(DK_Dest));
-	}
+    /**
+     * The {@link PDDestination} to be displayed when the outline item is
+     * activated.
+     *
+     * @return The {@link PDDestination} to be displayed when the outline item
+     * is activated.
+     */
+    public PDDestination getDestination() {
+        return (PDDestination) PDDestination.META.createFromCos(cosGetField(DK_Dest));
+    }
 
-	/**
-	 * The {@link OutlineItemFlags}.
-	 * 
-	 * @return The {@link OutlineItemFlags}.
-	 */
-	public OutlineItemFlags getFlags() {
-		return new OutlineItemFlags(this);
-	}
+    /**
+     * The {@link OutlineItemFlags}.
+     *
+     * @return The {@link OutlineItemFlags}.
+     */
+    public OutlineItemFlags getFlags() {
+        return new OutlineItemFlags(this);
+    }
 
-	/**
-	 * The next {@link PDOutlineItem} within the items linked list.
-	 * 
-	 * @return The next {@link PDOutlineItem} within the items linked list.
-	 */
-	public PDOutlineItem getNext() {
-		return (PDOutlineItem) PDOutlineItem.META
-				.createFromCos(cosGetField(DK_Next));
-	}
+    /**
+     * The next {@link PDOutlineItem} within the items linked list.
+     *
+     * @return The next {@link PDOutlineItem} within the items linked list.
+     */
+    public PDOutlineItem getNext() {
+        return (PDOutlineItem) PDOutlineItem.META.createFromCos(cosGetField(DK_Next));
+    }
 
-	/**
-	 * The parent item.
-	 * 
-	 * @return The parent item.
-	 */
-	public PDOutlineNode getParent() {
-		return (PDOutlineNode) PDOutlineNode.META
-				.createFromCos(cosGetField(DK_Parent));
-	}
+    /**
+     * The parent item.
+     *
+     * @return The parent item.
+     */
+    @Override
+    public PDOutlineNode getParent() {
+        return (PDOutlineNode) PDOutlineNode.META.createFromCos(cosGetField(DK_Parent));
+    }
 
-	/**
-	 * The previous {@link PDOutlineItem} within the items linked list.
-	 * 
-	 * @return The previous {@link PDOutlineItem} within the items linked list.
-	 */
-	public PDOutlineItem getPrev() {
-		return (PDOutlineItem) PDOutlineItem.META
-				.createFromCos(cosGetField(DK_Prev));
-	}
+    /**
+     * The previous {@link PDOutlineItem} within the items linked list.
+     *
+     * @return The previous {@link PDOutlineItem} within the items linked list.
+     */
+    public PDOutlineItem getPrev() {
+        return (PDOutlineItem) PDOutlineItem.META.createFromCos(cosGetField(DK_Prev));
+    }
 
-	/**
-	 * The title to be displayed for this.
-	 * 
-	 * @return The title to be displayed for this.
-	 */
-	public String getTitle() {
-		return getFieldString(DK_Title, "");
-	}
+    /**
+     * The title to be displayed for this.
+     *
+     * @return The title to be displayed for this.
+     */
+    public String getTitle() {
+        return getFieldString(DK_Title, "");
+    }
 
-	/**
-	 * Assign the {@link PDAction} to be executed when the outline is activated.
-	 * 
-	 * @param action
-	 *            The {@link PDAction} to be executed.
-	 */
-	public void setAction(PDAction action) {
-		setFieldObject(DK_A, action);
-	}
+    /**
+     * Assign the {@link PDAction} to be executed when the outline is activated.
+     *
+     * @param action The {@link PDAction} to be executed.
+     */
+    public void setAction(PDAction action) {
+        setFieldObject(DK_A, action);
+    }
 
-	/**
-	 * Assign the {@link PDDestination} to be displayed when the outline is
-	 * activated.
-	 * 
-	 * @param destination
-	 *            The {@link PDDestination} to be displayed.
-	 */
-	public void setDestination(PDDestination destination) {
-		setFieldObject(DK_Dest, destination);
-	}
+    /**
+     * Assign the {@link PDDestination} to be displayed when the outline is
+     * activated.
+     *
+     * @param destination The {@link PDDestination} to be displayed.
+     */
+    public void setDestination(PDDestination destination) {
+        setFieldObject(DK_Dest, destination);
+    }
 
-	protected void setNext(PDOutlineItem next) {
-		setFieldObject(DK_Next, next);
-	}
+    protected void setNext(PDOutlineItem next) {
+        setFieldObject(DK_Next, next);
+    }
 
-	protected void setParent(PDOutlineNode parent) {
-		setFieldObject(DK_Parent, parent);
-	}
+    protected void setParent(PDOutlineNode parent) {
+        setFieldObject(DK_Parent, parent);
+    }
 
-	protected void setPrev(PDOutlineItem prev) {
-		setFieldObject(DK_Prev, prev);
-	}
+    protected void setPrev(PDOutlineItem prev) {
+        setFieldObject(DK_Prev, prev);
+    }
 
-	/**
-	 * Assign the outline title
-	 * 
-	 * @param title
-	 *            The new outline title.
-	 */
-	public void setTitle(String title) {
-		setFieldString(DK_Title, title);
-	}
+    /**
+     * Assign the outline title
+     *
+     * @param title The new outline title.
+     */
+    public void setTitle(String title) {
+        setFieldString(DK_Title, title);
+    }
 }

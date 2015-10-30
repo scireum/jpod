@@ -31,16 +31,18 @@ package de.intarsys.pdf.filter;
 
 /**
  * The VM singleton for accessing the {@link IPredictionFactory}.
- * 
  */
 public class PredictionFactory {
-	private static IPredictionFactory ACTIVE = new StandardPredictionFactory();
+    private static IPredictionFactory ACTIVE = new StandardPredictionFactory();
 
-	static public IPredictionFactory get() {
-		return ACTIVE;
-	}
+    private PredictionFactory() {
+    }
 
-	static public void set(IPredictionFactory factory) {
-		ACTIVE = factory;
-	}
+    public static IPredictionFactory get() {
+        return ACTIVE;
+    }
+
+    public static void set(IPredictionFactory factory) {
+        ACTIVE = factory;
+    }
 }

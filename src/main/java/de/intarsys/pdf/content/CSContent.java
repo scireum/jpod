@@ -29,9 +29,6 @@
  */
 package de.intarsys.pdf.content;
 
-import java.io.IOException;
-import java.util.Iterator;
-
 import de.intarsys.pdf.content.common.CSCreator;
 import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSName;
@@ -44,21 +41,24 @@ import de.intarsys.pdf.parser.CSContentParser;
 import de.intarsys.pdf.writer.COSWriter;
 import de.intarsys.tools.randomaccess.RandomAccessByteArray;
 
+import java.io.IOException;
+import java.util.Iterator;
+
 /**
  * Represents the tokenized content of a PDF rendering program which is called a
  * "content stream".
- * 
+ * <p>
  * <p>
  * A PDF rendering program is a sequence of operations, each build by a list of
  * operands followed by the operator.
  * </p>
- * 
+ * <p>
  * <p>
  * Any visual appearance in a PDF document is build on a content stream. For
  * example a PDPage hosts a content stream (or a list of content streams) to
  * define its appearance.
  * </p>
- * 
+ * <p>
  * <p>
  * A content stream has no access to indirect objects, this means object
  * references are not valid operands for operations. Complex objects are used
@@ -74,307 +74,289 @@ import de.intarsys.tools.randomaccess.RandomAccessByteArray;
  * high level methods for the different content stream operations.
  */
 public class CSContent {
-	/**
-	 * Create {@link CSContent} from a byte array containing a PDF content
-	 * stream.
-	 * 
-	 * @param data
-	 *            The bytes defining the PDF content stream.
-	 * 
-	 * @return The new {@link CSContent}
-	 */
-	static public CSContent createFromBytes(byte[] data) {
-		try {
-			CSContentParser parser = new CSContentParser();
-			return parser.parseStream(data);
-		} catch (IOException e) {
-			throw new COSRuntimeException(e);
-		} catch (COSLoadException e) {
-			throw new COSRuntimeException(e);
-		}
-	}
+    /**
+     * Create {@link CSContent} from a byte array containing a PDF content
+     * stream.
+     *
+     * @param data The bytes defining the PDF content stream.
+     * @return The new {@link CSContent}
+     */
+    public static CSContent createFromBytes(byte[] data) {
+        try {
+            CSContentParser parser = new CSContentParser();
+            return parser.parseStream(data);
+        } catch (IOException | COSLoadException e) {
+            throw new COSRuntimeException(e);
+        }
+    }
 
-	/**
-	 * Create {@link CSContent} from an array of {@link COSStream}, together
-	 * defining a PDF content stream.
-	 * 
-	 * @param streams
-	 *            An array of {@link COSStream} objects containing each a chunk
-	 *            of the content stream.
-	 * @return The new {@link CSContent}.
-	 */
-	static public CSContent createFromCos(COSArray streams) {
-		RandomAccessByteArray data = new RandomAccessByteArray(null);
-		try {
-			for (Iterator it = streams.iterator(); it.hasNext();) {
-				COSStream stream = ((COSObject) it.next()).asStream();
-				if (stream != null) {
-					data.write(stream.getDecodedBytes());
-					// force at least a single space between streams
-					data.write(32);
-				}
-			}
-			CSContentParser parser = new CSContentParser();
-			data.seek(0);
-			return parser.parseStream(data);
-		} catch (IOException e) {
-			throw new COSRuntimeException(e);
-		} catch (COSLoadException e) {
-			throw new COSRuntimeException(e);
-		}
-	}
+    /**
+     * Create {@link CSContent} from an array of {@link COSStream}, together
+     * defining a PDF content stream.
+     *
+     * @param streams An array of {@link COSStream} objects containing each a chunk
+     *                of the content stream.
+     * @return The new {@link CSContent}.
+     */
+    public static CSContent createFromCos(COSArray streams) {
+        RandomAccessByteArray data = new RandomAccessByteArray(null);
+        try {
+            for (Iterator it = streams.iterator(); it.hasNext(); ) {
+                COSStream stream = ((COSObject) it.next()).asStream();
+                if (stream != null) {
+                    data.write(stream.getDecodedBytes());
+                    // force at least a single space between streams
+                    data.write(32);
+                }
+            }
+            CSContentParser parser = new CSContentParser();
+            data.seek(0);
+            return parser.parseStream(data);
+        } catch (IOException | COSLoadException e) {
+            throw new COSRuntimeException(e);
+        }
+    }
 
-	/**
-	 * Create {@link CSContent} from a {@link COSStream} containing a PDF
-	 * content stream.
-	 * 
-	 * @param stream
-	 *            The stream defining containing the PDF content stream.
-	 * 
-	 * @return The new {@link CSContent}
-	 */
-	static public CSContent createFromCos(COSStream stream) {
-		return createFromBytes(stream.getDecodedBytes());
-	}
+    /**
+     * Create {@link CSContent} from a {@link COSStream} containing a PDF
+     * content stream.
+     *
+     * @param stream The stream defining containing the PDF content stream.
+     * @return The new {@link CSContent}
+     */
+    public static CSContent createFromCos(COSStream stream) {
+        return createFromBytes(stream.getDecodedBytes());
+    }
 
-	/**
-	 * Create a new {@link CSContent}.
-	 * 
-	 * @return The new {@link CSContent}.
-	 */
-	static public CSContent createNew() {
-		CSContent result = new CSContent();
-		return result;
-	}
+    /**
+     * Create a new {@link CSContent}.
+     *
+     * @return The new {@link CSContent}.
+     */
+    public static CSContent createNew() {
+        return new CSContent();
+    }
 
-	/**
-	 * the tokenized elements of the content stream. The elements of this list
-	 * are COSStreamOperation objects.
-	 */
-	private CSOperation[] operations = new CSOperation[100];
+    /**
+     * the tokenized elements of the content stream. The elements of this list
+     * are COSStreamOperation objects.
+     */
+    private CSOperation[] operations = new CSOperation[100];
 
-	private int size = 0;
+    private int size = 0;
 
-	/**
-	 * Create a new PDCContentStream.
-	 *
-	 * @param resourceDict
-	 *            The dictionary defining the external references of the content
-	 *            stream.
-	 */
-	protected CSContent() {
-		super();
-	}
+    /**
+     * Create a new PDCContentStream.
+     *
+     * @param resourceDict The dictionary defining the external references of the content
+     *                     stream.
+     */
+    protected CSContent() {
+        super();
+    }
 
-	/**
-	 * Add "content" at the end of the "marked content" portion in the content
-	 * stream of this.
-	 * 
-	 * @param mark
-	 *            The type of marked content we search
-	 * @param content
-	 *            The content we want to use.
-	 */
-	public void addMarkedContent(COSName mark, byte[] content) {
-		int i = 0;
-		for (; i < size; i++) {
-			CSOperation operation = operations[i];
-			if (operation.isOpBeginMarkedContent(mark)) {
-				i++;
-				break;
-			}
-		}
-		if (i < size) {
-			// found
-			int nesting = 0;
-			for (i++; i < size; i++) {
-				CSOperation operation = operations[i];
-				if (operation.isOpBeginMarkedContent(null)) {
-					nesting++;
-				}
-				if (operation.isOpEndMarkedContent()) {
-					if (nesting == 0) {
-						addOperation(i, new CSLiteral(content));
-						break;
-					}
-					nesting--;
-				}
-			}
-		} else {
-			CSOperation operation;
-			operation = new CSOperation(CSOperators.CSO_BMC);
-			operation.addOperand(CSOperation.OPERAND_Tx);
-			addOperation(operation);
-			addOperation(new CSLiteral(content));
-			operation = new CSOperation(CSOperators.CSO_EMC);
-			addOperation(operation);
-		}
-	}
+    /**
+     * Add "content" at the end of the "marked content" portion in the content
+     * stream of this.
+     *
+     * @param mark    The type of marked content we search
+     * @param content The content we want to use.
+     */
+    public void addMarkedContent(COSName mark, byte[] content) {
+        int i = 0;
+        for (; i < size; i++) {
+            CSOperation operation = operations[i];
+            if (operation.isOpBeginMarkedContent(mark)) {
+                i++;
+                break;
+            }
+        }
+        if (i < size) {
+            // found
+            int nesting = 0;
+            for (i++; i < size; i++) {
+                CSOperation operation = operations[i];
+                if (operation.isOpBeginMarkedContent(null)) {
+                    nesting++;
+                }
+                if (operation.isOpEndMarkedContent()) {
+                    if (nesting == 0) {
+                        addOperation(i, new CSLiteral(content));
+                        break;
+                    }
+                    nesting--;
+                }
+            }
+        } else {
+            CSOperation operation;
+            operation = new CSOperation(CSOperators.CSO_BMC);
+            operation.addOperand(CSOperation.OPERAND_Tx);
+            addOperation(operation);
+            addOperation(new CSLiteral(content));
+            operation = new CSOperation(CSOperators.CSO_EMC);
+            addOperation(operation);
+        }
+    }
 
-	/**
-	 * Add another operation to the rendering program.
-	 * 
-	 * @param op
-	 *            The new operation to append.
-	 */
-	public void addOperation(CSOperation op) {
-		if (size >= operations.length) {
-			CSOperation[] newOperations = new CSOperation[size * 2];
-			System.arraycopy(operations, 0, newOperations, 0, size);
-			operations = newOperations;
-		}
-		operations[size++] = op;
-	}
+    /**
+     * Add another operation to the rendering program.
+     *
+     * @param op The new operation to append.
+     */
+    public void addOperation(CSOperation op) {
+        if (size >= operations.length) {
+            CSOperation[] newOperations = new CSOperation[size * 2];
+            System.arraycopy(operations, 0, newOperations, 0, size);
+            operations = newOperations;
+        }
+        operations[size++] = op;
+    }
 
-	/**
-	 * Add another operation to the rendering program.
-	 * 
-	 * @param op
-	 *            The new operation to append.
-	 */
-	public void addOperation(int index, CSOperation op) {
-		if (size >= operations.length) {
-			CSOperation[] newOperations = new CSOperation[size * 2];
-			System.arraycopy(operations, 0, newOperations, 0, size);
-			operations = newOperations;
-		}
-		System.arraycopy(operations, index, operations, index + 1, size - index);
-		size++;
-		operations[index] = op;
-	}
+    /**
+     * Add another operation to the rendering program.
+     *
+     * @param op The new operation to append.
+     */
+    public void addOperation(int index, CSOperation op) {
+        if (size >= operations.length) {
+            CSOperation[] newOperations = new CSOperation[size * 2];
+            System.arraycopy(operations, 0, newOperations, 0, size);
+            operations = newOperations;
+        }
+        System.arraycopy(operations, index, operations, index + 1, size - index);
+        size++;
+        operations[index] = op;
+    }
 
-	public COSStream createStream() {
-		COSStream result = COSStream.create(null);
-		result.setDecodedBytes(toByteArray());
-		return result;
-	}
+    public COSStream createStream() {
+        COSStream result = COSStream.create(null);
+        result.setDecodedBytes(toByteArray());
+        return result;
+    }
 
-	public COSStream createStreamFlate() {
-		COSStream result = COSStream.create(null);
-		byte[] bytes = toByteArray();
-		result.setDecodedBytes(bytes);
-		if (bytes.length > 10) {
-			// deflate large streams
-			result.addFilter(Filter.CN_Filter_FlateDecode);
-		}
-		return result;
-	}
+    public COSStream createStreamFlate() {
+        COSStream result = COSStream.create(null);
+        byte[] bytes = toByteArray();
+        result.setDecodedBytes(bytes);
+        if (bytes.length > 10) {
+            // deflate large streams
+            result.addFilter(Filter.CN_Filter_FlateDecode);
+        }
+        return result;
+    }
 
-	/**
-	 * remove last operation from the rendering program.
-	 * 
-	 * @return the last operation, or null of no operations left
-	 */
-	public CSOperation getLastOperation() {
-		if (size == 0) {
-			return null;
-		}
-		return operations[size - 1];
-	}
+    /**
+     * remove last operation from the rendering program.
+     *
+     * @return the last operation, or null of no operations left
+     */
+    public CSOperation getLastOperation() {
+        if (size == 0) {
+            return null;
+        }
+        return operations[size - 1];
+    }
 
-	public CSOperation getOperation(int index) {
-		return operations[index];
-	}
+    public CSOperation getOperation(int index) {
+        return operations[index];
+    }
 
-	public CSOperation[] getOperations() {
-		CSOperation[] copy = new CSOperation[size];
-		System.arraycopy(operations, 0, copy, 0, size());
-		return copy;
-	}
+    public CSOperation[] getOperations() {
+        CSOperation[] copy = new CSOperation[size];
+        System.arraycopy(operations, 0, copy, 0, size());
+        return copy;
+    }
 
-	/**
-	 * remove last operation from the rendering program.
-	 */
-	public void removeLastOperation() {
-		removeOperation(size - 1);
-	}
+    /**
+     * remove last operation from the rendering program.
+     */
+    public void removeLastOperation() {
+        removeOperation(size - 1);
+    }
 
-	public void removeOperation(int index) {
-		System.arraycopy(operations, index + 1, operations, index, size - index
-				- 1);
-		size--;
-	}
+    public void removeOperation(int index) {
+        System.arraycopy(operations, index + 1, operations, index, size - index - 1);
+        size--;
+    }
 
-	/**
-	 * Set the "marked content" portion in the content stream of this. Marked
-	 * content is enclosed between "BMC" and "EMC", the begin operation has an
-	 * operand identifying the type of marked content.
-	 * 
-	 * <p>
-	 * The portion between the marks is replaced with <code>content</code>.If no
-	 * marks are found, the new content is appended as a marked content section.
-	 * </p>
-	 * 
-	 * @param mark
-	 *            The type of marked content we search
-	 * @param content
-	 *            The content we want to use.
-	 */
-	public void setMarkedContent(COSName mark, byte[] content) {
-		int i = 0;
-		for (; i < size; i++) {
-			CSOperation operation = operations[i];
-			if (operation.isOpBeginMarkedContent(mark)) {
-				i++;
-				break;
-			}
-		}
-		if (i < size) {
-			// found
-			addOperation(i, new CSLiteral(content));
-			int nesting = 0;
-			for (i++; i < size;) {
-				CSOperation operation = operations[i];
-				if (operation.isOpBeginMarkedContent(null)) {
-					nesting++;
-				}
-				if (operation.isOpEndMarkedContent()) {
-					if (nesting == 0) {
-						break;
-					}
-					nesting--;
-				}
-				removeOperation(i);
-			}
-		} else {
-			CSOperation operation;
-			operation = new CSOperation(CSOperators.CSO_BMC);
-			operation.addOperand(CSOperation.OPERAND_Tx);
-			addOperation(operation);
-			addOperation(new CSLiteral(content));
-			operation = new CSOperation(CSOperators.CSO_EMC);
-			addOperation(operation);
-		}
-	}
+    /**
+     * Set the "marked content" portion in the content stream of this. Marked
+     * content is enclosed between "BMC" and "EMC", the begin operation has an
+     * operand identifying the type of marked content.
+     * <p>
+     * <p>
+     * The portion between the marks is replaced with {@code content}.If no
+     * marks are found, the new content is appended as a marked content section.
+     * </p>
+     *
+     * @param mark    The type of marked content we search
+     * @param content The content we want to use.
+     */
+    public void setMarkedContent(COSName mark, byte[] content) {
+        int i = 0;
+        for (; i < size; i++) {
+            CSOperation operation = operations[i];
+            if (operation.isOpBeginMarkedContent(mark)) {
+                i++;
+                break;
+            }
+        }
+        if (i < size) {
+            // found
+            addOperation(i, new CSLiteral(content));
+            int nesting = 0;
+            for (i++; i < size; ) {
+                CSOperation operation = operations[i];
+                if (operation.isOpBeginMarkedContent(null)) {
+                    nesting++;
+                }
+                if (operation.isOpEndMarkedContent()) {
+                    if (nesting == 0) {
+                        break;
+                    }
+                    nesting--;
+                }
+                removeOperation(i);
+            }
+        } else {
+            CSOperation operation;
+            operation = new CSOperation(CSOperators.CSO_BMC);
+            operation.addOperand(CSOperation.OPERAND_Tx);
+            addOperation(operation);
+            addOperation(new CSLiteral(content));
+            operation = new CSOperation(CSOperators.CSO_EMC);
+            addOperation(operation);
+        }
+    }
 
-	/**
-	 * The number of operations in the content stream.
-	 * 
-	 * @return The number of operations in the content stream.
-	 */
-	public int size() {
-		return size;
-	}
+    /**
+     * The number of operations in the content stream.
+     *
+     * @return The number of operations in the content stream.
+     */
+    public int size() {
+        return size;
+    }
 
-	/**
-	 * Create the byte representation from the list of operations.
-	 * 
-	 * @return The byte representation from the list of operations.
-	 */
-	public byte[] toByteArray() {
-		byte[] buffer = new byte[size() * 10];
-		RandomAccessByteArray randomAccess = new RandomAccessByteArray(buffer, 0);
-		COSWriter writer = new COSWriter(randomAccess, null);
-		try {
-			writer.writeContentStream(this);
-		} catch (IOException e) {
-			// this should not happen
-		}
-		return randomAccess.toByteArray();
-	}
+    /**
+     * Create the byte representation from the list of operations.
+     *
+     * @return The byte representation from the list of operations.
+     */
+    public byte[] toByteArray() {
+        byte[] buffer = new byte[size() * 10];
+        RandomAccessByteArray randomAccess = new RandomAccessByteArray(buffer, 0);
+        COSWriter writer = new COSWriter(randomAccess, null);
+        try {
+            writer.writeContentStream(this);
+        } catch (IOException e) {
+            // this should not happen
+        }
+        return randomAccess.toByteArray();
+    }
 
-	@Override
-	public String toString() {
-		return new String(toByteArray());
-	}
+    @Override
+    public String toString() {
+        return new String(toByteArray());
+    }
 }

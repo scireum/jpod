@@ -43,56 +43,56 @@ import de.intarsys.pdf.cos.COSStream;
  * A tile used to fill the shape.
  */
 public class PDTilingPattern extends PDPattern implements IContentStreamProvider {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDPattern.MetaClass {
-		protected MetaClass(Class<?> paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDPattern.MetaClass {
+        protected MetaClass(Class<?> paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
+        @Override
         protected COSObject doCreateCOSObject() {
-		    return COSStream.create(null);
-		}
+            return COSStream.create(null);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDTilingPattern(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDTilingPattern(object);
+        }
+    }
 
     public static final COSName DK_PaintType = COSName.constant("PaintType"); //$NON-NLS-1$
-	public static final COSName DK_BBox = COSName.constant("BBox"); //$NON-NLS-1$
-	public static final COSName DK_Resources = COSName.constant("Resources"); //$NON-NLS-1$
-	public static final COSName DK_XStep = COSName.constant("XStep"); //$NON-NLS-1$
-	public static final COSName DK_YStep = COSName.constant("YStep"); //$NON-NLS-1$
-	public static final COSName DK_TilingType = COSName.constant("TilingType"); //$NON-NLS-1$
+    public static final COSName DK_BBox = COSName.constant("BBox"); //$NON-NLS-1$
+    public static final COSName DK_Resources = COSName.constant("Resources"); //$NON-NLS-1$
+    public static final COSName DK_XStep = COSName.constant("XStep"); //$NON-NLS-1$
+    public static final COSName DK_YStep = COSName.constant("YStep"); //$NON-NLS-1$
+    public static final COSName DK_TilingType = COSName.constant("TilingType"); //$NON-NLS-1$
 
-	public static final int PAINT_TYPE_COLORED = 1;
-	public static final int PAINT_TYPE_UNCOLORED = 2;
+    public static final int PAINT_TYPE_COLORED = 1;
+    public static final int PAINT_TYPE_UNCOLORED = 2;
 
-	public static final int TILING_TYPE_CONSTANT_SPACING = 1;
-	public static final int TILING_TYPE_NO_DISTORTION = 2;
-	public static final int TILING_TYPE_CONSTANT_SPACING_AND_FASTER_TILING = 3;
+    public static final int TILING_TYPE_CONSTANT_SPACING = 1;
+    public static final int TILING_TYPE_NO_DISTORTION = 2;
+    public static final int TILING_TYPE_CONSTANT_SPACING_AND_FASTER_TILING = 3;
 
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * Cached content of the pattern.
+     * <p>
+     * <p>
+     * Requesting the content is expensive.
+     * </p>
+     */
+    private CSContent cachedContent;
 
-	/**
-	 * Cached content of the pattern.
-	 *
-	 * <p>
-	 * Requesting the content is expensive.
-	 * </p>
-	 */
-	private CSContent cachedContent;
-
-	protected PDTilingPattern(COSObject object) {
-		super(object);
-	}
+    protected PDTilingPattern(COSObject object) {
+        super(object);
+    }
 
     @Override
     protected void initializeFromScratch() {
@@ -149,12 +149,12 @@ public class PDTilingPattern extends PDPattern implements IContentStreamProvider
     }
 
     public CDSRectangle getBoundingBox() {
-		COSArray array = cosGetField(DK_BBox).asArray();
-		if (array == null) {
-			return null;
-		}
-		return CDSRectangle.createFromCOS(array);
-	}
+        COSArray array = cosGetField(DK_BBox).asArray();
+        if (array == null) {
+            return null;
+        }
+        return CDSRectangle.createFromCOS(array);
+    }
 
     public void setBoundingBox(CDSRectangle rect) {
         setFieldObject(DK_BBox, rect);
@@ -162,11 +162,11 @@ public class PDTilingPattern extends PDPattern implements IContentStreamProvider
 
     @Override
     public CSContent getContentStream() {
-		if (cachedContent == null) {
-			cachedContent = CSContent.createFromCos(cosGetStream());
-		}
-		return cachedContent;
-	}
+        if (cachedContent == null) {
+            cachedContent = CSContent.createFromCos(cosGetStream());
+        }
+        return cachedContent;
+    }
 
     @Override
     public void setContentStream(CSContent content) {
@@ -177,18 +177,18 @@ public class PDTilingPattern extends PDPattern implements IContentStreamProvider
         cosGetStream().setDecodedBytes(bytes);
     }
 
-	/**
-	 * The resource dictionary of this pattern. This method can return
-	 * null if no resource dictionary is available. Spec lists resource
-	 * dictionary as required however.
-	 *
-	 * @return The resource dictionary of the receiver pattern.
-	 */
-	@Override
+    /**
+     * The resource dictionary of this pattern. This method can return
+     * null if no resource dictionary is available. Spec lists resource
+     * dictionary as required however.
+     *
+     * @return The resource dictionary of the receiver pattern.
+     */
+    @Override
     public PDResources getResources() {
-		COSDictionary r = cosGetField(DK_Resources).asDictionary();
-		return (PDResources) PDResources.META.createFromCos(r);
-	}
+        COSDictionary r = cosGetField(DK_Resources).asDictionary();
+        return (PDResources) PDResources.META.createFromCos(r);
+    }
 
     @Override
     public void setResources(PDResources resources) {

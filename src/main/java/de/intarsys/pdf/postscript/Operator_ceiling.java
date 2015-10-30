@@ -30,31 +30,32 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_ceiling implements IOperator {
-	public static Operator_ceiling Instance;
+    public static Operator_ceiling Instance;
 
-	static {
-		Instance = new Operator_ceiling();
-	}
+    static {
+        Instance = new Operator_ceiling();
+    }
 
-	private Operator_ceiling() {
-		super();
-	}
+    private Operator_ceiling() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Number element;
-		double operand;
-		double result;
+    @Override
+    public void execute(Handler handler) {
+        Number element;
+        double operand;
+        double result;
 
-		element = (Number) handler.peek();
-		if (element instanceof Integer) {
-			return;
-		}
-		operand = element.doubleValue();
-		result = Math.ceil(operand);
-		if (result == operand) {
-			return;
-		}
-		handler.pop();
-		handler.push(new Double(result));
-	}
+        element = (Number) handler.peek();
+        if (element instanceof Integer) {
+            return;
+        }
+        operand = element.doubleValue();
+        result = Math.ceil(operand);
+        if (result == operand) {
+            return;
+        }
+        handler.pop();
+        handler.push(new Double(result));
+    }
 }

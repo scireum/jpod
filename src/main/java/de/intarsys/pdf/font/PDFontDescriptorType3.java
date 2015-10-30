@@ -40,260 +40,262 @@ import de.intarsys.pdf.cos.COSObject;
  * the font information.
  */
 public class PDFontDescriptorType3 extends PDFontDescriptor {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDFontDescriptor.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDFontDescriptor.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			throw new IllegalStateException(
-					"can not instantiate PDFontDescriptorType3 as COSBasedObject");
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            throw new IllegalStateException("can not instantiate PDFontDescriptorType3 as COSBasedObject");
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** derived value for the leading */
-	private int leading;
+    /**
+     * derived value for the leading
+     */
+    private int leading;
 
-	/** cached value for the bounding box */
-	private CDSRectangle bb;
+    /**
+     * cached value for the bounding box
+     */
+    private CDSRectangle bb;
 
-	private PDFontType3 font;
+    private PDFontType3 font;
 
-	/**
-	 * Create a font descriptor for a type 1 font.
-	 * 
-	 * @param newFont
-	 *            type 1 font containing the definitions.
-	 */
-	protected PDFontDescriptorType3(PDFontType3 font) {
-		super(null);
-		this.font = font;
-	}
+    /**
+     * Create a font descriptor for a type 1 font.
+     *
+     * @param newFont type 1 font containing the definitions.
+     */
+    protected PDFontDescriptorType3(PDFontType3 font) {
+        super(null);
+        this.font = font;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getAscent()
-	 */
-	@Override
-	public float getAscent() {
-		CDSRectangle bb = getFont().getFontBB();
-		CDSMatrix matrix = getFont().getFontMatrix();
-		return bb.getUpperRightY() * matrix.getD() * 1000;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getAscent()
+     */
+    @Override
+    public float getAscent() {
+        CDSRectangle bb = getFont().getFontBB();
+        CDSMatrix matrix = getFont().getFontMatrix();
+        return bb.getUpperRightY() * matrix.getD() * 1000;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getAvgWidth()
-	 */
-	@Override
-	public float getAvgWidth() {
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getAvgWidth()
+     */
+    @Override
+    public float getAvgWidth() {
+        return 0;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getCapHeight()
-	 */
-	@Override
-	public float getCapHeight() {
-		return getAscent();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getCapHeight()
+     */
+    @Override
+    public float getCapHeight() {
+        return getAscent();
+    }
 
-	@Override
-	public String getCharSet() {
-		return null;
-	}
+    @Override
+    public String getCharSet() {
+        return null;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getDescent()
-	 */
-	@Override
-	public float getDescent() {
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getDescent()
+     */
+    @Override
+    public float getDescent() {
+        return 0;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getFlags()
-	 */
-	@Override
-	public int getFlagsValue() {
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getFlags()
+     */
+    @Override
+    public int getFlagsValue() {
+        return 0;
+    }
 
-	public PDFontType3 getFont() {
-		return font;
-	}
+    public PDFontType3 getFont() {
+        return font;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getRectangle()
-	 */
-	@Override
-	public CDSRectangle getFontBB() {
-		return getFont().getFontBB();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getRectangle()
+     */
+    @Override
+    public CDSRectangle getFontBB() {
+        return getFont().getFontBB();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getFontFamily()
-	 */
-	@Override
-	public String getFontFamily() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getFontFamily()
+     */
+    @Override
+    public String getFontFamily() {
+        return null;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getFontName()
-	 */
-	@Override
-	public String getFontName() {
-		return getFont().getFontName();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getFontName()
+     */
+    @Override
+    public String getFontName() {
+        return getFont().getFontName();
+    }
 
-	@Override
-	public String getFontStretch() {
-		return null;
-	}
+    @Override
+    public String getFontStretch() {
+        return null;
+    }
 
-	@Override
-	public int getFontWeight() {
-		return 0;
-	}
+    @Override
+    public int getFontWeight() {
+        return 0;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getItalicAngle()
-	 */
-	@Override
-	public float getItalicAngle() {
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getItalicAngle()
+     */
+    @Override
+    public float getItalicAngle() {
+        return 0;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getLeading()
-	 */
-	@Override
-	public int getLeading() {
-		if (leading == 0) {
-			// compute a default for the leading
-			CDSRectangle rect = getFontBB();
-			leading = (int) (rect.getUpperRightY() - rect.getLowerLeftY());
-		}
-		return leading;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getLeading()
+     */
+    @Override
+    public int getLeading() {
+        if (leading == 0) {
+            // compute a default for the leading
+            CDSRectangle rect = getFontBB();
+            leading = (int) (rect.getUpperRightY() - rect.getLowerLeftY());
+        }
+        return leading;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getMaxWidth()
-	 */
-	@Override
-	public int getMaxWidth() {
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getMaxWidth()
+     */
+    @Override
+    public int getMaxWidth() {
+        return 0;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getMissingWidth()
-	 */
-	@Override
-	public int getMissingWidth() {
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getMissingWidth()
+     */
+    @Override
+    public int getMissingWidth() {
+        return 0;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getStemH()
-	 */
-	@Override
-	public int getStemH() {
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getStemH()
+     */
+    @Override
+    public int getStemH() {
+        return 0;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getStemV()
-	 */
-	@Override
-	public int getStemV() {
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getStemV()
+     */
+    @Override
+    public int getStemV() {
+        return 0;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#getXHeight()
-	 */
-	@Override
-	public float getXHeight() {
-		return getAscent();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#getXHeight()
+     */
+    @Override
+    public float getXHeight() {
+        return getAscent();
+    }
 
-	@Override
-	public boolean isBuiltin() {
-		return true;
-	}
+    @Override
+    public boolean isBuiltin() {
+        return true;
+    }
 
-	@Override
-	public boolean isNonsymbolic() {
-		return !isSymbolic();
-	}
+    @Override
+    public boolean isNonsymbolic() {
+        return !isSymbolic();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#isSymbolic()
-	 */
-	@Override
-	public boolean isSymbolic() {
-		String name = getFontName();
-		return PDFontType1.FONT_ZapfDingbats.equals(name)
-				|| PDFontType1.FONT_Symbol.equals(name);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#isSymbolic()
+     */
+    @Override
+    public boolean isSymbolic() {
+        String name = getFontName();
+        return PDFontType1.FONT_ZapfDingbats.equals(name) || PDFontType1.FONT_Symbol.equals(name);
+    }
 
-	@Override
-	public void setCharSet(String charset) {
-	}
+    @Override
+    public void setCharSet(String charset) {
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFontDescriptor#setFlagsValue(int)
-	 */
-	@Override
-	public void setFlagsValue(int value) {
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFontDescriptor#setFlagsValue(int)
+     */
+    @Override
+    public void setFlagsValue(int value) {
+    }
 
-	@Override
-	public void setFontStretch(String stretch) {
-	}
+    @Override
+    public void setFontStretch(String stretch) {
+    }
 
-	@Override
-	public void setFontWeight(int weight) {
-	}
+    @Override
+    public void setFontWeight(int weight) {
+    }
 }

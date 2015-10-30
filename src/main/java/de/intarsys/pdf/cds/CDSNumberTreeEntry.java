@@ -38,26 +38,25 @@ import de.intarsys.pdf.cos.COSObject;
  */
 public class CDSNumberTreeEntry extends CDSTreeEntry {
 
-	private COSInteger number;
+    private COSInteger number;
 
-	/**
-	 * Create an an entry for a number tree
-	 * 
-	 * @param number
-	 *            The number of the entry
-	 * @param value
-	 *            The value of the entry.
-	 */
-	public CDSNumberTreeEntry(COSInteger number, COSObject value) {
-		super(value);
-		this.number = number;
-	}
+    /**
+     * Create an an entry for a number tree
+     *
+     * @param number The number of the entry
+     * @param value  The value of the entry.
+     */
+    public CDSNumberTreeEntry(COSInteger number, COSObject value) {
+        super(value);
+        this.number = number;
+    }
 
-	public COSInteger getNumber() {
-		return number;
-	}
+    public COSInteger getNumber() {
+        return number;
+    }
 
-	public COSObject getKey() {
-		return getNumber();
-	}
+    @Override
+    public COSObject getKey() {
+        return getNumber();
+    }
 }

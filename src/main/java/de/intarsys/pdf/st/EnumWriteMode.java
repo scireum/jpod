@@ -36,38 +36,43 @@ import de.intarsys.tools.enumeration.EnumMeta;
  * The enumeration of available write modes for the document.
  */
 public class EnumWriteMode extends EnumItem {
-	/**
-	 * The meta data for the enumeration.
-	 */
-	final public static EnumMeta META = getMeta(EnumWriteMode.class);
+    /**
+     * The meta data for the enumeration.
+     */
+    public static final EnumMeta META = getMeta(EnumWriteMode.class);
 
-	/** Defer decision until writing */
-	public static final EnumWriteMode UNDEFINED = new EnumWriteMode("undefined"); //$NON-NLS-1$
+    /**
+     * Defer decision until writing
+     */
+    public static final EnumWriteMode UNDEFINED = new EnumWriteMode("undefined"); //$NON-NLS-1$
 
-	/** Force incremental writing */
-	public static final EnumWriteMode INCREMENTAL = new EnumWriteMode(
-			"incremental"); //$NON-NLS-1$
+    /**
+     * Force incremental writing
+     */
+    public static final EnumWriteMode INCREMENTAL = new EnumWriteMode("incremental"); //$NON-NLS-1$
 
-	/** Force full writing */
-	public static final EnumWriteMode FULL = new EnumWriteMode("full"); //$NON-NLS-1$
+    /**
+     * Force full writing
+     */
+    public static final EnumWriteMode FULL = new EnumWriteMode("full"); //$NON-NLS-1$
 
-	static {
-		UNDEFINED.setDefault();
-	}
+    static {
+        UNDEFINED.setDefault();
+    }
 
-	protected EnumWriteMode(String id) {
-		super(id);
-	}
+    protected EnumWriteMode(String id) {
+        super(id);
+    }
 
-	public boolean isIncremental() {
-		return this == INCREMENTAL;
-	}
+    public boolean isIncremental() {
+        return this == INCREMENTAL;
+    }
 
-	public boolean isFull() {
-		return this == FULL;
-	}
+    public boolean isFull() {
+        return this == FULL;
+    }
 
-	public boolean isUndefined() {
-		return this == UNDEFINED;
-	}
+    public boolean isUndefined() {
+        return this == UNDEFINED;
+    }
 }

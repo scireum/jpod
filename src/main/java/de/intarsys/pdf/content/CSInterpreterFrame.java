@@ -36,19 +36,17 @@ import de.intarsys.pdf.pd.PDResources;
 /**
  * The context frame of a {@link CSInterpreter} holding the "process" stack
  * frame information.
- * 
  */
 public class CSInterpreterFrame {
-	protected PDDocument doc;
+    protected PDDocument doc;
 
-	protected PDResources resources;
+    protected PDResources resources;
 
-	protected int compatibilitySectionDepth = 0;
+    protected int compatibilitySectionDepth = 0;
 
-	protected int graphicsObjectState = CSInterpreter.PageLevel;
+    protected int graphicsObjectState = CSInterpreter.PageLevel;
 
-	protected PDColorSpace defaultGray;
-	protected PDColorSpace defaultRGB;
-	protected PDColorSpace defaultCMYK;
-
+    protected PDColorSpace defaultGray;
+    protected PDColorSpace defaultRGB;
+    protected PDColorSpace defaultCMYK;
 }

@@ -29,8 +29,6 @@
  */
 package de.intarsys.pdf.app.appearance;
 
-import java.util.Iterator;
-
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.pd.PDAcroFormField;
 import de.intarsys.pdf.pd.PDAnnotation;
@@ -38,74 +36,69 @@ import de.intarsys.pdf.pd.PDAppearance;
 import de.intarsys.pdf.pd.PDObject;
 import de.intarsys.tools.attribute.Attribute;
 
+import java.util.Iterator;
+
 /**
  * Tool class for tasks related to appearance creation.
  */
 public class AppearanceCreatorTools {
 
-	private static final Attribute ATTR_APPEARANCECREATOR = new Attribute(
-			"appearanceCreator");
+    private static final Attribute ATTR_APPEARANCECREATOR = new Attribute("appearanceCreator");
 
-	private static final Attribute ATTR_PREVIOUSAPPEARANCECREATOR = new Attribute("previousAppearanceCreator");
+    private static final Attribute ATTR_PREVIOUSAPPEARANCECREATOR = new Attribute("previousAppearanceCreator");
 
-	private static final IAppearanceCreator APPEARANCECREATOR_IDENTITY = new IdentityAppearanceCreator();
+    private static final IAppearanceCreator APPEARANCECREATOR_IDENTITY = new IdentityAppearanceCreator();
 
-	private static final IAppearanceCreator APPEARANCECREATOR_NULL = new NullAppearanceCreator();
+    private static final IAppearanceCreator APPEARANCECREATOR_NULL = new NullAppearanceCreator();
 
-	public static void createAppearance(PDAcroFormField field) {
-		IAppearanceCreator appearanceCreator = getAppearanceCreator(field);
-		for (Iterator i = field.getLogicalRoot().getAnnotations().iterator(); i
-				.hasNext();) {
-			PDAnnotation annot = (PDAnnotation) i.next();
-			createAppearance(annot, appearanceCreator);
-		}
-	}
+    private AppearanceCreatorTools() {
+    }
 
-	static public PDAppearance createAppearance(PDAnnotation annotation) {
-		IAppearanceCreator appearanceCreator = getAppearanceCreator(annotation);
-		return createAppearance(annotation, appearanceCreator);
-	}
+    public static void createAppearance(PDAcroFormField field) {
+        IAppearanceCreator appearanceCreator = getAppearanceCreator(field);
+        for (Iterator i = field.getLogicalRoot().getAnnotations().iterator(); i.hasNext(); ) {
+            PDAnnotation annot = (PDAnnotation) i.next();
+            createAppearance(annot, appearanceCreator);
+        }
+    }
 
-	static public PDAppearance createAppearance(PDAnnotation annotation,
-			IAppearanceCreator appearanceCreator) {
-		if (appearanceCreator == null) {
-			COSName type = annotation.cosGetSubtype();
-			appearanceCreator = AppearanceCreatorRegistry.get()
-					.lookupAppearanceCreator(type);
-			if (appearanceCreator == null) {
-				appearanceCreator = APPEARANCECREATOR_NULL;
-			}
-		}
-		PDAppearance appearance = appearanceCreator.createAppearance(
-				annotation, null);
-		if (appearance != annotation.getAppearance()) {
-			annotation.setAppearance(appearance);
-		}
-		return appearance;
-	}
+    public static PDAppearance createAppearance(PDAnnotation annotation) {
+        IAppearanceCreator appearanceCreator = getAppearanceCreator(annotation);
+        return createAppearance(annotation, appearanceCreator);
+    }
 
-	static public IAppearanceCreator getAppearanceCreator(
-			PDObject fieldOrAnntotation) {
-		return (IAppearanceCreator) fieldOrAnntotation
-				.getAttribute(ATTR_APPEARANCECREATOR);
-	}
+    public static PDAppearance createAppearance(PDAnnotation annotation, IAppearanceCreator appearanceCreator) {
+        if (appearanceCreator == null) {
+            COSName type = annotation.cosGetSubtype();
+            appearanceCreator = AppearanceCreatorRegistry.get().lookupAppearanceCreator(type);
+            if (appearanceCreator == null) {
+                appearanceCreator = APPEARANCECREATOR_NULL;
+            }
+        }
+        PDAppearance appearance = appearanceCreator.createAppearance(annotation, null);
+        if (appearance != annotation.getAppearance()) {
+            annotation.setAppearance(appearance);
+        }
+        return appearance;
+    }
 
-	static public void resumeAppearanceCreation(PDObject fieldOrAnntotation) {
-		IAppearanceCreator previousAppearanceCreator = (IAppearanceCreator) fieldOrAnntotation
-				.removeAttribute(ATTR_PREVIOUSAPPEARANCECREATOR);
-		setAppearanceCreator(fieldOrAnntotation, previousAppearanceCreator);
-	}
+    public static IAppearanceCreator getAppearanceCreator(PDObject fieldOrAnntotation) {
+        return (IAppearanceCreator) fieldOrAnntotation.getAttribute(ATTR_APPEARANCECREATOR);
+    }
 
-	static public void setAppearanceCreator(PDObject fieldOrAnntotation,
-			IAppearanceCreator appearanceCreator) {
-		fieldOrAnntotation.setAttribute(ATTR_APPEARANCECREATOR,
-				appearanceCreator);
-	}
+    public static void resumeAppearanceCreation(PDObject fieldOrAnntotation) {
+        IAppearanceCreator previousAppearanceCreator =
+                (IAppearanceCreator) fieldOrAnntotation.removeAttribute(ATTR_PREVIOUSAPPEARANCECREATOR);
+        setAppearanceCreator(fieldOrAnntotation, previousAppearanceCreator);
+    }
 
-	static public void suspendAppearanceCreation(PDObject fieldOrAnntotation) {
-		IAppearanceCreator currentAppearanceCreator = getAppearanceCreator(fieldOrAnntotation);
-		fieldOrAnntotation.setAttribute(ATTR_PREVIOUSAPPEARANCECREATOR,
-				currentAppearanceCreator);
-		setAppearanceCreator(fieldOrAnntotation, APPEARANCECREATOR_IDENTITY);
-	}
+    public static void setAppearanceCreator(PDObject fieldOrAnntotation, IAppearanceCreator appearanceCreator) {
+        fieldOrAnntotation.setAttribute(ATTR_APPEARANCECREATOR, appearanceCreator);
+    }
+
+    public static void suspendAppearanceCreation(PDObject fieldOrAnntotation) {
+        IAppearanceCreator currentAppearanceCreator = getAppearanceCreator(fieldOrAnntotation);
+        fieldOrAnntotation.setAttribute(ATTR_PREVIOUSAPPEARANCECREATOR, currentAppearanceCreator);
+        setAppearanceCreator(fieldOrAnntotation, APPEARANCECREATOR_IDENTITY);
+    }
 }

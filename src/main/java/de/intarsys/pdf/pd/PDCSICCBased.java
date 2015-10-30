@@ -39,58 +39,57 @@ import de.intarsys.pdf.cos.COSStream;
  * ICC standards based color space definition.
  */
 public class PDCSICCBased extends PDCSCIEBased {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDCSCIEBased.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDCSCIEBased.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return new PDCSICCBased(object);
-		}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return new PDCSICCBased(object);
+        }
 
-		@Override
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			if (object instanceof COSStream) {
-				return this;
-			}
-			return super.doDetermineClass(object);
-		}
-	}
+        @Override
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            if (object instanceof COSStream) {
+                return this;
+            }
+            return super.doDetermineClass(object);
+        }
+    }
 
-	public static final COSName DK_Alternate = COSName.constant("Alternate"); //$NON-NLS-1$
+    public static final COSName DK_Alternate = COSName.constant("Alternate"); //$NON-NLS-1$
 
-	public static final COSName DK_N = COSName.constant("N"); //$NON-NLS-1$
+    public static final COSName DK_N = COSName.constant("N"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	private COSStream profileStream;
+    private COSStream profileStream;
 
-	protected PDCSICCBased(COSObject object) {
-		super(object);
-		if (object instanceof COSArray) {
-			profileStream = ((COSArray) object).get(1).asStream();
-		} else {
-			profileStream = object.asStream();
-		}
-	}
+    protected PDCSICCBased(COSObject object) {
+        super(object);
+        if (object instanceof COSArray) {
+            profileStream = ((COSArray) object).get(1).asStream();
+        } else {
+            profileStream = object.asStream();
+        }
+    }
 
-	public COSStream cosGetProfileStream() {
-		return profileStream;
-	}
+    public COSStream cosGetProfileStream() {
+        return profileStream;
+    }
 
-	public PDColorSpace getAlternate() {
-		COSObject alternate = cosGetProfileStream().getDict().get(
-				PDCSICCBased.DK_Alternate);
-		if (alternate.isNull()) {
-			return null;
-		}
-		return ((PDColorSpace) PDColorSpace.META.createFromCos(alternate));
-	}
-
+    public PDColorSpace getAlternate() {
+        COSObject alternate = cosGetProfileStream().getDict().get(PDCSICCBased.DK_Alternate);
+        if (alternate.isNull()) {
+            return null;
+        }
+        return ((PDColorSpace) PDColorSpace.META.createFromCos(alternate));
+    }
 }

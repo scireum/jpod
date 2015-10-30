@@ -39,96 +39,95 @@ import de.intarsys.pdf.cos.COSObject;
  * Function implementation for stitching functions.
  */
 public class PDStitchingFunction extends PDFunction {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDFunction.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDFunction.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDStitchingFunction(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDStitchingFunction(object);
+        }
+    }
 
-	private static final COSName DK_Bounds = COSName.constant("Bounds"); //$NON-NLS-1$
+    private static final COSName DK_Bounds = COSName.constant("Bounds"); //$NON-NLS-1$
 
-	private static final COSName DK_Encode = COSName.constant("Encode"); //$NON-NLS-1$
+    private static final COSName DK_Encode = COSName.constant("Encode"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	private static final COSName DK_Functions = COSName.constant("Functions"); //$NON-NLS-1$
+    private static final COSName DK_Functions = COSName.constant("Functions"); //$NON-NLS-1$
 
-	private float[] bounds;
+    private float[] bounds;
 
-	private float[] encode;
+    private float[] encode;
 
-	private PDFunction[] functions;
+    private PDFunction[] functions;
 
-	protected PDStitchingFunction(COSObject object) {
-		super(object);
+    protected PDStitchingFunction(COSObject object) {
+        super(object);
 
-		COSArray cosBounds;
-		COSArray cosEncode;
-		int index;
+        COSArray cosBounds;
+        COSArray cosEncode;
+        int index;
 
-		cosBounds = object.asDictionary().get(DK_Bounds).asArray();
-		bounds = new float[cosBounds.size()];
-		for (index = 0; index < cosBounds.size(); index++) {
-			bounds[index] = ((COSNumber) cosBounds.get(index)).floatValue();
-		}
+        cosBounds = object.asDictionary().get(DK_Bounds).asArray();
+        bounds = new float[cosBounds.size()];
+        for (index = 0; index < cosBounds.size(); index++) {
+            bounds[index] = ((COSNumber) cosBounds.get(index)).floatValue();
+        }
 
-		cosEncode = object.asDictionary().get(DK_Encode).asArray();
-		encode = new float[cosEncode.size()];
-		for (index = 0; index < cosEncode.size(); index++) {
-			encode[index] = ((COSNumber) cosEncode.get(index)).floatValue();
-		}
+        cosEncode = object.asDictionary().get(DK_Encode).asArray();
+        encode = new float[cosEncode.size()];
+        for (index = 0; index < cosEncode.size(); index++) {
+            encode[index] = ((COSNumber) cosEncode.get(index)).floatValue();
+        }
 
-		// color space will be resolved lazily
-	}
+        // color space will be resolved lazily
+    }
 
-	@Override
-	public float[] evaluate(float[] values) {
-		int index;
+    @Override
+    public float[] evaluate(float[] values) {
+        int index;
 
-		for (index = 0; index < bounds.length; index++) {
-			if (values[0] < bounds[index]) {
-				return getFunctions()[index].evaluate(values);
-			}
-		}
-		return getFunctions()[index].evaluate(values);
-	}
+        for (index = 0; index < bounds.length; index++) {
+            if (values[0] < bounds[index]) {
+                return getFunctions()[index].evaluate(values);
+            }
+        }
+        return getFunctions()[index].evaluate(values);
+    }
 
-	public float[] getBounds() {
-		return bounds;
-	}
+    public float[] getBounds() {
+        return bounds;
+    }
 
-	public float[] getEncode() {
-		return encode;
-	}
+    public float[] getEncode() {
+        return encode;
+    }
 
-	public PDFunction[] getFunctions() {
-		if (functions == null) {
-			COSArray cosFunctions;
-			int index;
+    public PDFunction[] getFunctions() {
+        if (functions == null) {
+            COSArray cosFunctions;
+            int index;
 
-			cosFunctions = cosGetObject().asDictionary().get(DK_Functions)
-					.asArray();
-			functions = new PDFunction[cosFunctions.size()];
-			for (index = 0; index < cosFunctions.size(); index++) {
-				functions[index] = (PDFunction) PDFunction.META
-						.createFromCos(cosFunctions.get(index));
-			}
-		}
-		return functions;
-	}
+            cosFunctions = cosGetObject().asDictionary().get(DK_Functions).asArray();
+            functions = new PDFunction[cosFunctions.size()];
+            for (index = 0; index < cosFunctions.size(); index++) {
+                functions[index] = (PDFunction) PDFunction.META.createFromCos(cosFunctions.get(index));
+            }
+        }
+        return functions;
+    }
 
-	@Override
-	public int getOutputSize() {
-		return getRange().size() / 2;
-	}
+    @Override
+    public int getOutputSize() {
+        return getRange().size() / 2;
+    }
 }

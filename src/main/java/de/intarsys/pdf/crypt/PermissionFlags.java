@@ -39,120 +39,120 @@ import de.intarsys.pdf.pd.AbstractBitFlags;
  */
 public class PermissionFlags extends AbstractBitFlags {
 
-	// Bit position 1-2 are reserved, must be zero
-	public static int Bit_Print = 1 << 2;
+    // Bit position 1-2 are reserved, must be zero
+    public static int Bit_Print = 1 << 2;
 
-	public static int Bit_Modify = 1 << 3;
+    public static int Bit_Modify = 1 << 3;
 
-	public static int Bit_Copy = 1 << 4;
+    public static int Bit_Copy = 1 << 4;
 
-	public static int Bit_ModifyAnnotation = 1 << 5;
+    public static int Bit_ModifyAnnotation = 1 << 5;
 
-	// Bit position 7-8 are reserved, must be one
-	public static int Bit_FillForm = 1 << 8;
+    // Bit position 7-8 are reserved, must be one
+    public static int Bit_FillForm = 1 << 8;
 
-	public static int Bit_Extract = 1 << 9;
+    public static int Bit_Extract = 1 << 9;
 
-	public static int Bit_Assemble = 1 << 10;
+    public static int Bit_Assemble = 1 << 10;
 
-	public static int Bit_PrintHighQuality = 1 << 11;
+    public static int Bit_PrintHighQuality = 1 << 11;
 
-	/**
-	 * The handler for the encryption dictionary.
-	 */
-	protected StandardSecurityHandler handler;
+    /**
+     * The handler for the encryption dictionary.
+     */
+    protected StandardSecurityHandler handler;
 
-	public PermissionFlags(int value) {
-		super(value);
-	}
+    public PermissionFlags(int value) {
+        super(value);
+    }
 
-	public PermissionFlags(StandardSecurityHandler handler) {
-		super(handler.getEncryption(), null);
-		this.handler = handler;
-	}
+    public PermissionFlags(StandardSecurityHandler handler) {
+        super(handler.getEncryption(), null);
+        this.handler = handler;
+    }
 
-	/**
-	 * @return handler for the encryption dictionary.
-	 */
-	public StandardSecurityHandler getHandler() {
-		return handler;
-	}
+    /**
+     * @return handler for the encryption dictionary.
+     */
+    public StandardSecurityHandler getHandler() {
+        return handler;
+    }
 
-	@Override
-	protected int getValueInObject() {
-		return getHandler().basicGetPermissionFlags();
-	}
+    @Override
+    protected int getValueInObject() {
+        return getHandler().basicGetPermissionFlags();
+    }
 
-	public boolean mayAssemble() {
-		return isSetAnd(Bit_Assemble);
-	}
+    public boolean mayAssemble() {
+        return isSetAnd(Bit_Assemble);
+    }
 
-	public boolean mayCopy() {
-		return isSetAnd(Bit_Copy);
-	}
+    public boolean mayCopy() {
+        return isSetAnd(Bit_Copy);
+    }
 
-	public boolean mayExtract() {
-		return isSetAnd(Bit_Extract);
-	}
+    public boolean mayExtract() {
+        return isSetAnd(Bit_Extract);
+    }
 
-	public boolean mayFillForm() {
-		return isSetAnd(Bit_FillForm);
-	}
+    public boolean mayFillForm() {
+        return isSetAnd(Bit_FillForm);
+    }
 
-	public boolean mayModify() {
-		return isSetAnd(Bit_Modify);
-	}
+    public boolean mayModify() {
+        return isSetAnd(Bit_Modify);
+    }
 
-	public boolean mayModifyAnnotation() {
-		return isSetAnd(Bit_ModifyAnnotation);
-	}
+    public boolean mayModifyAnnotation() {
+        return isSetAnd(Bit_ModifyAnnotation);
+    }
 
-	public boolean mayPrint() {
-		return isSetAnd(Bit_Print);
-	}
+    public boolean mayPrint() {
+        return isSetAnd(Bit_Print);
+    }
 
-	public boolean mayPrintHighQuality() {
-		return isSetAnd(Bit_PrintHighQuality);
-	}
+    public boolean mayPrintHighQuality() {
+        return isSetAnd(Bit_PrintHighQuality);
+    }
 
-	public void setMayAssemble(boolean value) {
-		set(Bit_Assemble, value);
-	}
+    public void setMayAssemble(boolean value) {
+        set(Bit_Assemble, value);
+    }
 
-	public void setMayCopy(boolean value) {
-		set(Bit_Copy, value);
-	}
+    public void setMayCopy(boolean value) {
+        set(Bit_Copy, value);
+    }
 
-	public void setMayExtract(boolean value) {
-		set(Bit_Extract, value);
-	}
+    public void setMayExtract(boolean value) {
+        set(Bit_Extract, value);
+    }
 
-	public void setMayFillForm(boolean value) {
-		set(Bit_FillForm, value);
-	}
+    public void setMayFillForm(boolean value) {
+        set(Bit_FillForm, value);
+    }
 
-	public void setMayModify(boolean value) {
-		set(Bit_Modify, value);
-	}
+    public void setMayModify(boolean value) {
+        set(Bit_Modify, value);
+    }
 
-	public void setMayModifyAnnotation(boolean value) {
-		set(Bit_ModifyAnnotation, value);
-	}
+    public void setMayModifyAnnotation(boolean value) {
+        set(Bit_ModifyAnnotation, value);
+    }
 
-	public void setMayPrint(boolean value) {
-		set(Bit_Print, value);
-	}
+    public void setMayPrint(boolean value) {
+        set(Bit_Print, value);
+    }
 
-	public void setMayPrintHighQuality(boolean value) {
-		set(Bit_PrintHighQuality, value);
-	}
+    public void setMayPrintHighQuality(boolean value) {
+        set(Bit_PrintHighQuality, value);
+    }
 
-	@Override
-	protected void setValueInObject(int newValue) {
-		try {
-			getHandler().basicSetPermissionFlags(newValue);
-		} catch (COSSecurityException e) {
-			throw new SecurityException("security exception", e);
-		}
-	}
+    @Override
+    protected void setValueInObject(int newValue) {
+        try {
+            getHandler().basicSetPermissionFlags(newValue);
+        } catch (COSSecurityException e) {
+            throw new SecurityException("security exception", e);
+        }
+    }
 }

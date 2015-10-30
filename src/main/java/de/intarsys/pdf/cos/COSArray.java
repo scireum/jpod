@@ -101,7 +101,9 @@ public class COSArray extends COSCompositeObject {
         return result;
     }
 
-    /** the list of document elements contained */
+    /**
+     * the list of document elements contained
+     */
     private final List objects;
 
     protected COSArray() {
@@ -131,19 +133,17 @@ public class COSArray extends COSCompositeObject {
 
     /**
      * Add a {@link COSObject} to the collection.
-     *
+     * <p>
      * <p>
      * This method takes care of change propagation for incremental writing.
      * </p>
-     *
+     * <p>
      * <p>
      * this method should be used by the application level programmer to ensure
      * he deals not with references.
      * </p>
      *
-     * @param object
-     *            the object to be added
-     *
+     * @param object the object to be added
      * @return this
      */
     public COSArray add(COSObject object) {
@@ -157,21 +157,18 @@ public class COSArray extends COSCompositeObject {
 
     /**
      * Add a {@link COSObject} to the collection.
-     *
+     * <p>
      * <p>
      * This method takes care of change propagation for incremental writing.
      * </p>
-     *
+     * <p>
      * <p>
      * this method should be used by the application level programmer to ensure
      * he deals not with references.
      * </p>
      *
-     * @param index
-     *            The index where to insert <code>object</code>
-     * @param object
-     *            the object to be added
-     *
+     * @param index  The index where to insert {@code object}
+     * @param object the object to be added
      * @return this
      */
     public COSArray add(int index, COSObject object) {
@@ -195,14 +192,12 @@ public class COSArray extends COSCompositeObject {
 
     /**
      * Add a document element (an object or a reference) to the collection.
-     *
+     * <p>
      * <p>
      * This method should only be used for low level programming (parser).
      * </p>
      *
-     * @param element
-     *            the element to be added
-     *
+     * @param element the element to be added
      * @return The receiver.
      */
     protected COSArray basicAddPropagate(COSDocumentElement element) {
@@ -217,16 +212,13 @@ public class COSArray extends COSCompositeObject {
 
     /**
      * add a document element (an object or a reference) to the collection.
-     *
+     * <p>
      * <p>
      * this method should only be used for low level programming (parser).
      * </p>
      *
-     * @param index
-     *            The index where to insert <code>object</code>
-     * @param element
-     *            the element to be added
-     *
+     * @param index   The index where to insert {@code object}
+     * @param element the element to be added
      * @return this
      */
     protected COSArray basicAddPropagate(int index, COSDocumentElement element) {
@@ -241,17 +233,14 @@ public class COSArray extends COSCompositeObject {
 
     /**
      * Add a document element (an object or a reference) to the collection.
-     *
+     * <p>
      * <p>
      * The change is not propagated.
      * </p>
      * This should not be used by the application level programmer. It is public
      * for package visibility reasons.
      *
-     *
-     * @param element
-     *            the element to be added
-     *
+     * @param element the element to be added
      * @return The receiver.
      */
     public COSArray basicAddSilent(COSDocumentElement element) {
@@ -263,18 +252,16 @@ public class COSArray extends COSCompositeObject {
 
     /**
      * Remove all elements from the receiver.
-     *
      */
     protected void basicClearPropagate() {
         List oldObjects = new ArrayList(objects);
         objects.clear();
-        for (Iterator i = oldObjects.iterator(); i.hasNext();) {
+        for (Iterator i = oldObjects.iterator(); i.hasNext(); ) {
             COSDocumentElement element = (COSDocumentElement) i.next();
             COSObject dereferenced = element.dereference();
             willChange(dereferenced);
             ICOSContainer newContainer = element.removeContainer(this);
-            dereferenced.triggerChanged(COSObject.SLOT_CONTAINER, null,
-                    newContainer);
+            dereferenced.triggerChanged(COSObject.SLOT_CONTAINER, null, newContainer);
         }
     }
 
@@ -284,27 +271,24 @@ public class COSArray extends COSCompositeObject {
      * <p>
      * This method should only be used for low level programming.
      *
-     * @param index
-     *            The index into this
-     *
+     * @param index The index into this
      * @return Get the {@link COSDocumentElement} (an object or a reference)
-     *         from this at the specified index.
+     * from this at the specified index.
      */
     public COSDocumentElement basicGet(int index) {
         return (COSDocumentElement) objects.get(index);
     }
 
     /**
-     * The index within this where <code>element</code> can be found or -1.
+     * The index within this where {@code element} can be found or -1.
      *
-     * @param element
-     *            The element to be searched within this.
-     * @return The index of <code>element</code> or -1 if nothing found.
+     * @param element The element to be searched within this.
+     * @return The index of {@code element} or -1 if nothing found.
      */
     protected int basicIndexOf(COSDocumentElement element) {
         COSDocumentElement containable = element.containable();
         int i = 0;
-        for (Iterator it = basicIterator(); it.hasNext();) {
+        for (Iterator it = basicIterator(); it.hasNext(); ) {
             COSDocumentElement current = (COSDocumentElement) it.next();
             if (containable == current) {
                 return i;
@@ -317,13 +301,13 @@ public class COSArray extends COSCompositeObject {
     /**
      * An iterator that returns all contained {@link COSDocumentElement}
      * instances without dereferencing.
-     *
+     * <p>
      * <p>
      * This should be used in low level programming.
      * </p>
      *
      * @return An iterator that returns all contained {@link COSDocumentElement}
-     *         instances without dereferencing.
+     * instances without dereferencing.
      */
     @Override
     public Iterator<COSDocumentElement> basicIterator() {
@@ -331,16 +315,15 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Remove <code>otherElement</code> from this.
+     * Remove {@code otherElement} from this.
      *
-     * @param otherElement
-     *            The element to be removed.
-     * @return <code>true</code> if element was removed.
+     * @param otherElement The element to be removed.
+     * @return {@code true} if element was removed.
      */
     protected boolean basicRemovePropagate(COSDocumentElement otherElement) {
         COSObject dereferenced = otherElement.dereference();
         COSDocumentElement containable = otherElement.containable();
-        for (Iterator i = basicIterator(); i.hasNext();) {
+        for (Iterator i = basicIterator(); i.hasNext(); ) {
             COSDocumentElement element = (COSDocumentElement) i.next();
             if (containable == element) {
                 i.remove();
@@ -354,12 +337,11 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Remove element at <code>index</code>.
+     * Remove element at {@code index}.
      *
-     * @param index
-     *            The index within this to be removed.
+     * @param index The index within this to be removed.
      * @return The {@link COSDocumentElement} that was removed at the specified
-     *         index.
+     * index.
      */
     protected COSDocumentElement basicRemovePropagate(int index) {
         COSDocumentElement removed = (COSDocumentElement) objects.remove(index);
@@ -371,17 +353,13 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * replace the object at index <<code>i</code> with <code>element</code>.
+     * replace the object at index <{@code i} with {@code element}.
      *
-     * @param i
-     *            the index
-     * @param element
-     *            the object to put at the specified index
-     *
+     * @param i       the index
+     * @param element the object to put at the specified index
      * @return The previously contained object
      */
-    protected COSDocumentElement basicSetPropagate(int i,
-            COSDocumentElement element) {
+    protected COSDocumentElement basicSetPropagate(int i, COSDocumentElement element) {
         COSObject dereferenced = element.dereference();
         COSDocumentElement containable = element.containable();
         //
@@ -438,7 +416,7 @@ public class COSArray extends COSCompositeObject {
     @Override
     public COSObject copyDeep(Map copied) {
         COSArray result = (COSArray) super.copyDeep(copied);
-        for (Iterator i = basicIterator(); i.hasNext();) {
+        for (Iterator i = basicIterator(); i.hasNext(); ) {
             COSDocumentElement element = (COSDocumentElement) i.next();
             COSObject copy = element.copyDeep(copied);
             result.basicAddSilent(copy);
@@ -454,7 +432,7 @@ public class COSArray extends COSCompositeObject {
     @Override
     public COSObject copyShallow() {
         COSArray result = (COSArray) super.copyShallow();
-        for (Iterator i = basicIterator(); i.hasNext();) {
+        for (Iterator i = basicIterator(); i.hasNext(); ) {
             COSDocumentElement element = (COSDocumentElement) i.next();
             result.basicAddSilent(element.copyShallowNested());
         }
@@ -468,7 +446,6 @@ public class COSArray extends COSCompositeObject {
      */
     @Override
     protected COSObject copySubGraph(Map copied) {
-        COSArray result = (COSArray) super.copySubGraph(copied);
 
         // for (Iterator i = basicIterator(); i.hasNext();) {
         // COSDocumentElement element = (COSDocumentElement) i.next();
@@ -488,7 +465,7 @@ public class COSArray extends COSCompositeObject {
         // }
         // result.basicAdd(copy);
         // }
-        return result;
+        return super.copySubGraph(copied);
     }
 
     @SuppressWarnings("unchecked")
@@ -529,22 +506,20 @@ public class COSArray extends COSCompositeObject {
      * The {@link COSObject} at the given index. Any index outisde the valid
      * array range results in COSNull (compare Adobe Core ApI Reference).
      *
-     * @param index
-     *            The index of the {@link COSObject} to select from this.
-     *
+     * @param index The index of the {@link COSObject} to select from this.
      * @return The {@link COSObject} at the given index or {@link COSNull}.
      */
     public COSObject get(int index) {
         try {
             return ((COSDocumentElement) objects.get(index)).dereference();
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException ignored) {
             return COSNull.NULL;
         }
     }
 
     /**
      * A copy of all COSObject's in this.
-     *
+     * <p>
      * <p>
      * Indirect objects and dangling references are handled by this method.
      * </p>
@@ -569,12 +544,9 @@ public class COSArray extends COSCompositeObject {
     @Override
     public int hashCode() {
         int result = 17;
-        for (Iterator iThis = this.basicIterator(); iThis.hasNext();) {
+        for (Iterator iThis = this.basicIterator(); iThis.hasNext(); ) {
             COSDocumentElement oThis = (COSDocumentElement) iThis.next();
-            if (oThis.isReference()) {
-                result = (result + oThis.hashCode()) * 34;
-            } else if (((COSObject) oThis).isPrimitive()) {
-                // do not descend
+            if (oThis.isReference() || ((COSObject) oThis).isPrimitive()) {
                 result = (result + oThis.hashCode()) * 34;
             } else {
                 result = (result + 17) * 34;
@@ -584,24 +556,23 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * The index of <code>object</code> within this or -1 if not found.
+     * The index of {@code object} within this or -1 if not found.
      *
-     * @param object
-     *            The object to be searched within this.
-     * @return The index of <code>object</code> within this or -1 if not
-     *         found.
+     * @param object The object to be searched within this.
+     * @return The index of {@code object} within this or -1 if not
+     * found.
      */
     public int indexOf(COSObject object) {
         return basicIndexOf(object);
     }
 
     /**
-     * <code>true</code> if <code>this.size() == 0</code>.
+     * {@code true} if {@code this.size() == 0}.
      *
-     * @return <code>true</code> if <code>this.size() == 0</code>.
+     * @return {@code true} if {@code this.size() == 0}.
      */
     public boolean isEmpty() {
-        return objects.size() == 0;
+        return objects.isEmpty();
     }
 
     /*
@@ -617,17 +588,17 @@ public class COSArray extends COSCompositeObject {
             private int size = size();
 
             @Override
-			public boolean hasNext() {
+            public boolean hasNext() {
                 return index < size;
             }
 
             @Override
-			public COSObject next() {
+            public COSObject next() {
                 return get(index++);
             }
 
             @Override
-			public void remove() {
+            public void remove() {
                 throw new UnsupportedOperationException();
             }
         };
@@ -649,16 +620,15 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Remove <code>object</code> from this. If <code>object</code> is not
+     * Remove {@code object} from this. If {@code object} is not
      * contained, nothing happens.
-     *
+     * <p>
      * <p>
      * This method cycles all elements which may cause heavy lazy loading.
      * </p>
      *
-     * @param object
-     *            The object to remove from this.
-     * @return <code>true</code> if <code>object</code> was removed.
+     * @param object The object to remove from this.
+     * @return {@code true} if {@code object} was removed.
      */
     public boolean remove(COSObject object) {
         willChange(this);
@@ -670,10 +640,9 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Remove the object at <code>index</code> from the collection.
+     * Remove the object at {@code index} from the collection.
      *
-     * @param index
-     *            The index of the object to remove from the collection.
+     * @param index The index of the object to remove from the collection.
      * @return The object previously stored at the index.
      */
     public COSObject remove(int index) {
@@ -706,6 +675,7 @@ public class COSArray extends COSCompositeObject {
      *
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
+    @Override
     public Object saveState() {
         COSArray result = new COSArray(new ArrayList(this.objects));
         result.container = this.container.saveStateContainer();
@@ -713,13 +683,10 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Replace the object at index <code>i</code> with <code>object</code>.
+     * Replace the object at index {@code i} with {@code object}.
      *
-     * @param i
-     *            The index
-     * @param object
-     *            The object to put at the specified index
-     *
+     * @param i      The index
+     * @param object The object to put at the specified index
      * @return The previuosly referenced object
      */
     public COSObject set(int i, COSObject object) {
@@ -749,8 +716,8 @@ public class COSArray extends COSCompositeObject {
         if (objectListeners == null) {
             return;
         }
-        Integer slotObject = new Integer(slot);
-        for (Iterator it = objectListeners.iterator(); it.hasNext();) {
+        Integer slotObject = Integer.valueOf(slot);
+        for (Iterator it = objectListeners.iterator(); it.hasNext(); ) {
             ICOSObjectListener listener = (ICOSObjectListener) it.next();
             listener.changed(this, slotObject, oldValue, newValue);
         }

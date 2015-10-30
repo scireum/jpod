@@ -31,51 +31,49 @@ package de.intarsys.pdf.font;
 
 /**
  * A special map from a character code range to a character code range.
- * 
  */
 public class CMapBFRangeStringMap extends CMapRangeMap {
 
-	private final char[] chars;
+    private final char[] chars;
 
-	private final int last;
+    private final int last;
 
-	public CMapBFRangeStringMap(byte[] start, byte[] end, byte[] destination) {
-		super(start, end);
-		this.chars = new char[destination.length >> 1];
-		int byteIndex = 0;
-		int charIndex = 0;
-		while (byteIndex < destination.length) {
-			this.chars[charIndex++] = (char) ((destination[byteIndex++] << 8) + destination[byteIndex++]);
-		}
-		this.last = this.chars.length - 1;
-	}
+    public CMapBFRangeStringMap(byte[] start, byte[] end, byte[] destination) {
+        super(start, end);
+        this.chars = new char[destination.length >> 1];
+        int byteIndex = 0;
+        int charIndex = 0;
+        while (byteIndex < destination.length) {
+            this.chars[charIndex++] = (char) ((destination[byteIndex++] << 8) + destination[byteIndex++]);
+        }
+        this.last = this.chars.length - 1;
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		if ((codepoint >= start) && (codepoint <= end)) {
-			return new char[] { (char) (codepoint - start + chars[last]) };
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        if ((codepoint >= start) && (codepoint <= end)) {
+            return new char[]{(char) (codepoint - start + chars[last])};
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		if ((codepoint >= start) && (codepoint <= end)) {
-			return codepoint - start + chars[last];
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCID(int codepoint) {
+        if ((codepoint >= start) && (codepoint <= end)) {
+            return codepoint - start + chars[last];
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		int tempChar = chars[last];
-		if ((cid >= tempChar) && (cid <= tempChar + end - start)) {
-			return start + cid - tempChar;
-		} else {
-			return 0;
-		}
-	}
-
+    @Override
+    public int toCodepoint(int cid) {
+        int tempChar = chars[last];
+        if ((cid >= tempChar) && (cid <= tempChar + end - start)) {
+            return start + cid - tempChar;
+        } else {
+            return 0;
+        }
+    }
 }

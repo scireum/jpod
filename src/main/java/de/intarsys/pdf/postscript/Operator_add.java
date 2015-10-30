@@ -30,29 +30,27 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_add implements IOperator {
-	public static Operator_add Instance;
+    public static Operator_add Instance;
 
-	static {
-		Instance = new Operator_add();
-	}
+    static {
+        Instance = new Operator_add();
+    }
 
-	private Operator_add() {
-		super();
-	}
+    private Operator_add() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Number element1;
-		Number element2;
+    @Override
+    public void execute(Handler handler) {
+        Number element1;
+        Number element2;
 
-		element2 = (Number) handler.pop();
-		element1 = (Number) handler.pop();
-		if (element1 instanceof Integer && element2 instanceof Integer) {
-			handler
-					.push(new Integer(element1.intValue() + element2.intValue()));
-			return;
-		}
-		handler
-				.push(new Double(element1.doubleValue()
-						+ element2.doubleValue()));
-	}
+        element2 = (Number) handler.pop();
+        element1 = (Number) handler.pop();
+        if (element1 instanceof Integer && element2 instanceof Integer) {
+            handler.push(Integer.valueOf(element1.intValue() + element2.intValue()));
+            return;
+        }
+        handler.push(new Double(element1.doubleValue() + element2.doubleValue()));
+    }
 }

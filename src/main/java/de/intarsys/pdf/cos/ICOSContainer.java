@@ -34,137 +34,129 @@ package de.intarsys.pdf.cos;
  * COSObject.
  * <p>
  * This is implemented for example by {@link COSArray}.
- * 
  */
 public interface ICOSContainer {
-	/**
-	 * It is the responsibility of the current container to create the
-	 * association with the new one.
-	 * 
-	 * The table shows the available transitions
-	 * 
-	 * <code>
-	 *              | composite  | indirect   |
-	 *              |
-	 *    constant  | n.a.       | n.a.       | (always copied before by &quot;containable&quot;)
-	 *    null      | ok         | ok         |
-	 *    composite | error      | ok         |
-	 *    indirect  | ok         | ok         |
-	 * </code>
-	 * 
-	 * @param newContainer
-	 * @param object
-	 * @return The resulting {@link ICOSContainer} for <code>object</code>
-	 */
-	public ICOSContainer associate(ICOSContainer newContainer, COSObject object);
+    /**
+     * It is the responsibility of the current container to create the
+     * association with the new one.
+     * <p>
+     * The table shows the available transitions
+     * <p>
+     * {@code
+     * | composite  | indirect   |
+     * |
+     * constant  | n.a.       | n.a.       | (always copied before by &quot;containable&quot;)
+     * null      | ok         | ok         |
+     * composite | error      | ok         |
+     * indirect  | ok         | ok         |
+     * }
+     *
+     * @param newContainer
+     * @param object
+     * @return The resulting {@link ICOSContainer} for {@code object}
+     */
+    ICOSContainer associate(ICOSContainer newContainer, COSObject object);
 
-	/**
-	 * The stand-in to be used when object should be contained in a container.
-	 * This is either the object itself or the COSIndirectObject to it.
-	 * 
-	 * @param object
-	 *            THe object whose containable is requested.
-	 * 
-	 * @return The stand-in to be used when object should be contained in a
-	 *         container.
-	 */
-	public COSDocumentElement containable(COSObject object);
+    /**
+     * The stand-in to be used when object should be contained in a container.
+     * This is either the object itself or the COSIndirectObject to it.
+     *
+     * @param object THe object whose containable is requested.
+     * @return The stand-in to be used when object should be contained in a
+     * container.
+     */
+    COSDocumentElement containable(COSObject object);
 
-	/**
-	 * It is the responsibility of the current container to remove the
-	 * association from the old one.
-	 * 
-	 * The table shows the available transitions.
-	 * 
-	 * <pre>
-	 *              | composite  | indirect   |
-	 *              |
-	 *    constant  | n.a.       | n.a.       |
-	 *    null      | n.a.       | n.a.       |
-	 *    composite | ok         | n.a.       |
-	 *    indirect  | ok         | n.a.       |
-	 * </pre>
-	 * 
-	 * @param oldContainer
-	 * @param object
-	 * @return The resulting {@link ICOSContainer} for <code>object</code>
-	 */
-	public ICOSContainer disassociate(ICOSContainer oldContainer,
-			COSObject object);
+    /**
+     * It is the responsibility of the current container to remove the
+     * association from the old one.
+     * <p>
+     * The table shows the available transitions.
+     * <p>
+     * <pre>
+     *              | composite  | indirect   |
+     *              |
+     *    constant  | n.a.       | n.a.       |
+     *    null      | n.a.       | n.a.       |
+     *    composite | ok         | n.a.       |
+     *    indirect  | ok         | n.a.       |
+     * </pre>
+     *
+     * @param oldContainer
+     * @param object
+     * @return The resulting {@link ICOSContainer} for {@code object}
+     */
+    ICOSContainer disassociate(ICOSContainer oldContainer, COSObject object);
 
-	/**
-	 * The COSDocument instance where the ICOSContainer is contained.
-	 * 
-	 * @return The COSDocument instance where the ICOSContainer is contained.
-	 */
-	public COSDocument getDoc();
+    /**
+     * The COSDocument instance where the ICOSContainer is contained.
+     *
+     * @return The COSDocument instance where the ICOSContainer is contained.
+     */
+    COSDocument getDoc();
 
-	/**
-	 * "Harden" the reference to <code>object</code>, keeping it from being
-	 * garbage collected even if (temporarily) not accessed. Otherwise a
-	 * container may decide to "swap" its descendants out of memory.
-	 * <p>
-	 * Hardening uses a counter to decide if a strong reference can be finally
-	 * released.
-	 * 
-	 * @param object
-	 *            The object that should be kept in memory.
-	 */
-	public void harden(COSObject object);
+    /**
+     * "Harden" the reference to {@code object}, keeping it from being
+     * garbage collected even if (temporarily) not accessed. Otherwise a
+     * container may decide to "swap" its descendants out of memory.
+     * <p>
+     * Hardening uses a counter to decide if a strong reference can be finally
+     * released.
+     *
+     * @param object The object that should be kept in memory.
+     */
+    void harden(COSObject object);
 
-	/**
-	 * The number of references to the contained object. This method returns -1
-	 * when the value can not be determined (as for indirect objects parsed from
-	 * a file).
-	 * 
-	 * @return The number of references to the contained object.
-	 */
-	public int referenceCount();
+    /**
+     * The number of references to the contained object. This method returns -1
+     * when the value can not be determined (as for indirect objects parsed from
+     * a file).
+     *
+     * @return The number of references to the contained object.
+     */
+    int referenceCount();
 
-	/**
-	 * Switch a contained object to an indirect one. Update the reference.
-	 * 
-	 * @param object
-	 *            The object to be indirect
-	 */
-	public COSIndirectObject referenceIndirect(COSObject object);
+    /**
+     * Switch a contained object to an indirect one. Update the reference.
+     *
+     * @param object The object to be indirect
+     */
+    COSIndirectObject referenceIndirect(COSObject object);
 
-	/**
-	 * It is the responsibility of the active container to register object in
-	 * its data structures.
-	 * 
-	 * @param object
-	 *            The new object to be registered in the hierarchy.
-	 */
-	public void register(COSDocumentElement object);
+    /**
+     * It is the responsibility of the active container to register object in
+     * its data structures.
+     *
+     * @param object The new object to be registered in the hierarchy.
+     */
+    void register(COSDocumentElement object);
 
-	/**
-	 * Restore the save state for the container.
-	 * 
-	 * @param container
-	 * @return The "before" state of the receiver.
-	 */
-	public ICOSContainer restoreStateContainer(ICOSContainer container);
+    /**
+     * Restore the save state for the container.
+     *
+     * @param container
+     * @return The "before" state of the receiver.
+     */
+    ICOSContainer restoreStateContainer(ICOSContainer container);
 
-	/**
-	 * Create a save state for the container when saving the COSObject state.
-	 * 
-	 * @return The save state for the container.
-	 */
-	public ICOSContainer saveStateContainer();
+    /**
+     * Create a save state for the container when saving the COSObject state.
+     *
+     * @return The save state for the container.
+     */
+    ICOSContainer saveStateContainer();
 
-	/**
-	 * "Soften" the reference to <code>object</code>, making it accessible
-	 * for swapping out / garbage collection if the counter for hardening is
-	 * zero.
-	 * 
-	 * @param object
-	 *            The object that should be kept in memory.
-	 */
-	public void soften(COSObject object);
+    /**
+     * "Soften" the reference to {@code object}, making it accessible
+     * for swapping out / garbage collection if the counter for hardening is
+     * zero.
+     *
+     * @param object The object that should be kept in memory.
+     */
+    void soften(COSObject object);
 
-	/**
-	 * Propagate a change from a COSObject down in the hierarchy.
-	 */
-	public void willChange(COSObject object);
+    /**
+     * Propagate a change from a COSObject down in the hierarchy.
+     */
+    void willChange(COSObject object);
 }

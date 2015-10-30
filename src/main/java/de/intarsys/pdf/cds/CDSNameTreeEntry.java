@@ -37,31 +37,30 @@ import de.intarsys.pdf.cos.COSString;
  * tree.
  */
 public class CDSNameTreeEntry extends CDSTreeEntry {
-	private COSString name;
+    private COSString name;
 
-	/**
-	 * Create an an entry for a name tree
-	 * 
-	 * @param name
-	 *            The name of the entry
-	 * @param value
-	 *            The value of the entry.
-	 */
-	public CDSNameTreeEntry(COSString name, COSObject value) {
-		super(value);
-		this.name = name;
-	}
+    /**
+     * Create an an entry for a name tree
+     *
+     * @param name  The name of the entry
+     * @param value The value of the entry.
+     */
+    public CDSNameTreeEntry(COSString name, COSObject value) {
+        super(value);
+        this.name = name;
+    }
 
-	/**
-	 * The name of the entry.
-	 * 
-	 * @return The name of the entry.
-	 */
-	public COSString getName() {
-		return name;
-	}
+    /**
+     * The name of the entry.
+     *
+     * @return The name of the entry.
+     */
+    public COSString getName() {
+        return name;
+    }
 
-	public COSObject getKey() {
-		return getName();
-	}
+    @Override
+    public COSObject getKey() {
+        return getName();
+    }
 }

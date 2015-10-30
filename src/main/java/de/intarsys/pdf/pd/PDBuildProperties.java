@@ -36,62 +36,64 @@ import de.intarsys.pdf.cos.COSObject;
 
 public class PDBuildProperties extends PDObject {
 
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDBuildProperties(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDBuildProperties(object);
+        }
 
-		protected boolean isIndirect() {
-			return false;
-		}
-	}
+        @Override
+        protected boolean isIndirect() {
+            return false;
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName DK_Filter = COSName.constant("Filter"); //$NON-NLS-1$
-	public static final COSName DK_PubSec = COSName.constant("PubSec"); //$NON-NLS-1$
-	public static final COSName DK_App = COSName.constant("App"); //$NON-NLS-1$
+    public static final COSName DK_Filter = COSName.constant("Filter"); //$NON-NLS-1$
+    public static final COSName DK_PubSec = COSName.constant("PubSec"); //$NON-NLS-1$
+    public static final COSName DK_App = COSName.constant("App"); //$NON-NLS-1$
 
-	protected PDBuildProperties(COSObject object) {
-		super(object);
-	}
+    protected PDBuildProperties(COSObject object) {
+        super(object);
+    }
 
-	public PDBuildData getApp() {
-		return getBuildData(DK_App);
-	}
+    public PDBuildData getApp() {
+        return getBuildData(DK_App);
+    }
 
-	private PDBuildData getBuildData(COSName field) {
-		COSObject dict = cosGetDict().get(field);
-		return (PDBuildData) PDBuildData.META.createFromCos(dict);
-	}
+    private PDBuildData getBuildData(COSName field) {
+        COSObject dict = cosGetDict().get(field);
+        return (PDBuildData) PDBuildData.META.createFromCos(dict);
+    }
 
-	public PDBuildData getFilter() {
-		return getBuildData(DK_Filter);
-	}
+    public PDBuildData getFilter() {
+        return getBuildData(DK_Filter);
+    }
 
-	public PDBuildData getPubSec() {
-		return getBuildData(DK_PubSec);
-	}
+    public PDBuildData getPubSec() {
+        return getBuildData(DK_PubSec);
+    }
 
-	public void setApp(PDBuildData appData) {
-		setFieldObject(DK_App, appData);
-	}
+    public void setApp(PDBuildData appData) {
+        setFieldObject(DK_App, appData);
+    }
 
-	public void setFilter(PDBuildData filterData) {
-		setFieldObject(DK_Filter, filterData);
-	}
+    public void setFilter(PDBuildData filterData) {
+        setFieldObject(DK_Filter, filterData);
+    }
 
-	public void setPubSec(PDBuildData pubSecData) {
-		setFieldObject(DK_PubSec, pubSecData);
-	}
-
+    public void setPubSec(PDBuildData pubSecData) {
+        setFieldObject(DK_PubSec, pubSecData);
+    }
 }

@@ -43,114 +43,107 @@ import de.intarsys.tools.string.StringTools;
  */
 public class StandardAuthenticationHandler implements IAuthenticationHandler {
 
-	private IPasswordProvider passwordProvider;
+    private IPasswordProvider passwordProvider;
 
-	private int retries = 3;
+    private int retries = 3;
 
-	private boolean useDefaultAuthentication = true;
+    private boolean useDefaultAuthentication = true;
 
-	/**
-	 * This {@link IAuthenticationHandler} implements the standard
-	 * authentication strategy for the built in security handlers.
-	 * <p>
-	 * Applying the default (empty user) authentication can be switched off.
-	 * <p>
-	 * Password acquiring can be modified using the {@link PasswordProvider}.
-	 * 
-	 * @see de.intarsys.pdf.crypt.IAuthenticationHandler#authenticate(de.intarsys.pdf.crypt.ISecurityHandler)
-	 */
-	public void authenticate(ISecurityHandler securityHandler)
-			throws COSSecurityException {
-		if (!(securityHandler instanceof StandardSecurityHandler)) {
-			throw new COSSecurityException("security handler not supported"); //$NON-NLS-1$
-		}
-		StandardSecurityHandler standardSecurityHandler = (StandardSecurityHandler) securityHandler;
-		if (isUseDefaultAuthentication()) {
-			if (standardSecurityHandler.authenticateUser(null)) {
-				return;
-			}
-		}
-		STDocument stDocument = securityHandler.stGetDoc();
-		char[] password = PasswordProvider.getPassword(stDocument);
-		if (password != null) {
-			if (!authenticate(standardSecurityHandler, password)) {
-				throw new COSSecurityException("wrong password"); //$NON-NLS-1$
-			}
-		} else {
-			IPasswordProvider passwordProvider = PasswordProvider
-					.getPasswordProvider(stDocument);
-			if (passwordProvider == null) {
-				passwordProvider = getPasswordProvider();
-			}
-			if (passwordProvider == null) {
-				throw new COSSecurityException("password missing"); //$NON-NLS-1$
-			}
-			authenticate(standardSecurityHandler, passwordProvider);
-		}
-	}
+    /**
+     * This {@link IAuthenticationHandler} implements the standard
+     * authentication strategy for the built in security handlers.
+     * <p>
+     * Applying the default (empty user) authentication can be switched off.
+     * <p>
+     * Password acquiring can be modified using the {@link PasswordProvider}.
+     *
+     * @see de.intarsys.pdf.crypt.IAuthenticationHandler#authenticate(de.intarsys.pdf.crypt.ISecurityHandler)
+     */
+    @Override
+    public void authenticate(ISecurityHandler securityHandler) throws COSSecurityException {
+        if (!(securityHandler instanceof StandardSecurityHandler)) {
+            throw new COSSecurityException("security handler not supported"); //$NON-NLS-1$
+        }
+        StandardSecurityHandler standardSecurityHandler = (StandardSecurityHandler) securityHandler;
+        if (isUseDefaultAuthentication()) {
+            if (standardSecurityHandler.authenticateUser(null)) {
+                return;
+            }
+        }
+        STDocument stDocument = securityHandler.stGetDoc();
+        char[] password = PasswordProvider.getPassword(stDocument);
+        if (password != null) {
+            if (!authenticate(standardSecurityHandler, password)) {
+                throw new COSSecurityException("wrong password"); //$NON-NLS-1$
+            }
+        } else {
+            IPasswordProvider passwordProvider = PasswordProvider.getPasswordProvider(stDocument);
+            if (passwordProvider == null) {
+                passwordProvider = getPasswordProvider();
+            }
+            if (passwordProvider == null) {
+                throw new COSSecurityException("password missing"); //$NON-NLS-1$
+            }
+            authenticate(standardSecurityHandler, passwordProvider);
+        }
+    }
 
-	protected boolean authenticate(
-			StandardSecurityHandler standardSecurityHandler, char[] password)
-			throws COSSecurityException {
-		byte[] bytes = CharacterTools.toByteArray(password);
-		if (standardSecurityHandler.authenticateOwner(bytes)) {
-			return true;
-		}
-		if (standardSecurityHandler.authenticateUser(bytes)) {
-			return true;
-		}
-		return false;
-	}
+    protected boolean authenticate(StandardSecurityHandler standardSecurityHandler, char[] password)
+            throws COSSecurityException {
+        byte[] bytes = CharacterTools.toByteArray(password);
+        if (standardSecurityHandler.authenticateOwner(bytes)) {
+            return true;
+        }
+        return standardSecurityHandler.authenticateUser(bytes);
+    }
 
-	protected void authenticate(
-			StandardSecurityHandler standardSecurityHandler,
-			IPasswordProvider passwordProvider) throws COSSecurityException {
-		char[] password = null;
-		try {
-			while (true) {
-				// query password
-				password = passwordProvider.getPassword();
-				if (password == null) {
-					throw new COSSecurityException("password missing"); //$NON-NLS-1$
-				}
-				if (authenticate(standardSecurityHandler, password)) {
-					return;
-				}
-				retries--;
-				if (getRetries() <= 0) {
-					throw new COSSecurityException("wrong password"); //$NON-NLS-1$
-				}
-			}
-		} finally {
-			StringTools.clear(password);
-		}
-	}
+    protected void authenticate(StandardSecurityHandler standardSecurityHandler, IPasswordProvider passwordProvider)
+            throws COSSecurityException {
+        char[] password = null;
+        try {
+            while (true) {
+                // query password
+                password = passwordProvider.getPassword();
+                if (password == null) {
+                    throw new COSSecurityException("password missing"); //$NON-NLS-1$
+                }
+                if (authenticate(standardSecurityHandler, password)) {
+                    return;
+                }
+                retries--;
+                if (getRetries() <= 0) {
+                    throw new COSSecurityException("wrong password"); //$NON-NLS-1$
+                }
+            }
+        } finally {
+            StringTools.clear(password);
+        }
+    }
 
-	public IPasswordProvider getPasswordProvider() {
-		if (passwordProvider == null) {
-			return PasswordProvider.get();
-		}
-		return passwordProvider;
-	}
+    public IPasswordProvider getPasswordProvider() {
+        if (passwordProvider == null) {
+            return PasswordProvider.get();
+        }
+        return passwordProvider;
+    }
 
-	public int getRetries() {
-		return retries;
-	}
+    public int getRetries() {
+        return retries;
+    }
 
-	public boolean isUseDefaultAuthentication() {
-		return useDefaultAuthentication;
-	}
+    public boolean isUseDefaultAuthentication() {
+        return useDefaultAuthentication;
+    }
 
-	public void setPasswordProvider(IPasswordProvider passwordProvider) {
-		this.passwordProvider = passwordProvider;
-	}
+    public void setPasswordProvider(IPasswordProvider passwordProvider) {
+        this.passwordProvider = passwordProvider;
+    }
 
-	public void setRetries(int retries) {
-		this.retries = retries;
-	}
+    public void setRetries(int retries) {
+        this.retries = retries;
+    }
 
-	public void setUseDefaultAuthentication(boolean useDefaultAuthentication) {
-		this.useDefaultAuthentication = useDefaultAuthentication;
-	}
-
+    public void setUseDefaultAuthentication(boolean useDefaultAuthentication) {
+        this.useDefaultAuthentication = useDefaultAuthentication;
+    }
 }

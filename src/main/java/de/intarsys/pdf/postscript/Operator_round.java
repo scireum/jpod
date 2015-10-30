@@ -30,31 +30,32 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_round implements IOperator {
-	public static Operator_round Instance;
+    public static Operator_round Instance;
 
-	static {
-		Instance = new Operator_round();
-	}
+    static {
+        Instance = new Operator_round();
+    }
 
-	private Operator_round() {
-		super();
-	}
+    private Operator_round() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Number element;
-		double operand;
-		long result;
+    @Override
+    public void execute(Handler handler) {
+        Number element;
+        double operand;
+        long result;
 
-		element = (Number) handler.peek();
-		if (element instanceof Integer) {
-			return;
-		}
-		operand = element.doubleValue();
-		result = Math.round(operand);
-		if (result == operand) {
-			return;
-		}
-		handler.pop();
-		handler.push(new Double(result));
-	}
+        element = (Number) handler.peek();
+        if (element instanceof Integer) {
+            return;
+        }
+        operand = element.doubleValue();
+        result = Math.round(operand);
+        if (result == operand) {
+            return;
+        }
+        handler.pop();
+        handler.push(new Double(result));
+    }
 }

@@ -5,17 +5,16 @@ import java.util.List;
 
 public class PSArray extends PSObject {
 
-	private final List<PSObject> objects = new ArrayList<PSObject>();
+    private final List<PSObject> objects = new ArrayList<PSObject>();
 
-	@Override
-	public void accept(Handler handler) throws ParseException {
-		for (PSObject object : objects) {
-			object.accept(handler);
-		}
-	}
+    @Override
+    public void accept(Handler handler) throws ParseException {
+        for (PSObject object : objects) {
+            object.accept(handler);
+        }
+    }
 
-	public void add(PSObject psObject) {
-		objects.add(psObject);
-	}
-
+    public void add(PSObject psObject) {
+        objects.add(psObject);
+    }
 }

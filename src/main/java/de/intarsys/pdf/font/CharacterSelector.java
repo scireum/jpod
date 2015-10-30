@@ -34,50 +34,49 @@ package de.intarsys.pdf.font;
  * supported.
  * <p>
  * A character may be identified by different means (name, index, unicode..).
- * 
  */
-abstract public class CharacterSelector {
-	/**
-	 * The special selector for undefined glyphs.
-	 */
-	public static final CharacterSelector Notdef = new CharacterSelectorCID(0);
+public abstract class CharacterSelector {
+    /**
+     * The special selector for undefined glyphs.
+     */
+    public static final CharacterSelector Notdef = new CharacterSelectorCID(0);
 
-	/**
-	 * The special CID value for undefined glyphs.
-	 */
-	public static final int NotdefCID = 0;
+    /**
+     * The special CID value for undefined glyphs.
+     */
+    public static final int NotdefCID = 0;
 
-	/**
-	 * 
-	 */
-	protected CharacterSelector() {
-		super();
-	}
+    /**
+     *
+     */
+    protected CharacterSelector() {
+        super();
+    }
 
-	/**
-	 * The font number referenced by this selector.
-	 * <p>
-	 * In PDF this is always 0.
-	 * 
-	 * @return The font number referenced by this selector.
-	 */
-	public int getFontNumber() {
-		return 0;
-	}
+    /**
+     * The font number referenced by this selector.
+     * <p>
+     * In PDF this is always 0.
+     *
+     * @return The font number referenced by this selector.
+     */
+    public int getFontNumber() {
+        return 0;
+    }
 
-	/**
-	 * The number of bytes this selector occupies.
-	 * 
-	 * @return The number of bytes this selector occupies.
-	 */
-	abstract public int getLength();
+    /**
+     * The number of bytes this selector occupies.
+     *
+     * @return The number of bytes this selector occupies.
+     */
+    public abstract int getLength();
 
-	/**
-	 * The integer equivalent of the selector.
-	 * <p>
-	 * A selector must not be larger than the platform integer size.
-	 * 
-	 * @return The integer equivalent of the selector.
-	 */
-	abstract public int getValue();
+    /**
+     * The integer equivalent of the selector.
+     * <p>
+     * A selector must not be larger than the platform integer size.
+     *
+     * @return The integer equivalent of the selector.
+     */
+    public abstract int getValue();
 }

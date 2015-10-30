@@ -37,62 +37,59 @@ import de.intarsys.pdf.cos.COSObject;
  * Special color space.
  */
 public class PDCSDeviceN extends PDCSSpecial {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDCSSpecial.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDCSSpecial.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return new PDCSDeviceN(object);
-		}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return new PDCSDeviceN(object);
+        }
+    }
 
-	}
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    private PDColorSpace alternate;
+    private String[] namedComponents;
+    private PDFunction tintTransform;
 
-	private PDColorSpace alternate;
-	private String[] namedComponents;
-	private PDFunction tintTransform;
+    protected PDCSDeviceN(COSObject object) {
+        super(object);
 
-	protected PDCSDeviceN(COSObject object) {
-		super(object);
+        COSArray namedComponentsArray;
 
-		COSArray namedComponentsArray;
+        namedComponentsArray = cosGetArray().get(1).asArray();
+        namedComponents = new String[namedComponentsArray.size()];
+        for (int index = 0; index < namedComponents.length; index++) {
+            namedComponents[index] = namedComponentsArray.get(index).asName().stringValue();
+        }
+        /*
+         * alternateSpace and tintTransform will be resolved lazily
+         */
+    }
 
-		namedComponentsArray = cosGetArray().get(1).asArray();
-		namedComponents = new String[namedComponentsArray.size()];
-		for (int index = 0; index < namedComponents.length; index++) {
-			namedComponents[index] = namedComponentsArray.get(index).asName()
-					.stringValue();
-		}
-		/*
-		 * alternateSpace and tintTransform will be resolved lazily
-		 */
-	}
+    public PDColorSpace getAlternate() {
+        if (alternate == null) {
+            alternate = (PDColorSpace) PDColorSpace.META.createFromCos(cosGetArray().get(2));
+        }
+        return alternate;
+    }
 
-	public PDColorSpace getAlternate() {
-		if (alternate == null) {
-			alternate = (PDColorSpace) PDColorSpace.META
-					.createFromCos(cosGetArray().get(2));
-		}
-		return alternate;
-	}
+    public String[] getNamedComponents() {
+        return namedComponents;
+    }
 
-	public String[] getNamedComponents() {
-		return namedComponents;
-	}
-
-	public PDFunction getTintTransform() {
-		if (tintTransform == null) {
-			tintTransform = (PDFunction) PDFunction.META
-					.createFromCos(cosGetArray().get(3));
-		}
-		return tintTransform;
-	}
+    public PDFunction getTintTransform() {
+        if (tintTransform == null) {
+            tintTransform = (PDFunction) PDFunction.META.createFromCos(cosGetArray().get(3));
+        }
+        return tintTransform;
+    }
 }

@@ -39,43 +39,47 @@ import de.intarsys.pdf.cos.COSString;
  * Abstract superclass for objects defining a destination in a PDF document.
  */
 public abstract class PDDestination extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		public Class getRootClass() {
-			return PDDestination.class;
-		}
+        @Override
+        public Class getRootClass() {
+            return PDDestination.class;
+        }
 
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			if (object instanceof COSArray) {
-				return PDExplicitDestination.META;
-			}
-			if (object instanceof COSName) {
-				return PDNamedDestination.META;
-			}
-			if (object instanceof COSString) {
-				return PDNamedDestination.META;
-			}
-			return super.doDetermineClass(object);
-		}
+        @Override
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            if (object instanceof COSArray) {
+                return PDExplicitDestination.META;
+            }
+            if (object instanceof COSName) {
+                return PDNamedDestination.META;
+            }
+            if (object instanceof COSString) {
+                return PDNamedDestination.META;
+            }
+            return super.doDetermineClass(object);
+        }
 
-		protected COSObject doCreateCOSObject() {
-			return COSArray.create();
-		}
-	}
+        @Override
+        protected COSObject doCreateCOSObject() {
+            return COSArray.create();
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDDestination(COSObject object) {
-		super(object);
-	}
+    protected PDDestination(COSObject object) {
+        super(object);
+    }
 
-	abstract public PDExplicitDestination getResolvedDestination(PDDocument doc);
+    public abstract PDExplicitDestination getResolvedDestination(PDDocument doc);
 }

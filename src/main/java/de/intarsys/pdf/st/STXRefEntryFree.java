@@ -34,134 +34,133 @@ import de.intarsys.pdf.crypt.ISystemSecurityHandler;
 
 /**
  * Represents a free object entry in a pdf xref table.
- * 
  */
 public class STXRefEntryFree extends STXRefEntry {
-	/** a link to the next free XRef entry */
-	private STXRefEntryFree next = this;
+    /**
+     * a link to the next free XRef entry
+     */
+    private STXRefEntryFree next = this;
 
-	/** a link to the prev free XRef entry */
-	private STXRefEntryFree prev = this;
+    /**
+     * a link to the prev free XRef entry
+     */
+    private STXRefEntryFree prev = this;
 
-	private int nextFreeObject;
+    private int nextFreeObject;
 
-	public STXRefEntryFree(int objectNumber, int generationNumber,
-			int nextFreeObject) {
-		super(objectNumber, generationNumber);
-		this.nextFreeObject = nextFreeObject;
-	}
+    public STXRefEntryFree(int objectNumber, int generationNumber, int nextFreeObject) {
+        super(objectNumber, generationNumber);
+        this.nextFreeObject = nextFreeObject;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.storage.STXRefEntry#accept(de.intarsys.pdf.storage.IXRefEntryVisitor)
-	 */
-	@Override
-	public void accept(IXRefEntryVisitor visitor)
-			throws XRefEntryVisitorException {
-		visitor.visitFromFree(this);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.storage.STXRefEntry#accept(de.intarsys.pdf.storage.IXRefEntryVisitor)
+     */
+    @Override
+    public void accept(IXRefEntryVisitor visitor) throws XRefEntryVisitorException {
+        visitor.visitFromFree(this);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.storage.STXRefEntry#copy()
-	 */
-	@Override
-	public STXRefEntry copy() {
-		return new STXRefEntryFree(getObjectNumber(), getGenerationNumber(),
-				getNextFreeObjectNumber());
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.storage.STXRefEntry#copy()
+     */
+    @Override
+    public STXRefEntry copy() {
+        return new STXRefEntryFree(getObjectNumber(), getGenerationNumber(), getNextFreeObjectNumber());
+    }
 
-	/**
-	 * Add a new free entry in the linked list of free entries. The linked list
-	 * is formed by the head entry with index 0. This entry and all subsequent
-	 * hold a reference to their successor and predecessor. Adding a new entry
-	 * means that we look up the entry in the linked list, starting at the head,
-	 * that has the highest index smaller than the index of the new entry. The
-	 * new entry is inserted after that position in the linked list.
-	 * 
-	 * @param entry
-	 *            The new entry to insert in the linked list.
-	 */
-	public void enqueue(STXRefEntryFree entry) {
-		int prevIndex = getPrev().getObjectNumber();
-		if ((prevIndex == 0) || (prevIndex < entry.getObjectNumber())) {
-			entry.setNext(this);
-			entry.setPrev(getPrev());
-			getPrev().setNext(entry);
-			this.setPrev(entry);
-		} else {
-			getPrev().enqueue(entry);
-		}
-	}
+    /**
+     * Add a new free entry in the linked list of free entries. The linked list
+     * is formed by the head entry with index 0. This entry and all subsequent
+     * hold a reference to their successor and predecessor. Adding a new entry
+     * means that we look up the entry in the linked list, starting at the head,
+     * that has the highest index smaller than the index of the new entry. The
+     * new entry is inserted after that position in the linked list.
+     *
+     * @param entry The new entry to insert in the linked list.
+     */
+    public void enqueue(STXRefEntryFree entry) {
+        int prevIndex = getPrev().getObjectNumber();
+        if ((prevIndex == 0) || (prevIndex < entry.getObjectNumber())) {
+            entry.setNext(this);
+            entry.setPrev(getPrev());
+            getPrev().setNext(entry);
+            this.setPrev(entry);
+        } else {
+            getPrev().enqueue(entry);
+        }
+    }
 
-	@Override
-	public STXRefEntryOccupied fill(int pos) {
-		unlink();
+    @Override
+    public STXRefEntryOccupied fill(int pos) {
+        unlink();
 
-		/*
-		 * STXRefEntry newEntry = STXRefEntryOccupied.create( getObjectNumber(),
-		 * pos, getGenerationNumber() ); return newEntry.fill(pos);
-		 */
-		return null;
-	}
+        /*
+         * STXRefEntry newEntry = STXRefEntryOccupied.create( getObjectNumber(),
+         * pos, getGenerationNumber() ); return newEntry.fill(pos);
+         */
+        return null;
+    }
 
-	@Override
-	public long getColumn1() {
-		return getNextFreeObjectNumber();
-	}
+    @Override
+    public long getColumn1() {
+        return getNextFreeObjectNumber();
+    }
 
-	@Override
-	public int getColumn2() {
-		return getGenerationNumber();
-	}
+    @Override
+    public int getColumn2() {
+        return getGenerationNumber();
+    }
 
-	protected STXRefEntryFree getNext() {
-		return next;
-	}
+    protected STXRefEntryFree getNext() {
+        return next;
+    }
 
-	public int getNextFreeObjectNumber() {
-		return nextFreeObject;
-	}
+    public int getNextFreeObjectNumber() {
+        return nextFreeObject;
+    }
 
-	protected STXRefEntryFree getPrev() {
-		return prev;
-	}
+    protected STXRefEntryFree getPrev() {
+        return prev;
+    }
 
-	@Override
-	public boolean isFree() {
-		return true;
-	}
+    @Override
+    public boolean isFree() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.storage.STXRefEntry#loadObject(de.intarsys.pdf.cos.COSIndirectObject)
-	 */
-	@Override
-	public COSObject load(STDocument doc, ISystemSecurityHandler securityHandler) {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.storage.STXRefEntry#loadObject(de.intarsys.pdf.cos.COSIndirectObject)
+     */
+    @Override
+    public COSObject load(STDocument doc, ISystemSecurityHandler securityHandler) {
+        return null;
+    }
 
-	private void setNext(STXRefEntryFree free) {
-		next = free;
-	}
+    private void setNext(STXRefEntryFree free) {
+        next = free;
+    }
 
-	private void setPrev(STXRefEntryFree free) {
-		prev = free;
-	}
+    private void setPrev(STXRefEntryFree free) {
+        prev = free;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.writer.XRefEntry#unlink()
-	 */
-	@Override
-	protected void unlink() {
-		getPrev().setNext(getNext());
-		getNext().setPrev(getPrev());
-		setPrev(this);
-		setNext(this);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.writer.XRefEntry#unlink()
+     */
+    @Override
+    protected void unlink() {
+        getPrev().setNext(getNext());
+        getNext().setPrev(getPrev());
+        setPrev(this);
+        setNext(this);
+    }
 }

@@ -30,20 +30,21 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_cos implements IOperator {
-	public static Operator_cos Instance;
+    public static Operator_cos Instance;
 
-	static {
-		Instance = new Operator_cos();
-	}
+    static {
+        Instance = new Operator_cos();
+    }
 
-	private Operator_cos() {
-		super();
-	}
+    private Operator_cos() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		double operand;
+    @Override
+    public void execute(Handler handler) {
+        double operand;
 
-		operand = ((Number) handler.pop()).doubleValue();
-		handler.push(new Double(Math.sin(Math.toRadians(operand))));
-	}
+        operand = ((Number) handler.pop()).doubleValue();
+        handler.push(new Double(Math.sin(Math.toRadians(operand))));
+    }
 }

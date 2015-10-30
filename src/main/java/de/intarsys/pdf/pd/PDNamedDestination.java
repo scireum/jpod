@@ -40,53 +40,51 @@ import de.intarsys.pdf.cos.COSObject;
  * destination is looked up via the /Dests entry in the catalog.
  */
 public class PDNamedDestination extends PDDestination {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDDestination.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDDestination.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDNamedDestination(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDNamedDestination(object);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDNamedDestination(COSObject object) {
-		super(object);
-	}
+    protected PDNamedDestination(COSObject object) {
+        super(object);
+    }
 
-	public String getName() {
-		return cosGetObject().stringValue();
-	}
+    public String getName() {
+        return cosGetObject().stringValue();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * de.intarsys.pdf.pd.PDDestination#getResolvedDestination(de.intarsys.pdf
-	 * .pd.PDDoc)
-	 */
-	@Override
-	public PDExplicitDestination getResolvedDestination(PDDocument doc) {
-		COSObject resolvedDest = doc.lookupDestination(getName());
-		if (resolvedDest instanceof COSDictionary) {
-			COSObject destDict = ((COSDictionary) resolvedDest).get(COSName
-					.create("D"));
-			PDDestination newDest = (PDDestination) PDDestination.META
-					.createFromCos(destDict);
-			return newDest.getResolvedDestination(doc);
-		}
-		if (resolvedDest instanceof COSArray) {
-			return (PDExplicitDestination) PDExplicitDestination.META
-					.createFromCos(resolvedDest);
-		}
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * de.intarsys.pdf.pd.PDDestination#getResolvedDestination(de.intarsys.pdf
+     * .pd.PDDoc)
+     */
+    @Override
+    public PDExplicitDestination getResolvedDestination(PDDocument doc) {
+        COSObject resolvedDest = doc.lookupDestination(getName());
+        if (resolvedDest instanceof COSDictionary) {
+            COSObject destDict = ((COSDictionary) resolvedDest).get(COSName.create("D"));
+            PDDestination newDest = (PDDestination) PDDestination.META.createFromCos(destDict);
+            return newDest.getResolvedDestination(doc);
+        }
+        if (resolvedDest instanceof COSArray) {
+            return (PDExplicitDestination) PDExplicitDestination.META.createFromCos(resolvedDest);
+        }
+        return null;
+    }
 }

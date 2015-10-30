@@ -29,6 +29,11 @@
  */
 package de.intarsys.pdf.filter;
 
+import de.intarsys.pdf.cos.COSDictionary;
+import de.intarsys.tools.pool.GenericPool;
+import de.intarsys.tools.pool.IPool;
+import de.intarsys.tools.pool.IPoolObjectFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -37,173 +42,172 @@ import java.util.zip.DeflaterOutputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
-import de.intarsys.pdf.cos.COSDictionary;
-import de.intarsys.tools.pool.GenericPool;
-import de.intarsys.tools.pool.IPool;
-import de.intarsys.tools.pool.IPoolObjectFactory;
-
 /**
- * 
+ *
  */
 public class FlateFilter extends StreamBasedFilter {
 
-	static class PDFDeflaterOutputStream extends DeflaterOutputStream {
+    static class PDFDeflaterOutputStream extends DeflaterOutputStream {
 
-		public PDFDeflaterOutputStream(OutputStream out, Deflater def, int size) {
-			super(out, def, size);
-		}
+        PDFDeflaterOutputStream(OutputStream out, Deflater def, int size) {
+            super(out, def, size);
+        }
 
-		@Override
-		public void close() throws IOException {
-			super.close();
-			FlateFilter.returnDeflater(def);
-		}
-	}
+        @Override
+        public void close() throws IOException {
+            super.close();
+            FlateFilter.returnDeflater(def);
+        }
+    }
 
-	static class PDFInflaterOutputStream extends InflaterInputStream {
+    static class PDFInflaterOutputStream extends InflaterInputStream {
 
-		public PDFInflaterOutputStream(InputStream in, Inflater inf, int size) {
-			super(in, inf, size);
-		}
+        PDFInflaterOutputStream(InputStream in, Inflater inf, int size) {
+            super(in, inf, size);
+        }
 
-		@Override
-		public void close() throws IOException {
-			super.close();
-			FlateFilter.returnInflater(inf);
-		}
-	}
+        @Override
+        public void close() throws IOException {
+            super.close();
+            FlateFilter.returnInflater(inf);
+        }
+    }
 
-	private static IPoolObjectFactory deflaterFactory = new IPoolObjectFactory() {
+    private static IPoolObjectFactory deflaterFactory = new IPoolObjectFactory() {
 
-		public void destroyObject(Object obj) throws Exception {
-			((Deflater) obj).end();
-		}
+        @Override
+        public void destroyObject(Object obj) throws Exception {
+            ((Deflater) obj).end();
+        }
 
-		public void deactivateObject(Object obj) throws Exception {
-			((Deflater) obj).reset();
-		}
+        @Override
+        public void deactivateObject(Object obj) throws Exception {
+            ((Deflater) obj).reset();
+        }
 
-		public Object createObject() throws Exception {
-			return new Deflater();
-		}
+        @Override
+        public Object createObject() throws Exception {
+            return new Deflater();
+        }
 
-		public void activateObject(Object obj) throws Exception {
-			//
-		}
+        @Override
+        public void activateObject(Object obj) throws Exception {
+            //
+        }
+    };
 
-	};
+    private static IPoolObjectFactory inflaterFactory = new IPoolObjectFactory() {
 
-	private static IPoolObjectFactory inflaterFactory = new IPoolObjectFactory() {
+        @Override
+        public void destroyObject(Object obj) throws Exception {
+            ((Inflater) obj).end();
+        }
 
-		public void destroyObject(Object obj) throws Exception {
-			((Inflater) obj).end();
-		}
+        @Override
+        public void deactivateObject(Object obj) throws Exception {
+            ((Inflater) obj).reset();
+        }
 
-		public void deactivateObject(Object obj) throws Exception {
-			((Inflater) obj).reset();
-		}
+        @Override
+        public Object createObject() throws Exception {
+            return new Inflater();
+        }
 
-		public Object createObject() throws Exception {
-			return new Inflater();
-		}
+        @Override
+        public void activateObject(Object obj) throws Exception {
+            //
+        }
+    };
 
-		public void activateObject(Object obj) throws Exception {
-			//
-		}
+    /**
+     * A pool for reusing the Deflater object.
+     */
+    private static IPool DeflaterPool = new GenericPool(deflaterFactory);
 
-	};
+    /**
+     * A pool for reusing the Inflater object.
+     */
+    private static IPool InflaterPool = new GenericPool(inflaterFactory);
 
-	/**
-	 * A pool for reusing the Deflater object.
-	 */
-	private static IPool DeflaterPool = new GenericPool(deflaterFactory);
+    /**
+     *
+     */
+    public FlateFilter(COSDictionary options) {
+        super(options);
+    }
 
-	/**
-	 * A pool for reusing the Inflater object.
-	 */
-	private static IPool InflaterPool = new GenericPool(inflaterFactory);
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.StreamBasedFilter#createInputFilterStream(java.io.InputStream)
+     */
+    @Override
+    protected InputStream createInputFilterStream(InputStream is) throws IOException {
+        final Inflater inflater = borrowInflater();
+        return new PDFInflaterOutputStream(is, inflater, 1024);
+    }
 
-	/**
-	 * 
-	 */
-	public FlateFilter(COSDictionary options) {
-		super(options);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.StreamBasedFilter#createOutputFilterStream(java.io.OutputStream)
+     */
+    @Override
+    protected OutputStream createOutputFilterStream(OutputStream os) throws IOException {
+        final Deflater deflater = borrowDeflater();
+        return new PDFDeflaterOutputStream(os, deflater, 1024);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.StreamBasedFilter#createInputFilterStream(java.io.InputStream)
-	 */
-	@Override
-	protected InputStream createInputFilterStream(InputStream is)
-			throws IOException {
-		final Inflater inflater = borrowInflater();
-		return new PDFInflaterOutputStream(is, inflater, 1024);
-	}
+    protected static Deflater borrowDeflater() throws IOException {
+        try {
+            return (Deflater) DeflaterPool.checkout(-1);
+        } catch (Exception e) {
+            IOException ioe = new IOException("can't create deflater");
+            ioe.initCause(e);
+            throw ioe;
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.StreamBasedFilter#createOutputFilterStream(java.io.OutputStream)
-	 */
-	@Override
-	protected OutputStream createOutputFilterStream(OutputStream os)
-			throws IOException {
-		final Deflater deflater = borrowDeflater();
-		return new PDFDeflaterOutputStream(os, deflater, 1024);
-	}
+    protected static Inflater borrowInflater() throws IOException {
+        try {
+            return (Inflater) InflaterPool.checkout(-1);
+        } catch (Exception e) {
+            IOException ioe = new IOException("can't create inflater");
+            ioe.initCause(e);
+            throw ioe;
+        }
+    }
 
-	protected static Deflater borrowDeflater() throws IOException {
-		try {
-			return (Deflater) DeflaterPool.checkout(-1);
-		} catch (Exception e) {
-			IOException ioe = new IOException("can't create deflater");
-			ioe.initCause(e);
-			throw ioe;
-		}
-	}
+    protected static void returnInflater(Object inflater) {
+        try {
+            InflaterPool.checkin(inflater);
+        } catch (Exception e) {
+            // ignore
+        }
+    }
 
-	protected static Inflater borrowInflater() throws IOException {
-		try {
-			return (Inflater) InflaterPool.checkout(-1);
-		} catch (Exception e) {
-			IOException ioe = new IOException("can't create inflater");
-			ioe.initCause(e);
-			throw ioe;
-		}
-	}
+    protected static void returnDeflater(Object deflater) {
+        try {
+            DeflaterPool.checkin(deflater);
+        } catch (Exception e) {
+            // ignore
+        }
+    }
 
-	protected static void returnInflater(Object inflater) {
-		try {
-			InflaterPool.checkin(inflater);
-		} catch (Exception e) {
-			// ignore
-		}
-	}
+    @Override
+    protected byte[] decode(byte[] source) throws IOException {
+        byte[] decoded;
+        IPrediction prediction;
 
-	protected static void returnDeflater(Object deflater) {
-		try {
-			DeflaterPool.checkin(deflater);
-		} catch (Exception e) {
-			// ignore
-		}
-	}
+        if ((source == null) || (source.length == 0)) {
+            return new byte[0];
+        }
+        decoded = super.decode(source);
+        if (getOptions() == null) {
+            return decoded;
+        }
 
-	@Override
-	protected byte[] decode(byte[] source) throws IOException {
-		byte[] decoded;
-		IPrediction prediction;
-
-		if ((source == null) || (source.length == 0)) {
-			return new byte[0];
-		}
-		decoded = super.decode(source);
-		if (getOptions() == null) {
-			return decoded;
-		}
-
-		prediction = PredictionFactory.get().createPrediction(getOptions());
-		return prediction.decode(decoded);
-	}
+        prediction = PredictionFactory.get().createPrediction(getOptions());
+        return prediction.decode(decoded);
+    }
 }

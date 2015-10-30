@@ -33,67 +33,51 @@ import de.intarsys.pdf.content.CSOperator;
 
 /**
  * A classs enumerating the operators for a cmap program.
- * 
  */
 public class CMapOperator {
-	static public final CSOperator CMO_beginbfchar = CSOperator
-			.create("beginbfchar"); //$NON-NLS-1$
+    public static final CSOperator CMO_beginbfchar = CSOperator.create("beginbfchar"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_beginbfrange = CSOperator
-			.create("beginbfrange"); //$NON-NLS-1$
+    public static final CSOperator CMO_beginbfrange = CSOperator.create("beginbfrange"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_begincidchar = CSOperator
-			.create("begincidchar"); //$NON-NLS-1$
+    public static final CSOperator CMO_begincidchar = CSOperator.create("begincidchar"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_begincidrange = CSOperator
-			.create("begincidrange"); //$NON-NLS-1$
+    public static final CSOperator CMO_begincidrange = CSOperator.create("begincidrange"); //$NON-NLS-1$
 
-	// list of well known operators
-	static public final CSOperator CMO_begincmap = CSOperator
-			.create("begincmap"); //$NON-NLS-1$
+    // list of well known operators
+    public static final CSOperator CMO_begincmap = CSOperator.create("begincmap"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_begincodespacerange = CSOperator
-			.create("begincodespacerange"); //$NON-NLS-1$
+    public static final CSOperator CMO_begincodespacerange = CSOperator.create("begincodespacerange"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_beginnotdefchar = CSOperator
-			.create("beginnotdefchar"); //$NON-NLS-1$
+    public static final CSOperator CMO_beginnotdefchar = CSOperator.create("beginnotdefchar"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_beginnotdefrange = CSOperator
-			.create("beginnotdefrange"); //$NON-NLS-1$
+    public static final CSOperator CMO_beginnotdefrange = CSOperator.create("beginnotdefrange"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_def = CSOperator.create("def"); //$NON-NLS-1$
+    public static final CSOperator CMO_def = CSOperator.create("def"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_endbfchar = CSOperator
-			.create("endbfchar"); //$NON-NLS-1$
+    public static final CSOperator CMO_endbfchar = CSOperator.create("endbfchar"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_endbfrange = CSOperator
-			.create("endbfrange"); //$NON-NLS-1$
+    public static final CSOperator CMO_endbfrange = CSOperator.create("endbfrange"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_endcidchar = CSOperator
-			.create("endcidchar"); //$NON-NLS-1$
+    public static final CSOperator CMO_endcidchar = CSOperator.create("endcidchar"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_endcidrange = CSOperator
-			.create("endcidrange"); //$NON-NLS-1$
+    public static final CSOperator CMO_endcidrange = CSOperator.create("endcidrange"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_endcmap = CSOperator.create("endcmap"); //$NON-NLS-1$
+    public static final CSOperator CMO_endcmap = CSOperator.create("endcmap"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_endcodespacerange = CSOperator
-			.create("endcodespacerange"); //$NON-NLS-1$
+    public static final CSOperator CMO_endcodespacerange = CSOperator.create("endcodespacerange"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_endnotdefchar = CSOperator
-			.create("endnotdefchar"); //$NON-NLS-1$
+    public static final CSOperator CMO_endnotdefchar = CSOperator.create("endnotdefchar"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_endnotdefrange = CSOperator
-			.create("endnotdefrange"); //$NON-NLS-1$
+    public static final CSOperator CMO_endnotdefrange = CSOperator.create("endnotdefrange"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_usecmap = CSOperator.create("usecmap"); //$NON-NLS-1$
+    public static final CSOperator CMO_usecmap = CSOperator.create("usecmap"); //$NON-NLS-1$
 
-	static public final CSOperator CMO_usefont = CSOperator.create("usefont"); //$NON-NLS-1$
+    public static final CSOperator CMO_usefont = CSOperator.create("usefont"); //$NON-NLS-1$
 
-	/**
-	 * Enumeration class
-	 */
-	private CMapOperator() {
-		// this is a tool class
-	}
+    /**
+     * Enumeration class
+     */
+    private CMapOperator() {
+        // this is a tool class
+    }
 }

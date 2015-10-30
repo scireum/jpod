@@ -30,17 +30,18 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_dup implements IOperator {
-	public static Operator_dup Instance;
+    public static Operator_dup Instance;
 
-	static {
-		Instance = new Operator_dup();
-	}
+    static {
+        Instance = new Operator_dup();
+    }
 
-	private Operator_dup() {
-		super();
-	}
+    private Operator_dup() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		handler.push(handler.peek());
-	}
+    @Override
+    public void execute(Handler handler) {
+        handler.push(handler.peek());
+    }
 }

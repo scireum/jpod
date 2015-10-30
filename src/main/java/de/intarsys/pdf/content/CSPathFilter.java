@@ -37,151 +37,145 @@ import de.intarsys.pdf.pd.PDShading;
 
 /**
  * Only path related operations will reach the device.
- * 
  */
 public class CSPathFilter extends CSDeviceFilter {
 
-	public CSPathFilter(ICSDevice device) {
-		super(device);
-	}
+    public CSPathFilter(ICSDevice device) {
+        super(device);
+    }
 
-	@Override
-	protected void doImage(COSName name, PDImage image) throws CSException {
-		//
-	}
+    @Override
+    protected void doImage(COSName name, PDImage image) {
+        //
+    }
 
-	@Override
-	public void doShading(COSName resourceName, PDShading shading) {
-		//
-	}
+    @Override
+    public void doShading(COSName resourceName, PDShading shading) {
+        //
+    }
 
-	@Override
-	public void inlineImage(PDImage img) {
-		//
-	}
+    @Override
+    public void inlineImage(PDImage img) {
+        //
+    }
 
-	@Override
-	public void markedContentBegin(COSName tag) {
-		//
-	}
+    @Override
+    public void markedContentBegin(COSName tag) {
+        //
+    }
 
-	@Override
-	public void markedContentBeginProperties(COSName tag, COSName resourceName,
-			COSDictionary properties) {
-		//
-	}
+    @Override
+    public void markedContentBeginProperties(COSName tag, COSName resourceName, COSDictionary properties) {
+        //
+    }
 
-	@Override
-	public void markedContentEnd() {
-		//
-	}
+    @Override
+    public void markedContentEnd() {
+        //
+    }
 
-	@Override
-	public void markedContentPoint(COSName tag) {
-		//
-	}
+    @Override
+    public void markedContentPoint(COSName tag) {
+        //
+    }
 
-	@Override
-	public void markedContentPointProperties(COSName tag, COSName resourceName,
-			COSDictionary properties) {
-		//
-	}
+    @Override
+    public void markedContentPointProperties(COSName tag, COSName resourceName, COSDictionary properties) {
+        //
+    }
 
-	@Override
-	public void textBegin() {
-		//
-	}
+    @Override
+    public void textBegin() {
+        //
+    }
 
-	@Override
-	public void textEnd() {
-		//
-	}
+    @Override
+    public void textEnd() {
+        //
+    }
 
-	@Override
-	public void textLineMove(float dx, float dy) {
-		//
-	}
+    @Override
+    public void textLineMove(float dx, float dy) {
+        //
+    }
 
-	@Override
-	public void textLineNew() {
-		//
-	}
+    @Override
+    public void textLineNew() {
+        //
+    }
 
-	@Override
-	public void textMove(float dx, float dy) {
-		//
-	}
+    @Override
+    public void textMove(float dx, float dy) {
+        //
+    }
 
-	@Override
-	public void textMoveTo(float x, float y) {
-		//
-	}
+    @Override
+    public void textMoveTo(float x, float y) {
+        //
+    }
 
-	@Override
-	public void textSetCharSpacing(float charSpacing) {
-		//
-	}
+    @Override
+    public void textSetCharSpacing(float charSpacing) {
+        //
+    }
 
-	@Override
-	public void textSetFont(COSName resourceName, PDFont font, float size) {
-		//
-	}
+    @Override
+    public void textSetFont(COSName resourceName, PDFont font, float size) {
+        //
+    }
 
-	@Override
-	public void textSetHorizontalScaling(float scale) {
-		//
-	}
+    @Override
+    public void textSetHorizontalScaling(float scale) {
+        //
+    }
 
-	@Override
-	public void textSetLeading(float leading) {
-		//
-	}
+    @Override
+    public void textSetLeading(float leading) {
+        //
+    }
 
-	@Override
-	public void textSetRenderingMode(int renderingMode) {
-		//
-	}
+    @Override
+    public void textSetRenderingMode(int renderingMode) {
+        //
+    }
 
-	@Override
-	public void textSetRise(float rise) {
-		//
-	}
+    @Override
+    public void textSetRise(float rise) {
+        //
+    }
 
-	@Override
-	public void textSetTransform(float a, float b, float c, float d, float e,
-			float f) {
-		//
-	}
+    @Override
+    public void textSetTransform(float a, float b, float c, float d, float e, float f) {
+        //
+    }
 
-	@Override
-	public void textSetWordSpacing(float wordSpacing) {
-		//
-	}
+    @Override
+    public void textSetWordSpacing(float wordSpacing) {
+        //
+    }
 
-	@Override
-	public void textShow(byte[] text, int offset, int length) {
-		//
-	}
+    @Override
+    public void textShow(byte[] text, int offset, int length) {
+        //
+    }
 
-	@Override
-	public void textShow(char[] chars, int offset, int length) {
-		//
-	}
+    @Override
+    public void textShow(char[] chars, int offset, int length) {
+        //
+    }
 
-	@Override
-	public void textShow(String text) {
-		//
-	}
+    @Override
+    public void textShow(String text) {
+        //
+    }
 
-	@Override
-	public void textT3SetGlyphWidth(float x, float y) {
-		//
-	}
+    @Override
+    public void textT3SetGlyphWidth(float x, float y) {
+        //
+    }
 
-	@Override
-	public void textT3SetGlyphWidthBB(float x, float y, float llx, float lly,
-			float urx, float ury) {
-		//
-	}
-
+    @Override
+    public void textT3SetGlyphWidthBB(float x, float y, float llx, float lly, float urx, float ury) {
+        //
+    }
 }

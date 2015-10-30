@@ -33,16 +33,12 @@ package de.intarsys.pdf.cos;
  * An interface for visiting a proxy to a COSObject
  */
 public interface ICOSProxyVisitor {
-	/**
-	 * Notification of visit to {@link COSObjectProxy} object.
-	 * 
-	 * @param obj
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromProxy(COSObjectProxy obj) throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSObjectProxy} object.
+     *
+     * @param obj The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    Object visitFromProxy(COSObjectProxy obj) throws COSVisitorException;
 }

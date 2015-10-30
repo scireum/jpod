@@ -33,20 +33,20 @@ package de.intarsys.pdf.content;
  * An exceptional condition encountered while procesing a content streams
  * operations.
  */
-abstract public class CSException extends RuntimeException {
-	public CSException(String message) {
-		super(message);
-	}
+public abstract class CSException extends RuntimeException {
+    protected CSException(String message) {
+        super(message);
+    }
 
-	public CSException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    protected CSException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public CSException() {
-		super();
-	}
+    protected CSException() {
+        super();
+    }
 
-	public CSException(Throwable cause) {
-		super(cause);
-	}
+    protected CSException(Throwable cause) {
+        super(cause);
+    }
 }

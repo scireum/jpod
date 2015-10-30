@@ -35,60 +35,60 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * An abstract implementation of the strategy for computing a signature.
- * 
  */
 public class PDTransformMethod extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see de.intarsys.pdf.cos.COSBasedObject.MetaClass#doCreateCOSBasedObject(de.intarsys.pdf.cos.COSObject)
-		 */
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return getSingleton((COSName) object);
-		}
+        /*
+         * (non-Javadoc)
+         *
+         * @see de.intarsys.pdf.cos.COSBasedObject.MetaClass#doCreateCOSBasedObject(de.intarsys.pdf.cos.COSObject)
+         */
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return getSingleton((COSName) object);
+        }
 
-		@Override
-		public Class getRootClass() {
-			return PDTransformMethod.class;
-		}
-	}
+        @Override
+        public Class getRootClass() {
+            return PDTransformMethod.class;
+        }
+    }
 
-	public static final COSName DK_DocMDP = COSName.constant("DocMDP");
+    public static final COSName DK_DocMDP = COSName.constant("DocMDP");
 
-	public static final COSName DK_UR = COSName.constant("UR");
+    public static final COSName DK_UR = COSName.constant("UR");
 
-	public static final COSName DK_FieldMDP = COSName.constant("FieldMDP");
+    public static final COSName DK_FieldMDP = COSName.constant("FieldMDP");
 
-	public static final COSName DK_Identity = COSName.constant("Identity");
+    public static final COSName DK_Identity = COSName.constant("Identity");
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static PDTransformMethod getSingleton(COSName name) {
-		if (DK_DocMDP.equals(name)) {
-			return PDTransformMethodDocMDP.SINGLETON;
-		} else if (DK_UR.equals(name)) {
-			return PDTransformMethodUR.SINGLETON;
-		} else if (DK_FieldMDP.equals(name)) {
-			return PDTransformMethodFieldMDP.SINGLETON;
-		} else if (DK_Identity.equals(name)) {
-			return PDTransformMethodIdentity.SINGLETON;
-		} else {
-			return null;
-		}
-	}
+    public static PDTransformMethod getSingleton(COSName name) {
+        if (DK_DocMDP.equals(name)) {
+            return PDTransformMethodDocMDP.SINGLETON;
+        } else if (DK_UR.equals(name)) {
+            return PDTransformMethodUR.SINGLETON;
+        } else if (DK_FieldMDP.equals(name)) {
+            return PDTransformMethodFieldMDP.SINGLETON;
+        } else if (DK_Identity.equals(name)) {
+            return PDTransformMethodIdentity.SINGLETON;
+        } else {
+            return null;
+        }
+    }
 
-	protected PDTransformMethod(COSName name) {
-		super(name);
-	}
+    protected PDTransformMethod(COSName name) {
+        super(name);
+    }
 }

@@ -29,9 +29,6 @@
  */
 package de.intarsys.pdf.pd;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSInteger;
@@ -39,120 +36,122 @@ import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.cos.COSString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The parameters for the PDTransformMethod algorithms.
- * 
  */
 public class PDTransformParams extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDTransformParams(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDTransformParams(object);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_Type_TransformParams = COSName
-			.constant("TransformParams"); //$NON-NLS-1$
+    public static final COSName CN_Type_TransformParams = COSName.constant("TransformParams"); //$NON-NLS-1$
 
-	public static final COSName DK_P = COSName.constant("P"); //$NON-NLS-1$
+    public static final COSName DK_P = COSName.constant("P"); //$NON-NLS-1$
 
-	public static final COSName DK_V = COSName.constant("V"); //$NON-NLS-1$
+    public static final COSName DK_V = COSName.constant("V"); //$NON-NLS-1$
 
-	/*
-	 * All, Include, Exclude
-	 */
-	public static final COSName DK_Action = COSName.constant("Action"); //$NON-NLS-1$
+    /*
+     * All, Include, Exclude
+     */
+    public static final COSName DK_Action = COSName.constant("Action"); //$NON-NLS-1$
 
-	public static final COSName DK_Fields = COSName.constant("Fields"); //$NON-NLS-1$
+    public static final COSName DK_Fields = COSName.constant("Fields"); //$NON-NLS-1$
 
-	public static final COSName CN_All = COSName.constant("All"); //$NON-NLS-1$
+    public static final COSName CN_All = COSName.constant("All"); //$NON-NLS-1$
 
-	public static final COSName CN_Include = COSName.constant("Include"); //$NON-NLS-1$
+    public static final COSName CN_Include = COSName.constant("Include"); //$NON-NLS-1$
 
-	public static final COSName CN_Exclude = COSName.constant("Exclude"); //$NON-NLS-1$
+    public static final COSName CN_Exclude = COSName.constant("Exclude"); //$NON-NLS-1$
 
-	public static final COSName CN_Version_1_2 = COSName.constant("1.2");
+    public static final COSName CN_Version_1_2 = COSName.constant("1.2");
 
-	protected PDTransformParams(COSObject object) {
-		super(object);
-	}
+    protected PDTransformParams(COSObject object) {
+        super(object);
+    }
 
-	public COSName cosGetAction() {
-		return cosGetField(DK_Action).asName();
-	}
+    public COSName cosGetAction() {
+        return cosGetField(DK_Action).asName();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
-	 */
-	@Override
-	protected COSName cosGetExpectedType() {
-		return CN_Type_TransformParams;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
+     */
+    @Override
+    protected COSName cosGetExpectedType() {
+        return CN_Type_TransformParams;
+    }
 
-	public COSArray cosGetFields() {
-		return cosGetField(DK_Fields).asArray();
-	}
+    public COSArray cosGetFields() {
+        return cosGetField(DK_Fields).asArray();
+    }
 
-	public void cosSetAction(COSName action) {
-		cosSetField(DK_Action, action);
-	}
+    public void cosSetAction(COSName action) {
+        cosSetField(DK_Action, action);
+    }
 
-	public void cosSetFields(COSArray fields) {
-		cosSetField(DK_Fields, fields);
-	}
+    public void cosSetFields(COSArray fields) {
+        cosSetField(DK_Fields, fields);
+    }
 
-	public List<String> getFields() {
-		List<String> fields = new ArrayList<String>();
-		COSArray cosFields = cosGetFields();
-		if (cosFields != null) {
-			for (int i = 0; i < cosFields.size(); i++) {
-				COSString cosFieldName = cosFields.get(i).asString();
-				fields.add(cosFieldName.stringValue());
-			}
-		}
-		return fields;
-	}
+    public List<String> getFields() {
+        List<String> fields = new ArrayList<String>();
+        COSArray cosFields = cosGetFields();
+        if (cosFields != null) {
+            for (int i = 0; i < cosFields.size(); i++) {
+                COSString cosFieldName = cosFields.get(i).asString();
+                fields.add(cosFieldName.stringValue());
+            }
+        }
+        return fields;
+    }
 
-	public int getPermissions() {
-		return getFieldInt(DK_P, 2);
-	}
+    public int getPermissions() {
+        return getFieldInt(DK_P, 2);
+    }
 
-	@Override
-	protected void initializeFromScratch() {
-		super.initializeFromScratch();
-		cosSetField(DK_V, CN_Version_1_2);
-	}
+    @Override
+    protected void initializeFromScratch() {
+        super.initializeFromScratch();
+        cosSetField(DK_V, CN_Version_1_2);
+    }
 
-	public boolean isActionAll() {
-		return CN_All.equals(cosGetAction());
-	}
+    public boolean isActionAll() {
+        return CN_All.equals(cosGetAction());
+    }
 
-	public boolean isActionExclude() {
-		return CN_Exclude.equals(cosGetAction());
-	}
+    public boolean isActionExclude() {
+        return CN_Exclude.equals(cosGetAction());
+    }
 
-	public boolean isActionInclude() {
-		return CN_Include.equals(cosGetAction());
-	}
+    public boolean isActionInclude() {
+        return CN_Include.equals(cosGetAction());
+    }
 
-	public void setPermissions(int permissions) {
-		cosSetField(DK_P, COSInteger.create(permissions));
-	}
+    public void setPermissions(int permissions) {
+        cosSetField(DK_P, COSInteger.create(permissions));
+    }
 
-	public void setVersion(String version) {
-		cosSetField(DK_V, COSName.create(version));
-	}
+    public void setVersion(String version) {
+        cosSetField(DK_V, COSName.create(version));
+    }
 }
