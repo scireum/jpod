@@ -40,7 +40,7 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromArray(COSArray array) throws COSVisitorException;
+    Object visitFromArray(COSArray array) throws COSVisitorException;
 
     /**
      * Notification of visit to {@link COSBoolean} object.
@@ -49,7 +49,7 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromBoolean(COSBoolean bool) throws COSVisitorException;
+    Object visitFromBoolean(COSBoolean bool) throws COSVisitorException;
 
     /**
      * Notification of visit to {@link COSDictionary} object.
@@ -58,7 +58,7 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromDictionary(COSDictionary dict) throws COSVisitorException;
+    Object visitFromDictionary(COSDictionary dict) throws COSVisitorException;
 
     /**
      * Notification of visit to {@link COSFixed} object.
@@ -67,7 +67,7 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromFixed(COSFixed fixed) throws COSVisitorException;
+    Object visitFromFixed(COSFixed fixed) throws COSVisitorException;
 
     /**
      * Notification of visit to {@link COSInteger} object.
@@ -76,7 +76,7 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromInteger(COSInteger integer) throws COSVisitorException;
+    Object visitFromInteger(COSInteger integer) throws COSVisitorException;
 
     /**
      * Notification of visit to {@link COSName} object.
@@ -85,7 +85,7 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromName(COSName name) throws COSVisitorException;
+    Object visitFromName(COSName name) throws COSVisitorException;
 
     /**
      * Notification of visit to {@link COSNull} object.
@@ -94,7 +94,7 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromNull(COSNull nullObj) throws COSVisitorException;
+    Object visitFromNull(COSNull nullObj) throws COSVisitorException;
 
     /**
      * Notification of visit to {@link COSStream} object.
@@ -103,7 +103,7 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromStream(COSStream stream) throws COSVisitorException;
+    Object visitFromStream(COSStream stream) throws COSVisitorException;
 
     /**
      * Notification of visit to {@link COSString} object.
@@ -112,7 +112,7 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromString(COSString string) throws COSVisitorException;
+    Object visitFromString(COSString string) throws COSVisitorException;
 
     /**
      * Notification of visit to {@link COSIndirectObject} object.
@@ -121,5 +121,5 @@ public interface ICOSObjectVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromIndirectObject(COSIndirectObject indirect) throws COSVisitorException;
+    Object visitFromIndirectObject(COSIndirectObject indirect) throws COSVisitorException;
 }

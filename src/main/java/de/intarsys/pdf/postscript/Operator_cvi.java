@@ -40,6 +40,7 @@ public class Operator_cvi implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) throws ParseException {
         Object element;
 
@@ -49,11 +50,11 @@ public class Operator_cvi implements IOperator {
         }
         handler.pop();
         if (element instanceof Double) {
-            handler.push(new Integer(((Double) element).intValue()));
+            handler.push(Integer.valueOf(((Double) element).intValue()));
             return;
         }
         if (element instanceof String) {
-            handler.push(new Integer((int) Double.parseDouble((String) element)));
+            handler.push(Integer.valueOf((int) Double.parseDouble((String) element)));
             return;
         }
         throw new ParseException();

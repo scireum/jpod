@@ -43,7 +43,7 @@ public class PDEmbeddedFile extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+	public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -62,15 +62,15 @@ public class PDEmbeddedFile extends PDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+	public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public final COSName DK_Params = COSName.constant("Params"); //
+    public static final COSName DK_Params = COSName.constant("Params"); //
 
-    static public final COSName DK_Subtype = COSName.constant("Subtype"); //
+    public static final COSName DK_Subtype = COSName.constant("Subtype"); //
 
-    static public final COSName CN_ModDate = COSName.constant("ModDate"); //
+    public static final COSName CN_ModDate = COSName.constant("ModDate"); //
 
-    static public final COSName CN_Type_EmbeddedFile = COSName.constant("EmbeddedFile"); //
+    public static final COSName CN_Type_EmbeddedFile = COSName.constant("EmbeddedFile"); //
 
     protected PDEmbeddedFile(COSObject object) {
         super(object);

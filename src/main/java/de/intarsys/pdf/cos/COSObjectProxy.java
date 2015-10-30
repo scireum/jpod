@@ -46,7 +46,7 @@ import java.util.Map;
  * range. The proxy mechanics allow for creating a placeholder for the signature
  * data, filled in at the correct position later by some post processing.
  */
-abstract public class COSObjectProxy extends COSCompositeObject implements Cloneable {
+public abstract class COSObjectProxy extends COSCompositeObject implements Cloneable {
     /**
      * The position when the signal from the serializer was detected
      */
@@ -56,14 +56,7 @@ abstract public class COSObjectProxy extends COSCompositeObject implements Clone
 
     private COSObject object;
 
-    /**
-     * Create a {@link COSObjectProxy}
-     */
-    public COSObjectProxy() {
-        //
-    }
-
-    @Override
+	@Override
     public Object accept(ICOSObjectVisitor visitor) throws COSVisitorException {
         if (object != null) {
             return object.accept(visitor);
@@ -94,7 +87,7 @@ abstract public class COSObjectProxy extends COSCompositeObject implements Clone
     protected Object clone() {
         try {
             return super.clone();
-        } catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException ignored) {
             return null;
         }
     }
@@ -139,7 +132,7 @@ abstract public class COSObjectProxy extends COSCompositeObject implements Clone
      * @return the represented object
      * @throws IOException
      */
-    abstract protected COSObject createCOSObject(IRandomAccess randomAccessData) throws IOException;
+	protected abstract COSObject createCOSObject(IRandomAccess randomAccessData) throws IOException;
 
     @Override
     public COSObject dereference() {
@@ -232,7 +225,7 @@ abstract public class COSObjectProxy extends COSCompositeObject implements Clone
     }
 
     /**
-     * Reserve <code>length</code> bytes for the serialization of this.
+     * Reserve {@code length} bytes for the serialization of this.
      *
      * @param pLength Number of bytes to be reserved.
      */

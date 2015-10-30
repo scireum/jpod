@@ -48,8 +48,8 @@ import java.util.logging.Level;
  * available. On the other hand, this implementation must support the handling
  * of very large documents, so transparent garbage collection must be supported.
  * This is implemented using a two stage reference: A hard reference via
- * <code>object</code> is held to objects that should be hard wired in the
- * memory. A soft reference is held via <code>reference</code> to objects that
+ * {@code object} is held to objects that should be hard wired in the
+ * memory. A soft reference is held via {@code reference} to objects that
  * should be available to garbage collection. An object is "hard wired" when one
  * of the following conditions is true:<br>
  * <ul>
@@ -181,6 +181,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      * de.intarsys.pdf.cos.ICOSContainer#associate(de.intarsys.pdf.cos.ICOSContainer
      * , de.intarsys.pdf.cos.COSObject)
      */
+    @Override
     public ICOSContainer associate(ICOSContainer newContainer, COSObject pObject) {
         newContainer.register(this);
         referenceCount++;
@@ -225,6 +226,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      * de.intarsys.pdf.cos.ICOSContainer#containable(de.intarsys.pdf.cos.COSObject
      * )
      */
+    @Override
     public COSDocumentElement containable(COSObject pObject) {
         return this;
     }
@@ -313,6 +315,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      * @seede.intarsys.pdf.cos.ICOSContainer#disassociate(de.intarsys.pdf.cos.
      * ICOSContainer, de.intarsys.pdf.cos.COSObject)
      */
+    @Override
     public ICOSContainer disassociate(ICOSContainer oldContainer, COSObject pObject) {
         referenceCount--;
         return this;
@@ -402,6 +405,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
         return objectNumber;
     }
 
+    @Override
     public void harden(COSObject pObject) {
         if (object instanceof Reference) {
             flags |= F_FIXED;
@@ -410,9 +414,9 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
     }
 
     /**
-     * <code>true</code> if the object graph referenced by this is changed.
+     * {@code true} if the object graph referenced by this is changed.
      *
-     * @return <code>true</code> if the object graph referenced by this is
+     * @return {@code true} if the object graph referenced by this is
      * changed.
      */
     public boolean isDirty() {
@@ -420,10 +424,10 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
     }
 
     /**
-     * <code>true</code> if this {@link COSIndirectObject} never has been
+     * {@code true} if this {@link COSIndirectObject} never has been
      * swapped in.
      *
-     * @return <code>true</code> if this {@link COSIndirectObject} never has
+     * @return {@code true} if this {@link COSIndirectObject} never has
      * been swapped in.
      */
     public boolean isInitialState() {
@@ -459,6 +463,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      *
      * @see de.intarsys.pdf.cos.ICOSContainer#referenceCount()
      */
+    @Override
     public int referenceCount() {
         return referenceCount;
     }
@@ -470,6 +475,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      * de.intarsys.pdf.cos.ICOSContainer#referenceIndirect(de.intarsys.pdf.cos
      * .COSObject)
      */
+    @Override
     public COSIndirectObject referenceIndirect(COSObject pObject) {
         return this;
     }
@@ -480,6 +486,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      * @see
      * de.intarsys.pdf.cos.ICOSContainer#register(de.intarsys.pdf.cos.COSObject)
      */
+    @Override
     public void register(COSDocumentElement pObject) {
         if (doc != null) {
             pObject.registerWith(doc);
@@ -540,6 +547,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      * de.intarsys.pdf.cos.ICOSContainer#restoreStateContainer(de.intarsys.pdf
      * .cos.ICOSContainer)
      */
+    @Override
     public ICOSContainer restoreStateContainer(ICOSContainer container) {
         COSIndirectObject indirectObject = (COSIndirectObject) container;
         this.flags = indirectObject.flags;
@@ -556,6 +564,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      *
      * @see de.intarsys.pdf.cos.ICOSContainer#storeStateContainer()
      */
+    @Override
     public ICOSContainer saveStateContainer() {
         return new COSIndirectObject(this);
     }
@@ -626,6 +635,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
         }
     }
 
+    @Override
     public void soften(COSObject pObject) {
         // is fixed?
         if ((flags & F_FIXED) != 0 && ((COSObject) object).mayBeSwapped()) {
@@ -639,7 +649,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      *
      * @return The ST level document.
      */
-    final public STDocument stGetDoc() {
+    public final STDocument stGetDoc() {
         return stDoc;
     }
 
@@ -667,7 +677,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      */
     @Override
     public String toString() {
-        return "" + getObjectNumber() + " " + getGenerationNumber() + " R" + "->"; //$NON-NLS-1$ //$NON-NLS-2$
+        return getObjectNumber() + " " + getGenerationNumber() + " R" + "->"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*
@@ -677,6 +687,7 @@ public class COSIndirectObject extends COSDocumentElement implements ICOSContain
      * de.intarsys.pdf.cos.ICOSContainer#willChange(de.intarsys.pdf.cos.COSObject
      * )
      */
+    @Override
     public void willChange(COSObject change) {
         if (getDoc() != null) {
             getDoc().willChange(change);

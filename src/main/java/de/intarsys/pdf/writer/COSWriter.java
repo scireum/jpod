@@ -95,7 +95,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
     /**
      * a fast lookup for serializing digits
      */
-    protected static final char[] DIGITS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '9'};
+    protected static final char[] DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '9'};
 
     public static final byte[] ENDOBJ = "endobj".getBytes(); //$NON-NLS-1$
 
@@ -111,7 +111,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 
     public static final byte[] FALSE = "false".getBytes(); //$NON-NLS-1$
 
-    public static final byte[] GARBAGE = new byte[]{(byte) 0xF6, (byte) 0xE4, (byte) 0xFC, (byte) 0xDF};
+    public static final byte[] GARBAGE = {(byte) 0xF6, (byte) 0xE4, (byte) 0xFC, (byte) 0xDF};
 
     /**
      * Line feed character.
@@ -158,7 +158,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 
     private static final NumberFormat formatFixed = NumberFormat.getIntegerInstance(Locale.US);
 
-    synchronized public static void basicWriteFixed(IRandomAccess randomAccess, float value, int precision)
+    public static synchronized void basicWriteFixed(IRandomAccess randomAccess, float value, int precision)
             throws IOException {
         formatFixed.setGroupingUsed(false);
         formatFixed.setMaximumFractionDigits(precision);
@@ -241,12 +241,12 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
      * @param object The object to be serialized.
      * @return A byte array representation from a COSObject.
      */
-    public static final byte[] toByteArray(COSObject object) {
+    public static byte[] toByteArray(COSObject object) {
         RandomAccessByteArray tempRandom = new RandomAccessByteArray(null);
         COSWriter writer = new COSWriter(tempRandom, null);
         try {
             writer.writeObject(object);
-        } catch (IOException e) {
+        } catch (IOException ignored) {
             return "*** not printable ***".getBytes(); //$NON-NLS-1$
         }
         return tempRandom.toByteArray();
@@ -300,7 +300,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
                 writeHeader(doc);
             }
             Collection changes = doc.getChanges();
-            if (changes.size() > 0) {
+            if (!changes.isEmpty()) {
                 seekToEnd();
                 STXRefSection xrefSection = doc.createNewXRefSection();
                 if (getSecurityHandler() != null) {

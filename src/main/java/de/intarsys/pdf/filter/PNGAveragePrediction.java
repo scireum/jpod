@@ -56,12 +56,10 @@ public class PNGAveragePrediction extends PNGPrediction {
         sourceOffset = sourceOffset + 1;
 
         if (sourceOffset == 1) {
-            for (int c = 0; c < colors; c++) {
-                result[resultOffset + c] = source[sourceOffset + c];
-            }
+            System.arraycopy(source, 1, result, resultOffset, colors);
 
             for (int x = 1; x < getResultRowSize(); x++) {
-                raw = source[sourceOffset + x] & 0xff;
+                raw = source[1 + x] & 0xff;
                 left = result[(resultOffset + x) - colors] & 0xff;
                 above = 0;
                 result[resultOffset + x] = (byte) (raw + ((left + above) / 2));

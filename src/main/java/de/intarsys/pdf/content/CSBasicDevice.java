@@ -46,7 +46,7 @@ import java.io.IOException;
  * As this are expensive operations, devices that do not rely on path and text
  * handling may override the respective methods to save performance.
  */
-abstract public class CSBasicDevice extends CSDeviceAdapter {
+public abstract class CSBasicDevice extends CSDeviceAdapter {
     public static final float THOUSAND = 1000f;
 
     /**
@@ -104,15 +104,15 @@ abstract public class CSBasicDevice extends CSDeviceAdapter {
      */
     private float initialY;
 
-    protected void basicClip(Shape shape) throws CSException {
+    protected void basicClip(Shape shape) {
         // override in subclass
     }
 
-    protected void basicDraw(Shape shape) throws CSException {
+    protected void basicDraw(Shape shape) {
         // override in subclass
     }
 
-    protected void basicFill(Shape shape) throws CSException {
+    protected void basicFill(Shape shape) {
         // override in subclass
     }
 
@@ -134,7 +134,7 @@ abstract public class CSBasicDevice extends CSDeviceAdapter {
     protected void basicTextShowEnd() {
     }
 
-    protected void basicTextShowGlyphs(PDGlyphs glyphs, float advance) throws CSException {
+    protected void basicTextShowGlyphs(PDGlyphs glyphs, float advance) {
         textMove(advance, 0f);
     }
 

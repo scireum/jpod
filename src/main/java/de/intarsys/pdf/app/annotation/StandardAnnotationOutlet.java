@@ -69,7 +69,8 @@ public class StandardAnnotationOutlet implements IAnnotationOutlet {
         return result.toArray(new IAnnotationFactory[result.size()]);
     }
 
-    synchronized public IAnnotationFactory[] getAnnotationFactories() {
+    @Override
+    public synchronized IAnnotationFactory[] getAnnotationFactories() {
         init();
         return instances.values().toArray(new IAnnotationFactory[instances.size()]);
     }
@@ -90,12 +91,14 @@ public class StandardAnnotationOutlet implements IAnnotationOutlet {
         return lookupProviders;
     }
 
-    synchronized public IAnnotationFactory lookupAnnotationFactory(COSName type) {
+    @Override
+    public synchronized IAnnotationFactory lookupAnnotationFactory(COSName type) {
         init();
         return instances.get(type);
     }
 
-    synchronized public void registerAnnotationFactory(IAnnotationFactory factory) {
+    @Override
+    public synchronized void registerAnnotationFactory(IAnnotationFactory factory) {
         instances.put(factory.getAnnotationType(), factory);
     }
 
@@ -103,7 +106,8 @@ public class StandardAnnotationOutlet implements IAnnotationOutlet {
         this.lookupProviders = lookupProviders;
     }
 
-    synchronized public void unregisterAnnotationFactory(IAnnotationFactory factory) {
+    @Override
+    public synchronized void unregisterAnnotationFactory(IAnnotationFactory factory) {
         instances.remove(factory.getAnnotationType());
     }
 }

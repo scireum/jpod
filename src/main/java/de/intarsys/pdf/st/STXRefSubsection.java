@@ -43,13 +43,13 @@ import java.util.List;
  * and the number of entries. Following this there is one line for each entry in
  * the form
  * <p>
- * In Use entry: <code>
+ * In Use entry: {@code
  * offset[10] " " generation[5] " " n eol[2]
- * </code>
+ * }
  * <p>
- * Free entry: <code>
+ * Free entry: {@code
  * next free[10] " " generation[5] " " f eol[2]
- * </code>
+ * }
  */
 public class STXRefSubsection {
     private STXRefSubsection next;

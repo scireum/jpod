@@ -42,5 +42,5 @@ public interface ICOSDocumentListener {
      * @param oldValue The old value of the slot if known.
      * @param newValue The new value of the slot if known.
      */
-    public void changed(COSDocument document, Object slot, Object oldValue, Object newValue);
+    void changed(COSDocument document, Object slot, Object oldValue, Object newValue);
 }

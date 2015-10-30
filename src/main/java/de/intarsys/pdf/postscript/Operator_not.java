@@ -40,15 +40,16 @@ public class Operator_not implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) throws ParseException {
         Object element;
 
         element = handler.pop();
         if (element instanceof Integer) {
-            handler.push(new Integer(~((Integer) element).intValue()));
+            handler.push(Integer.valueOf(~((Integer) element).intValue()));
         }
         if (element instanceof Boolean) {
-            handler.push(new Boolean(!((Boolean) element).booleanValue()));
+            handler.push(Boolean.valueOf(!((Boolean) element).booleanValue()));
         }
         throw new ParseException();
     }

@@ -40,11 +40,12 @@ import java.util.List;
  * Just an intermediate, structural node in the acro form hierarchy.
  */
 public class PDAFIntermediateNode extends PDAcroFormField {
-    static public class MetaClass extends PDAcroFormField.MetaClass {
+    public static class MetaClass extends PDAcroFormField.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDAFIntermediateNode(object);
         }
@@ -53,7 +54,7 @@ public class PDAFIntermediateNode extends PDAcroFormField {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public PDAFIntermediateNode(COSObject object) {
         super(object);
@@ -64,6 +65,7 @@ public class PDAFIntermediateNode extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#cosGetExpectedFieldType()
      */
+    @Override
     public COSName cosGetExpectedFieldType() {
         return null;
     }
@@ -73,6 +75,7 @@ public class PDAFIntermediateNode extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormNode#collectLeafFields(java.util.List)
      */
+    @Override
     protected List collectLeafFields(List result) {
         for (Iterator i = getKids().iterator(); i.hasNext(); ) {
             PDAcroFormField child = (PDAcroFormField) i.next();

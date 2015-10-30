@@ -60,7 +60,7 @@ public class PDAFSignatureField extends PDAcroFormField {
      * (newSeedValue != null) { cosSetField(DK_SV, newSeedValue.cosSerialize()); }
      * else { cosSetField(DK_SV, null); } }
      */
-    static public class MetaClass extends PDAcroFormField.MetaClass {
+    public static class MetaClass extends PDAcroFormField.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -71,14 +71,14 @@ public class PDAFSignatureField extends PDAcroFormField {
         }
     }
 
-    static public final COSName DK_Lock = COSName.constant("Lock"); //$NON-NLS-1$
+    public static final COSName DK_Lock = COSName.constant("Lock"); //$NON-NLS-1$
 
-    static public final COSName DK_SV = COSName.constant("SV"); //$NON-NLS-1$
+    public static final COSName DK_SV = COSName.constant("SV"); //$NON-NLS-1$
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     private PDSignature cachedSignature;
 
@@ -149,9 +149,9 @@ public class PDAFSignatureField extends PDAcroFormField {
     }
 
     /**
-     * <code>true</code> if this field is already signed.
+     * {@code true} if this field is already signed.
      *
-     * @return <code>true</code> if this field is already signed.
+     * @return {@code true} if this field is already signed.
      */
     public boolean isSigned() {
         return !cosGetValue().isNull();

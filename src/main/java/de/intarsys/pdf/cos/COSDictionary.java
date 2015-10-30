@@ -55,15 +55,18 @@ public class COSDictionary extends COSCompositeObject {
             this.value = value;
         }
 
-        public Object getKey() {
+        @Override
+		public Object getKey() {
             return key;
         }
 
-        public Object getValue() {
+        @Override
+		public Object getValue() {
             return value.dereference();
         }
 
-        public Object setValue(Object newValue) {
+        @Override
+		public Object setValue(Object newValue) {
             return value = (COSDocumentElement) newValue;
         }
     }
@@ -117,7 +120,7 @@ public class COSDictionary extends COSCompositeObject {
     }
 
     /**
-     * Add all objects from <code>dict</code>. Associations already available
+     * Add all objects from {@code dict}. Associations already available
      * in this are replaced with new content .
      *
      * @param dict The collection of associations to add to this.
@@ -136,7 +139,7 @@ public class COSDictionary extends COSCompositeObject {
     }
 
     /**
-     * Add all values from <code>dict</code> that are not yet defined in the
+     * Add all values from {@code dict} that are not yet defined in the
      * receiver.
      *
      * @param dict The dictionary with the associations to add.
@@ -196,10 +199,10 @@ public class COSDictionary extends COSCompositeObject {
     }
 
     /**
-     * The {@link COSDocumentElement} associated with <code>key</code>.
+     * The {@link COSDocumentElement} associated with {@code key}.
      *
      * @param key The name to lookup
-     * @return The {@link COSDocumentElement} associated with <code>key</code>.
+     * @return The {@link COSDocumentElement} associated with {@code key}.
      */
     public COSDocumentElement basicGet(COSName key) {
         return (COSDocumentElement) objects.get(key);
@@ -220,7 +223,7 @@ public class COSDictionary extends COSCompositeObject {
      *
      * @param key     The key where to store the new element.
      * @param element The {@link COSDocumentElement} to store.
-     * @return The {@link COSDocumentElement} associated with <code>key</code>
+     * @return The {@link COSDocumentElement} associated with {@code key}
      * so far.
      */
     protected COSDocumentElement basicPutPropagate(COSName key, COSDocumentElement element) {
@@ -251,7 +254,7 @@ public class COSDictionary extends COSCompositeObject {
      *
      * @param key     The key where to store the new element.
      * @param element The {@link COSDocumentElement} to store.
-     * @return The {@link COSDocumentElement} associated with <code>key</code>
+     * @return The {@link COSDocumentElement} associated with {@code key}
      * so far.
      */
     public COSDocumentElement basicPutSilent(COSName key, COSDocumentElement element) {
@@ -265,7 +268,7 @@ public class COSDictionary extends COSCompositeObject {
     }
 
     /**
-     * Remove the element associated with <code>key</code> from the collection .
+     * Remove the element associated with {@code key} from the collection .
      *
      * @param key The key of the element to be removed
      * @return The {@link COSDocumentElement} removed or null.
@@ -283,7 +286,7 @@ public class COSDictionary extends COSCompositeObject {
     }
 
     /**
-     * Remove the element associated with <code>key</code> from the collection .
+     * Remove the element associated with {@code key} from the collection .
      * <p>
      * The element is removed without change propagation.
      * <p>
@@ -324,10 +327,10 @@ public class COSDictionary extends COSCompositeObject {
     }
 
     /**
-     * Answer true if <code>key</code> is a valid key in the collection .
+     * Answer true if {@code key} is a valid key in the collection .
      *
      * @param key The key whose existence is to be checked.
-     * @return Answer true if <code>key</code> is a valid key in the
+     * @return Answer true if {@code key} is a valid key in the
      * collection .
      */
     public boolean containsKey(COSName key) {
@@ -335,11 +338,11 @@ public class COSDictionary extends COSCompositeObject {
     }
 
     /**
-     * Answer <code>true</code> if <code>obj</code> is contained in the
+     * Answer {@code true} if {@code obj} is contained in the
      * collection
      *
      * @param obj The object to look up in the collection
-     * @return Answer <code>true</code> if <code>obj</code> is contained in
+     * @return Answer {@code true} if {@code obj} is contained in
      * the collection
      */
     public boolean containsValue(COSObject obj) {
@@ -405,7 +408,6 @@ public class COSDictionary extends COSCompositeObject {
      */
     @Override
     protected COSObject copySubGraph(Map copied) {
-        COSDictionary result = (COSDictionary) super.copySubGraph(copied);
 
         // for (Iterator i = objects.entrySet().iterator(); i.hasNext();) {
         // Map.Entry entry = (Map.Entry) i.next();
@@ -427,7 +429,7 @@ public class COSDictionary extends COSCompositeObject {
         // }
         // result.basicPut(key, copy);
         // }
-        return result;
+        return super.copySubGraph(copied);
     }
 
     /**
@@ -441,16 +443,19 @@ public class COSDictionary extends COSCompositeObject {
         return new Iterator() {
             private Iterator it = getObjects().entrySet().iterator();
 
-            public boolean hasNext() {
+            @Override
+			public boolean hasNext() {
                 return it.hasNext();
             }
 
-            public Object next() {
+            @Override
+			public Object next() {
                 Map.Entry entry = (Map.Entry) it.next();
                 return new Entry((COSName) entry.getKey(), (COSDocumentElement) entry.getValue());
             }
 
-            public void remove() {
+            @Override
+			public void remove() {
                 throw new UnsupportedOperationException();
             }
         };
@@ -494,10 +499,10 @@ public class COSDictionary extends COSCompositeObject {
     }
 
     /**
-     * The {@link COSObject} associated with <code>key</code>.
+     * The {@link COSObject} associated with {@code key}.
      *
      * @param key The key to lookup
-     * @return The {@link COSObject} associated with <code>key</code>.
+     * @return The {@link COSObject} associated with {@code key}.
      */
     public COSObject get(COSName key) {
         COSDocumentElement element = basicGet(key);
@@ -566,7 +571,7 @@ public class COSDictionary extends COSCompositeObject {
      *
      * @param key    The key where to store the object
      * @param object The object to store in the collection
-     * @return The {@link COSObject} associated with <code>key</code> so far.
+     * @return The {@link COSObject} associated with {@code key} so far.
      */
     public COSObject put(COSName key, COSObject object) {
         if (object == null) {
@@ -606,7 +611,7 @@ public class COSDictionary extends COSCompositeObject {
     }
 
     /**
-     * Remove the element from the collection associated with <code>key</code>.
+     * Remove the element from the collection associated with {@code key}.
      *
      * @param key The key of the object to remove
      * @return The {@link COSObject} removed or null.
@@ -644,7 +649,8 @@ public class COSDictionary extends COSCompositeObject {
      *
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
-    public Object saveState() {
+    @Override
+	public Object saveState() {
         COSObject result = new COSDictionary(new HashMap(this.objects));
         result.container = this.container.saveStateContainer();
         return result;

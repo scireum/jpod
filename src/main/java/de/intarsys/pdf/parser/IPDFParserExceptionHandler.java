@@ -34,7 +34,7 @@ package de.intarsys.pdf.parser;
  *
  */
 public interface IPDFParserExceptionHandler {
-    public void error(COSLoadError error) throws COSLoadException;
+    void error(COSLoadError error) throws COSLoadException;
 
-    public void warning(COSLoadWarning warning) throws COSLoadException;
+    void warning(COSLoadWarning warning) throws COSLoadException;
 }

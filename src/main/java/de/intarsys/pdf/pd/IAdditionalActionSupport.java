@@ -38,11 +38,11 @@ import java.util.Set;
  * associated with a variety of trigger events.
  */
 public interface IAdditionalActionSupport {
-    public static final COSName DK_AA = COSName.constant("AA");  //$NON-NLS-1$
+    COSName DK_AA = COSName.constant("AA");  //$NON-NLS-1$
 
-    public PDAdditionalActions getAdditionalActions();
+    PDAdditionalActions getAdditionalActions();
 
-    public void setAdditionalActions(PDAdditionalActions actions);
+    void setAdditionalActions(PDAdditionalActions actions);
 
-    public Set getSupportedTriggerEvents();
+    Set getSupportedTriggerEvents();
 }

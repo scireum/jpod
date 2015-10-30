@@ -42,7 +42,7 @@ public class PDActionRendition extends PDAction {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAction.MetaClass {
+    public static class MetaClass extends PDAction.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -61,17 +61,17 @@ public class PDActionRendition extends PDAction {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public static final COSName CN_ActionType_Rendition = COSName.constant("Rendition"); //$NON-NLS-1$
 
-    static public final COSName DK_R = COSName.constant("R");
+    public static final COSName DK_R = COSName.constant("R");
 
-    static public final COSName DK_AN = COSName.constant("AN");
+    public static final COSName DK_AN = COSName.constant("AN");
 
-    static public final COSName DK_OP = COSName.constant("OP");
+    public static final COSName DK_OP = COSName.constant("OP");
 
-    static public final COSName DK_JS = COSName.constant("JS");
+    public static final COSName DK_JS = COSName.constant("JS");
 
     protected PDActionRendition(COSObject object) {
         super(object);

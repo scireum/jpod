@@ -43,7 +43,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     private static String LINE_SEPARATOR = System.getProperty("line.separator"); //$NON-NLS-1$
 
     /**
-     * Create a {@link COSString} from <code>bytes</code>.
+     * Create a {@link COSString} from {@code bytes}.
      *
      * @param bytes
      * @return The new {@link COSString}
@@ -56,7 +56,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     }
 
     /**
-     * Create a {@link COSString} from <code>bytes</code>.
+     * Create a {@link COSString} from {@code bytes}.
      *
      * @param bytes
      * @return The new {@link COSString}
@@ -69,7 +69,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     }
 
     /**
-     * Create a {@link COSString} from <code>string</code>.
+     * Create a {@link COSString} from {@code string}.
      *
      * @param string
      * @return The new {@link COSString}
@@ -86,7 +86,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     }
 
     /**
-     * Create a {@link COSString} from <code>string</code>.
+     * Create a {@link COSString} from {@code string}.
      *
      * @param string
      * @return The new {@link COSString}
@@ -99,7 +99,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     }
 
     /**
-     * Create a {@link COSString} from <code>bytes</code> in hex representation.
+     * Create a {@link COSString} from {@code bytes} in hex representation.
      *
      * @param bytes
      * @return The new {@link COSString}
@@ -114,7 +114,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     }
 
     /**
-     * Create a {@link COSString} from <code>bytes</code> in hex representation.
+     * Create a {@link COSString} from {@code bytes} in hex representation.
      *
      * @param bytes
      * @return The new {@link COSString}
@@ -129,7 +129,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     }
 
     /**
-     * Create a {@link COSString} from <code>string</code> in hex representation.
+     * Create a {@link COSString} from {@code string} in hex representation.
      *
      * @param string
      * @return The new {@link COSString}
@@ -150,7 +150,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     }
 
     /**
-     * Create a {@link COSString} from <code>string</code> in hex representation.
+     * Create a {@link COSString} from {@code string} in hex representation.
      *
      * @param string
      * @return The new {@link COSString}
@@ -165,7 +165,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     }
 
     /**
-     * Create a {@link COSString} from <code>string</code>, escaping all newlines.
+     * Create a {@link COSString} from {@code string}, escaping all newlines.
      *
      * @param string
      * @return The new {@link COSString}
@@ -380,7 +380,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
         if (encoding != null) {
             try {
                 return new String(bytes, offset, bytes.length - offset, encoding);
-            } catch (UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException ignored) {
                 return PDFDocEncoding.UNIQUE.decode(bytes);
             }
         }
@@ -423,7 +423,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
             } else {
                 try {
                     return string.getBytes(encoding);
-                } catch (UnsupportedEncodingException e) {
+                } catch (UnsupportedEncodingException ignored) {
                     return PDFDocEncoding.UNIQUE.encode(string);
                 }
             }
@@ -487,9 +487,9 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     }
 
     /**
-     * <code>true</code> if this string has to be saved as hex representation
+     * {@code true} if this string has to be saved as hex representation
      *
-     * @return <code>true</code> if this string has to be saved as hex
+     * @return {@code true} if this string has to be saved as hex
      * representation
      */
     public boolean isHexMode() {
@@ -555,7 +555,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
     /**
      * Set the flag if this is written in hex representation
      *
-     * @param newHexMode <code>true</code> if this is written in hex representation
+     * @param newHexMode {@code true} if this is written in hex representation
      */
     public void setHexMode(boolean newHexMode) {
         hexMode = newHexMode;

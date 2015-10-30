@@ -35,10 +35,10 @@ package de.intarsys.pdf.cos;
  */
 public interface ICOSExceptionHandler {
     /**
-     * Handle <code>ex</code>, optionally rethrow.
+     * Handle {@code ex}, optionally rethrow.
      *
      * @param ex The exceptioin to be handeled.
      * @throws COSRuntimeException
      */
-    public void handleException(COSRuntimeException ex) throws COSRuntimeException;
+    void handleException(COSRuntimeException ex);
 }

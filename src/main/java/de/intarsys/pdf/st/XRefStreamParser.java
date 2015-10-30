@@ -95,7 +95,7 @@ public class XRefStreamParser extends AbstractXRefParser {
         return xRefSection;
     }
 
-    private void parseStreamContent(STStreamXRefSection section) throws IOException {
+    private void parseStreamContent(STStreamXRefSection section) {
         initWBytes(section);
         in = new ByteArrayInputStream(section.cosGetStream().getDecodedBytes());
         COSArray index = section.getIndex();

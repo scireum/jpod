@@ -40,6 +40,7 @@ public class Operator_ceiling implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) {
         Number element;
         double operand;

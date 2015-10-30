@@ -42,13 +42,13 @@ import java.io.IOException;
 public interface IFilterFactory {
     /**
      * Create an implementation for the filter implementing the algorithm
-     * denoted by <code>filterName</code> using the optional options in
-     * <code>options</code>.
+     * denoted by {@code filterName} using the optional options in
+     * {@code options}.
      *
      * @param filterName
      * @param options
      * @return The filter implementation.
      * @throws IOException
      */
-    public IFilter createFilter(COSName filterName, COSDictionary options) throws IOException;
+    IFilter createFilter(COSName filterName, COSDictionary options) throws IOException;
 }

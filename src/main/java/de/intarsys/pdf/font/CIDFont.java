@@ -42,11 +42,11 @@ import java.io.ByteArrayInputStream;
  * <p>
  * This is a a subclass of PDFont only for implementation reasons.
  */
-abstract public class CIDFont extends PDFont {
+public abstract class CIDFont extends PDFont {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFont.MetaClass {
+    public static class MetaClass extends PDFont.MetaClass {
         protected MetaClass(Class<?> instanceClass) {
             super(instanceClass);
         }
@@ -65,22 +65,12 @@ abstract public class CIDFont extends PDFont {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     private CIDWidthMap map = null;
 
     protected CIDFont(COSObject object) {
         super(object);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see de.intarsys.pdf.font.PDFont#createBuiltinFontDescriptor()
-     */
-    @Override
-    protected PDFontDescriptor createBuiltinFontDescriptor() {
-        return null;
     }
 
     public CIDSystemInfo getCIDSystemInfo() {
@@ -108,7 +98,7 @@ abstract public class CIDFont extends PDFont {
         return PDFontStyle.REGULAR;
     }
 
-    abstract public int getGlyphIndex(int cid);
+    public abstract int getGlyphIndex(int cid);
 
     @Override
     public PDGlyphs getGlyphsEncoded(int codepoint) {

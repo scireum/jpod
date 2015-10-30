@@ -35,6 +35,9 @@ package de.intarsys.pdf.app.acroform;
 public class FormHandlerFactory {
     private static IFormHandlerFactory ACTIVE = new StandardFormHandlerFactory();
 
+    private FormHandlerFactory() {
+    }
+
     /**
      * The active {@link IFormHandlerFactory} for the VM.
      *

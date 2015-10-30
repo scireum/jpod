@@ -45,11 +45,11 @@ import java.util.List;
  * The annotation supports different visual feedback dependent on the kind of
  * user interaction currently in effect.
  * <p>
- * <code>
+ * {@code
  * - Normal
  * - Down
  * - Rollover
- * </code>
+ * }
  * <p>
  * Additionaly, each of these appearances is supported for the different logical
  * states an annotation can enter (for example "On" and "Off" in a checkbox).
@@ -111,14 +111,14 @@ public class PDAppearance extends PDObject {
     }
 
     /**
-     * The {@link PDForm} for state <code>state</code>. <code>key</code> defines
+     * The {@link PDForm} for state {@code state}. {@code key} defines
      * the interaction context and is one of "/D", "/R" or "/N". If no
      * {@link PDForm} is available, return the {@link PDForm} for the "/N"
      * context.
      *
      * @param key   The interaction context
      * @param state The {@link PDAnnotation} state.
-     * @return The {@link PDForm} for state <code>state</code>.
+     * @return The {@link PDForm} for state {@code state}.
      */
     public PDForm getAppearance(COSName key, COSName state) {
         PDForm form = getForm(key, state);
@@ -168,11 +168,11 @@ public class PDAppearance extends PDObject {
     }
 
     /**
-     * <code>true</code> if this appearance dictionary has valid contents. From
+     * {@code true} if this appearance dictionary has valid contents. From
      * time to time there may be an empty /AP stub around, in this case this
      * method returns false.
      *
-     * @return <code>true</code> if this appearance dictionary has valid
+     * @return {@code true} if this appearance dictionary has valid
      * contents.
      */
     public boolean isDefined() {
@@ -180,10 +180,10 @@ public class PDAppearance extends PDObject {
     }
 
     /**
-     * <code>true</code> if this appearance dictionary has valid contents for
+     * {@code true} if this appearance dictionary has valid contents for
      * the requested rendering context and appearance state.
      *
-     * @return <code>true</code> if this appearance dictionary has valid
+     * @return {@code true} if this appearance dictionary has valid
      * contents for the requested rendering context and appearance
      * state.
      */

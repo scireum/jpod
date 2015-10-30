@@ -39,7 +39,7 @@ public class PDCSCalRGB extends PDCSCIEBased {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDCSCIEBased.MetaClass {
+    public static class MetaClass extends PDCSCIEBased.MetaClass {
         protected MetaClass(Class paramInstanceClass) {
             super(paramInstanceClass);
         }
@@ -53,7 +53,7 @@ public class PDCSCalRGB extends PDCSCIEBased {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     private PDColorSpace alternate = PDCSDeviceRGB.SINGLETON;
 

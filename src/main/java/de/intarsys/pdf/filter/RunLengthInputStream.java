@@ -101,9 +101,11 @@ public class RunLengthInputStream extends FilterInputStream {
     public int read(byte[] b, int off, int len) throws IOException {
         if (b == null) {
             throw new NullPointerException();
-        } else if ((off < 0) || (off > b.length) || (len < 0) || ((off + len) > b.length) || ((off + len) < 0)) {
+        }
+        if ((off < 0) || (off > b.length) || (len < 0) || ((off + len) > b.length) || ((off + len) < 0)) {
             throw new IndexOutOfBoundsException();
-        } else if (len == 0) {
+        }
+        if (len == 0) {
             return 0;
         }
 
@@ -124,7 +126,7 @@ public class RunLengthInputStream extends FilterInputStream {
                     b[off + i] = (byte) c;
                 }
             }
-        } catch (IOException ee) {
+        } catch (IOException ignored) {
         }
         return i;
     }

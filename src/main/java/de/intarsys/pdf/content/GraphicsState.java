@@ -42,9 +42,9 @@ import java.util.IdentityHashMap;
 /**
  * The state information for performing graphic operations.
  */
-final public class GraphicsState implements IAttributeSupport {
+public final class GraphicsState implements IAttributeSupport {
 
-    final private AttributeMap attributes = new AttributeMap();
+    private final AttributeMap attributes = new AttributeMap();
 
     /**
      * A code defining the shape of a lines endpoint
@@ -198,7 +198,8 @@ final public class GraphicsState implements IAttributeSupport {
      *
      * @see de.intarsys.tools.attribute.IAttributeSupport#getAttribute(java.lang.Object)
      */
-    final public Object getAttribute(Object key) {
+    @Override
+    public Object getAttribute(Object key) {
         return attributes.getAttribute(key);
     }
 
@@ -211,7 +212,8 @@ final public class GraphicsState implements IAttributeSupport {
      *
      * @see de.intarsys.tools.attribute.IAttributeSupport#removeAttribute(java.lang.Object)
      */
-    final public Object removeAttribute(Object key) {
+    @Override
+    public Object removeAttribute(Object key) {
         return attributes.removeAttribute(key);
     }
 
@@ -225,7 +227,8 @@ final public class GraphicsState implements IAttributeSupport {
      * @see de.intarsys.tools.attribute.IAttributeSupport#setAttribute(java.lang.Object,
      * java.lang.Object)
      */
-    final public Object setAttribute(Object key, Object value) {
+    @Override
+    public Object setAttribute(Object key, Object value) {
         return attributes.setAttribute(key, value);
     }
 }

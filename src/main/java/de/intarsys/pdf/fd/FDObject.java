@@ -44,11 +44,11 @@ import java.util.List;
 /**
  * This is the abstract superclass for all complex FD level objects.
  */
-abstract public class FDObject extends COSBasedObject {
+public abstract class FDObject extends COSBasedObject {
     /**
      * The meta class implementation
      */
-    static public abstract class MetaClass extends COSBasedObject.MetaClass {
+    public abstract static class MetaClass extends COSBasedObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }

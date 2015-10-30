@@ -46,7 +46,7 @@ public class PDTilingPattern extends PDPattern implements IContentStreamProvider
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDPattern.MetaClass {
+    public static class MetaClass extends PDPattern.MetaClass {
         protected MetaClass(Class<?> paramInstanceClass) {
             super(paramInstanceClass);
         }

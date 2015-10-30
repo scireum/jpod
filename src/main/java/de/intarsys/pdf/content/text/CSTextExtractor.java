@@ -24,10 +24,6 @@ public class CSTextExtractor extends CSCharacterParser {
 
     private double maxDY = 5;
 
-    public CSTextExtractor() {
-        super();
-    }
-
     private void append(char c) {
         if (c > 0) {
             content.append(c);

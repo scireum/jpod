@@ -31,7 +31,10 @@ package de.intarsys.pdf.tools.kernel;
 
 public class PDFColorTools {
 
-    static public float[] fixColorValues(float[] values) {
+    private PDFColorTools() {
+    }
+
+    public static float[] fixColorValues(float[] values) {
         // adobe acrobat has been seen to create invalid color values for
         // widgets
         if (values == null) {

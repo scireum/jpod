@@ -61,7 +61,7 @@ public class COSObjectStream extends COSBasedObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public static final COSName CN_Type_ObjStm = COSName.constant("ObjStm"); //$NON-NLS-1$
 

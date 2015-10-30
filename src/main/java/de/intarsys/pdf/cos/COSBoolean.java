@@ -32,13 +32,13 @@ package de.intarsys.pdf.cos;
 /**
  * Abstract class for the representation of boolean values
  */
-abstract public class COSBoolean extends COSPrimitiveObject {
+public abstract class COSBoolean extends COSPrimitiveObject {
 
     public static final COSBoolean TRUE = (COSBoolean) COSBoolean.create(true).beConstant();
 
     public static final COSBoolean FALSE = (COSBoolean) COSBoolean.create(false).beConstant();
 
-    static public COSBoolean create(boolean value) {
+    public static COSBoolean create(boolean value) {
         if (value) {
             return COSTrue.create();
         }
@@ -74,5 +74,5 @@ abstract public class COSBoolean extends COSPrimitiveObject {
      *
      * @return The boolean value for this.
      */
-    abstract public boolean booleanValue();
+    public abstract boolean booleanValue();
 }

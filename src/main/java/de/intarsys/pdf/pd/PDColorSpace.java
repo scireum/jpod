@@ -188,17 +188,11 @@ public abstract class PDColorSpace extends PDObject {
      * given name
      */
     public static PDColorSpace getSingleton(COSName name) {
-        if (CN_CS_DeviceGray.equals(name)) {
+        if (CN_CS_DeviceGray.equals(name) || CN_CS_G.equals(name)) {
             return PDCSDeviceGray.SINGLETON;
-        } else if (CN_CS_G.equals(name)) {
-            return PDCSDeviceGray.SINGLETON;
-        } else if (CN_CS_DeviceRGB.equals(name)) {
+        } else if (CN_CS_DeviceRGB.equals(name) || CN_CS_RGB.equals(name)) {
             return PDCSDeviceRGB.SINGLETON;
-        } else if (CN_CS_RGB.equals(name)) {
-            return PDCSDeviceRGB.SINGLETON;
-        } else if (CN_CS_DeviceCMYK.equals(name)) {
-            return PDCSDeviceCMYK.SINGLETON;
-        } else if (CN_CS_CMYK.equals(name)) {
+        } else if (CN_CS_DeviceCMYK.equals(name) || CN_CS_CMYK.equals(name)) {
             return PDCSDeviceCMYK.SINGLETON;
         } else {
             return null;

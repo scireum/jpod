@@ -29,22 +29,15 @@
  */
 package de.intarsys.pdf.encoding;
 
-import de.intarsys.pdf.cos.COSObject;
-
 /**
  * PDFEncoding
  */
 public class PDFDocEncoding extends MappedEncoding {
-    static public PDFDocEncoding UNIQUE = new PDFDocEncoding();
+    public static PDFDocEncoding UNIQUE = new PDFDocEncoding();
 
     protected PDFDocEncoding() {
         super();
         initialize();
-    }
-
-    @Override
-    public COSObject cosGetObject() {
-        return null;
     }
 
     @Override

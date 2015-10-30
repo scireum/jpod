@@ -12,9 +12,9 @@ import java.awt.geom.Rectangle2D;
  */
 public class CSTextSearchCandidate {
 
-    final private CSTextSearchHit hit = new CSTextSearchHit();
+    private final CSTextSearchHit hit = new CSTextSearchHit();
 
-    final private CSTextSearcher searcher;
+    private final CSTextSearcher searcher;
 
     private int index = 0;
 

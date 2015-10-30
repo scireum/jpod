@@ -29,11 +29,11 @@
  */
 package de.intarsys.pdf.crypt;
 
-abstract public class AbstractAccessPermissions implements IAccessPermissions {
+public abstract class AbstractAccessPermissions implements IAccessPermissions {
 
-    final protected PermissionFlags flags;
+    protected final PermissionFlags flags;
 
-    public AbstractAccessPermissions(PermissionFlags flags) {
+    protected AbstractAccessPermissions(PermissionFlags flags) {
         super();
         this.flags = flags;
     }

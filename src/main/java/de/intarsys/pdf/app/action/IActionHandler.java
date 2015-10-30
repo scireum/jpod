@@ -50,15 +50,15 @@ public interface IActionHandler {
      *
      * @return The type of actions this handler can process.
      */
-    public COSName getActionType();
+    COSName getActionType();
 
     /**
-     * Perform the <code>actionDefinition</code> in the context of
-     * <code>event</code>.
+     * Perform the {@code actionDefinition} in the context of
+     * {@code event}.
      *
      * @param event            The cause of the processing.
      * @param actionDefinition The processing definition.
      * @throws ActionException
      */
-    public void process(TriggerEvent event, COSObject actionDefinition) throws ActionException;
+    void process(TriggerEvent event, COSObject actionDefinition) throws ActionException;
 }

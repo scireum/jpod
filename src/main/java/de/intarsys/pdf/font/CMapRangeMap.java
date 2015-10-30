@@ -41,7 +41,7 @@ public abstract class CMapRangeMap extends CMapMap {
     /**
      *
      */
-    public CMapRangeMap(byte[] start, byte[] end) {
+    protected CMapRangeMap(byte[] start, byte[] end) {
         super();
         this.start = CMap.toInt(start);
         this.end = CMap.toInt(end);

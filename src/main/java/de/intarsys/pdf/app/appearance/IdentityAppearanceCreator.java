@@ -40,14 +40,12 @@ public class IdentityAppearanceCreator implements IAppearanceCreator {
 
     private static final COSName CN_IDENTITY = COSName.constant("Identity"); //$NON-NLS-1$
 
-    public IdentityAppearanceCreator() {
-        super();
-    }
-
+    @Override
     public PDAppearance createAppearance(PDAnnotation annotation, PDAppearance appearance) {
         return annotation.getAppearance();
     }
 
+    @Override
     public COSName getAnnotationType() {
         return CN_IDENTITY;
     }

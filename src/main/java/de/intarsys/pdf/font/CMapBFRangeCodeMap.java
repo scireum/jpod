@@ -34,7 +34,7 @@ package de.intarsys.pdf.font;
  */
 public class CMapBFRangeCodeMap extends CMapRangeMap {
 
-    final private int destination;
+    private final int destination;
 
     public CMapBFRangeCodeMap(byte[] start, byte[] end, byte[] destination) {
         super(start, end);

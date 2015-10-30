@@ -35,27 +35,27 @@ import java.util.Map;
 
 /**
  * An interpreter for {@link CSContent} PDF graphics streams. Indirect
- * references are resolved using <code>resources</code>.
- * <code>resources</code> may be null if not needed.
+ * references are resolved using {@code resources}.
+ * {@code resources} may be null if not needed.
  */
 public interface ICSInterpreter {
     /**
-     * Process <code>content</code> using <code>resources</code> if needed.
+     * Process {@code content} using {@code resources} if needed.
      * <p>
      * This method may be called reentrant when a form XObject is encountered.
      *
      * @param content   The PDF content stream to be interpreted.
      * @param resources The {@link PDResources} repository for the content stream
      */
-    public void process(CSContent content, PDResources resources);
+    void process(CSContent content, PDResources resources);
 
     /**
      * Transparent options used by the interpreter implementation. The method
-     * may return <code>null</code>.
+     * may return {@code null}.
      *
      * @return Transparent options used by the interpreter implementation.
      */
-    public Map getOptions();
+    Map getOptions();
 
     /**
      * The currently active {@link ICSExceptionHandler} for the interpreter.
@@ -67,12 +67,12 @@ public interface ICSInterpreter {
      * @return The currently active {@link ICSExceptionHandler} for the
      * interpreter.
      */
-    public ICSExceptionHandler getExceptionHandler();
+    ICSExceptionHandler getExceptionHandler();
 
     /**
      * Assign the {@link ICSExceptionHandler} for the interpreter.
      *
      * @param errorHandler The new {@link ICSExceptionHandler}.
      */
-    public void setExceptionHandler(ICSExceptionHandler errorHandler);
+    void setExceptionHandler(ICSExceptionHandler errorHandler);
 }

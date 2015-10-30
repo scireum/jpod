@@ -35,8 +35,8 @@ import de.intarsys.pdf.cos.COSObject;
  * Abstract superclass for implementing entry objects in PDF name and number
  * trees.
  */
-abstract public class CDSTreeEntry {
-    public CDSTreeEntry(COSObject value) {
+public abstract class CDSTreeEntry {
+    protected CDSTreeEntry(COSObject value) {
         super();
         this.value = value;
     }
@@ -64,5 +64,5 @@ abstract public class CDSTreeEntry {
         return value;
     }
 
-    abstract public COSObject getKey();
+    public abstract COSObject getKey();
 }

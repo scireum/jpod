@@ -44,7 +44,7 @@ public class PDFileSpecification extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+	public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -82,96 +82,96 @@ public class PDFileSpecification extends PDObject {
         }
     }
 
-    static public final COSName CN_Type_Filespec = COSName.constant("Filespec");
+    public static final COSName CN_Type_Filespec = COSName.constant("Filespec");
 
-    static public final COSName CN_Type_Alt_Filespec = COSName.constant("F");
+    public static final COSName CN_Type_Alt_Filespec = COSName.constant("F");
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+	public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * Name of the file system.
      */
-    static public final COSName DK_FS = COSName.constant("FS");
+	public static final COSName DK_FS = COSName.constant("FS");
 
     /**
      * File
      */
-    static public final COSName DK_F = COSName.constant("F");
+	public static final COSName DK_F = COSName.constant("F");
 
     /**
      * Unicode File
      */
-    static public final COSName DK_UF = COSName.constant("UF");
+	public static final COSName DK_UF = COSName.constant("UF");
 
     /**
      * File specification string for DOS files
      */
-    static public final COSName CN_F_DOS = COSName.constant("DOS");
+	public static final COSName CN_F_DOS = COSName.constant("DOS");
 
     /**
      * File specification string for Macintosh files
      */
-    static public final COSName CN_F_Mac = COSName.constant("Mac");
+	public static final COSName CN_F_Mac = COSName.constant("Mac");
 
     /**
      * File specification string for UNIX files
      */
-    static public final COSName CN_F_Unix = COSName.constant("Unix");
+	public static final COSName CN_F_Unix = COSName.constant("Unix");
 
     /**
      * File URL
      */
-    static public final COSName CN_FS_URL = COSName.constant("URL");
+	public static final COSName CN_FS_URL = COSName.constant("URL");
 
     /**
      * File is original source material for the associated content
      */
-    static public final COSName CN_Source = COSName.constant("Source");
+	public static final COSName CN_Source = COSName.constant("Source");
 
     /**
      * File represents information used to derive a visual presentation
      */
-    static public final COSName CN_Data = COSName.constant("Data");
+	public static final COSName CN_Data = COSName.constant("Data");
 
     /**
      * File is an alternative representation of content
      */
-    static public final COSName CN_Alternative = COSName.constant("Alternative");
+	public static final COSName CN_Alternative = COSName.constant("Alternative");
 
     /**
      * File represents a supplemental representation of the original source or
      * data that may be more easily consumable
      */
-    static public final COSName CN_Supplement = COSName.constant("Supplement");
+	public static final COSName CN_Supplement = COSName.constant("Supplement");
 
     /**
      * File relationship is not known or can�t be described using one of the
      * other values
      */
-    static public final COSName CN_Unspecified = COSName.constant("Unspecified");
+	public static final COSName CN_Unspecified = COSName.constant("Unspecified");
 
     /**
      * Embedded file dict
      */
-    static public final COSName DK_EF = COSName.constant("EF");
+	public static final COSName DK_EF = COSName.constant("EF");
 
     /**
      * Embedded file array dict.
      */
-    static public final COSName DK_RF = COSName.constant("RF");
+	public static final COSName DK_RF = COSName.constant("RF");
 
     /**
      * Description
      */
-    static public final COSName DK_Desc = COSName.constant("Desc");
+	public static final COSName DK_Desc = COSName.constant("Desc");
 
     /**
      * Associated file relationship
      */
-    static public final COSName DK_AFRelationship = COSName.constant("AFRelationship");
+	public static final COSName DK_AFRelationship = COSName.constant("AFRelationship");
 
     private COSName fileSystem = null;
 

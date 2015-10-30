@@ -48,52 +48,52 @@ import java.util.NoSuchElementException;
 public class CDSNameTreeNode extends CDSTreeNode {
     // todo 2 rewrite to META
 
-    static public final COSName DK_Names = COSName.constant("Names"); //$NON-NLS-1$
+    public static final COSName DK_Names = COSName.constant("Names"); //$NON-NLS-1$
 
     /**
      * Create the correct concrete CDSTreeNode implementation for
-     * <code>node</code>.
+     * {@code node}.
      *
      * @param node The {@link COSDictionary} defining a CDSTreeNode subclass
      *             instance
-     * @return The concrete CDSTreeNode implementation for <code>node</code>.
+     * @return The concrete CDSTreeNode implementation for {@code node}.
      */
-    static public CDSNameTreeNode createFromCos(COSDictionary node) {
+	public static CDSNameTreeNode createFromCos(COSDictionary node) {
         if (node == null) {
             return null;
         }
         return new CDSNameTreeNode(node);
     }
 
-    static public CDSTreeNode createIntermediate() {
+    public static CDSTreeNode createIntermediate() {
         CDSNameTreeNode result = new CDSNameTreeNode(COSDictionary.create());
         result.createLimits();
         result.createKids();
         return result;
     }
 
-    static public CDSNameTreeNode createLeaf() {
+    public static CDSNameTreeNode createLeaf() {
         CDSNameTreeNode result = new CDSNameTreeNode(COSDictionary.create());
         result.createLimits();
         result.createNames();
         return result;
     }
 
-    static public CDSNameTreeNode createRootIntermediate() {
+    public static CDSNameTreeNode createRootIntermediate() {
         CDSNameTreeNode result = new CDSNameTreeNode(COSDictionary.create());
         result.createKids();
         return result;
     }
 
-    static public CDSNameTreeNode createRootLeaf() {
+    public static CDSNameTreeNode createRootLeaf() {
         CDSNameTreeNode result = new CDSNameTreeNode(COSDictionary.create());
         result.createNames();
         return result;
     }
 
     /**
-     * Create a CDSTreeNode based on the {@link COSDictionary}<code>
-     * dict</code>.
+     * Create a CDSTreeNode based on the {@link COSDictionary}{@code
+     * dict}.
      *
      * @param dict The{@link COSDictionary} defining the receiver.
      */
@@ -102,7 +102,7 @@ public class CDSNameTreeNode extends CDSTreeNode {
     }
 
     /**
-     * Add all children from <code>node</code>.
+     * Add all children from {@code node}.
      *
      * @param node A {@link CDSNameTreeNode} whose children are copied.
      */
@@ -123,11 +123,11 @@ public class CDSNameTreeNode extends CDSTreeNode {
     }
 
     /**
-     * Answer <code>true</code> if the receiver subtree contains a key that
+     * Answer {@code true} if the receiver subtree contains a key that
      * matches the parameter.
      *
      * @param name The key that is searched in the receiver subtree.
-     * @return Answer <code>true</code> if the receiver subtree contains a key
+     * @return Answer {@code true} if the receiver subtree contains a key
      * that matches the parameter.
      */
     public boolean contains(COSString name) {
@@ -187,12 +187,12 @@ public class CDSNameTreeNode extends CDSTreeNode {
     }
 
     /**
-     * Answer the value associated with the key <code>name</code>. If no key
-     * is available that matches the parameter, <code>COSNull</code> is
+     * Answer the value associated with the key {@code name}. If no key
+     * is available that matches the parameter, {@code COSNull} is
      * returned.
      *
      * @param name The key whose value is looked up.
-     * @return Answer the value associated with the key <code>name</code>.
+     * @return Answer the value associated with the key {@code name}.
      */
     public COSObject get(COSString name) {
         if (!mayContain(name)) {
@@ -359,17 +359,17 @@ public class CDSNameTreeNode extends CDSTreeNode {
     }
 
     /**
-     * Answer <code>true</code> if the receiver MAY contain the key
-     * <code>name</code>.
+     * Answer {@code true} if the receiver MAY contain the key
+     * {@code name}.
      * <p>
      * <p>
-     * Thi means, <code>name</code> lies between the range defined by the
+     * Thi means, {@code name} lies between the range defined by the
      * lower und upper limit key of the receiver.
      * </p>
      *
      * @param name The key name to lookup.
-     * @return Answer <code>true</code> if the receiver MAY contain the key
-     * <code>name</code>.
+     * @return Answer {@code true} if the receiver MAY contain the key
+     * {@code name}.
      */
     public boolean mayContain(COSString name) {
         if ((getMin() == null) || (getMax() == null)) {
@@ -378,18 +378,15 @@ public class CDSNameTreeNode extends CDSTreeNode {
         if (name.compareTo(getMin()) < 0) {
             return false;
         }
-        if (name.compareTo(getMax()) > 0) {
-            return false;
-        }
-        return true;
-    }
+		return name.compareTo(getMax()) <= 0;
+	}
 
     /**
-     * Store <code>value</code> under the key given in <code>name</code>.
+     * Store {@code value} under the key given in {@code name}.
      *
      * @param name  The name with which the value should be associated.
      * @param value The value to associate with the name.
-     * @return The object previously associated with <code>name</code> or
+     * @return The object previously associated with {@code name} or
      * {@link COSNull}.
      */
     public COSObject put(COSString name, COSObject value) {
@@ -444,10 +441,10 @@ public class CDSNameTreeNode extends CDSTreeNode {
     }
 
     /**
-     * Remove the mapping for key given in <code>name</code>.
+     * Remove the mapping for key given in {@code name}.
      *
      * @param name The name fo the mapping to be removed
-     * @return The object previously associated with <code>name</code> or
+     * @return The object previously associated with {@code name} or
      * {@link COSNull}.
      */
     public COSObject remove(COSString name) {
@@ -495,7 +492,7 @@ public class CDSNameTreeNode extends CDSTreeNode {
         }
         List tempKids = getKids();
         if (tempKids != null) {
-            if (tempKids.size() > 0) {
+            if (!tempKids.isEmpty()) {
                 CDSNameTreeNode minNode = (CDSNameTreeNode) tempKids.get(0);
                 minNode.checkLimits();
                 getLimits().set(0, minNode.getLimits().get(0).copyOptional());
@@ -506,7 +503,7 @@ public class CDSNameTreeNode extends CDSTreeNode {
         }
         List tempEntries = getEntries();
         if (tempEntries != null) {
-            if (tempEntries.size() > 0) {
+            if (!tempEntries.isEmpty()) {
                 CDSNameTreeEntry minEntry = (CDSNameTreeEntry) tempEntries.get(0);
                 getLimits().set(0, minEntry.getName().copyOptional());
                 CDSNameTreeEntry maxEntry = (CDSNameTreeEntry) tempEntries.get(tempEntries.size() - 1);

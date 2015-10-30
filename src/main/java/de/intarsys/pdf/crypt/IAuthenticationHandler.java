@@ -46,5 +46,5 @@ public interface IAuthenticationHandler {
      * @param securityHandler The {@link ISecurityHandler} active for the document.
      * @throws COSSecurityException
      */
-    public void authenticate(ISecurityHandler securityHandler) throws COSSecurityException;
+    void authenticate(ISecurityHandler securityHandler) throws COSSecurityException;
 }

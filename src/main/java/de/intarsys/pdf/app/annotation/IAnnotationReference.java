@@ -50,14 +50,14 @@ public interface IAnnotationReference {
      *
      * @return The {@link PDAnnotation} referenced by this.
      */
-    public PDAnnotation getAnnotation();
+    PDAnnotation getAnnotation();
 
     /**
      * The {@link PDDocument} hosting the {@link PDAnnotation}.
      *
      * @return The {@link PDDocument} hosting the {@link PDAnnotation}.
      */
-    public PDDocument getDocument();
+    PDDocument getDocument();
 
     /**
      * The position of the bounding box of the {@link PDAnnotation}. This may
@@ -66,7 +66,7 @@ public interface IAnnotationReference {
      *
      * @return The position of the bounding box of the {@link PDAnnotation}.
      */
-    public Point2D getPosition();
+    Point2D getPosition();
 
     /**
      * The size of the bounding box of the {@link PDAnnotation}. This may be
@@ -75,9 +75,9 @@ public interface IAnnotationReference {
      *
      * @return The size of the bounding box of the {@link PDAnnotation}.
      */
-    public Point2D getSize();
+    Point2D getSize();
 
-    public boolean isNew();
+    boolean isNew();
 
-    public boolean isVisible();
+    boolean isVisible();
 }

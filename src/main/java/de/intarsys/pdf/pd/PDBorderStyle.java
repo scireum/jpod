@@ -42,7 +42,7 @@ public class PDBorderStyle extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -56,52 +56,52 @@ public class PDBorderStyle extends PDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * The width type.
      */
-    static public final COSName DK_W = COSName.constant("W");
+    public static final COSName DK_W = COSName.constant("W");
 
     /**
      * The Style type.
      */
-    static public final COSName DK_S = COSName.constant("S");
+    public static final COSName DK_S = COSName.constant("S");
 
     /**
      * Style S: solid
      */
-    static public final COSName CN_S_S = COSName.constant("S");
+    public static final COSName CN_S_S = COSName.constant("S");
 
     /**
      * Style D: dashed
      */
-    static public final COSName CN_S_D = COSName.constant("D");
+    public static final COSName CN_S_D = COSName.constant("D");
 
     /**
      * Style B: beveled
      */
-    static public final COSName CN_S_B = COSName.constant("B");
+    public static final COSName CN_S_B = COSName.constant("B");
 
     /**
      * Style I: Inset
      */
-    static public final COSName CN_S_I = COSName.constant("I");
+    public static final COSName CN_S_I = COSName.constant("I");
 
     /**
      * Style U: underlined
      */
-    static public final COSName CN_S_U = COSName.constant("U");
+    public static final COSName CN_S_U = COSName.constant("U");
 
     /**
      * The DashArray type.
      */
-    static public final COSName DK_D = COSName.constant("D"); //
+    public static final COSName DK_D = COSName.constant("D"); //
 
     /**
      * The border type name
      */
-    static public final COSName CN_Type_Border = COSName.constant("Border"); //
+    public static final COSName CN_Type_Border = COSName.constant("Border"); //
 
     protected PDBorderStyle(COSObject object) {
         super(object);

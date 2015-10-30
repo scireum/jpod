@@ -34,5 +34,8 @@ import de.intarsys.tools.logging.LogTools;
 import java.util.logging.Logger;
 
 public class PACKAGE {
-    public final static Logger Log = LogTools.getLogger(PACKAGE.class);
+    public static final Logger Log = LogTools.getLogger(PACKAGE.class);
+
+    private PACKAGE() {
+    }
 }

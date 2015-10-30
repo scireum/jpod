@@ -45,11 +45,11 @@ public interface IAppearanceCreatorRegistry {
      * @return A collection of all registered {@link IAppearanceCreator}
      * instances.
      */
-    public IAppearanceCreator[] getAppearanceCreators();
+    IAppearanceCreator[] getAppearanceCreators();
 
-    public IAppearanceCreator lookupAppearanceCreator(COSName type);
+    IAppearanceCreator lookupAppearanceCreator(COSName type);
 
-    public void registerAppearanceCreator(IAppearanceCreator creator);
+    void registerAppearanceCreator(IAppearanceCreator creator);
 
-    public void unregisterAppearanceCreator(IAppearanceCreator creator);
+    void unregisterAppearanceCreator(IAppearanceCreator creator);
 }

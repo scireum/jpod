@@ -55,13 +55,13 @@ public class PDFontStyle {
         name = name.trim().toLowerCase();
         boolean bold = false;
         boolean italic = false;
-        if (name.indexOf("bold") >= 0) { //$NON-NLS-1$
+        if (name.contains("bold")) { //$NON-NLS-1$
             bold = true;
         }
-        if (name.indexOf("italic") >= 0) { //$NON-NLS-1$
+        if (name.contains("italic")) { //$NON-NLS-1$
             italic = true;
         }
-        if (name.indexOf("oblique") >= 0) { //$NON-NLS-1$
+        if (name.contains("oblique")) { //$NON-NLS-1$
             italic = true;
         }
         if (bold) {

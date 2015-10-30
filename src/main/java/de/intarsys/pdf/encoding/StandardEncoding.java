@@ -35,7 +35,7 @@ import de.intarsys.pdf.cos.COSObject;
  * Implementation of StandardEncoding
  */
 public class StandardEncoding extends MappedEncoding {
-    static public StandardEncoding UNIQUE = new StandardEncoding();
+    public static StandardEncoding UNIQUE = new StandardEncoding();
 
     protected StandardEncoding() {
         super();

@@ -55,5 +55,5 @@ public interface ICOSDocumentFactory {
      * @throws IOException
      * @throws COSLoadException
      */
-    public COSDocument createDocument(ILocator locator, Map options) throws COSLoadException, IOException;
+    COSDocument createDocument(ILocator locator, Map options) throws COSLoadException, IOException;
 }

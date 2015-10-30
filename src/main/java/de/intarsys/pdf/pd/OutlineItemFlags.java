@@ -41,9 +41,9 @@ package de.intarsys.pdf.pd;
  * </ul>
  */
 public class OutlineItemFlags extends AbstractBitFlags {
-    static public final int Bit_Italic = 1;
+    public static final int Bit_Italic = 1;
 
-    static public final int Bit_Bold = 1 << 1;
+    public static final int Bit_Bold = 1 << 1;
 
     private PDOutlineItem outlineItem;
 

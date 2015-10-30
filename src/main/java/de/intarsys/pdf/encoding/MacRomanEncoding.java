@@ -35,7 +35,7 @@ import de.intarsys.pdf.cos.COSObject;
  * Implementation of MacRomanEncoding
  */
 public class MacRomanEncoding extends MappedEncoding {
-    static public MacRomanEncoding UNIQUE = new MacRomanEncoding();
+    public static MacRomanEncoding UNIQUE = new MacRomanEncoding();
 
     protected MacRomanEncoding() {
         super();

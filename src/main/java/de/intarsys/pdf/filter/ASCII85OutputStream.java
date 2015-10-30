@@ -43,9 +43,9 @@ import java.io.OutputStream;
  * </p>
  */
 public class ASCII85OutputStream extends FilterOutputStream {
-    static private final long HIGH_VALUE = 0xFFFFFFFFL;
+    private static final long HIGH_VALUE = 0xFFFFFFFFL;
 
-    static private final long CONST_85 = 85L;
+    private static final long CONST_85 = 85L;
 
     private byte[] indata;
 
@@ -100,6 +100,7 @@ public class ASCII85OutputStream extends FilterOutputStream {
      *
      * @see java.io.OutputStream#flush()
      */
+    @Override
     public final void flush() throws IOException {
         if (flushed) {
             return;
@@ -137,6 +138,7 @@ public class ASCII85OutputStream extends FilterOutputStream {
      *
      * @see java.io.OutputStream#write(int)
      */
+    @Override
     public void write(int b) throws IOException {
         flushed = false;
         indata[count++] = (byte) b;
@@ -162,6 +164,7 @@ public class ASCII85OutputStream extends FilterOutputStream {
      *
      * @see java.io.OutputStream#write(byte[], int, int)
      */
+    @Override
     public final void write(byte[] b, int off, int sz) throws IOException {
         for (int i = 0; i < sz; i++) {
             if (count < 3) {
@@ -177,6 +180,7 @@ public class ASCII85OutputStream extends FilterOutputStream {
      *
      * @see java.io.OutputStream#close()
      */
+    @Override
     public void close() throws IOException {
         try {
             flush();

@@ -43,8 +43,8 @@ public interface ICOSObjectListener {
      * stream may indicate a change in its byte content using (slot ==
      * COSStream.SLOT_BYTES).
      * <p>
-     * A slot value of <code> null</code> may indicate a "changed all" event.
-     * For example you can expect for a <code>clear</code> operation on an
+     * A slot value of {@code null} may indicate a "changed all" event.
+     * For example you can expect for a {@code clear} operation on an
      * array only a single "changed all" event.
      *
      * @param object   The object that has changed
@@ -53,5 +53,5 @@ public interface ICOSObjectListener {
      * @param oldValue The old value of the slot if known.
      * @param newValue The new value of the slot if known.
      */
-    public void changed(COSObject object, Object slot, Object oldValue, Object newValue);
+    void changed(COSObject object, Object slot, Object oldValue, Object newValue);
 }

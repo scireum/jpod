@@ -42,7 +42,7 @@ public class FDField extends FDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends FDObject.MetaClass {
+    public static class MetaClass extends FDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -88,7 +88,7 @@ public class FDField extends FDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected FDField(COSObject object) {
         super(object);

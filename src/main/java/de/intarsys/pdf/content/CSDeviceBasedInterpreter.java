@@ -58,7 +58,7 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
 
     private float advanceFactor = 0;
 
-    final protected ICSDevice device;
+    protected final ICSDevice device;
 
     private float fontSize = 0;
 
@@ -178,7 +178,7 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    public void process(CSContent pContent, PDResources resourceDict) throws CSException {
+    public void process(CSContent pContent, PDResources resourceDict) {
         try {
             if (nesting == 0) {
                 device.open(this);
@@ -212,8 +212,8 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_BDC(CSOperation operation) throws CSException {
-        COSName tag = ((COSName) operation.getOperand(0)).asName();
+    protected void render_BDC(CSOperation operation) {
+        COSName tag = operation.getOperand(0).asName();
         COSObject op1 = operation.getOperand(1);
         COSName resourceName;
         COSDictionary properties = null;
@@ -228,8 +228,8 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_BMC(CSOperation operation) throws CSException {
-        COSName tag = ((COSName) operation.getOperand(0)).asName();
+    protected void render_BMC(CSOperation operation) {
+        COSName tag = operation.getOperand(0).asName();
         device.markedContentBegin(tag);
     }
 
@@ -318,14 +318,14 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_Do(CSOperation operation) throws CSException {
+    protected void render_Do(CSOperation operation) {
         COSName name = (COSName) operation.getOperand(0);
         PDXObject xobject = lookupXObject(name);
         device.doXObject(name, xobject);
     }
 
     @Override
-    protected void render_DoubleQuote(CSOperation operation) throws CSException {
+    protected void render_DoubleQuote(CSOperation operation) {
         float ws = ((COSNumber) operation.getOperand(0)).floatValue();
         device.textSetWordSpacing(ws);
         float cs = ((COSNumber) operation.getOperand(1)).floatValue();
@@ -336,8 +336,8 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_DP(CSOperation operation) throws CSException {
-        COSName tag = ((COSName) operation.getOperand(0)).asName();
+    protected void render_DP(CSOperation operation) {
+        COSName tag = operation.getOperand(0).asName();
         COSObject op1 = operation.getOperand(1);
         COSName resourceName;
         COSDictionary properties = null;
@@ -352,7 +352,7 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_EI(CSOperation operation) throws CSException {
+    protected void render_EI(CSOperation operation) {
         frame.graphicsObjectState = InLineImageObject;
         try {
             PDImage image = (PDImage) operation.getCache();
@@ -381,7 +381,7 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_EMC(CSOperation operation) throws CSException {
+    protected void render_EMC(CSOperation operation) {
         device.markedContentEnd();
     }
 
@@ -456,7 +456,7 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_i(CSOperation operation) throws CSException {
+    protected void render_i(CSOperation operation) {
         float flatness = ((COSNumber) operation.getOperand(0)).floatValue();
         device.setFlatnessTolerance(flatness);
     }
@@ -527,8 +527,8 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_MP(CSOperation operation) throws CSException {
-        COSName tag = ((COSName) operation.getOperand(0)).asName();
+    protected void render_MP(CSOperation operation) {
+        COSName tag = operation.getOperand(0).asName();
         device.markedContentPoint(tag);
     }
 
@@ -542,7 +542,7 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_q(CSOperation operation) throws CSException {
+    protected void render_q(CSOperation operation) {
         // if there's an "open" path simply keep it
         if (frame.graphicsObjectState != PageLevel && frame.graphicsObjectState != PathObject) {
             throw new CSWarning("'q' not allowed");
@@ -551,7 +551,7 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_Q(CSOperation operation) throws CSException {
+    protected void render_Q(CSOperation operation) {
         // if there's an "open" path simply keep it
         if (frame.graphicsObjectState != PageLevel && frame.graphicsObjectState != PathObject) {
             throw new CSWarning("'Q' not allowed");
@@ -560,7 +560,7 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_Quote(CSOperation operation) throws CSException {
+    protected void render_Quote(CSOperation operation) {
         device.textLineNew();
         byte[] value = ((COSString) operation.getOperand(0)).byteValue();
         device.textShow(value, 0, value.length);
@@ -606,8 +606,8 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_ri(CSOperation operation) throws CSException {
-        COSName intent = ((COSName) operation.getOperand(0)).asName();
+    protected void render_ri(CSOperation operation) {
+        COSName intent = operation.getOperand(0).asName();
         device.setRenderingIntent(intent);
     }
 
@@ -723,7 +723,7 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_Tf(CSOperation operation) throws CSWarning {
+    protected void render_Tf(CSOperation operation) {
         COSName fontname = operation.getOperand(0).asName();
         PDFont pdFont = lookupFont(fontname);
         fontSize = operation.getOperand(1).asNumber().floatValue();
@@ -732,13 +732,13 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
     }
 
     @Override
-    protected void render_Tj(CSOperation operation) throws CSException {
+    protected void render_Tj(CSOperation operation) {
         byte[] value = ((COSString) operation.getOperand(0)).byteValue();
         device.textShow(value, 0, value.length);
     }
 
     @Override
-    protected void render_TJ(CSOperation operation) throws CSException {
+    protected void render_TJ(CSOperation operation) {
         // optimization: access plain array, only direct objects are contained!
         COSDocumentElement[] array = operation.getOperand(0).asArray().toArray();
         int length = array.length;

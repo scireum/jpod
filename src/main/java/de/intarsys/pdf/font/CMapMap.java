@@ -32,7 +32,7 @@ package de.intarsys.pdf.font;
 /**
  * An abstract implementation for map definitions in a CMap.
  */
-abstract public class CMapMap {
+public abstract class CMapMap {
 
     protected CMapMap() {
         super();
@@ -44,7 +44,7 @@ abstract public class CMapMap {
      * @param cid
      * @return The string value for a CID.
      */
-    abstract public char[] toChars(int cid);
+    public abstract char[] toChars(int cid);
 
     /**
      * The CID value for the codepoint or 0 if not applicable.
@@ -55,7 +55,7 @@ abstract public class CMapMap {
      * @param codepoint The (encoded) codepoint value.
      * @return The CID value for the codepoint.
      */
-    abstract public int toCID(int codepoint);
+    public abstract int toCID(int codepoint);
 
     /**
      * The codepoint for a CID or 0 if not applicable.
@@ -63,5 +63,5 @@ abstract public class CMapMap {
      * @param cid
      * @return The codepoint for a CID.
      */
-    abstract public int toCodepoint(int cid);
+    public abstract int toCodepoint(int cid);
 }

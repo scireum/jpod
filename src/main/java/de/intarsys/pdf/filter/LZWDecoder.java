@@ -88,10 +88,6 @@ public class LZWDecoder {
 
     int[] andTable = {511, 1023, 2047, 4095};
 
-    public LZWDecoder() {
-        super();
-    }
-
     // Returns the next 9, 10, 11 or 12 bits
     public int getNextCode(byte[] data) {
         // Attempt to get the next code. The exception is caught to make
@@ -160,7 +156,7 @@ public class LZWDecoder {
     }
 
     /**
-     * Append <code>newString</code> to the end of <code>oldString</code>.
+     * Append {@code newString} to the end of {@code oldString}.
      *
      * @param oldString
      * @param newString

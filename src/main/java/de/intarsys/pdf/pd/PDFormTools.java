@@ -46,7 +46,7 @@ public class PDFormTools {
      * @param form The form to lookup (and create) the PDResourceDict.
      * @return The PDResourceDict for form.
      */
-    static public PDResources getResources(PDForm form) {
+    public static PDResources getResources(PDForm form) {
         PDResources resources = form.getResources();
         if (resources == null) {
             resources = (PDResources) PDResources.META.createNew();

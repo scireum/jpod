@@ -45,6 +45,7 @@ public class PDOutline extends PDOutlineNode {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDOutline(object);
         }
@@ -66,6 +67,7 @@ public class PDOutline extends PDOutlineNode {
      *
      * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
      */
+    @Override
     protected COSName cosGetExpectedType() {
         return CN_Type_Outlines;
     }
@@ -75,6 +77,7 @@ public class PDOutline extends PDOutlineNode {
      *
      * @see de.intarsys.pdf.pd.PDOutlineNode#isOutline()
      */
+    @Override
     public boolean isOutline() {
         return true;
     }

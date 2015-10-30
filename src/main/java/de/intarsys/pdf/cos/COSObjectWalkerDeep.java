@@ -41,9 +41,9 @@ import java.util.Set;
 public class COSObjectWalkerDeep extends COSObjectWalkerShallow {
     private Set visited;
 
-    final private boolean forceSwap;
+    private final boolean forceSwap;
 
-    final private boolean swapAlways;
+    private final boolean swapAlways;
 
     public COSObjectWalkerDeep() {
         this(true);

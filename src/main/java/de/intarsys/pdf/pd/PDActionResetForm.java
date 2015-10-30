@@ -47,7 +47,7 @@ public class PDActionResetForm extends PDAction {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAction.MetaClass {
+    public static class MetaClass extends PDAction.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -66,7 +66,7 @@ public class PDActionResetForm extends PDAction {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public static final COSName CN_ActionType_ResetForm = COSName.constant("ResetForm");
 
@@ -74,9 +74,8 @@ public class PDActionResetForm extends PDAction {
 
     public static final COSName DK_Flags = COSName.constant("Flags");
 
-    static public PDActionResetForm createNew() {
-        PDActionResetForm result = (PDActionResetForm) PDActionResetForm.META.createNew();
-        return result;
+    public static PDActionResetForm createNew() {
+        return (PDActionResetForm) PDActionResetForm.META.createNew();
     }
 
     protected PDActionResetForm(COSObject object) {

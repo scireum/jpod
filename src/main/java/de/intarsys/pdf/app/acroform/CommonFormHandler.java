@@ -63,13 +63,13 @@ public abstract class CommonFormHandler implements IFormHandler {
         acroForm = getDoc().getAcroForm();
     }
 
-    abstract protected void basicRecalculate(PDAcroFormField field);
+    protected abstract void basicRecalculate(PDAcroFormField field);
 
-    abstract protected void basicSetFieldValue(PDAcroFormField field, List value);
+    protected abstract void basicSetFieldValue(PDAcroFormField field, List value);
 
-    abstract protected void basicSetFieldValue(PDAcroFormField field, PDSignature value);
+    protected abstract void basicSetFieldValue(PDAcroFormField field, PDSignature value);
 
-    abstract protected void basicSetFieldValue(PDAcroFormField field, String value);
+    protected abstract void basicSetFieldValue(PDAcroFormField field, String value);
 
     protected abstract void doResetFields(List fields);
 
@@ -77,19 +77,23 @@ public abstract class CommonFormHandler implements IFormHandler {
         return acroForm;
     }
 
+    @Override
     public PDDocument getDoc() {
         return doc;
     }
 
+    @Override
     public String getFieldValue(Object fieldref) {
         PDAcroFormField field = marshalField(fieldref);
         return field.getValueString();
     }
 
+    @Override
     public boolean isCalculate() {
         return calculate;
     }
 
+    @Override
     public boolean isValidate() {
         return validate;
     }
@@ -114,18 +118,22 @@ public abstract class CommonFormHandler implements IFormHandler {
                                            + fieldRef.getClass().getName() + "'"); //$NON-NLS-1$
     }
 
+    @Override
     public void recalculate() {
         basicRecalculate(null);
     }
 
+    @Override
     public void recalculate(Object fieldRef) {
         basicRecalculate(marshalField(fieldRef));
     }
 
+    @Override
     public void resetFields() {
         doResetFields(getAcroForm().collectLeafFields());
     }
 
+    @Override
     public void resetFields(List fieldNames, boolean invert) {
         List fields = null;
         if (invert) {
@@ -150,10 +158,12 @@ public abstract class CommonFormHandler implements IFormHandler {
         doResetFields(fields);
     }
 
+    @Override
     public void setCalculate(boolean calculate) {
         this.calculate = calculate;
     }
 
+    @Override
     public void setFieldValue(Object fieldRef, Object value) {
         if (value instanceof List) {
             basicSetFieldValue(marshalField(fieldRef), (List) value);
@@ -165,9 +175,7 @@ public abstract class CommonFormHandler implements IFormHandler {
             basicSetFieldValue(marshalField(fieldRef), ((COSString) value).stringValue());
         } else if (value instanceof PDSignature) {
             basicSetFieldValue(marshalField(fieldRef), (PDSignature) value);
-        } else if (value instanceof COSNull) {
-            basicSetFieldValue(marshalField(fieldRef), (String) null);
-        } else if (value == null) {
+        } else if (value instanceof COSNull || value == null) {
             basicSetFieldValue(marshalField(fieldRef), (String) null);
         } else {
             value = String.valueOf(value);
@@ -175,6 +183,7 @@ public abstract class CommonFormHandler implements IFormHandler {
         }
     }
 
+    @Override
     public void setValidate(boolean validate) {
         this.validate = validate;
     }

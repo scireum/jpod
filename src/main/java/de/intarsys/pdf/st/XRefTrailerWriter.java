@@ -59,6 +59,7 @@ public class XRefTrailerWriter extends AbstractXRefWriter {
      *
      * @see de.intarsys.pdf.storage.AbstractXRefWriter#initialize()
      */
+    @Override
     protected void initialize(STXRefSection xRefSection) throws IOException {
         super.initialize(xRefSection);
         setRandomAccess(getCosWriter().getRandomAccess());
@@ -71,6 +72,7 @@ public class XRefTrailerWriter extends AbstractXRefWriter {
      *
      * @see de.intarsys.pdf.storage.AbstractXRefWriter#finish()
      */
+    @Override
     protected void finish(STXRefSection xRefSection) throws IOException {
         getCosWriter().write(COSWriter.TRAILER);
         getCosWriter().writeEOL();
@@ -83,6 +85,7 @@ public class XRefTrailerWriter extends AbstractXRefWriter {
      *
      * @see de.intarsys.pdf.storage.IXRefEntryVisitor#visitFromCompressed(de.intarsys.pdf.storage.STXRefEntryCompressed)
      */
+    @Override
     public void visitFromCompressed(STXRefEntryCompressed entry) throws XRefEntryVisitorException {
         // not supported, so write a free entry
         try {
@@ -97,6 +100,7 @@ public class XRefTrailerWriter extends AbstractXRefWriter {
      *
      * @see de.intarsys.pdf.storage.AbstractXRefWriter#write(int, int, byte[])
      */
+    @Override
     protected void write(int col1, int col2, byte[] type) throws IOException {
         String stCol1 = XRefTrailerWriter.FORMAT_XREF_OFFSET.format(col1);
         String stCol2 = XRefTrailerWriter.FORMAT_XREF_GENERATION.format(col2);
@@ -113,6 +117,7 @@ public class XRefTrailerWriter extends AbstractXRefWriter {
      *
      * @see de.intarsys.pdf.storage.AbstractXRefWriter#visitFromSection(de.intarsys.pdf.storage.STXRefSubsection)
      */
+    @Override
     protected void visitFromSubsection(STXRefSubsection section) throws IOException {
         getRandomAccess().write(StringTools.toByteArray(Integer.toString(section.getStart())));
         getRandomAccess().write(COSWriter.SPACE);
@@ -125,6 +130,7 @@ public class XRefTrailerWriter extends AbstractXRefWriter {
      *
      * @see de.intarsys.pdf.storage.AbstractXRefWriter#getTypeCompressed()
      */
+    @Override
     protected byte[] getTypeCompressed() {
         return TYPE_FREE;
     }
@@ -134,6 +140,7 @@ public class XRefTrailerWriter extends AbstractXRefWriter {
      *
      * @see de.intarsys.pdf.storage.AbstractXRefWriter#getTypeFree()
      */
+    @Override
     protected byte[] getTypeFree() {
         return TYPE_FREE;
     }
@@ -143,6 +150,7 @@ public class XRefTrailerWriter extends AbstractXRefWriter {
      *
      * @see de.intarsys.pdf.storage.AbstractXRefWriter#getTypeOccupied()
      */
+    @Override
     protected byte[] getTypeOccupied() {
         return TYPE_OCCUPIED;
     }

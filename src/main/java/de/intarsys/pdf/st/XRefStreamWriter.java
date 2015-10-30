@@ -45,7 +45,7 @@ public class XRefStreamWriter extends AbstractXRefWriter {
     /**
      *
      */
-    class SearchVisitor implements IXRefEntryVisitor {
+    static class SearchVisitor implements IXRefEntryVisitor {
         private long highestOffset = 0;
 
         private int highestGeneration = 0;
@@ -70,16 +70,19 @@ public class XRefStreamWriter extends AbstractXRefWriter {
             return highestOffset;
         }
 
+        @Override
         public void visitFromCompressed(STXRefEntryCompressed entry) {
             checkOffset(entry.getStreamObjectNumber());
             checkGeneration(entry.getIndex());
         }
 
+        @Override
         public void visitFromFree(STXRefEntryFree entry) {
             checkOffset(entry.getNextFreeObjectNumber());
             checkGeneration(entry.getGenerationNumber());
         }
 
+        @Override
         public void visitFromOccupied(STXRefEntryOccupied entry) {
             checkOffset(entry.getOffset());
             checkGeneration(entry.getGenerationNumber());

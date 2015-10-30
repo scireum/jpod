@@ -37,11 +37,11 @@ import de.intarsys.tools.attribute.IAttributeSupport;
  */
 public class PDGlyphs implements IAttributeSupport {
 
-    final private AttributeMap attributes = new AttributeMap();
+    private final AttributeMap attributes = new AttributeMap();
 
-    final private int codepoint;
+    private final int codepoint;
 
-    final private PDFont font;
+    private final PDFont font;
 
     private Boolean whitespace;
 
@@ -59,7 +59,7 @@ public class PDGlyphs implements IAttributeSupport {
     }
 
     @Override
-    final public Object getAttribute(Object key) {
+	public final Object getAttribute(Object key) {
         return attributes.getAttribute(key);
     }
 
@@ -98,7 +98,7 @@ public class PDGlyphs implements IAttributeSupport {
                 return font.getEncoding().getDecoded(codepoint);
             }
             return toUnicode.getDecoded(codepoint);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
             return font.getEncoding().getDecoded(codepoint);
         }
     }
@@ -117,7 +117,7 @@ public class PDGlyphs implements IAttributeSupport {
     }
 
     @Override
-    final public Object removeAttribute(Object key) {
+	public final Object removeAttribute(Object key) {
         return attributes.removeAttribute(key);
     }
 
@@ -126,7 +126,7 @@ public class PDGlyphs implements IAttributeSupport {
     }
 
     @Override
-    final public Object setAttribute(Object key, Object o) {
+	public final Object setAttribute(Object key, Object o) {
         return attributes.setAttribute(key, o);
     }
 

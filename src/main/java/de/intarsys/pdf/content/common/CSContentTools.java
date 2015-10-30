@@ -5,7 +5,6 @@ import de.intarsys.pdf.cds.CDSRectangle;
 import de.intarsys.pdf.content.CSContent;
 import de.intarsys.pdf.content.CSDeviceBasedInterpreter;
 import de.intarsys.pdf.content.CSError;
-import de.intarsys.pdf.content.CSException;
 import de.intarsys.pdf.content.CSWarning;
 import de.intarsys.pdf.content.ICSExceptionHandler;
 import de.intarsys.pdf.cos.COSObject;
@@ -22,14 +21,19 @@ public class CSContentTools {
 
     private static final ICSExceptionHandler ignoreExceptionHandler = new ICSExceptionHandler() {
 
-        public void error(CSError error) throws CSException {
+        @Override
+        public void error(CSError error) {
             // ignore
         }
 
-        public void warning(CSWarning warning) throws CSException {
+        @Override
+        public void warning(CSWarning warning) {
             // ignore
         }
     };
+
+    private CSContentTools() {
+    }
 
     /**
      * Get the rectangle containing all graphics artifacts on the page (stemming

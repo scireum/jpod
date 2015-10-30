@@ -42,9 +42,9 @@ package de.intarsys.pdf.pd;
  * </ul>
  */
 public class AcroFormSigFlags extends AbstractBitFlags {
-    static public int Bit_SignatureExists = 1; // Bit position 1
+    public static int Bit_SignatureExists = 1; // Bit position 1
 
-    static public int Bit_AppendOnly = 1 << 1; // Bit position 2
+    public static int Bit_AppendOnly = 1 << 1; // Bit position 2
 
     private PDAcroForm acroForm;
 

@@ -36,11 +36,14 @@ public class AnnotationOutlet {
 
     private static IAnnotationOutlet ACTIVE = new StandardAnnotationOutlet();
 
-    static public IAnnotationOutlet get() {
+    private AnnotationOutlet() {
+    }
+
+    public static IAnnotationOutlet get() {
         return ACTIVE;
     }
 
-    static public void set(IAnnotationOutlet outlet) {
+    public static void set(IAnnotationOutlet outlet) {
         ACTIVE = outlet;
     }
 }

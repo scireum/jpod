@@ -40,7 +40,7 @@ import de.intarsys.pdf.encoding.GlyphNameMap;
  */
 public class AFMEncoding extends Encoding {
     //
-    final private AFM afm;
+    private final AFM afm;
 
     /**
      * AFMEncoding constructor comment.

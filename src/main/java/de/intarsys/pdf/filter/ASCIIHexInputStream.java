@@ -46,18 +46,21 @@ public class ASCIIHexInputStream extends FilterInputStream {
         super(in);
     }
 
-    static public boolean isWhitespace(int i) {
+    public static boolean isWhitespace(int i) {
         return (i == ' ') || (i == '\t') || (i == '\r') || (i == '\n') || (i == 12);
     }
 
+    @Override
     public int available() throws IOException {
         throw new IOException("method not supported");
     }
 
+    @Override
     public boolean markSupported() {
         return false;
     }
 
+    @Override
     public int read() throws IOException {
         int digit1 = 0;
         int digit2 = 0;
@@ -79,12 +82,15 @@ public class ASCIIHexInputStream extends FilterInputStream {
         return (digit1 << 4) + digit2;
     }
 
+    @Override
     public int read(byte[] b, int off, int len) throws IOException {
         if (b == null) {
             throw new NullPointerException();
-        } else if ((off < 0) || (off > b.length) || (len < 0) || ((off + len) > b.length) || ((off + len) < 0)) {
+        }
+        if ((off < 0) || (off > b.length) || (len < 0) || ((off + len) > b.length) || ((off + len) < 0)) {
             throw new IndexOutOfBoundsException();
-        } else if (len == 0) {
+        }
+        if (len == 0) {
             return 0;
         }
 
@@ -107,10 +113,12 @@ public class ASCIIHexInputStream extends FilterInputStream {
         return i;
     }
 
+    @Override
     public synchronized void reset() throws IOException {
         throw new IOException("method not supported");
     }
 
+    @Override
     public long skip(long n) throws IOException {
         throw new IOException("method not supported");
     }

@@ -40,6 +40,9 @@ import java.net.URL;
 
 public class PDFFileTools {
 
+    private PDFFileTools() {
+    }
+
     protected static ILocator getRoot(ILocator locator) {
         ILocator root = locator;
         while (root.getParent() != null) {

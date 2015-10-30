@@ -37,7 +37,7 @@ package de.intarsys.pdf.postscript;
 public class JavaCharStream {
     public static final boolean staticFlag = false;
 
-    static final int hexval(char c) throws java.io.IOException {
+    static int hexval(char c) throws java.io.IOException {
         switch (c) {
             case '0':
                 return 0;
@@ -174,10 +174,8 @@ public class JavaCharStream {
             if ((i = inputStream.read(nextCharBuf, maxNextCharInd, 4096 - maxNextCharInd)) == -1) {
                 inputStream.close();
                 throw new java.io.IOException();
-            } else {
-                maxNextCharInd += i;
             }
-            return;
+            maxNextCharInd += i;
         } catch (java.io.IOException e) {
             if (bufpos != 0) {
                 --bufpos;
@@ -310,7 +308,7 @@ public class JavaCharStream {
                         backup(backSlashCnt);
                         return '\\';
                     }
-                } catch (java.io.IOException e) {
+                } catch (java.io.IOException ignored) {
                     if (backSlashCnt > 1) {
                         backup(backSlashCnt);
                     }
@@ -333,7 +331,7 @@ public class JavaCharStream {
                                 ReadByte()));
 
                 column += 4;
-            } catch (java.io.IOException e) {
+            } catch (java.io.IOException ignored) {
                 throw new Error("Invalid escape character at line " + line + " column " + column + ".");
             }
 
@@ -353,6 +351,7 @@ public class JavaCharStream {
      * @see #getEndColumn
      * @deprecated
      */
+    @Deprecated
     public int getColumn() {
         return bufcolumn[bufpos];
     }
@@ -361,6 +360,7 @@ public class JavaCharStream {
      * @see #getEndLine
      * @deprecated
      */
+    @Deprecated
     public int getLine() {
         return bufline[bufpos];
     }

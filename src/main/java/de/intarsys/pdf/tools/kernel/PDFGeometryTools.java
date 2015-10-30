@@ -48,10 +48,10 @@ public class PDFGeometryTools {
     /**
      * Given a device space transformation, apply the necessary transformation
      * steps to move the origin of the coordinate system to the lower left
-     * corner of <code>rect</code> after rotating it clockwise by
-     * <code>rotate</code>.
+     * corner of {@code rect} after rotating it clockwise by
+     * {@code rotate}.
      * <p>
-     * <code>transform</code> is modified
+     * {@code transform} is modified
      *
      * @param transform
      * @param rotate
@@ -78,9 +78,9 @@ public class PDFGeometryTools {
     /**
      * Given a device space transformation, apply the necessary transformation
      * steps to move the origin of the coordinate system to the lower left
-     * corner of <code>page</code>.
+     * corner of {@code page}.
      * <p>
-     * <code>transform</code> is modified
+     * {@code transform} is modified
      *
      * @param transform
      * @param page
@@ -99,7 +99,7 @@ public class PDFGeometryTools {
      * @return Normalize the rotation parameter to a positive multiple of 90
      * between 0 and 270.
      */
-    static public int normalizeRotate(int rotation) {
+    public static int normalizeRotate(int rotation) {
         rotation = rotation % 360;
         if (rotation > 0) {
             return rotation - (rotation % 90);
@@ -112,15 +112,14 @@ public class PDFGeometryTools {
     }
 
     /**
-     * Create the transformation of <code>rect</code> and return it.
+     * Create the transformation of {@code rect} and return it.
      *
      * @param matrix The transformation to apply.
      * @param rect   The rectangle to be transformed. This is not changed.
      * @return The transformed rectangle
      */
     public static CDSRectangle transform(CDSMatrix matrix, CDSRectangle rect) {
-        float[] vec =
-                new float[]{rect.getLowerLeftX(), rect.getLowerLeftY(), rect.getUpperRightX(), rect.getUpperRightY()};
+        float[] vec = {rect.getLowerLeftX(), rect.getLowerLeftY(), rect.getUpperRightX(), rect.getUpperRightY()};
         float[] tVec = matrix.transform(vec);
         return new CDSRectangle(tVec);
     }

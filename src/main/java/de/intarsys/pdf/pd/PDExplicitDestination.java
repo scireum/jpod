@@ -140,7 +140,7 @@ public class PDExplicitDestination extends PDDestination {
 
     public void setDisplayMode(COSName mode) {
         COSArray definition = cosGetArray();
-        if (definition.size() == 0) {
+        if (definition.isEmpty()) {
             definition.add(COSNull.NULL);
             definition.add(mode);
         } else if (definition.size() == 1) {
@@ -152,7 +152,7 @@ public class PDExplicitDestination extends PDDestination {
 
     public void setPage(PDPage page) {
         COSArray definition = cosGetArray();
-        if (definition.size() == 0) {
+        if (definition.isEmpty()) {
             definition.add(page.cosGetObject());
         } else {
             definition.set(0, page.cosGetObject());

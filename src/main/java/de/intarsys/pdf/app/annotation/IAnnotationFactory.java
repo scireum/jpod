@@ -41,7 +41,7 @@ import java.util.Map;
  * A factory for {@link PDAnnotation} instances. A new {@link PDAnnotation} is
  * created on a dedicated page with a dedicated bounding rectangle. More
  * attributes may be supported by the concrete {@link IAnnotationFactory}
- * implementation and are looked up in the <code>attributes</code>.
+ * implementation and are looked up in the {@code attributes}.
  */
 public interface IAnnotationFactory {
 
@@ -55,7 +55,7 @@ public interface IAnnotationFactory {
      * @return The newly created {@link PDAnnotation}
      * @throws ObjectCreationException
      */
-    public PDAnnotation createAnnotation(PDPage page, Rectangle2D rect, Map attributes) throws ObjectCreationException;
+    PDAnnotation createAnnotation(PDPage page, Rectangle2D rect, Map attributes) throws ObjectCreationException;
 
     /**
      * The type of annotation this factory can create.
@@ -64,5 +64,5 @@ public interface IAnnotationFactory {
      *
      * @return The type of annotation this factory can create
      */
-    public COSName getAnnotationType();
+    COSName getAnnotationType();
 }

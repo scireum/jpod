@@ -42,7 +42,7 @@ import java.io.OutputStream;
  */
 public class CMapEncoding extends Encoding {
 
-    final private CMap cmap;
+    private final CMap cmap;
 
     public CMapEncoding(CMap map) {
         super();

@@ -58,6 +58,9 @@ import java.util.logging.Logger;
  */
 public class ActionTools {
 
+    private ActionTools() {
+    }
+
     /**
      * Handle type for disable/enable action processing
      */
@@ -68,16 +71,16 @@ public class ActionTools {
     /**
      * The key where we can find the static JavaScripts in the document catalog.
      */
-    static public final COSName DK_JavaScript = COSName.constant("JavaScript"); //$NON-NLS-1$
+    public static final COSName DK_JavaScript = COSName.constant("JavaScript"); //$NON-NLS-1$
 
     /**
      * The logger.
      */
-    static private final Logger Log = PACKAGE.Log;
+    private static final Logger Log = PACKAGE.Log;
 
     private static final Attribute ATTR_DISABLEDACTIONS = new Attribute("disabledActions");
 
-    static public TriggerEvent annotationTriggerBlurred(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerBlurred(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "blurred [" + annotation.toString() //$NON-NLS-1$
                                   + "]"); //$NON-NLS-1$
@@ -92,7 +95,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerFocus(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerFocus(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "focus [" + annotation.toString() //$NON-NLS-1$
                                   + "]"); //$NON-NLS-1$
@@ -107,7 +110,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerKeystroke(PDAnnotation annotation,
+    public static TriggerEvent annotationTriggerKeystroke(PDAnnotation annotation,
                                                           String change,
                                                           boolean willCommit,
                                                           int commitKey,
@@ -136,7 +139,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerMouseDown(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerMouseDown(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "mouse down [" //$NON-NLS-1$
                                   + annotation.toString() + "]"); //$NON-NLS-1$
@@ -152,7 +155,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerMouseEnter(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerMouseEnter(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "mouse enter [" //$NON-NLS-1$
                                   + annotation.toString() + "]"); //$NON-NLS-1$
@@ -168,7 +171,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerMouseExit(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerMouseExit(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "mouse exit [" //$NON-NLS-1$
                                   + annotation.toString() + "]"); //$NON-NLS-1$
@@ -184,7 +187,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerMouseUp(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerMouseUp(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "mouse up [" + annotation.toString() //$NON-NLS-1$
                                   + "]"); //$NON-NLS-1$
@@ -209,7 +212,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerPageClose(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerPageClose(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "page close [" //$NON-NLS-1$
                                   + annotation.toString() + "]"); //$NON-NLS-1$
@@ -225,7 +228,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerPageInvisible(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerPageInvisible(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "page invisible [" //$NON-NLS-1$
                                   + annotation.toString() + "]"); //$NON-NLS-1$
@@ -241,7 +244,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerPageOpen(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerPageOpen(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "page open [" + annotation.toString() //$NON-NLS-1$
                                   + "]"); //$NON-NLS-1$
@@ -257,7 +260,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent annotationTriggerPageVisible(PDAnnotation annotation) {
+    public static TriggerEvent annotationTriggerPageVisible(PDAnnotation annotation) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "page visible [" //$NON-NLS-1$
                                   + annotation.toString() + "]"); //$NON-NLS-1$
@@ -274,21 +277,21 @@ public class ActionTools {
     }
 
     /**
-     * Set a flag with <code>doc</code> to signal that action processing for
-     * the type <code>actionType</code> should be disabled. This flag is
+     * Set a flag with {@code doc} to signal that action processing for
+     * the type {@code actionType} should be disabled. This flag is
      * honoured by the {@link StandardActionProcessor}.
      * <p>
-     * Specify <code>null</code> as the <code>actionType</code> to disable
+     * Specify {@code null} as the {@code actionType} to disable
      * processing of all actions.
      *
      * @param doc        The document for which action processing is switched off.
-     * @param actionType The type of actions no longer executed or <code>null</code>
+     * @param actionType The type of actions no longer executed or {@code null}
      *                   for all action types.
      * @return A handle that is used for re-enabling the processing. This
      * ensures that action processing can't be reestablished by
      * malicious code (as long as you don't leak the handle).
      */
-    static public ActionDisablement disableActions(COSDocument doc, COSName actionType) {
+    public static ActionDisablement disableActions(COSDocument doc, COSName actionType) {
         List disablements = (List) doc.getAttribute(ATTR_DISABLEDACTIONS);
         if (disablements == null) {
             disablements = new ArrayList();
@@ -300,7 +303,7 @@ public class ActionTools {
         return disablement;
     }
 
-    static public void documentProcessModules(PDDocument doc) {
+    public static void documentProcessModules(PDDocument doc) {
         COSCatalog catalog = doc.getCatalog();
         if (catalog == null) {
             return;
@@ -330,7 +333,7 @@ public class ActionTools {
         }
     }
 
-    static public TriggerEvent documentTriggerClose(PDDocument doc) {
+    public static TriggerEvent documentTriggerClose(PDDocument doc) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "document close [" + doc.getName() + "]" //$NON-NLS-1$ //$NON-NLS-2$
             );
@@ -345,7 +348,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent documentTriggerDidPrint(PDDocument doc) {
+    public static TriggerEvent documentTriggerDidPrint(PDDocument doc) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "did print [" + doc.getName() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -355,7 +358,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent documentTriggerDidSave(PDDocument doc) {
+    public static TriggerEvent documentTriggerDidSave(PDDocument doc) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "did save [" + doc.getName() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -365,7 +368,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent documentTriggerOpen(PDDocument doc) {
+    public static TriggerEvent documentTriggerOpen(PDDocument doc) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "document open [" + doc.getName() + "]" //$NON-NLS-1$ //$NON-NLS-2$
             );
@@ -386,7 +389,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent documentTriggerWillPrint(PDDocument doc) {
+    public static TriggerEvent documentTriggerWillPrint(PDDocument doc) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "will print [" + doc.getName() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -396,7 +399,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent documentTriggerWillSave(PDDocument doc) {
+    public static TriggerEvent documentTriggerWillSave(PDDocument doc) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "will save [" + doc.getName() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -407,17 +410,17 @@ public class ActionTools {
     }
 
     /**
-     * Remove a flag with <code>doc</code> to reestablish action processing
-     * for the type <code>actionType</code>. This flag is honoured by the
+     * Remove a flag with {@code doc} to reestablish action processing
+     * for the type {@code actionType}. This flag is honoured by the
      * {@link StandardActionProcessor}.
      * <p>
      * You must supply the handle from your call to "disableAction" in
-     * <code>disablement</code>.
+     * {@code disablement}.
      *
      * @param doc         The document for which action processing is switched off.
      * @param disablement The handle from "disableActions"
      */
-    static public void enableActions(COSDocument doc, ActionDisablement disablement) {
+    public static void enableActions(COSDocument doc, ActionDisablement disablement) {
         List disablements = (List) doc.getAttribute(ATTR_DISABLEDACTIONS);
         if (disablements == null) {
             disablements = new ArrayList();
@@ -426,7 +429,7 @@ public class ActionTools {
         disablements.remove(disablement);
     }
 
-    static public TriggerEvent fieldTriggerCalculate(PDAcroFormField field, String value, PDAcroFormField source) {
+    public static TriggerEvent fieldTriggerCalculate(PDAcroFormField field, String value, PDAcroFormField source) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "calculate [" + field.toString() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -444,7 +447,7 @@ public class ActionTools {
      * result of the formatting is not stored but only used as the input for the
      * widget appearance rendering.
      */
-    static public TriggerEvent fieldTriggerFormat(PDAcroFormField field,
+    public static TriggerEvent fieldTriggerFormat(PDAcroFormField field,
                                                   boolean willCommit,
                                                   int commitKey,
                                                   String value) {
@@ -462,7 +465,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent fieldTriggerValidate(PDAcroFormField field, String value) {
+    public static TriggerEvent fieldTriggerValidate(PDAcroFormField field, String value) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "validate [" + field.toString() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -486,7 +489,7 @@ public class ActionTools {
         return actions.getAction(reason);
     }
 
-    static protected Object getTriggerEventTarget(PDAnnotation annotation) {
+    protected static Object getTriggerEventTarget(PDAnnotation annotation) {
         if (annotation.isWidgetAnnotation()) {
             return ((PDWidgetAnnotation) annotation).getAcroFormField().getLogicalRoot();
         }
@@ -494,16 +497,16 @@ public class ActionTools {
     }
 
     /**
-     * <code>true</code> if execution of an action of type
-     * <code>actionType</code> should be allowed. This flag is honoured by the
+     * {@code true} if execution of an action of type
+     * {@code actionType} should be allowed. This flag is honoured by the
      * {@link StandardActionProcessor}.
      *
      * @param doc        The document under inspection.
      * @param actionType The type of actions we want to execute.
-     * @return <code>true</code> if execution of an action of type
-     * <code>actionType</code> should be allowed.
+     * @return {@code true} if execution of an action of type
+     * {@code actionType} should be allowed.
      */
-    static public boolean isEnabled(COSDocument doc, COSName actionType) {
+    public static boolean isEnabled(COSDocument doc, COSName actionType) {
         List disablements = (List) doc.getAttribute(ATTR_DISABLEDACTIONS);
         if (disablements == null) {
             return true;
@@ -517,7 +520,7 @@ public class ActionTools {
         return true;
     }
 
-    static public TriggerEvent pageTriggerClose(PDPage page) {
+    public static TriggerEvent pageTriggerClose(PDPage page) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "close [" + page.toString() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -527,7 +530,7 @@ public class ActionTools {
         return trigger;
     }
 
-    static public TriggerEvent pageTriggerOpen(PDPage page) {
+    public static TriggerEvent pageTriggerOpen(PDPage page) {
         if (Log.isLoggable(Level.FINEST)) {
             Log.log(Level.FINEST, "open [" + page.toString() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -538,14 +541,14 @@ public class ActionTools {
     }
 
     /**
-     * Lookup a {@link PDAction} to be executed when <code>event</code> is
-     * triggered. The action is looked up in the <code>actionSupport</code>
+     * Lookup a {@link PDAction} to be executed when {@code event} is
+     * triggered. The action is looked up in the {@code actionSupport}
      * instance which defines the trigger - action association.
      *
      * @param event         The event that causes an action to be processed.
      * @param actionSupport The target object whose action will be processed
      */
-    static protected void process(TriggerEvent event, IAdditionalActionSupport actionSupport) {
+    protected static void process(TriggerEvent event, IAdditionalActionSupport actionSupport) {
         if ((actionSupport == null) && event.getTarget() instanceof IAdditionalActionSupport) {
             actionSupport = (IAdditionalActionSupport) event.getTarget();
         }

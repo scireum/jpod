@@ -43,7 +43,7 @@ public class PDActionNamed extends PDAction {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAction.MetaClass {
+    public static class MetaClass extends PDAction.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -57,9 +57,9 @@ public class PDActionNamed extends PDAction {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public final COSName CN_ActionType_Named = COSName.constant("Named"); //$NON-NLS-1$
+    public static final COSName CN_ActionType_Named = COSName.constant("Named"); //$NON-NLS-1$
 
     public static final COSName DK_Name = COSName.constant("N"); //$NON-NLS-1$
 
@@ -71,7 +71,7 @@ public class PDActionNamed extends PDAction {
 
     public static final COSName CN_Name_LastPage = COSName.constant("LastPage"); //$NON-NLS-1$
 
-    static public PDActionNamed createNew(String name) {
+    public static PDActionNamed createNew(String name) {
         PDActionNamed result = (PDActionNamed) PDActionNamed.META.createNew();
         result.cosSetName(COSName.create(name));
         return result;

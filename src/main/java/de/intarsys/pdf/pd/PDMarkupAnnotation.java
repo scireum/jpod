@@ -41,7 +41,7 @@ public class PDMarkupAnnotation extends PDAnnotation {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAnnotation.MetaClass {
+    public static class MetaClass extends PDAnnotation.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -55,7 +55,7 @@ public class PDMarkupAnnotation extends PDAnnotation {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public static final COSName DK_CreationDate = COSName.constant("CreationDate");
 

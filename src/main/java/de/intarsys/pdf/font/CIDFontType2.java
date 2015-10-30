@@ -41,7 +41,7 @@ public class CIDFontType2 extends CIDFont {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends CIDFont.MetaClass {
+    public static class MetaClass extends CIDFont.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -55,7 +55,7 @@ public class CIDFontType2 extends CIDFont {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public static final COSName DK_CIDToGIDMap = COSName.constant("CIDToGIDMap");
 

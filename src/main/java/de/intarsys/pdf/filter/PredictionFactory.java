@@ -35,11 +35,14 @@ package de.intarsys.pdf.filter;
 public class PredictionFactory {
     private static IPredictionFactory ACTIVE = new StandardPredictionFactory();
 
-    static public IPredictionFactory get() {
+    private PredictionFactory() {
+    }
+
+    public static IPredictionFactory get() {
         return ACTIVE;
     }
 
-    static public void set(IPredictionFactory factory) {
+    public static void set(IPredictionFactory factory) {
         ACTIVE = factory;
     }
 }

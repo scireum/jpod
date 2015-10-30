@@ -38,6 +38,9 @@ public class ActionProcessor {
      */
     private static IActionProcessor Active = new StandardActionProcessor();
 
+    private ActionProcessor() {
+    }
+
     /**
      * Set the active {@link IActionProcessor} for the VM.
      *

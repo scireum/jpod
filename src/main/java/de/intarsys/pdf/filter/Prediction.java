@@ -73,7 +73,7 @@ public abstract class Prediction implements IPrediction {
 
     private int sourceRowSize;
 
-    public Prediction(COSDictionary options) {
+    protected Prediction(COSDictionary options) {
         super();
 
         COSInteger value;
@@ -110,6 +110,7 @@ public abstract class Prediction implements IPrediction {
         return computeResultRowSize();
     }
 
+    @Override
     public byte[] decode(byte[] source) throws IOException {
         int rows;
         byte[] result;

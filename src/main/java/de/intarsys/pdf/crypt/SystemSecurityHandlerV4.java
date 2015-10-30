@@ -140,13 +140,14 @@ public class SystemSecurityHandlerV4 extends SystemSecurityHandler {
         return getSecurityHandler();
     }
 
+    @Override
     public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         COSName name = getEncryption().getCryptFilterNameFile();
         ICryptHandler handler = getCryptHandler(name);
-        byte[] result = handler.decrypt(key, bytes);
-        return result;
+        return handler.decrypt(key, bytes);
     }
 
+    @Override
     public byte[] decryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         COSName name = COSEncryption.CN_IDENTITY;
         if (COSStream.hasFilter(dict, Filter.CN_Filter_Crypt)) {
@@ -161,23 +162,24 @@ public class SystemSecurityHandlerV4 extends SystemSecurityHandler {
             name = getEncryption().getCryptFilterNameString();
         }
         ICryptHandler handler = getCryptHandler(name);
-        byte[] result = handler.decrypt(key, bytes);
-        return result;
+        return handler.decrypt(key, bytes);
     }
 
+    @Override
     public byte[] decryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         COSName name = getEncryption().getCryptFilterNameString();
         ICryptHandler handler = getCryptHandler(name);
         return handler.decrypt(key, bytes);
     }
 
+    @Override
     public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         COSName name = getEncryption().getCryptFilterNameFile();
         ICryptHandler handler = getCryptHandler(name);
-        byte[] result = handler.encrypt(key, bytes);
-        return result;
+        return handler.encrypt(key, bytes);
     }
 
+    @Override
     public byte[] encryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         if (!isEnabled()) {
             return bytes;
@@ -195,10 +197,10 @@ public class SystemSecurityHandlerV4 extends SystemSecurityHandler {
             name = getEncryption().getCryptFilterNameString();
         }
         ICryptHandler handler = getCryptHandler(name);
-        byte[] result = handler.encrypt(key, bytes);
-        return result;
+        return handler.encrypt(key, bytes);
     }
 
+    @Override
     public byte[] encryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         if (!isEnabled()) {
             return bytes;

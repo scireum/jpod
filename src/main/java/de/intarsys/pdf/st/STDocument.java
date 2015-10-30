@@ -141,7 +141,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
 
     /**
      * Create a new document representing the data referenced by locator using
-     * <code>options</code> to fine tune creation.
+     * {@code options} to fine tune creation.
      * <p>
      * All options given are copied to the {@link STDocument} attributes and
      * accessible via the {@link IAttributeSupport} interface.
@@ -170,7 +170,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
 
     protected static String createName(String typeName) {
         COUNTER++;
-        return Msg.getString("STDocument.documentName.new", typeName, new Integer(COUNTER)); //$NON-NLS-1$
+        return Msg.getString("STDocument.documentName.new", typeName, Integer.valueOf(COUNTER)); //$NON-NLS-1$
     }
 
     /**
@@ -200,12 +200,12 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     /**
      * Generic attribute support
      */
-    final private AttributeMap attributes = new AttributeMap();
+	private final AttributeMap attributes = new AttributeMap();
 
     /**
      * The collection of changed objects within the document since last save
      */
-    final private Set<COSIndirectObject> changes = new HashSet<COSIndirectObject>();
+	private final Set<COSIndirectObject> changes = new HashSet<COSIndirectObject>();
 
     private boolean closed = false;
 
@@ -341,7 +341,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
 
     /**
      * Close the document. Accessing a documents content is undefined after
-     * <code>close</code>.
+     * {@code close}.
      *
      * @throws IOException
      */
@@ -423,8 +423,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
         if (baseAccess.isReadOnly()) {
             pLocator.setReadOnly();
         }
-        BufferedRandomAccess bufferedAccess = new BufferedRandomAccess(baseAccess, 4096);
-        return bufferedAccess;
+        return new BufferedRandomAccess(baseAccess, 4096);
     }
 
     protected void ensureLength(int index) {
@@ -513,7 +512,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     }
 
     @Override
-    final synchronized public Object getAttribute(Object key) {
+	public final synchronized Object getAttribute(Object key) {
         return attributes.get(key);
     }
 
@@ -785,9 +784,9 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     }
 
     /**
-     * <code>true</code> if this has been changed.
+     * {@code true} if this has been changed.
      *
-     * @return <code>true</code> if this has been changed.
+     * @return {@code true} if this has been changed.
      */
     public boolean isDirty() {
         return dirty;
@@ -801,12 +800,12 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     }
 
     /**
-     * <code>true</code> if this document is linearized.
+     * {@code true} if this document is linearized.
      * <p>
      * When linearized reading is truly implemented, this check should be made
      * using the document length instead for performance reasons.
      *
-     * @return <code>true</code> if this document is linearized.
+     * @return {@code true} if this document is linearized.
      */
     public boolean isLinearized() {
         return getLinearizedDict() != null;
@@ -817,18 +816,18 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     }
 
     /**
-     * <code>true</code> if this is read only.
+     * {@code true} if this is read only.
      *
-     * @return <code>true</code> if this is read only.
+     * @return {@code true} if this is read only.
      */
     public boolean isReadOnly() {
         return (getRandomAccess() == null) || getRandomAccess().isReadOnly();
     }
 
     /**
-     * <code>true</code> if this has only streamed xref sections.
+     * {@code true} if this has only streamed xref sections.
      *
-     * @return <code>true</code> if this has only streamed xref sections.
+     * @return {@code true} if this has only streamed xref sections.
      */
     public boolean isStreamed() {
         if (getXRefSection() != null) {
@@ -932,7 +931,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     }
 
     @Override
-    final synchronized public Object removeAttribute(Object key) {
+	public final synchronized Object removeAttribute(Object key) {
         Object oldValue = attributes.remove(key);
         triggerChanged(key, oldValue, null);
         return oldValue;
@@ -1080,7 +1079,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     }
 
     @Override
-    final synchronized public Object setAttribute(Object key, Object value) {
+	public final synchronized Object setAttribute(Object key, Object value) {
         Object oldValue = attributes.put(key, value);
         triggerChanged(key, oldValue, value);
         return oldValue;
@@ -1097,7 +1096,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     /**
      * Set the change flag of this.
      *
-     * @param dirty <code>true</code> if this should be marked as changed
+     * @param dirty {@code true} if this should be marked as changed
      */
     public void setDirty(boolean dirty) {
         this.dirty = dirty;
@@ -1223,14 +1222,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
             nextKey = new COSObjectKey(size - 1, 0);
             ensureLength(size);
             initEncryption();
-        } catch (IOException e) {
-            try {
-                close();
-            } catch (IOException ce) {
-                // ignore
-            }
-            throw e;
-        } catch (COSLoadException e) {
+        } catch (IOException | COSLoadException e) {
             try {
                 close();
             } catch (IOException ce) {
@@ -1238,7 +1230,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
             }
             throw e;
         }
-    }
+	}
 
     protected void triggerChanged(Object attribute, Object oldValue, Object newValue) {
         Event event = new AttributeChangedEvent(this, attribute, oldValue, newValue);

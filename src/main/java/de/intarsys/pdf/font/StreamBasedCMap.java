@@ -55,7 +55,7 @@ import java.util.Map;
  * number and a character selector. The data must follow the syntax defined in
  * Adobe Technical Note #5014, Adobe CMap and CIDFont Files Specification.
  */
-abstract public class StreamBasedCMap extends CMap {
+public abstract class StreamBasedCMap extends CMap {
     /**
      * The meta class implementation
      */

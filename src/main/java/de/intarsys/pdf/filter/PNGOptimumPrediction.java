@@ -54,6 +54,7 @@ public class PNGOptimumPrediction extends PNGPrediction {
         paeth = new PNGPaethPrediction(options);
     }
 
+    @Override
     public void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) throws IOException {
         PNGPrediction prediction;
         switch (source[sourceOffset] + 10) {

@@ -7,6 +7,9 @@ import java.util.List;
 
 public class STTools {
 
+    private STTools() {
+    }
+
     public static class EntryCollector implements IXRefEntryVisitor {
 
         private List<STXRefEntry> entries = new ArrayList<STXRefEntry>();
@@ -15,12 +18,15 @@ public class STTools {
             return entries;
         }
 
+        @Override
         public void visitFromCompressed(STXRefEntryCompressed entry) throws XRefEntryVisitorException {
         }
 
+        @Override
         public void visitFromFree(STXRefEntryFree entry) throws XRefEntryVisitorException {
         }
 
+        @Override
         public void visitFromOccupied(STXRefEntryOccupied entry) throws XRefEntryVisitorException {
             if (entry.getObjectNumber() == 0) {
                 return;

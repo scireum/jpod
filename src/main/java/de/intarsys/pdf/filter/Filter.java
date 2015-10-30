@@ -40,7 +40,7 @@ import java.io.IOException;
 /**
  * The abstract superclass for the implementation of IFilter.
  */
-public abstract class Filter extends Object implements IFilter {
+public abstract class Filter implements IFilter {
     public static final COSName CN_Filter_A85 = COSName.constant("A85"); //$NON-NLS-1$
 
     public static final COSName CN_Filter_AHx = COSName.constant("AHx"); //$NON-NLS-1$
@@ -99,18 +99,19 @@ public abstract class Filter extends Object implements IFilter {
     /**
      *
      */
-    public Filter(COSDictionary paramOptions) {
+    protected Filter(COSDictionary paramOptions) {
         super();
         options = paramOptions;
     }
 
-    abstract protected byte[] decode(byte[] source) throws IOException;
+    protected abstract byte[] decode(byte[] source) throws IOException;
 
     /*
      * (non-Javadoc)
      *
      * @see de.intarsys.pdf.filter.IFilter#decode(byte[], int, int)
      */
+    @Override
     public byte[] decode(byte[] source, int offset, int length) throws IOException {
         if ((offset != 0) || (length != source.length)) {
             int minLength = Math.min(length, source.length);
@@ -121,13 +122,14 @@ public abstract class Filter extends Object implements IFilter {
         return decode(source);
     }
 
-    abstract protected byte[] encode(byte[] source) throws IOException;
+    protected abstract byte[] encode(byte[] source) throws IOException;
 
     /*
      * (non-Javadoc)
      *
      * @see de.intarsys.pdf.filter.IFilter#encode(byte[], int, int)
      */
+    @Override
     public byte[] encode(byte[] source, int offset, int length) throws IOException {
         if ((offset != 0) || (length != source.length)) {
             byte[] temp = new byte[length];
@@ -138,11 +140,11 @@ public abstract class Filter extends Object implements IFilter {
     }
 
     /**
-     * The decode option declared for the key <code>name</code> or
+     * The decode option declared for the key {@code name} or
      * {@link COSNull}.
      *
      * @param name
-     * @return The decode option declared for the key <code>name</code> or
+     * @return The decode option declared for the key {@code name} or
      * {@link COSNull}.
      */
     public COSObject getOption(COSName name) {
@@ -156,10 +158,12 @@ public abstract class Filter extends Object implements IFilter {
         return options;
     }
 
+    @Override
     public COSStream getStream() {
         return stream;
     }
 
+    @Override
     public void setStream(COSStream stream) {
         this.stream = stream;
     }

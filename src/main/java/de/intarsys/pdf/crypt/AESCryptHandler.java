@@ -47,7 +47,7 @@ public class AESCryptHandler extends StandardCryptHandler {
     private int blockSize;
 
     @Override
-    synchronized protected byte[] basicDecrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
+    protected synchronized byte[] basicDecrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
             throws COSSecurityException {
         try {
             updateHash(encryptionKey, objectNum, genNum);
@@ -62,7 +62,7 @@ public class AESCryptHandler extends StandardCryptHandler {
     }
 
     @Override
-    synchronized protected byte[] basicEncrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
+    protected synchronized byte[] basicEncrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
             throws COSSecurityException {
         try {
             updateHash(encryptionKey, objectNum, genNum);
@@ -91,9 +91,7 @@ public class AESCryptHandler extends StandardCryptHandler {
             md = MessageDigest.getInstance(DIGEST_ALGORITHM);
             cipher = Cipher.getInstance(CIPHER_ALGORITHM);
             blockSize = cipher.getBlockSize();
-        } catch (NoSuchAlgorithmException e) {
-            throw new COSSecurityException(e);
-        } catch (NoSuchPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             throw new COSSecurityException(e);
         }
     }

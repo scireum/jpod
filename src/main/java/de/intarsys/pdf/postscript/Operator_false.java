@@ -40,7 +40,8 @@ public class Operator_false implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) {
-        handler.push(new Boolean(false));
+        handler.push(Boolean.FALSE);
     }
 }

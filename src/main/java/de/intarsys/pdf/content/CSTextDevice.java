@@ -32,7 +32,7 @@ package de.intarsys.pdf.content;
 /**
  * A common superclass for "text only" devices.
  */
-abstract public class CSTextDevice extends CSBasicDevice {
+public abstract class CSTextDevice extends CSBasicDevice {
 
     @Override
     public void pathClipEvenOdd() {

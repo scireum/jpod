@@ -44,7 +44,7 @@ public class PDFileSpecificationURL extends PDFileSpecification {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFileSpecification.MetaClass {
+    public static class MetaClass extends PDFileSpecification.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -58,9 +58,9 @@ public class PDFileSpecificationURL extends PDFileSpecification {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public PDFileSpecificationURL createNew(URL url) {
+    public static PDFileSpecificationURL createNew(URL url) {
         PDFileSpecificationURL result = (PDFileSpecificationURL) META.createNew();
         result.setURL(url);
         return result;

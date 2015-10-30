@@ -50,25 +50,25 @@ package de.intarsys.pdf.pd;
  * </ul>
  */
 public class AnnotationFlags extends AbstractBitFlags {
-    final static public int Bit_Invisible = 1; // Bit position 1
+    public static final int Bit_Invisible = 1; // Bit position 1
 
-    final static public int Bit_Hidden = 1 << 1; // Bit position 2
+    public static final int Bit_Hidden = 1 << 1; // Bit position 2
 
-    final static public int Bit_Print = 1 << 2; // Bit position 3
+    public static final int Bit_Print = 1 << 2; // Bit position 3
 
-    final static public int Bit_NoZoom = 1 << 3;
+    public static final int Bit_NoZoom = 1 << 3;
 
-    final static public int Bit_NoRotate = 1 << 4;
+    public static final int Bit_NoRotate = 1 << 4;
 
-    final static public int Bit_NoView = 1 << 5;
+    public static final int Bit_NoView = 1 << 5;
 
-    final static public int Bit_ReadOnly = 1 << 6;
+    public static final int Bit_ReadOnly = 1 << 6;
 
-    final static public int Bit_Locked = 1 << 7;
+    public static final int Bit_Locked = 1 << 7;
 
-    final static public int Bit_ToggleNoView = 1 << 8;
+    public static final int Bit_ToggleNoView = 1 << 8;
 
-    final static public int Bit_LockedContents = 1 << 9;
+    public static final int Bit_LockedContents = 1 << 9;
 
     private PDAnnotation annotation;
 

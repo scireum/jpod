@@ -33,7 +33,7 @@ package de.intarsys.pdf.cos;
  * This class represents integer numbers in pdf
  */
 public class COSInteger extends COSNumber {
-    static public COSInteger create(byte[] bytes, int start, int length) {
+    public static COSInteger create(byte[] bytes, int start, int length) {
         int result = 0;
         int end = start + length;
         boolean negative = false;
@@ -53,11 +53,11 @@ public class COSInteger extends COSNumber {
         return new COSInteger(result);
     }
 
-    static public COSInteger create(int value) {
+    public static COSInteger create(int value) {
         return new COSInteger(value);
     }
 
-    static public COSInteger createStrict(byte[] bytes, int start, int length) {
+    public static COSInteger createStrict(byte[] bytes, int start, int length) {
         long resultLong = 0;
         int end = start + length;
         boolean negative = false;

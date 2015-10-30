@@ -51,7 +51,7 @@ public class PDPageTree extends PDPageNode {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDPageNode.MetaClass {
+    public static class MetaClass extends PDPageNode.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -65,13 +65,13 @@ public class PDPageTree extends PDPageNode {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public final COSName DK_Kids = COSName.constant("Kids");
+    public static final COSName DK_Kids = COSName.constant("Kids");
 
-    static public final COSName DK_Count = COSName.constant("Count");
+    public static final COSName DK_Count = COSName.constant("Count");
 
-    final static private int MAX_KIDS = 1000;
+    private static final int MAX_KIDS = 1000;
 
     /**
      * the immediate children of this node
@@ -327,11 +327,11 @@ public class PDPageTree extends PDPageNode {
     }
 
     /**
-     * The 0 based index of <code>node</code> within <code>this</code> and all
+     * The 0 based index of {@code node} within {@code this} and all
      * its ancestors, 0 if not found.
      *
      * @param node node whose position is determined.
-     * @return The 0 based index of <code>node</code> within <code>this</code>
+     * @return The 0 based index of {@code node} within {@code this}
      * and all its ancestors, 0 if not found.
      */
     protected int getNodeIndex(PDPageNode node) {

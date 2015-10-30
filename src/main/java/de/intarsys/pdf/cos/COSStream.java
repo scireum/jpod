@@ -75,7 +75,7 @@ public class COSStream extends COSCompositeObject {
      *
      * @return The options or an array of options for filtering.
      */
-    static public COSObject getDecodeParams(COSDictionary dict) {
+    public static COSObject getDecodeParams(COSDictionary dict) {
         if (isExternal(dict)) {
             return dict.get(DK_FDecodeParms);
         }
@@ -88,12 +88,12 @@ public class COSStream extends COSCompositeObject {
 
     /**
      * The options corresponding to the first occurence of the filter
-     * <code>name</code>.
+     * {@code name}.
      *
      * @return The options corresponding to the first occurence of the filter
-     * <code>name</code>.
+     * {@code name}.
      */
-    static public COSDictionary getDecodeParams(COSDictionary dict, COSName name) {
+    public static COSDictionary getDecodeParams(COSDictionary dict, COSName name) {
         COSObject basicFilters = getFilters(dict);
         if (basicFilters instanceof COSName) {
             COSName filter = basicFilters.asName();
@@ -123,7 +123,7 @@ public class COSStream extends COSCompositeObject {
      *
      * @return The filter or the collection of filters for the stream.
      */
-    static public COSObject getFilters(COSDictionary dict) {
+    public static COSObject getFilters(COSDictionary dict) {
         if (isExternal(dict)) {
             return dict.get(DK_FFilter);
         }
@@ -135,15 +135,15 @@ public class COSStream extends COSCompositeObject {
     }
 
     /**
-     * <code>true</code> if the given stream dictionary has declared a filter
-     * <code>name</code>.
+     * {@code true} if the given stream dictionary has declared a filter
+     * {@code name}.
      *
      * @param dict a stream dictionary
      * @param name a filter name
-     * @return <code>true</code> if the given stream dictionary has declared a
-     * filter <code>name</code>.
+     * @return {@code true} if the given stream dictionary has declared a
+     * filter {@code name}.
      */
-    static public boolean hasFilter(COSDictionary dict, COSName name) {
+    public static boolean hasFilter(COSDictionary dict, COSName name) {
         COSObject filters = getFilters(dict);
         if (filters.isNull()) {
             return false;
@@ -152,7 +152,7 @@ public class COSStream extends COSCompositeObject {
             return filters.equals(name);
         }
         if (filters instanceof COSArray) {
-            for (Iterator i = ((COSArray) filters).iterator(); i.hasNext(); ) {
+            for (Iterator i = filters.iterator(); i.hasNext(); ) {
                 COSName filterName = ((COSObject) i.next()).asName();
                 if (filterName != null && filterName.equals(name)) {
                     return true;
@@ -163,19 +163,16 @@ public class COSStream extends COSCompositeObject {
     }
 
     /**
-     * <code>true</code> if the stream dictionary contains the F key.
+     * {@code true} if the stream dictionary contains the F key.
      *
-     * @return <code>true</code> if the stream dictionary contains the F key.
+     * @return {@code true} if the stream dictionary contains the F key.
      */
-    static public boolean isExternal(COSDictionary dict) {
+    public static boolean isExternal(COSDictionary dict) {
         // check for F key
         // if it is a Array or Name, it is used as an abbreviation for Filter
         COSObject result = dict.get(DK_F);
         if (!result.isNull()) {
-            if (result instanceof COSName || result instanceof COSArray) {
-                return false;
-            }
-            return true;
+            return !(result instanceof COSName || result instanceof COSArray);
         }
         return false;
     }
@@ -760,10 +757,10 @@ public class COSStream extends COSCompositeObject {
 
     /**
      * The options corresponding to the first occurrence of the filter
-     * <code>name</code>.
+     * {@code name}.
      *
      * @return The options corresponding to the first occurrence of the filter
-     * <code>name</code>.
+     * {@code name}.
      */
     public COSDictionary getDecodeParams(COSName name) {
         return getDecodeParams(getDict(), name);
@@ -887,11 +884,11 @@ public class COSStream extends COSCompositeObject {
     }
 
     /**
-     * <code>true</code> if this stream has declared a filter <code>name</code>.
+     * {@code true} if this stream has declared a filter {@code name}.
      *
      * @param name a filter name
-     * @return <code>true</code> if the stream has declared a filter
-     * <code>name</code>.
+     * @return {@code true} if the stream has declared a filter
+     * {@code name}.
      */
     public boolean hasFilter(COSName name) {
         return hasFilter(getDict(), name);
@@ -907,16 +904,13 @@ public class COSStream extends COSCompositeObject {
         if ((toTest == null) || (toTest.length == 0)) {
             return true;
         }
-        if ((toTest.length == 2) && (toTest[0] == 13) && (toTest[1] == 10)) {
-            return true;
-        }
-        return false;
+        return (toTest.length == 2) && (toTest[0] == 13) && (toTest[1] == 10);
     }
 
     /**
-     * <code>true</code> if the stream dictionary contains the F key.
+     * {@code true} if the stream dictionary contains the F key.
      *
-     * @return <code>true</code> if the stream dictionary contains the F key.
+     * @return {@code true} if the stream dictionary contains the F key.
      */
     public boolean isExternal() {
         return isExternal(getDict());
@@ -940,7 +934,7 @@ public class COSStream extends COSCompositeObject {
         COSObject fileSpec = dict.get(DK_F);
         String filepath = ""; //$NON-NLS-1$
         if (fileSpec instanceof COSString) {
-            filepath = ((COSString) fileSpec).stringValue();
+            filepath = fileSpec.stringValue();
         } else {
             // todo 2 implement PDF fileSpecification logic
             return;
@@ -952,7 +946,7 @@ public class COSStream extends COSCompositeObject {
         byte[] content;
         try {
             content = FileTools.toBytes(externalFile);
-        } catch (IOException e) {
+        } catch (IOException ignored) {
             return;
         }
         if (content != null) {
@@ -1004,6 +998,7 @@ public class COSStream extends COSCompositeObject {
      *
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
+    @Override
     public Object saveState() {
         COSStream result = new COSStream();
         // aggregated dictionary takes care of itself

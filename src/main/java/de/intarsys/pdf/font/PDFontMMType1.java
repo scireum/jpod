@@ -39,11 +39,12 @@ public class PDFontMMType1 extends PDFontType1 {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFontType1.MetaClass {
+    public static class MetaClass extends PDFontType1.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDFontMMType1(object);
         }
@@ -52,7 +53,7 @@ public class PDFontMMType1 extends PDFontType1 {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected PDFontMMType1(COSObject object) {
         super(object);

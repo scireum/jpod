@@ -13,6 +13,9 @@ import java.util.List;
 
 public class AccessPermissionsTools {
 
+    private AccessPermissionsTools() {
+    }
+
     public static IAccessPermissions createPermissions(PDDocument doc) {
         IAccessPermissions delegate = doc.cosGetDoc().getAccessPermissions();
         COSDictionary perms = doc.cosGetPermissionsDict();

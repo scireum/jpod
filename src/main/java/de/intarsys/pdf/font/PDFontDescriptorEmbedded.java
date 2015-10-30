@@ -50,7 +50,7 @@ public class PDFontDescriptorEmbedded extends PDFontDescriptor {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFontDescriptor.MetaClass {
+	public static class MetaClass extends PDFontDescriptor.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -61,72 +61,72 @@ public class PDFontDescriptorEmbedded extends PDFontDescriptor {
         }
     }
 
-    static public final COSName CN_SubType_Type1C = COSName.constant("Type1C"); //$NON-NLS-1$
+    public static final COSName CN_SubType_Type1C = COSName.constant("Type1C"); //$NON-NLS-1$
 
-    static public final COSName CN_SubType_CIDFontType0C = COSName.constant("CIDFontType0C"); //$NON-NLS-1$
+    public static final COSName CN_SubType_CIDFontType0C = COSName.constant("CIDFontType0C"); //$NON-NLS-1$
 
-    static public final COSName CN_SubType_OpenType = COSName.constant("OpenType"); //$NON-NLS-1$
+    public static final COSName CN_SubType_OpenType = COSName.constant("OpenType"); //$NON-NLS-1$
 
-    static public final COSName DK_Ascent = COSName.constant("Ascent");
+    public static final COSName DK_Ascent = COSName.constant("Ascent");
 
-    static public final COSName DK_AvgWidth = COSName.constant("AvgWidth");
+    public static final COSName DK_AvgWidth = COSName.constant("AvgWidth");
 
-    static public final COSName DK_CapHeight = COSName.constant("CapHeight");
+    public static final COSName DK_CapHeight = COSName.constant("CapHeight");
 
-    static public final COSName DK_CharSet = COSName.constant("CharSet");
+    public static final COSName DK_CharSet = COSName.constant("CharSet");
 
-    static public final COSName DK_CIDSet = COSName.constant("CIDSet");
+    public static final COSName DK_CIDSet = COSName.constant("CIDSet");
 
-    static public final COSName DK_Descent = COSName.constant("Descent");
+    public static final COSName DK_Descent = COSName.constant("Descent");
 
-    static public final COSName DK_FD = COSName.constant("FD");
+    public static final COSName DK_FD = COSName.constant("FD");
 
-    static public final COSName DK_Flags = COSName.constant("Flags");
+    public static final COSName DK_Flags = COSName.constant("Flags");
 
-    static public final COSName DK_FontBBox = COSName.constant("FontBBox");
+    public static final COSName DK_FontBBox = COSName.constant("FontBBox");
 
-    static public final COSName DK_FontFamily = COSName.constant("FontFamily");
+    public static final COSName DK_FontFamily = COSName.constant("FontFamily");
 
-    static public final COSName DK_FontFile = COSName.constant("FontFile");
+    public static final COSName DK_FontFile = COSName.constant("FontFile");
 
-    static public final COSName DK_FontFile2 = COSName.constant("FontFile2");
+    public static final COSName DK_FontFile2 = COSName.constant("FontFile2");
 
-    static public final COSName DK_FontFile3 = COSName.constant("FontFile3");
+    public static final COSName DK_FontFile3 = COSName.constant("FontFile3");
 
-    static public final COSName DK_FontName = COSName.constant("FontName");
+    public static final COSName DK_FontName = COSName.constant("FontName");
 
-    static public final COSName DK_FontStretch = COSName.constant("FontStretch");
+    public static final COSName DK_FontStretch = COSName.constant("FontStretch");
 
-    static public final COSName DK_FontWeight = COSName.constant("FontWeight");
+    public static final COSName DK_FontWeight = COSName.constant("FontWeight");
 
-    static public final COSName DK_ItalicAngle = COSName.constant("ItalicAngle");
+    public static final COSName DK_ItalicAngle = COSName.constant("ItalicAngle");
 
-    static public final COSName DK_Lang = COSName.constant("Lang");
+    public static final COSName DK_Lang = COSName.constant("Lang");
 
-    static public final COSName DK_Leading = COSName.constant("Leading");
+    public static final COSName DK_Leading = COSName.constant("Leading");
 
-    static public final COSName DK_Length1 = COSName.constant("Length1");
+    public static final COSName DK_Length1 = COSName.constant("Length1");
 
-    static public final COSName DK_Length2 = COSName.constant("Length2");
+    public static final COSName DK_Length2 = COSName.constant("Length2");
 
-    static public final COSName DK_Length3 = COSName.constant("Length3");
+    public static final COSName DK_Length3 = COSName.constant("Length3");
 
-    static public final COSName DK_MaxWidth = COSName.constant("MaxWidth");
+    public static final COSName DK_MaxWidth = COSName.constant("MaxWidth");
 
-    static public final COSName DK_MissingWidth = COSName.constant("MissingWidth");
+    public static final COSName DK_MissingWidth = COSName.constant("MissingWidth");
 
-    static public final COSName DK_StemH = COSName.constant("StemH");
+    public static final COSName DK_StemH = COSName.constant("StemH");
 
-    static public final COSName DK_StemV = COSName.constant("StemV");
+    public static final COSName DK_StemV = COSName.constant("StemV");
 
-    static public final COSName DK_Style = COSName.constant("Style");
+    public static final COSName DK_Style = COSName.constant("Style");
 
-    static public final COSName DK_XHeight = COSName.constant("XHeight");
+    public static final COSName DK_XHeight = COSName.constant("XHeight");
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+	public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * Create the receiver class from an already defined {@link COSDictionary}.

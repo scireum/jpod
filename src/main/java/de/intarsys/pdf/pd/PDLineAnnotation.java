@@ -13,7 +13,7 @@ public class PDLineAnnotation extends PDMarkupAnnotation {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDMarkupAnnotation.MetaClass {
+    public static class MetaClass extends PDMarkupAnnotation.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -27,7 +27,7 @@ public class PDLineAnnotation extends PDMarkupAnnotation {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public PDLineAnnotation(COSObject object) {
         super(object);
@@ -40,14 +40,12 @@ public class PDLineAnnotation extends PDMarkupAnnotation {
 
     @Override
     public float getMinHeight() {
-        float width = getBorderStyleWidth();
-        return width;
+        return getBorderStyleWidth();
     }
 
     @Override
     public float getMinWidth() {
-        float width = getBorderStyleWidth();
-        return width;
+        return getBorderStyleWidth();
     }
 
     @Override

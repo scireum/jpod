@@ -42,7 +42,7 @@ public class PDStitchingFunction extends PDFunction {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFunction.MetaClass {
+    public static class MetaClass extends PDFunction.MetaClass {
         protected MetaClass(Class paramInstanceClass) {
             super(paramInstanceClass);
         }
@@ -60,7 +60,7 @@ public class PDStitchingFunction extends PDFunction {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     private static final COSName DK_Functions = COSName.constant("Functions"); //$NON-NLS-1$
 

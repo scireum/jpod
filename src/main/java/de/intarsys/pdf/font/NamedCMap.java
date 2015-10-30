@@ -55,7 +55,7 @@ public class NamedCMap extends StreamBasedCMap {
      */
     public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public CMap loadCMap(COSName name) {
+    public static CMap loadCMap(COSName name) {
         ClassLoader loader = NamedCMap.class.getClassLoader();
         InputStream is = loader.getResourceAsStream("cmaps/" + name.stringValue() + ".cmap");
         if (is == null) {
@@ -67,7 +67,7 @@ public class NamedCMap extends StreamBasedCMap {
             CSContent content = CSContent.createFromBytes(bytes);
             map.initializeFromContent(content);
             return map;
-        } catch (IOException e) {
+        } catch (IOException ignored) {
             return null;
         }
     }

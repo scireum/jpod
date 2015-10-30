@@ -562,19 +562,19 @@ public abstract class Encoding {
 
     /**
      * Get an object that can be used as a representation of the receiver
-     * encoding within <code>doc</code>.
+     * encoding within {@code doc}.
      *
      * @return Get an object that can be used as a representation of the
-     * receiver encoding within <code>doc</code>.
+     * receiver encoding within {@code doc}.
      */
     public abstract COSObject cosGetObject();
 
     /**
-     * Create a reader on the InputStream <code>is</code> that uses the encoding
+     * Create a reader on the InputStream {@code is} that uses the encoding
      * defined in the receiver.
      *
      * @param is The input stream to read.
-     * @return Create a reader on the InputStream <code>is</code> that uses the
+     * @return Create a reader on the InputStream {@code is} that uses the
      * encoding defined in the receiver.
      */
     public Reader createReader(InputStream is) {
@@ -582,11 +582,11 @@ public abstract class Encoding {
     }
 
     /**
-     * Create a writer on the OutputStream <code>os</code> that uses the
+     * Create a writer on the OutputStream {@code os} that uses the
      * encoding defined in the receiver.
      *
      * @param os The output stream to be written.
-     * @return Create a writer on the OutputStream <code>os</code> that uses the
+     * @return Create a writer on the OutputStream {@code os} that uses the
      * encoding defined in the receiver.
      */
     public Writer createWriter(OutputStream os) {
@@ -707,7 +707,7 @@ public abstract class Encoding {
      *
      * @param codepoint The encoded codepoint.
      * @return The glyph name of the character referenced by
-     * <code>codepoint</code> or ".notdef".
+     * {@code codepoint} or ".notdef".
      */
     public abstract String getGlyphName(int codepoint);
 
@@ -779,11 +779,11 @@ public abstract class Encoding {
     }
 
     /**
-     * <code>true</code> if <code>chars</code> contains only characters that can
+     * {@code true} if {@code chars} contains only characters that can
      * be encoded using this encoding.
      *
      * @param chars The array of characters
-     * @return <code>true</code> if <code>chars</code> contains only characters
+     * @return {@code true} if {@code chars} contains only characters
      * that can be encoded using this encoding.
      */
     public boolean isEncodable(char[] chars) {
@@ -791,11 +791,11 @@ public abstract class Encoding {
     }
 
     /**
-     * <code>true</code> if <code>chars</code> contains only characters that can
+     * {@code true} if {@code chars} contains only characters that can
      * be encoded using this encoding.
      *
      * @param chars The array of characters
-     * @return <code>true</code> if <code>chars</code> contains only characters
+     * @return {@code true} if {@code chars} contains only characters
      * that can be encoded using this encoding.
      */
     public boolean isEncodable(char[] chars, int offset, int count) {
@@ -808,11 +808,11 @@ public abstract class Encoding {
     }
 
     /**
-     * <code>true</code> if <code>value</code> contains only characters that can
+     * {@code true} if {@code value} contains only characters that can
      * be encoded using this encoding.
      *
      * @param value The string value to be checked
-     * @return <code>true</code> if <code>value</code> contains only characters
+     * @return {@code true} if {@code value} contains only characters
      * that can be encoded using this encoding.
      */
     public boolean isEncodable(String value) {

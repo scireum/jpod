@@ -41,19 +41,21 @@ import de.intarsys.pdf.cos.COSStream;
 /**
  * Abstract superclass for PDF function objects.
  */
-abstract public class PDFunction extends PDObject {
+public abstract class PDFunction extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         public Class getRootClass() {
             return PDFunction.class;
         }
 
+        @Override
         protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
             COSDictionary dict = null;
             if (object instanceof COSStream) {
@@ -87,22 +89,22 @@ abstract public class PDFunction extends PDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * Common names
      */
-    static public final COSName DK_FunctionType = COSName.constant("FunctionType");
+    public static final COSName DK_FunctionType = COSName.constant("FunctionType");
 
-    static public final COSName DK_Domain = COSName.constant("Domain");
+    public static final COSName DK_Domain = COSName.constant("Domain");
 
-    static public final COSName DK_Range = COSName.constant("Range");
+    public static final COSName DK_Range = COSName.constant("Range");
 
     protected PDFunction(COSObject object) {
         super(object);
     }
 
-    abstract public float[] evaluate(float[] values);
+    public abstract float[] evaluate(float[] values);
 
     public float getDomainMax(int dimension) {
         return ((COSNumber) cosGetDomain().get((dimension * 2) + 1)).floatValue();
@@ -116,7 +118,7 @@ abstract public class PDFunction extends PDObject {
         return cosGetDomain().size() / 2;
     }
 
-    abstract public int getOutputSize();
+    public abstract int getOutputSize();
 
     public COSArray cosGetDomain() {
         return cosGetDict().get(DK_Domain).asArray();

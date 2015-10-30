@@ -36,6 +36,9 @@ import de.intarsys.pdf.content.ICSDevice;
  */
 public class CSDeviceTools {
 
+    private CSDeviceTools() {
+    }
+
     public static void setNonStrokeColor(ICSDevice device, float[] color) {
         if (color != null) {
             switch (color.length) {

@@ -35,7 +35,7 @@ package de.intarsys.pdf.cos;
 public class COSNull extends COSPrimitiveObject {
     public static final COSNull NULL = (COSNull) COSNull.create().beConstant();
 
-    static public COSNull create() {
+    public static COSNull create() {
         return new COSNull();
     }
 
@@ -109,6 +109,7 @@ public class COSNull extends COSPrimitiveObject {
      *
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
+    @Override
     public Object saveState() {
         COSObject result = new COSNull();
         result.container = this.container.saveStateContainer();

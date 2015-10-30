@@ -32,7 +32,6 @@ package de.intarsys.pdf.font;
 import de.intarsys.pdf.cds.CDSRectangle;
 import de.intarsys.pdf.content.CSContent;
 import de.intarsys.pdf.content.CSError;
-import de.intarsys.pdf.content.CSException;
 import de.intarsys.pdf.content.CSInterpreter;
 import de.intarsys.pdf.content.CSOperation;
 import de.intarsys.pdf.content.CSWarning;
@@ -84,7 +83,10 @@ public class PDFontTools {
 
     private static final Attribute ATTR_TYPE0FONT = new Attribute("type0font");
 
-    static protected void collectFonts(Set fonts, CSContent content, PDResources resources, final boolean considerTR) {
+    private PDFontTools() {
+    }
+
+    protected static void collectFonts(Set fonts, CSContent content, PDResources resources, final boolean considerTR) {
         final Set fontNames = new HashSet();
         CSInterpreter collector = new CSInterpreter(new HashMap()) {
 
@@ -93,7 +95,7 @@ public class PDFontTools {
             private int renderingMode = 0;
 
             @Override
-            protected void handleError(CSError error) throws CSException {
+            protected void handleError(CSError error) {
                 //
             }
 
@@ -104,44 +106,44 @@ public class PDFontTools {
             }
 
             @Override
-            protected void handleWarning(CSWarning warning) throws CSException {
+            protected void handleWarning(CSWarning warning) {
                 //
             }
 
             @Override
-            protected void notSupported(CSOperation operation) throws CSException {
+            protected void notSupported(CSOperation operation) {
                 //
             }
 
             @Override
-            protected void render_DoubleQuote(CSOperation operation) throws CSException {
+            protected void render_DoubleQuote(CSOperation operation) {
                 handleText();
             }
 
             @Override
-            protected void render_Quote(CSOperation operation) throws CSException {
+            protected void render_Quote(CSOperation operation) {
                 handleText();
             }
 
             @Override
-            protected void render_Tf(CSOperation operation) throws CSException {
+            protected void render_Tf(CSOperation operation) {
                 if (operation.operandSize() == 2) {
                     fontName = operation.getOperand(0).asName();
                 }
             }
 
             @Override
-            protected void render_Tj(CSOperation operation) throws CSException {
+            protected void render_Tj(CSOperation operation) {
                 handleText();
             }
 
             @Override
-            protected void render_TJ(CSOperation operation) throws CSException {
+            protected void render_TJ(CSOperation operation) {
                 handleText();
             }
 
             @Override
-            protected void render_Tr(CSOperation operation) throws CSException {
+            protected void render_Tr(CSOperation operation) {
                 COSInteger mode = (COSInteger) operation.getOperand(0);
                 renderingMode = mode.intValue();
             }
@@ -184,10 +186,6 @@ public class PDFontTools {
             // .createNew();
             result.setFontDescriptor(font.getFontDescriptor());
             return result;
-        } else if (font instanceof PDFontType1) {
-            //
-        } else {
-            //
         }
         return null;
     }
@@ -211,7 +209,7 @@ public class PDFontTools {
         return result;
     }
 
-    static protected CIDFont getCIDFont(PDFont font) {
+    protected static CIDFont getCIDFont(PDFont font) {
         CIDFont cidFont = (CIDFont) font.getAttribute(ATTR_CIDFONT);
         if (cidFont == null) {
             cidFont = createCIDFont(font);
@@ -221,14 +219,14 @@ public class PDFontTools {
     }
 
     /**
-     * The font <code>name</code>, looked up in <code>resources</code>.
+     * The font {@code name}, looked up in {@code resources}.
      * <p>
      * When no matching resource is found, a builtin font is created on the fly.
      *
      * @param document
      * @param resources
      * @param name
-     * @return The font <code>name</code>, looked up in <code>resources</code>.
+     * @return The font {@code name}, looked up in {@code resources}.
      */
     public static PDFont getFont(PDDocument document, PDResources resources, COSName name) {
         if (resources != null) {
@@ -245,11 +243,11 @@ public class PDFontTools {
     }
 
     /**
-     * The font <code>name</code>, looked up in <code>resources</code>.
+     * The font {@code name}, looked up in {@code resources}.
      *
      * @param resources
      * @param name
-     * @return The font <code>name</code>, looked up in <code>resources</code>.
+     * @return The font {@code name}, looked up in {@code resources}.
      */
     public static PDFont getFont(PDResources resources, COSName name) {
         return getFont(resources.getDoc(), resources, name);
@@ -267,7 +265,7 @@ public class PDFontTools {
             COSDictionary trailer = doc.cosGetDoc().stGetDoc().cosGetTrailer();
             ICOSObjectVisitor visitor = new COSObjectWalkerDeep() {
                 @Override
-                protected void handleException(RuntimeException e) throws COSVisitorException {
+                protected void handleException(RuntimeException e) {
                     // ignore swapping exceptions
                 }
 
@@ -320,16 +318,16 @@ public class PDFontTools {
     }
 
     /**
-     * The sum of the length of all glyphs referenced by <code>length</code>
-     * bytes from <code>codepoints</code> starting at <code>offset</code>.
+     * The sum of the length of all glyphs referenced by {@code length}
+     * bytes from {@code codepoints} starting at {@code offset}.
      *
      * @param font
      * @param codepoints
      * @param offset
      * @param length
      * @return The sum of the length of all glyphs referenced by
-     * <code>length</code> bytes from <code>codepoints</code> starting
-     * at <code>offset</code>.
+     * {@code length} bytes from {@code codepoints} starting
+     * at {@code offset}.
      */
     public static int getGlyphWidthEncoded(PDFont font, byte[] codepoints, int offset, int length) {
         InputStream is = new ByteArrayInputStream(codepoints, offset, length);
@@ -349,8 +347,8 @@ public class PDFontTools {
 
     /**
      * The scaled sum of the length of all glyphs referenced by
-     * <code>length</code> bytes from <code>codepoints</code> starting at
-     * <code>offset</code>.
+     * {@code length} bytes from {@code codepoints} starting at
+     * {@code offset}.
      *
      * @param font
      * @param size
@@ -358,8 +356,8 @@ public class PDFontTools {
      * @param offset
      * @param length
      * @return The scaled sum of the length of all glyphs referenced by
-     * <code>length</code> bytes from <code>codepoints</code> starting
-     * at <code>offset</code>.
+     * {@code length} bytes from {@code codepoints} starting
+     * at {@code offset}.
      */
     public static float getGlyphWidthEncodedScaled(PDFont font, float size, byte[] codepoints, int offset, int length) {
         float width = getGlyphWidthEncoded(font, codepoints, offset, length);
@@ -367,12 +365,12 @@ public class PDFontTools {
     }
 
     /**
-     * "Scale up" <code>font</code> to a multibyte font.
+     * "Scale up" {@code font} to a multibyte font.
      *
      * @param font
      * @return The new font
      */
-    static public PDFont getType0Font(PDFont font) {
+    public static PDFont getType0Font(PDFont font) {
         PDFont result = (PDFont) font.getAttribute(ATTR_TYPE0FONT);
         if (result == null) {
             result = createType0Font(font);

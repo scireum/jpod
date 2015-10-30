@@ -68,7 +68,7 @@ public class MacOSRomanEncoding extends MappedEncoding {
 
     private static final String NAME_summation = null;
 
-    static public MacOSRomanEncoding UNIQUE = new MacOSRomanEncoding();
+    public static MacOSRomanEncoding UNIQUE = new MacOSRomanEncoding();
 
     protected MacOSRomanEncoding() {
         super();

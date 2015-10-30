@@ -41,11 +41,12 @@ public class PDPostScript extends PDXObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDXObject.MetaClass {
+    public static class MetaClass extends PDXObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDPostScript(object);
         }
@@ -54,10 +55,10 @@ public class PDPostScript extends PDXObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     //
-    static public final COSName CN_Subtype_PS = COSName.constant("PS");
+    public static final COSName CN_Subtype_PS = COSName.constant("PS");
 
     /**
      * Create the receiver class from an already defined {@link COSStream}.
@@ -74,10 +75,12 @@ public class PDPostScript extends PDXObject {
      *
      * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
      */
+    @Override
     protected COSName cosGetExpectedSubtype() {
         return CN_Subtype_PS;
     }
 
+    @Override
     public boolean isPostscript() {
         return true;
     }

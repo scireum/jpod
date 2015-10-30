@@ -5,7 +5,6 @@
  */
 package de.intarsys.pdf.content.text;
 
-import de.intarsys.pdf.content.CSException;
 import de.intarsys.pdf.content.CSTextDevice;
 import de.intarsys.pdf.font.PDGlyphs;
 
@@ -16,7 +15,7 @@ import java.awt.geom.Rectangle2D;
 /**
  * Collect the character objects in a content stream.
  */
-abstract public class CSCharacterParser extends CSTextDevice {
+public abstract class CSCharacterParser extends CSTextDevice {
 
     protected double lastStopX;
 
@@ -33,7 +32,7 @@ abstract public class CSCharacterParser extends CSTextDevice {
     }
 
     @Override
-    protected void basicTextShowGlyphs(PDGlyphs glyphs, float advance) throws CSException {
+    protected void basicTextShowGlyphs(PDGlyphs glyphs, float advance) {
         AffineTransform tx;
         tx = (AffineTransform) getDeviceTransform().clone();
         tx.concatenate(textState.globalTransform);
@@ -47,7 +46,7 @@ abstract public class CSCharacterParser extends CSTextDevice {
         if (descent > 0) {
             descent = -descent;
         }
-        double[] pts = new double[]{0, descent, advance, ascent};
+        double[] pts = {0, descent, advance, ascent};
         tx.deltaTransform(pts, 0, pts, 0, 2);
         //
         float x = (float) lastStartX;

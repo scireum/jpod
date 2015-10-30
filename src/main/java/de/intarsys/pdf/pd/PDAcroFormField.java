@@ -46,11 +46,11 @@ import java.util.Set;
 /**
  * Abstract superclass for the different field types in an AcroForm.
  */
-abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditionalActionSupport {
+public abstract class PDAcroFormField extends PDAcroFormNode implements IAdditionalActionSupport {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAcroFormNode.MetaClass {
+    public static class MetaClass extends PDAcroFormNode.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -89,52 +89,52 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
     /**
      * The name for field types entry.
      */
-    static public final COSName DK_FT = COSName.constant("FT"); //$NON-NLS-1$
+    public static final COSName DK_FT = COSName.constant("FT"); //$NON-NLS-1$
 
     /**
      * Field type Button
      */
-    static public final COSName CN_FT_Btn = COSName.constant("Btn"); //$NON-NLS-1$
+    public static final COSName CN_FT_Btn = COSName.constant("Btn"); //$NON-NLS-1$
 
     /**
      * Field type Text
      */
-    static public final COSName CN_FT_Tx = COSName.constant("Tx"); //$NON-NLS-1$
+    public static final COSName CN_FT_Tx = COSName.constant("Tx"); //$NON-NLS-1$
 
     /**
      * Field type Choice
      */
-    static public final COSName CN_FT_Ch = COSName.constant("Ch"); //$NON-NLS-1$
+    public static final COSName CN_FT_Ch = COSName.constant("Ch"); //$NON-NLS-1$
 
     /**
      * Field type Signature
      */
-    static public final COSName CN_FT_Sig = COSName.constant("Sig"); //$NON-NLS-1$
+    public static final COSName CN_FT_Sig = COSName.constant("Sig"); //$NON-NLS-1$
 
     /**
      * The name for the parent entry.
      */
-    static public final COSName DK_Parent = COSName.constant("Parent"); //$NON-NLS-1$
+    public static final COSName DK_Parent = COSName.constant("Parent"); //$NON-NLS-1$
 
     /**
      * The name for the childrens entry.
      */
-    static public final COSName DK_Kids = COSName.constant("Kids"); //$NON-NLS-1$
+    public static final COSName DK_Kids = COSName.constant("Kids"); //$NON-NLS-1$
 
     /**
      * The name for the partial field name entry, also called the local name.
      */
-    static public final COSName DK_T = COSName.constant("T"); //$NON-NLS-1$
+    public static final COSName DK_T = COSName.constant("T"); //$NON-NLS-1$
 
     /**
      * The name for the AlternateFieldName entry.
      */
-    static public final COSName DK_TU = COSName.constant("TU"); //$NON-NLS-1$
+    public static final COSName DK_TU = COSName.constant("TU"); //$NON-NLS-1$
 
     /**
      * The name for the mapping entry.
      */
-    static public final COSName DK_TM = COSName.constant("TM"); //$NON-NLS-1$
+    public static final COSName DK_TM = COSName.constant("TM"); //$NON-NLS-1$
 
     /**
      * The name of the FieldFlags entry.
@@ -144,57 +144,57 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
      *
      * @see de.intarsys.pdf.pd.AcroFormFieldFlags
      */
-    static public final COSName DK_Ff = COSName.constant("Ff"); //$NON-NLS-1$
+    public static final COSName DK_Ff = COSName.constant("Ff"); //$NON-NLS-1$
 
     /**
      * The name for the fields value entry.
      */
-    static public final COSName DK_V = COSName.constant("V"); //$NON-NLS-1$
+    public static final COSName DK_V = COSName.constant("V"); //$NON-NLS-1$
 
     /**
      * The key for the DefaultValue entry.
      */
-    static public final COSName DK_DV = COSName.constant("DV"); //$NON-NLS-1$
+    public static final COSName DK_DV = COSName.constant("DV"); //$NON-NLS-1$
 
     /**
      * alignment constant: 0: Left-justified
      */
-    final static public int ALIGNMENT_LEFT = 0;
+    public static final int ALIGNMENT_LEFT = 0;
 
     /**
      * alignment constant: 1: Centered
      */
-    final static public int ALIGNMENT_CENTER = 1;
+    public static final int ALIGNMENT_CENTER = 1;
 
     /**
      * alignment constant: 2: Right-justified
      */
-    final static public int ALIGNMENT_RIGHT = 2;
+    public static final int ALIGNMENT_RIGHT = 2;
 
     /**
      * The name for the DefaultStyle entry.
      */
-    static public final COSName DK_DS = COSName.constant("DS"); //$NON-NLS-1$
+    public static final COSName DK_DS = COSName.constant("DS"); //$NON-NLS-1$
 
     /**
      * The name for RichTextString value entry.
      */
-    static public final COSName DK_RV = COSName.constant("RV"); //$NON-NLS-1$
+    public static final COSName DK_RV = COSName.constant("RV"); //$NON-NLS-1$
 
     /**
      * supported additional action triggers
      */
-    static public final Set ACROFORMFIELD_ACTION_TRIGGERS;
+    public static final Set ACROFORMFIELD_ACTION_TRIGGERS;
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * The name for the MaximumLength entry.
      */
-    static public final COSName DK_MaxLen = COSName.constant("MaxLen"); // //$NON-NLS-1$
+    public static final COSName DK_MaxLen = COSName.constant("MaxLen"); // //$NON-NLS-1$
 
     static {
         ACROFORMFIELD_ACTION_TRIGGERS = new HashSet(5);
@@ -345,7 +345,7 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
      *
      * @return The AcroForm field type expected for this.
      */
-    abstract public COSName cosGetExpectedFieldType();
+    public abstract COSName cosGetExpectedFieldType();
 
     /**
      * The real AcroForm field type of this.
@@ -449,7 +449,7 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
             getAcroForm().removeField(this);
         } else {
             removeTarget.removeField(this);
-            if (disposeEmptyAncestors && (removeTarget.getKids().size() == 0)) {
+            if (disposeEmptyAncestors && (removeTarget.getKids().isEmpty())) {
                 // target has no more kids, dispose it
                 removeTarget.dispose(disposeEmptyAncestors);
             }
@@ -475,6 +475,7 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
      *
      * @see de.intarsys.pdf.pd.IAdditionalActionSupport#getAdditionalActions()
      */
+    @Override
     public PDAdditionalActions getAdditionalActions() {
         COSDictionary field = cosGetField(DK_AA).asDictionary();
         return (PDAdditionalActions) PDAdditionalActions.META.createFromCos(field);
@@ -585,7 +586,7 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
             cachedKids = getPDObjects(DK_Kids, PDAcroFormField.META, true);
             if (cachedKids == null) {
                 // do not cache!
-                return Collections.EMPTY_LIST;
+                return Collections.emptyList();
             }
         }
         return cachedKids;
@@ -604,14 +605,14 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
     /**
      * The local name for this node. This method returns null for an non
      * existing or empty /T entry in the base {@link COSDictionary}. The name is
-     * transformed to canonical form if <code>canonical</code> is true.
+     * transformed to canonical form if {@code canonical} is true.
      *
      * @param canonical Flag if the name shoul be in canonical form.
      * @return The local name for this node.
      */
     public String getLocalName(boolean canonical) {
         String name = getFieldString(DK_T, null);
-        if ((name != null) && (!name.trim().equals(""))) { //$NON-NLS-1$
+        if (name != null && !name.trim().isEmpty()) { //$NON-NLS-1$
             return canonical ? canonicalize(name) : name;
         }
         return null;
@@ -667,9 +668,9 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
     }
 
     /**
-     * The maximum length for this field or <code>null</code> if not defined.
+     * The maximum length for this field or {@code null} if not defined.
      *
-     * @return The maximum length for this field or <code>null</code> if not
+     * @return The maximum length for this field or {@code null} if not
      * defined.
      */
     public Integer getMaxLen() {
@@ -688,7 +689,7 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
      * The parent node of this.
      * <p>
      * AcroForm fields are arranged in a hierarchical structure, beginning with
-     * the root AcroForm. Fields under the AcroForm return <code>null</code> as
+     * the root AcroForm. Fields under the AcroForm return {@code null} as
      * their parent.
      *
      * @return The parent node of this.
@@ -765,6 +766,7 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
      * @see
      * de.intarsys.pdf.pd.IAdditionalActionSupport#getSupportedTriggerEvents()
      */
+    @Override
     public Set getSupportedTriggerEvents() {
         return ACROFORMFIELD_ACTION_TRIGGERS;
     }
@@ -812,27 +814,27 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
     }
 
     /**
-     * <code>true</code> if variable text in this is centered.
+     * {@code true} if variable text in this is centered.
      *
-     * @return <code>true</code> if variable text in this is centered.
+     * @return {@code true} if variable text in this is centered.
      */
     public boolean isAlignmentCenter() {
         return getQuadding() == ALIGNMENT_CENTER;
     }
 
     /**
-     * <code>true</code> if variable text in this is left aligned.
+     * {@code true} if variable text in this is left aligned.
      *
-     * @return <code>true</code> if variable text in this is left aligned.
+     * @return {@code true} if variable text in this is left aligned.
      */
     public boolean isAlignmentLeft() {
         return getQuadding() == ALIGNMENT_LEFT;
     }
 
     /**
-     * <code>true</code> if variable text in this is right aligned.
+     * {@code true} if variable text in this is right aligned.
      *
-     * @return <code>true</code> if variable text in this is right aligned.
+     * @return {@code true} if variable text in this is right aligned.
      */
     public boolean isAlignmentRight() {
         return getQuadding() == ALIGNMENT_RIGHT;
@@ -967,6 +969,7 @@ abstract public class PDAcroFormField extends PDAcroFormNode implements IAdditio
      * de.intarsys.pdf.pd.IAdditionalActionSupport#setActions(de.intarsys.pdf
      * .pd.PDAdditionalActions)
      */
+    @Override
     public void setAdditionalActions(PDAdditionalActions actions) {
         setFieldObject(DK_AA, actions);
     }

@@ -40,6 +40,7 @@ public class Operator_eq implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) {
         Object o1 = handler.pop();
         Object o2 = handler.pop();

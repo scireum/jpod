@@ -75,5 +75,5 @@ public abstract class CIDToGIDMap extends COSBasedObject {
         super(object);
     }
 
-    abstract public int getGlyphIndex(CharacterSelector cid);
+    public abstract int getGlyphIndex(CharacterSelector cid);
 }

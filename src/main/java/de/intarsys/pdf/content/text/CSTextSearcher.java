@@ -45,10 +45,6 @@ public class CSTextSearcher extends CSCharacterParser {
 
     private String searchString;
 
-    public CSTextSearcher() {
-        super();
-    }
-
     protected String basicGetSearchString() {
         return basicSearchString;
     }

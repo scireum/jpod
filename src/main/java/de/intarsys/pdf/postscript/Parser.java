@@ -31,7 +31,7 @@
 package de.intarsys.pdf.postscript;
 
 public class Parser implements ParserConstants {
-    static private int[] jj_la1_0;
+    private static int[] jj_la1_0;
 
     static {
         jj_la1_0();
@@ -51,7 +51,7 @@ public class Parser implements ParserConstants {
 
     private int jj_kind = -1;
 
-    final private int[] jj_la1 = new int[2];
+    private final int[] jj_la1 = new int[2];
 
     public Token jj_nt;
 
@@ -101,10 +101,10 @@ public class Parser implements ParserConstants {
         }
     }
 
-    final public void disable_tracing() {
+    public final void disable_tracing() {
     }
 
-    final public void enable_tracing() {
+    public final void enable_tracing() {
     }
 
     public ParseException generateParseException() {
@@ -140,7 +140,7 @@ public class Parser implements ParserConstants {
         return new ParseException(token, exptokseq, tokenImage);
     }
 
-    final public Token getNextToken() {
+    public final Token getNextToken() {
         if (token.next != null) {
             token = token.next;
         } else {
@@ -151,7 +151,7 @@ public class Parser implements ParserConstants {
         return token;
     }
 
-    final public Token getToken(int index) {
+    public final Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
             if (t.next != null) {
@@ -163,7 +163,7 @@ public class Parser implements ParserConstants {
         return t;
     }
 
-    final private Token jj_consume_token(int kind) throws ParseException {
+    private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
         if ((oldToken = token).next != null) {
             token = token.next;
@@ -180,7 +180,7 @@ public class Parser implements ParserConstants {
         throw generateParseException();
     }
 
-    final private int jj_ntk() {
+    private int jj_ntk() {
         if ((jj_nt = token.next) == null) {
             return (jj_ntk = (token.next = token_source.getNextToken()).kind);
         } else {
@@ -188,7 +188,7 @@ public class Parser implements ParserConstants {
         }
     }
 
-    final public void parse(Handler handler) throws ParseException {
+    public final void parse(Handler handler) throws ParseException {
         Token localToken;
         label_1:
         while (true) {
@@ -203,7 +203,6 @@ public class Parser implements ParserConstants {
                 case RBRACE:
                 case LBRACKET:
                 case RBRACKET:
-                    ;
                     break;
                 default:
                     jj_la1[0] = jj_gen;
@@ -215,9 +214,7 @@ public class Parser implements ParserConstants {
                     try {
                         handler.processLiteral(Integer.parseInt(localToken.image));
                     } catch (NumberFormatException e) {
-                        if (true) {
-                            throw new ParseException(e.toString());
-                        }
+                        throw new ParseException(e.toString());
                     }
                     break;
                 case FLOATING_POINT_LITERAL:
@@ -225,9 +222,7 @@ public class Parser implements ParserConstants {
                     try {
                         handler.processLiteral(Double.parseDouble(localToken.image));
                     } catch (NumberFormatException e) {
-                        if (true) {
-                            throw new ParseException(e.toString());
-                        }
+                        throw new ParseException(e.toString());
                     }
                     break;
                 case STRING_LITERAL:

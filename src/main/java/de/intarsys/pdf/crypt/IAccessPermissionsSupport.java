@@ -16,5 +16,5 @@ public interface IAccessPermissionsSupport {
      *
      * @return The access permissions active for the document.
      */
-    public IAccessPermissions getAccessPermissions();
+    IAccessPermissions getAccessPermissions();
 }

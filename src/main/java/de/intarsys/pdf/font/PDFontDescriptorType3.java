@@ -43,7 +43,7 @@ public class PDFontDescriptorType3 extends PDFontDescriptor {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFontDescriptor.MetaClass {
+    public static class MetaClass extends PDFontDescriptor.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -57,7 +57,7 @@ public class PDFontDescriptorType3 extends PDFontDescriptor {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * derived value for the leading

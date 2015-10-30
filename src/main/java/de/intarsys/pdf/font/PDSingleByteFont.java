@@ -37,14 +37,14 @@ import java.util.Arrays;
 /**
  * A common superclass for the single byte encoded font flavors.
  */
-abstract public class PDSingleByteFont extends PDFont {
+public abstract class PDSingleByteFont extends PDFont {
 
     private PDGlyphs[] cachedGlyphs = new PDGlyphs[256];
 
     // an array for the width of each glyph used
     private int[] cachedWidths;
 
-    public PDSingleByteFont(COSObject object) {
+    protected PDSingleByteFont(COSObject object) {
         super(object);
     }
 

@@ -44,12 +44,11 @@ import java.util.Map;
  */
 public class COSConverter {
 
-    static protected Object basicToJava(COSObject object, Map visited) {
+    protected static Object basicToJava(COSObject object, Map visited) {
         if (object instanceof COSArray) {
             List result = new ArrayList();
-            Iterator<COSObject> it = ((COSArray) object).iterator();
-            while (it.hasNext()) {
-                result.add(toJava(it.next(), visited));
+            for (COSObject anObject : object) {
+                result.add(toJava(anObject, visited));
             }
             return result;
         } else if (object instanceof COSDictionary) {
@@ -75,7 +74,7 @@ public class COSConverter {
         } else if (object instanceof COSInteger) {
             return ((COSInteger) object).intValue();
         } else if (object instanceof COSString) {
-            return ((COSString) object).stringValue();
+            return object.stringValue();
         } else {
             // ... we did a complete enumeration...
             throw new IllegalStateException("can not happen"); //$NON-NLS-1$
@@ -91,7 +90,7 @@ public class COSConverter {
      * @param javaObject the java object to be marshalled
      * @return The resulting {@link COSObject}
      */
-    static public COSObject toCos(Object javaObject) {
+    public static COSObject toCos(Object javaObject) {
         COSObject result = null;
         if (javaObject instanceof String) {
             result = COSString.create((String) javaObject);
@@ -152,24 +151,24 @@ public class COSConverter {
             byte[] bytes;
             try {
                 bytes = StreamTools.toByteArray((InputStream) javaObject);
-            } catch (IOException e) {
+            } catch (IOException ignored) {
                 bytes = new byte[]{};
             }
             ((COSStream) result).setDecodedBytes(bytes);
         } else if (javaObject instanceof COSObject) {
             result = (COSObject) javaObject;
         } else {
-            throw new IllegalArgumentException(String.valueOf(javaObject)
+            throw new IllegalArgumentException(javaObject
                                                + " can not be marshalled to a cos object"); //$NON-NLS-1$
         }
         return result;
     }
 
-    static public Object toJava(COSObject object) {
+    public static Object toJava(COSObject object) {
         return toJava(object, new HashMap());
     }
 
-    static public Object toJava(COSObject object, Map visited) {
+    public static Object toJava(COSObject object, Map visited) {
         Object result = visited.get(object);
         if (result != null) {
             return result;

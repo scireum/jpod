@@ -51,7 +51,7 @@ import de.intarsys.pdf.st.STDocument;
  * So we didn't even care as this would pollute the implementation while
  * providing only superficial benefits.
  */
-abstract public class StandardSecurityHandler extends AbstractSecurityHandler implements IAccessPermissionsSupport {
+public abstract class StandardSecurityHandler extends AbstractSecurityHandler implements IAccessPermissionsSupport {
 
     /**
      * The default value for the access permission flags.
@@ -74,7 +74,7 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
     /**
      * The padding sequence as defined in the spec.
      */
-    protected static byte[] PADDING = new byte[]{(byte) 0x28,
+    protected static byte[] PADDING = {(byte) 0x28,
                                                  (byte) 0xBF,
                                                  (byte) 0x4E,
                                                  (byte) 0x5E,
@@ -110,7 +110,7 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
     /**
      * A dummy padding sequence for the revision 3 variant.
      */
-    protected static byte[] USER_R3_PADDING = new byte[]{(byte) 0x28,
+    protected static byte[] USER_R3_PADDING = {(byte) 0x28,
                                                          (byte) 0xBF,
                                                          (byte) 0x4E,
                                                          (byte) 0x5E,
@@ -143,10 +143,6 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
 
     private byte[] user;
 
-    public StandardSecurityHandler() {
-        super();
-    }
-
     public void apply() throws COSSecurityException {
         //
         byte[] oPwd = createOwnerPassword(owner, user);
@@ -177,7 +173,8 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
      *
      * @see de.intarsys.pdf.encryption.ISecurityHandler#authenticate()
      */
-    final public void authenticate() throws COSSecurityException {
+    @Override
+    public final void authenticate() throws COSSecurityException {
         // reset permissions
         setActiveAccessPermissions(AccessPermissionsNone.get());
         if (authenticationHandler == null) {
@@ -186,9 +183,9 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
         authenticationHandler.authenticate(this);
     }
 
-    abstract public boolean authenticateOwner(byte[] owner) throws COSSecurityException;
+    public abstract boolean authenticateOwner(byte[] owner) throws COSSecurityException;
 
-    abstract public boolean authenticateUser(byte[] user) throws COSSecurityException;
+    public abstract boolean authenticateUser(byte[] user) throws COSSecurityException;
 
     public int basicGetPermissionFlags() {
         return getEncryption().getFieldInt(StandardSecurityHandler.DK_P, DEFAULT_ACCESS_PERMISSIONS);
@@ -201,14 +198,15 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
         getEncryption().setFieldInt(StandardSecurityHandler.DK_P, newValue);
     }
 
-    abstract protected IAccessPermissions createAccessPermissions();
+    protected abstract IAccessPermissions createAccessPermissions();
 
-    abstract protected byte[] createCryptKey(byte[] password) throws COSSecurityException;
+    protected abstract byte[] createCryptKey(byte[] password) throws COSSecurityException;
 
-    abstract protected byte[] createOwnerPassword(byte[] owner, byte[] user) throws COSSecurityException;
+    protected abstract byte[] createOwnerPassword(byte[] owner, byte[] user) throws COSSecurityException;
 
-    abstract protected byte[] createUserPassword(byte[] user) throws COSSecurityException;
+    protected abstract byte[] createUserPassword(byte[] user) throws COSSecurityException;
 
+    @Override
     public byte[] decrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         throw new COSSecurityException("pluggable encryption not supported"); //$NON-NLS-1$
     }
@@ -225,6 +223,7 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
         super.detach(doc);
     }
 
+    @Override
     public byte[] encrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         throw new COSSecurityException("pluggable encryption not supported"); //$NON-NLS-1$
     }
@@ -234,7 +233,8 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
      *
      * @see de.intarsys.pdf.encryption.ISecurityHandler#getAccessPermissions()
      */
-    final public IAccessPermissions getAccessPermissions() {
+    @Override
+    public final IAccessPermissions getAccessPermissions() {
         return accessPermissions;
     }
 
@@ -247,6 +247,7 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
      *
      * @see de.intarsys.pdf.encryption.ISecurityHandler#getCryptKey()
      */
+    @Override
     public byte[] getCryptKey() {
         return cryptKey;
     }
@@ -296,7 +297,7 @@ abstract public class StandardSecurityHandler extends AbstractSecurityHandler im
         return new PermissionFlags(this);
     }
 
-    abstract public int getRevision();
+    public abstract int getRevision();
 
     protected byte[] getU() {
         COSString u = getEncryption().cosGetField(DK_U).asString();

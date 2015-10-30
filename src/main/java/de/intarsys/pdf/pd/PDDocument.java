@@ -215,7 +215,7 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
         }
     }
 
-    protected void checkConsistency() throws COSRuntimeException {
+    protected void checkConsistency() {
         if (getCatalog() == null) {
             throw new COSRuntimeException("Catalog missing"); //$NON-NLS-1$
         }
@@ -226,7 +226,7 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
 
     /**
      * Close the document. Accessing a documents content is undefined after
-     * <code>close</code>.
+     * {@code close}.
      *
      * @throws IOException
      */
@@ -347,8 +347,7 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * @return the PDPageTree created
      */
     public PDPageTree createPageTree() {
-        PDPageTree result = (PDPageTree) PDPageTree.META.createNew();
-        return result;
+        return (PDPageTree) PDPageTree.META.createNew();
     }
 
     /**
@@ -379,7 +378,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
         return (PDAcroForm) PDAcroForm.META.createFromCos(catalog.cosGetField(COSCatalog.DK_AcroForm));
     }
 
-    public PDAdditionalActions getAdditionalActions() {
+    @Override
+	public PDAdditionalActions getAdditionalActions() {
         COSDictionary aa = null;
         COSCatalog catalog = getCatalog();
         if (catalog != null) {
@@ -414,7 +414,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * de.intarsys.tools.component.IAttributeSupport#getAttribute(java.lang.
      * Object)
      */
-    final public Object getAttribute(Object key) {
+	@Override
+	public final Object getAttribute(Object key) {
         return cosDoc.getAttribute(key);
     }
 
@@ -499,7 +500,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
         return getDocumentInfoString(COSInfoDict.DK_Keywords);
     }
 
-    public ILocator getLocator() {
+    @Override
+	public ILocator getLocator() {
         return cosDoc.getLocator();
     }
 
@@ -632,7 +634,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * @see
      * de.intarsys.pdf.pd.IAdditionalActionSupport#getSupportedTriggerEvents()
      */
-    public Set getSupportedTriggerEvents() {
+    @Override
+	public Set getSupportedTriggerEvents() {
         return CATALOG_ACTION_TRIGGERS;
     }
 
@@ -674,9 +677,9 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
     }
 
     /**
-     * <code>true</code> if the document has a flag to prefere incremental save.
+     * {@code true} if the document has a flag to prefere incremental save.
      *
-     * @return <code>true</code> if the document should be saved in an
+     * @return {@code true} if the document should be saved in an
      * incremental way only.
      */
     public boolean isAppendOnly() {
@@ -716,11 +719,11 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
     }
 
     /**
-     * <code>true</code> if the document should be saved in an incremental way
+     * {@code true} if the document should be saved in an incremental way
      * only. This is for example the case when the document contains digital
      * signatures.
      *
-     * @return <code>true</code> if the document should be saved in an
+     * @return {@code true} if the document should be saved in an
      * incremental way only.
      */
     public boolean isPreferIncrementalSave() {
@@ -741,10 +744,10 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
     }
 
     /**
-     * <code>true</code> if the document contains digital signatures. This
+     * {@code true} if the document contains digital signatures. This
      * should be reflected in the SigFlags entry of the form - but who knows...
      *
-     * @return <code>true</code> if the document contains digital signatures.
+     * @return {@code true} if the document contains digital signatures.
      */
     public boolean isSigned() {
         if (getAcroForm() == null) {
@@ -792,7 +795,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * de.intarsys.tools.component.IAttributeSupport#removeAttribute(java.lang
      * .Object)
      */
-    final public Object removeAttribute(Object key) {
+	@Override
+	public final Object removeAttribute(Object key) {
         return cosDoc.removeAttribute(key);
     }
 
@@ -847,7 +851,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * de.intarsys.pdf.pd.IAdditionalActionSupport#setActions(de.intarsys.pdf
      * .pd.PDAdditionalActions)
      */
-    public void setAdditionalActions(PDAdditionalActions actions) {
+    @Override
+	public void setAdditionalActions(PDAdditionalActions actions) {
         COSCatalog catalog = getCatalog();
         if (catalog != null) {
             catalog.setFieldObject(DK_AA, actions);
@@ -875,7 +880,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * de.intarsys.tools.component.IAttributeSupport#setAttribute(java.lang.
      * Object, java.lang.Object)
      */
-    final public Object setAttribute(Object key, Object o) {
+	@Override
+	public final Object setAttribute(Object key, Object o) {
         return cosDoc.setAttribute(key, o);
     }
 

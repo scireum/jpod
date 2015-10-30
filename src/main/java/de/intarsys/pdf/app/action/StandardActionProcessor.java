@@ -54,10 +54,6 @@ public class StandardActionProcessor implements IActionProcessor {
      */
     private IActionHandlerRegistry factory = ActionHandlerRegistry.get();
 
-    public StandardActionProcessor() {
-        super();
-    }
-
     protected IActionHandlerRegistry getFactory() {
         return factory;
     }
@@ -83,6 +79,7 @@ public class StandardActionProcessor implements IActionProcessor {
         }
     }
 
+    @Override
     public void process(TriggerEvent event, COSName actionType, COSObject actionDefinition) {
         processAction(event, actionType, actionDefinition);
         if (actionDefinition instanceof COSDictionary) {

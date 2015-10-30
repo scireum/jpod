@@ -43,11 +43,12 @@ public class PDPopupAnnotation extends PDAnnotation {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAnnotation.MetaClass {
+    public static class MetaClass extends PDAnnotation.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDPopupAnnotation(object);
         }
@@ -56,7 +57,7 @@ public class PDPopupAnnotation extends PDAnnotation {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public static final COSName CN_Subtype_Popup = COSName.constant("Popup");
 
@@ -87,6 +88,7 @@ public class PDPopupAnnotation extends PDAnnotation {
         setFieldObject(DK_Parent, parent);
     }
 
+    @Override
     public String getContents() {
         PDAnnotation parent = getParent();
         if (parent == null) {
@@ -96,6 +98,7 @@ public class PDPopupAnnotation extends PDAnnotation {
         }
     }
 
+    @Override
     public void setContents(String contents) {
         PDAnnotation parent = getParent();
         if (parent == null) {
@@ -114,6 +117,7 @@ public class PDPopupAnnotation extends PDAnnotation {
         }
     }
 
+    @Override
     public PDPage getPage() {
         PDAnnotation parent = getParent();
         if (parent == null) {
@@ -132,6 +136,7 @@ public class PDPopupAnnotation extends PDAnnotation {
         }
     }
 
+    @Override
     public CDSDate getModified() {
         PDAnnotation parent = getParent();
         if (parent == null) {
@@ -141,6 +146,7 @@ public class PDPopupAnnotation extends PDAnnotation {
         }
     }
 
+    @Override
     public float[] getColor() {
         PDAnnotation parent = getParent();
         if (parent == null) {
@@ -163,10 +169,12 @@ public class PDPopupAnnotation extends PDAnnotation {
      *
      * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
      */
+    @Override
     protected COSName cosGetExpectedSubtype() {
         return CN_Subtype_Popup;
     }
 
+    @Override
     public String getSubtypeLabel() {
         return "Popup";
     }

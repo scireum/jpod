@@ -40,6 +40,7 @@ public class Operator_sin implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) {
         double operand;
 

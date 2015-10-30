@@ -43,7 +43,7 @@ public class PDAxialShading extends PDShading {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDShading.MetaClass {
+    public static class MetaClass extends PDShading.MetaClass {
         protected MetaClass(Class paramInstanceClass) {
             super(paramInstanceClass);
         }
@@ -65,7 +65,7 @@ public class PDAxialShading extends PDShading {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     private float[] coords;
 

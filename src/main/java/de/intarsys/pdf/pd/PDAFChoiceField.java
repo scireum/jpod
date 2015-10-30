@@ -44,26 +44,27 @@ import java.util.Map;
  * A logical choice field within an AcroForm.
  */
 public class PDAFChoiceField extends PDAcroFormField {
-    static public class MetaClass extends PDAcroFormField.MetaClass {
+    public static class MetaClass extends PDAcroFormField.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDAFChoiceField(object);
         }
     }
 
-    static public final COSName DK_Opt = COSName.constant("Opt");
+    public static final COSName DK_Opt = COSName.constant("Opt");
 
-    static public final COSName DK_TI = COSName.constant("TI");
+    public static final COSName DK_TI = COSName.constant("TI");
 
-    static public final COSName DK_I = COSName.constant("I");
+    public static final COSName DK_I = COSName.constant("I");
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     private List cachedOptionNames;
 
@@ -78,13 +79,14 @@ public class PDAFChoiceField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#cosGetExpectedFieldType()
      */
+    @Override
     public COSName cosGetExpectedFieldType() {
         return CN_FT_Ch;
     }
 
     protected void createOptions() {
         COSArray cosOptions = getOptions();
-        if ((cosOptions != null) && (cosOptions.size() > 0)) {
+        if ((cosOptions != null) && (!cosOptions.isEmpty())) {
             cachedOptionNames = new ArrayList(cosOptions.size());
             cachedExportValues = new ArrayList(cosOptions.size());
             for (Iterator i = cosOptions.iterator(); i.hasNext(); ) {
@@ -152,14 +154,14 @@ public class PDAFChoiceField extends PDAcroFormField {
      */
     public List getValueList() {
         List result;
-        COSObject cosValue = super.cosGetValue();
+        COSObject cosValue = cosGetValue();
         if (cosValue.isNull()) {
             result = new ArrayList(0);
             return result;
         }
         if (cosValue instanceof COSArray) {
             result = new ArrayList(((COSArray) cosValue).size());
-            for (Iterator i = ((COSArray) cosValue).iterator(); i.hasNext(); ) {
+            for (Iterator i = cosValue.iterator(); i.hasNext(); ) {
                 result.add(((COSObject) i.next()).stringValue());
             }
         } else {
@@ -174,6 +176,7 @@ public class PDAFChoiceField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#invalidateCaches()
      */
+    @Override
     public void invalidateCaches() {
         super.invalidateCaches();
         cachedExportValues = null;
@@ -213,6 +216,7 @@ public class PDAFChoiceField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#isTypeCh()
      */
+    @Override
     public boolean isTypeCh() {
         return true;
     }
@@ -256,8 +260,8 @@ public class PDAFChoiceField extends PDAcroFormField {
     public void setOptions(String[] names, String[] values) {
         COSArray cosOptions = COSArray.create(names.length);
         for (int i = 0; i < names.length; i++) {
-            String name = (String) names[i];
-            String value = (String) values[i];
+            String name = names[i];
+            String value = values[i];
             if (value == null) {
                 cosOptions.add(COSString.create(name));
             } else {
@@ -283,6 +287,7 @@ public class PDAFChoiceField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#setValueString(java.lang.String)
      */
+    @Override
     public void setValueString(String value) {
         if (value == null) {
             super.setValueString(value);
@@ -302,6 +307,7 @@ public class PDAFChoiceField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#setValueStrings(java.util.List)
      */
+    @Override
     public void setValueStrings(List values) {
         if ((values == null) || values.isEmpty()) {
             cosSetValue(null);
@@ -312,9 +318,8 @@ public class PDAFChoiceField extends PDAcroFormField {
             return;
         }
         COSArray array = COSArray.create(values.size());
-        Iterator iter = values.iterator();
-        while (iter.hasNext()) {
-            String value = (String) iter.next();
+        for (Object value1 : values) {
+            String value = (String) value1;
             value = value.replace('\r', ' ');
             value = value.replace('\n', '\r');
             array.add(COSString.create(value));

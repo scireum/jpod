@@ -45,7 +45,7 @@ public class PDFontType3 extends PDSingleByteFont implements IResourcesProvider 
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFont.MetaClass {
+    public static class MetaClass extends PDFont.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -70,7 +70,7 @@ public class PDFontType3 extends PDSingleByteFont implements IResourcesProvider 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * @param object
@@ -143,7 +143,7 @@ public class PDFontType3 extends PDSingleByteFont implements IResourcesProvider 
     @Override
     public int getGlyphWidthEncoded(int codePoint) {
         int width = super.getGlyphWidthEncoded(codePoint);
-        float[] vector = new float[]{width, 0};
+        float[] vector = {width, 0};
         // convert to text space
         vector = getFontMatrix().transform(vector);
         // normalize to thousandths off one text space unit
@@ -155,6 +155,7 @@ public class PDFontType3 extends PDSingleByteFont implements IResourcesProvider 
      *
      * @return The {@link PDResources}.
      */
+    @Override
     public PDResources getResources() {
         COSDictionary dict = cosGetField(DK_Resources).asDictionary();
         return (PDResources) PDResources.META.createFromCos(dict);
@@ -193,6 +194,7 @@ public class PDFontType3 extends PDSingleByteFont implements IResourcesProvider 
      *
      * @see de.intarsys.pdf.pd.IResourcesProvider#setResources(de.intarsys.pdf.pd.PDResources)
      */
+    @Override
     public void setResources(PDResources resources) {
         cosSetField(DK_Resources, resources.cosGetDict());
     }

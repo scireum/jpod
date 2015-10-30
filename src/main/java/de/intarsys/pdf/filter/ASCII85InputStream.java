@@ -43,9 +43,9 @@ import java.io.InputStream;
  * </p>
  */
 public class ASCII85InputStream extends FilterInputStream {
-    static private final long CONST_85 = 85L;
+    private static final long CONST_85 = 85L;
 
-    static private final long HIGH_BYTE = 0xFFL;
+    private static final long HIGH_BYTE = 0xFFL;
 
     private byte[] ascii;
 
@@ -76,6 +76,7 @@ public class ASCII85InputStream extends FilterInputStream {
      *
      * @see java.io.InputStream#read()
      */
+    @Override
     public final int read() throws IOException {
         if (index >= n) {
             if (eof) {
@@ -163,6 +164,7 @@ public class ASCII85InputStream extends FilterInputStream {
      *
      * @see java.io.InputStream#read(byte[], int, int)
      */
+    @Override
     public final int read(byte[] data, int offset, int len) throws IOException {
         if (eof && (index >= n)) {
             return -1;
@@ -186,6 +188,7 @@ public class ASCII85InputStream extends FilterInputStream {
      *
      * @see java.io.InputStream#available()
      */
+    @Override
     public int available() throws IOException {
         throw new IOException("method not supported");
     }
@@ -195,6 +198,7 @@ public class ASCII85InputStream extends FilterInputStream {
      *
      * @see java.io.InputStream#close()
      */
+    @Override
     public void close() throws IOException {
         ascii = null;
         eof = true;
@@ -207,6 +211,7 @@ public class ASCII85InputStream extends FilterInputStream {
      *
      * @see java.io.InputStream#markSupported()
      */
+    @Override
     public boolean markSupported() {
         return false;
     }
@@ -216,6 +221,7 @@ public class ASCII85InputStream extends FilterInputStream {
      *
      * @see java.io.InputStream#reset()
      */
+    @Override
     public synchronized void reset() throws IOException {
         throw new IOException("method not supported");
     }
@@ -225,6 +231,7 @@ public class ASCII85InputStream extends FilterInputStream {
      *
      * @see java.io.InputStream#skip(long)
      */
+    @Override
     public long skip(long bytes) throws IOException {
         throw new IOException("method not supported");
     }

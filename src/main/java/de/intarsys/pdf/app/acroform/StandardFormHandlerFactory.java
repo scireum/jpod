@@ -47,7 +47,8 @@ public class StandardFormHandlerFactory implements IFormHandlerFactory {
      *
      * @see de.intarsys.pdf.app.acroform.IFormHandlerFactory#createFormHandler(de.intarsys.pdf.pd.PDDocument)
      */
-    synchronized public IFormHandler createFormHandler(PDDocument doc, Map options) {
+    @Override
+    public synchronized IFormHandler createFormHandler(PDDocument doc, Map options) {
         if (doc == null) {
             return null;
         }

@@ -43,5 +43,5 @@ public interface ISecurityHandlerFactory {
      * in encryption.
      * @throws COSSecurityException
      */
-    public ISecurityHandler getSecurityHandler(COSEncryption encryption) throws COSSecurityException;
+    ISecurityHandler getSecurityHandler(COSEncryption encryption) throws COSSecurityException;
 }

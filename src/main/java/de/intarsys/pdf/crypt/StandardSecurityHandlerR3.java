@@ -44,10 +44,6 @@ public class StandardSecurityHandlerR3 extends StandardSecurityHandler {
 
     public static final String KEY_ALGORITHM = "RC4"; //$NON-NLS-1$
 
-    public StandardSecurityHandlerR3() {
-        super();
-    }
-
     @Override
     public boolean authenticateOwner(byte[] owner) throws COSSecurityException {
         try {

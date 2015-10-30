@@ -37,7 +37,7 @@ import java.util.Map;
  * Primitive COS datatypes. These objects are "immutable" in their PDF
  * semantics. The container may change!
  */
-abstract public class COSPrimitiveObject extends COSObject {
+public abstract class COSPrimitiveObject extends COSObject {
     protected COSPrimitiveObject() {
         super();
     }

@@ -55,14 +55,14 @@ public interface ISecurityHandler extends ICryptHandler {
      *
      * @param doc
      */
-    public void attach(STDocument doc) throws COSSecurityException;
+    void attach(STDocument doc) throws COSSecurityException;
 
     /**
      * Perform an authentication.
      *
      * @throws COSSecurityException
      */
-    public void authenticate() throws COSSecurityException;
+    void authenticate() throws COSSecurityException;
 
     /**
      * Disassociate this {@link ISecurityHandler} from {@link STDocument}.
@@ -72,7 +72,7 @@ public interface ISecurityHandler extends ICryptHandler {
      *
      * @param doc
      */
-    public void detach(STDocument doc) throws COSSecurityException;
+    void detach(STDocument doc) throws COSSecurityException;
 
     /**
      * The crypt key created by this {@link ISecurityHandler}. The crypt key is
@@ -83,7 +83,7 @@ public interface ISecurityHandler extends ICryptHandler {
      *
      * @return The crypt key created by this {@link ISecurityHandler}.
      */
-    public byte[] getCryptKey();
+    byte[] getCryptKey();
 
     /**
      * Initialize this {@link ISecurityHandler} with a {@link STDocument}.
@@ -95,12 +95,12 @@ public interface ISecurityHandler extends ICryptHandler {
      * @param doc
      * @throws COSSecurityException
      */
-    public void initialize(STDocument doc) throws COSSecurityException;
+    void initialize(STDocument doc) throws COSSecurityException;
 
     /**
      * The associated {@link STDocument}.
      *
      * @return The associated {@link STDocument}.
      */
-    public STDocument stGetDoc();
+    STDocument stGetDoc();
 }

@@ -33,7 +33,7 @@ package de.intarsys.pdf.cos;
  * Represents the boolean value "false".
  */
 public class COSFalse extends COSBoolean {
-    static public COSFalse create() {
+    public static COSFalse create() {
         return new COSFalse();
     }
 
@@ -88,6 +88,7 @@ public class COSFalse extends COSBoolean {
      *
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
+    @Override
     public Object saveState() {
         COSObject result = new COSFalse();
         result.container = this.container.saveStateContainer();

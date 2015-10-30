@@ -36,6 +36,7 @@ public class TIFFPrediction extends Prediction {
         super(options);
     }
 
+    @Override
     protected void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
         int colors;
         int columns;
@@ -47,9 +48,7 @@ public class TIFFPrediction extends Prediction {
 
         colors = getColors();
         columns = getColumns();
-        for (int index = 0; index < colors; index++) {
-            result[resultOffset + index] = source[sourceOffset + index];
-        }
+        System.arraycopy(source, sourceOffset, result, resultOffset, colors);
         for (int byteIndex = 1; byteIndex < columns; byteIndex++) {
             for (int colorIndex = 0; colorIndex < colors; colorIndex++) {
                 result[resultOffset + (byteIndex * colors) + colorIndex] =

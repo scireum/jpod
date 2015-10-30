@@ -112,7 +112,7 @@ public class PDAnnotationTools {
      * annotation. This behavior is intended to allow for dynamic appearance
      * creation when rendering without changing the document itself.
      *
-     * @return The {@link PDAppearance} for <code>annotation</code>.
+     * @return The {@link PDAppearance} for {@code annotation}.
      */
     public static PDAppearance getAppearance(PDAnnotation annotation) {
         PDAppearance appearance = annotation.getAppearance();
@@ -163,15 +163,15 @@ public class PDAnnotationTools {
     }
 
     /**
-     * Returns the next annotation following <code>annotation</code> on the same
-     * page. Returns <code>null</code> if no annotation following
-     * <code>annotation</code> could be found or <code>annotation</code> is the
+     * Returns the next annotation following {@code annotation} on the same
+     * page. Returns {@code null} if no annotation following
+     * {@code annotation} could be found or {@code annotation} is the
      * last one on the page.
      *
      * @param annotation
-     * @return the next annotation or <code>null</code>
+     * @return the next annotation or {@code null}
      */
-    static public PDAnnotation getNextAnnotation(PDAnnotation annotation) {
+	public static PDAnnotation getNextAnnotation(PDAnnotation annotation) {
         PDPage page = getPage(annotation);
         if (page == null) {
             return null;
@@ -180,14 +180,14 @@ public class PDAnnotationTools {
     }
 
     /**
-     * Returns the next annotation following <code>annotation</code> in the
-     * whole document. Returns <code>null</code> if no annotation following
-     * <code>annotation</code> could be found in the document.
+     * Returns the next annotation following {@code annotation} in the
+     * whole document. Returns {@code null} if no annotation following
+     * {@code annotation} could be found in the document.
      *
      * @param annotation
-     * @return the next annotation or <code>null</code>
+     * @return the next annotation or {@code null}
      */
-    static public PDAnnotation getNextAnnotationAllPages(PDAnnotation annotation) {
+	public static PDAnnotation getNextAnnotationAllPages(PDAnnotation annotation) {
         PDPage page = getPage(annotation);
         if (page == null) {
             return null;
@@ -203,7 +203,7 @@ public class PDAnnotationTools {
         return result;
     }
 
-    static public PDPage getPage(PDAnnotation annotation) {
+    public static PDPage getPage(PDAnnotation annotation) {
         PDPage page = annotation.getPage();
         if (page != null) {
             return page;
@@ -228,15 +228,15 @@ public class PDAnnotationTools {
     }
 
     /**
-     * Returns the annotation preceding <code>annotation</code> on the same
-     * page. Returns <code>null</code> if no annotation preceding
-     * <code>annotation</code> could be found or <code>annotation</code> is the
+     * Returns the annotation preceding {@code annotation} on the same
+     * page. Returns {@code null} if no annotation preceding
+     * {@code annotation} could be found or {@code annotation} is the
      * first one on the page.
      *
      * @param annotation
-     * @return the preceding annotation or <code>null</code>
+     * @return the preceding annotation or {@code null}
      */
-    static public PDAnnotation getPreviousAnnotation(PDAnnotation annotation) {
+	public static PDAnnotation getPreviousAnnotation(PDAnnotation annotation) {
         PDPage page = getPage(annotation);
         if (page == null) {
             return null;
@@ -245,14 +245,14 @@ public class PDAnnotationTools {
     }
 
     /**
-     * Returns the annotation preceding <code>annotation</code> in the whole
-     * document. Returns <code>null</code> if no annotation preceding
-     * <code>annotation</code> could be found in the document.
+     * Returns the annotation preceding {@code annotation} in the whole
+     * document. Returns {@code null} if no annotation preceding
+     * {@code annotation} could be found in the document.
      *
      * @param annotation
-     * @return the previous annotation or <code>null</code>
+     * @return the previous annotation or {@code null}
      */
-    static public PDAnnotation getPreviousAnnotationAllPages(PDAnnotation annotation) {
+	public static PDAnnotation getPreviousAnnotationAllPages(PDAnnotation annotation) {
         PDPage page = getPage(annotation);
         if (page == null) {
             return null;
@@ -270,11 +270,11 @@ public class PDAnnotationTools {
 
     /**
      * Lookup the state that is used to represent "not off" in
-     * <code>annotation</code>.
+     * {@code annotation}.
      *
      * @param annotation The annotation to inspect for its "not off" state.
      * @return Lookup the state that is used to represent "not off" in
-     * <code>annotation</code>.
+     * {@code annotation}.
      */
     public static COSName getStateChecked(PDWidgetAnnotation annotation) {
         for (Iterator i = annotation.getAppearanceStates().iterator(); i.hasNext(); ) {
@@ -291,7 +291,7 @@ public class PDAnnotationTools {
      * PDF 1.4
      *
      * @param dict
-     * @return <code>true</code> if known as of Spec PDF 1.4
+     * @return {@code true} if known as of Spec PDF 1.4
      */
     public static boolean isAnnotationSpec14(COSDictionary dict) {
         COSName subtype = dict.get(PDObject.DK_Subtype).asName();
@@ -355,19 +355,16 @@ public class PDAnnotationTools {
         if (subtype.equals(COSName.constant("PrinterMark"))) {
             return true;
         }
-        if (subtype.equals(COSName.constant("TrapNet"))) {
-            return true;
-        }
-        return false;
-    }
+		return subtype.equals(COSName.constant("TrapNet"));
+	}
 
     /**
-     * <code>true</code> if <code>state</code> represents a state that is not
+     * {@code true} if {@code state} represents a state that is not
      * "/Off". "/Off" is the only legal way to switch of a toggle button, so
      * anything else is "on".
      *
      * @param state The state to inspect if it is not "/Off".
-     * @return <code>true</code> if <code>state</code> represents a state that
+     * @return {@code true} if {@code state} represents a state that
      * is not "/Off".
      */
     public static boolean isStateChecked(COSName state) {
@@ -382,7 +379,7 @@ public class PDAnnotationTools {
         } else if (rotation == 270) {
             matrix.setTransformation(CDSMatrix.MATRIX_270);
         }
-        float[] vec = new float[]{rect.getWidth(), rect.getHeight()};
+        float[] vec = {rect.getWidth(), rect.getHeight()};
         float[] tVec = matrix.transform(vec);
         if (rotation == 90) {
             matrix.setE(rect.getWidth());

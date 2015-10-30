@@ -42,7 +42,7 @@ import java.io.OutputStream;
  * A character map. This object can map from codepoints to CID's which can be
  * used to select glyphs in a CID keyed font object.
  */
-abstract public class CMap extends COSBasedObject {
+public abstract class CMap extends COSBasedObject {
     /**
      * The meta class implementation
      */
@@ -105,7 +105,7 @@ abstract public class CMap extends COSBasedObject {
      * @param codepoint The codepoint
      * @return The corresponding char[] for the codepoint.
      */
-    abstract public char[] getChars(int codepoint);
+    public abstract char[] getChars(int codepoint);
 
     /**
      * Get the character for the codepoint or -1 if not available.
@@ -113,7 +113,7 @@ abstract public class CMap extends COSBasedObject {
      * @param codepoint The codepoint
      * @return Get the character for the codepoint or -1 if not available.
      */
-    abstract public int getDecoded(int codepoint);
+    public abstract int getDecoded(int codepoint);
 
     /**
      * Get the codepoint for the the character or -1 if invalid.
@@ -121,7 +121,7 @@ abstract public class CMap extends COSBasedObject {
      * @param character The character to look up.
      * @return Get the codepoint for the the character or -1 if invalid.
      */
-    abstract public int getEncoded(int character);
+    public abstract int getEncoded(int character);
 
     /**
      * Get the next decoded character from the input stream. This method reads
@@ -132,7 +132,7 @@ abstract public class CMap extends COSBasedObject {
      * @return The next decoded character from the input stream.
      * @throws IOException
      */
-    abstract public int getNextDecoded(InputStream is) throws IOException;
+    public abstract int getNextDecoded(InputStream is) throws IOException;
 
     /**
      * The next codepoint from the input stream. This method reads as much bytes
@@ -142,7 +142,7 @@ abstract public class CMap extends COSBasedObject {
      * @return The next codepoint from the input stream.
      * @throws IOException
      */
-    abstract public int getNextEncoded(InputStream is) throws IOException;
+    public abstract int getNextEncoded(InputStream is) throws IOException;
 
     /**
      * Put the next character onto the input stream after encoding. This method
@@ -152,7 +152,7 @@ abstract public class CMap extends COSBasedObject {
      * @param character The character to be encoded.
      * @throws IOException
      */
-    abstract public void putNextDecoded(OutputStream os, int character) throws IOException;
+    public abstract void putNextDecoded(OutputStream os, int character) throws IOException;
 
     /**
      * Put the next codepoint onto the input stream. This method writes as much
@@ -162,5 +162,5 @@ abstract public class CMap extends COSBasedObject {
      * @param codepoint The codepoint.
      * @throws IOException
      */
-    abstract public void putNextEncoded(OutputStream os, int codepoint) throws IOException;
+    public abstract void putNextEncoded(OutputStream os, int codepoint) throws IOException;
 }

@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MetaClass {
-    static private Map metaClasses = new HashMap();
+    private static Map metaClasses = new HashMap();
 
     protected final Class instanceClass;
 
@@ -43,7 +43,7 @@ public class MetaClass {
         register(this);
     }
 
-    final public Class getInstanceClass() {
+    public final Class getInstanceClass() {
         return instanceClass;
     }
 
@@ -51,7 +51,7 @@ public class MetaClass {
         return getInstanceClass();
     }
 
-    static public synchronized MetaClass lookup(Class clazz) {
+    public static synchronized MetaClass lookup(Class clazz) {
         MetaClass result = (MetaClass) metaClasses.get(clazz);
         if (result == null) {
             clazz.getClasses();
@@ -65,7 +65,7 @@ public class MetaClass {
         return result;
     }
 
-    static private synchronized void register(MetaClass metaClass) {
+    private static synchronized void register(MetaClass metaClass) {
         metaClasses.put(metaClass.getInstanceClass(), metaClass);
     }
 }

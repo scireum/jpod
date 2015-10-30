@@ -51,7 +51,7 @@ public interface ICryptHandler {
      * @return the decrypted bytes
      * @throws COSSecurityException
      */
-    public byte[] decrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException;
+    byte[] decrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException;
 
     /**
      * Encrypt any bytes in the context of COSObject referenced by the provided
@@ -62,5 +62,5 @@ public interface ICryptHandler {
      * @return the encrypted bytes
      * @throws COSSecurityException
      */
-    public byte[] encrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException;
+    byte[] encrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException;
 }

@@ -45,5 +45,5 @@ public interface IAuthenticationHandlerFactory {
      * @return The {@link IAuthenticationHandler} to be used for the
      * {@link ISecurityHandler}
      */
-    public IAuthenticationHandler createAuthenticationHandler(ISecurityHandler securityHandler);
+    IAuthenticationHandler createAuthenticationHandler(ISecurityHandler securityHandler);
 }

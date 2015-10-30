@@ -102,7 +102,7 @@ public class PDExtGState extends PDObject {
     /**
      * supported additional action triggers
      */
-    static public final Set BLEND_MODES;
+    public static final Set BLEND_MODES;
 
     static {
         BLEND_MODES = new HashSet(5);
@@ -113,11 +113,12 @@ public class PDExtGState extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDExtGState(object);
         }
@@ -126,12 +127,12 @@ public class PDExtGState extends PDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * The type name
      */
-    static public final COSName CN_Type_ExtGState = COSName.constant("ExtGState"); //
+    public static final COSName CN_Type_ExtGState = COSName.constant("ExtGState"); //
 
     protected PDExtGState(COSObject object) {
         super(object);
@@ -142,6 +143,7 @@ public class PDExtGState extends PDObject {
      *
      * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
      */
+    @Override
     protected COSName cosGetExpectedType() {
         return CN_Type_ExtGState;
     }
@@ -176,7 +178,7 @@ public class PDExtGState extends PDObject {
             for (Iterator i = blendModes.iterator(); i.hasNext(); ) {
                 COSName current = ((COSObject) i.next()).asName();
                 if (BLEND_MODES.contains(current)) {
-                    return (COSName) current;
+                    return current;
                 }
             }
         }

@@ -55,6 +55,7 @@ public class JBIG2Filter extends Filter {
      *
      * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
      */
+    @Override
     protected byte[] decode(byte[] source) throws IOException {
         JBIG2Decoder decoder;
 
@@ -85,6 +86,7 @@ public class JBIG2Filter extends Filter {
      *
      * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
      */
+    @Override
     protected byte[] encode(byte[] source) throws IOException {
         return null;
     }

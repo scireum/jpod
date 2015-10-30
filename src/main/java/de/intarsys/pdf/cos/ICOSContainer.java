@@ -42,20 +42,20 @@ public interface ICOSContainer {
      * <p>
      * The table shows the available transitions
      * <p>
-     * <code>
+     * {@code
      * | composite  | indirect   |
      * |
      * constant  | n.a.       | n.a.       | (always copied before by &quot;containable&quot;)
      * null      | ok         | ok         |
      * composite | error      | ok         |
      * indirect  | ok         | ok         |
-     * </code>
+     * }
      *
      * @param newContainer
      * @param object
-     * @return The resulting {@link ICOSContainer} for <code>object</code>
+     * @return The resulting {@link ICOSContainer} for {@code object}
      */
-    public ICOSContainer associate(ICOSContainer newContainer, COSObject object);
+    ICOSContainer associate(ICOSContainer newContainer, COSObject object);
 
     /**
      * The stand-in to be used when object should be contained in a container.
@@ -65,7 +65,7 @@ public interface ICOSContainer {
      * @return The stand-in to be used when object should be contained in a
      * container.
      */
-    public COSDocumentElement containable(COSObject object);
+    COSDocumentElement containable(COSObject object);
 
     /**
      * It is the responsibility of the current container to remove the
@@ -84,19 +84,19 @@ public interface ICOSContainer {
      *
      * @param oldContainer
      * @param object
-     * @return The resulting {@link ICOSContainer} for <code>object</code>
+     * @return The resulting {@link ICOSContainer} for {@code object}
      */
-    public ICOSContainer disassociate(ICOSContainer oldContainer, COSObject object);
+    ICOSContainer disassociate(ICOSContainer oldContainer, COSObject object);
 
     /**
      * The COSDocument instance where the ICOSContainer is contained.
      *
      * @return The COSDocument instance where the ICOSContainer is contained.
      */
-    public COSDocument getDoc();
+    COSDocument getDoc();
 
     /**
-     * "Harden" the reference to <code>object</code>, keeping it from being
+     * "Harden" the reference to {@code object}, keeping it from being
      * garbage collected even if (temporarily) not accessed. Otherwise a
      * container may decide to "swap" its descendants out of memory.
      * <p>
@@ -105,7 +105,7 @@ public interface ICOSContainer {
      *
      * @param object The object that should be kept in memory.
      */
-    public void harden(COSObject object);
+    void harden(COSObject object);
 
     /**
      * The number of references to the contained object. This method returns -1
@@ -114,14 +114,14 @@ public interface ICOSContainer {
      *
      * @return The number of references to the contained object.
      */
-    public int referenceCount();
+    int referenceCount();
 
     /**
      * Switch a contained object to an indirect one. Update the reference.
      *
      * @param object The object to be indirect
      */
-    public COSIndirectObject referenceIndirect(COSObject object);
+    COSIndirectObject referenceIndirect(COSObject object);
 
     /**
      * It is the responsibility of the active container to register object in
@@ -129,7 +129,7 @@ public interface ICOSContainer {
      *
      * @param object The new object to be registered in the hierarchy.
      */
-    public void register(COSDocumentElement object);
+    void register(COSDocumentElement object);
 
     /**
      * Restore the save state for the container.
@@ -137,26 +137,26 @@ public interface ICOSContainer {
      * @param container
      * @return The "before" state of the receiver.
      */
-    public ICOSContainer restoreStateContainer(ICOSContainer container);
+    ICOSContainer restoreStateContainer(ICOSContainer container);
 
     /**
      * Create a save state for the container when saving the COSObject state.
      *
      * @return The save state for the container.
      */
-    public ICOSContainer saveStateContainer();
+    ICOSContainer saveStateContainer();
 
     /**
-     * "Soften" the reference to <code>object</code>, making it accessible
+     * "Soften" the reference to {@code object}, making it accessible
      * for swapping out / garbage collection if the counter for hardening is
      * zero.
      *
      * @param object The object that should be kept in memory.
      */
-    public void soften(COSObject object);
+    void soften(COSObject object);
 
     /**
      * Propagate a change from a COSObject down in the hierarchy.
      */
-    public void willChange(COSObject object);
+    void willChange(COSObject object);
 }

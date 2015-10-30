@@ -55,6 +55,7 @@ public class CDSNumberTreeEntry extends CDSTreeEntry {
         return number;
     }
 
+    @Override
     public COSObject getKey() {
         return getNumber();
     }

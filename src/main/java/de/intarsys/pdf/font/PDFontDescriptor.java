@@ -38,11 +38,11 @@ import de.intarsys.pdf.pd.PDObject;
 /**
  * the detail information about a font.
  */
-abstract public class PDFontDescriptor extends PDObject {
+public abstract class PDFontDescriptor extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -53,12 +53,12 @@ abstract public class PDFontDescriptor extends PDObject {
         }
     }
 
-    static public final COSName CN_Type_FontDescriptor = COSName.constant("FontDescriptor"); //$NON-NLS-1$
+    public static final COSName CN_Type_FontDescriptor = COSName.constant("FontDescriptor"); //$NON-NLS-1$
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
     private FontDescriptorFlags flags = new FontDescriptorFlags(this);
 
     protected PDFontDescriptor(COSObject object) {
@@ -92,30 +92,30 @@ abstract public class PDFontDescriptor extends PDObject {
      *
      * @return The font ascent.
      */
-    abstract public float getAscent();
+    public abstract float getAscent();
 
     /**
      * The font average width.
      *
      * @return The font average width.
      */
-    abstract public float getAvgWidth();
+    public abstract float getAvgWidth();
 
     /**
      * The font capital height.
      *
      * @return The capital height.
      */
-    abstract public float getCapHeight();
+    public abstract float getCapHeight();
 
-    abstract public String getCharSet();
+    public abstract String getCharSet();
 
     /**
      * The font descent.
      *
      * @return The font descent.
      */
-    abstract public float getDescent();
+    public abstract float getDescent();
 
     public FontDescriptorFlags getFlags() {
         return flags;
@@ -126,21 +126,21 @@ abstract public class PDFontDescriptor extends PDObject {
      *
      * @return The font flags.
      */
-    abstract public int getFlagsValue();
+    public abstract int getFlagsValue();
 
     /**
      * The character enclosing rectangle.
      *
      * @return The character enclosing rectangle.
      */
-    abstract public CDSRectangle getFontBB();
+    public abstract CDSRectangle getFontBB();
 
     /**
      * The font family name.
      *
      * @return The font name.
      */
-    abstract public String getFontFamily();
+    public abstract String getFontFamily();
 
     /**
      * The data making up a Type1 font program.
@@ -176,7 +176,7 @@ abstract public class PDFontDescriptor extends PDObject {
      *
      * @return The font name.
      */
-    abstract public String getFontName();
+    public abstract String getFontName();
 
     /**
      * The font stretch value, one of
@@ -194,7 +194,7 @@ abstract public class PDFontDescriptor extends PDObject {
      *
      * @return The font stretch value
      */
-    abstract public String getFontStretch();
+    public abstract String getFontStretch();
 
     /**
      * The font weight value, one of
@@ -212,56 +212,56 @@ abstract public class PDFontDescriptor extends PDObject {
      *
      * @return The font stretch value
      */
-    abstract public int getFontWeight();
+    public abstract int getFontWeight();
 
     /**
      * The font italic angle.
      *
      * @return The font italic angle.
      */
-    abstract public float getItalicAngle();
+    public abstract float getItalicAngle();
 
     /**
      * The font leading.
      *
      * @return The font leading.
      */
-    abstract public int getLeading();
+    public abstract int getLeading();
 
     /**
      * The font character maximal width.
      *
      * @return The font character maximal width.
      */
-    abstract public int getMaxWidth();
+    public abstract int getMaxWidth();
 
     /**
      * The width to use when definition is missing.
      *
      * @return The width to use when definition is missing.
      */
-    abstract public int getMissingWidth();
+    public abstract int getMissingWidth();
 
     /**
      * The font horizontal stem.
      *
      * @return The font horizontal stem.
      */
-    abstract public int getStemH();
+    public abstract int getStemH();
 
     /**
      * The font vertical stem.
      *
      * @return The font vertical stem.
      */
-    abstract public int getStemV();
+    public abstract int getStemV();
 
     /**
      * The height of "X".
      *
      * @return The height of "X".
      */
-    abstract public float getXHeight();
+    public abstract float getXHeight();
 
     public boolean isAllCap() {
         return flags.isAllCap();
@@ -307,13 +307,13 @@ abstract public class PDFontDescriptor extends PDObject {
         flags.setAllCap(flag);
     }
 
-    abstract public void setCharSet(String charset);
+    public abstract void setCharSet(String charset);
 
     public void setFixedPitch(boolean flag) {
         flags.setFixedPitch(flag);
     }
 
-    abstract public void setFlagsValue(int value);
+    public abstract void setFlagsValue(int value);
 
     public void setFontFamily(String value) {
         //
@@ -335,9 +335,9 @@ abstract public class PDFontDescriptor extends PDObject {
         //
     }
 
-    abstract public void setFontStretch(String stretch);
+    public abstract void setFontStretch(String stretch);
 
-    abstract public void setFontWeight(int weight);
+    public abstract void setFontWeight(int weight);
 
     public void setForceBold(boolean flag) {
         flags.setForceBold(flag);

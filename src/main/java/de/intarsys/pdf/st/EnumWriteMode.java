@@ -39,7 +39,7 @@ public class EnumWriteMode extends EnumItem {
     /**
      * The meta data for the enumeration.
      */
-    final public static EnumMeta META = getMeta(EnumWriteMode.class);
+    public static final EnumMeta META = getMeta(EnumWriteMode.class);
 
     /**
      * Defer decision until writing

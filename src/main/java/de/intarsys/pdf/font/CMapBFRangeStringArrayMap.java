@@ -40,9 +40,9 @@ import java.util.Iterator;
  */
 public class CMapBFRangeStringArrayMap extends CMapRangeMap {
 
-    final private char[][] destinations;
+    private final char[][] destinations;
 
-    final private COSArray strings;
+    private final COSArray strings;
 
     public CMapBFRangeStringArrayMap(byte[] start, byte[] end, COSArray strings) {
         super(start, end);

@@ -89,7 +89,8 @@ public abstract class PDFont extends PDObject {
             }
             if (subtype.equals(CN_Subtype_Type1)) {
                 return PDFontType1.META;
-            } else if (subtype.equals(CN_Subtype_TrueType)) {
+            }
+            if (subtype.equals(CN_Subtype_TrueType)) {
                 if (dict.get(DK_FontDescriptor).isNull()) {
                     /*
 					 * treat as if Type1 was specified, because that's probably
@@ -100,15 +101,20 @@ public abstract class PDFont extends PDObject {
                     return PDFontType1.META;
                 }
                 return PDFontTrueType.META;
-            } else if (subtype.equals(CN_Subtype_MMType1)) {
+            }
+            if (subtype.equals(CN_Subtype_MMType1)) {
                 return PDFontMMType1.META;
-            } else if (subtype.equals(CN_Subtype_Type0)) {
+            }
+            if (subtype.equals(CN_Subtype_Type0)) {
                 return PDFontType0.META;
-            } else if (subtype.equals(CN_Subtype_Type3)) {
+            }
+            if (subtype.equals(CN_Subtype_Type3)) {
                 return PDFontType3.META;
-            } else if (subtype.equals(CN_Subtype_CIDFontType0)) {
+            }
+            if (subtype.equals(CN_Subtype_CIDFontType0)) {
                 return CIDFontType0.META;
-            } else if (subtype.equals(CN_Subtype_CIDFontType2)) {
+            }
+            if (subtype.equals(CN_Subtype_CIDFontType2)) {
                 return CIDFontType2.META;
             }
             throw new IllegalArgumentException("font subtype <" + subtype + "> not supported");
@@ -474,7 +480,7 @@ public abstract class PDFont extends PDObject {
         return getFontStyle(getBaseFont().stringValue());
     }
 
-    abstract public String getFontType();
+    public abstract String getFontType();
 
     /**
      * The {@link PDGlyphs} instance for the encoded codepoint.
@@ -482,7 +488,7 @@ public abstract class PDFont extends PDObject {
      * @param codepoint
      * @return The {@link PDGlyphs} instance for the encoded codepoint.
      */
-    abstract public PDGlyphs getGlyphsEncoded(int codepoint);
+    public abstract PDGlyphs getGlyphsEncoded(int codepoint);
 
     /**
      * The glyph width of an encoded codepoint in the font.
@@ -495,7 +501,7 @@ public abstract class PDFont extends PDObject {
      * @param codepoint The codepoint
      * @return The glyph width of an encoded codepoint in the font
      */
-    abstract public int getGlyphWidthEncoded(int codepoint);
+    public abstract int getGlyphWidthEncoded(int codepoint);
 
     /**
      * @return the last (encoded) codepoint defined in the font
@@ -544,7 +550,7 @@ public abstract class PDFont extends PDObject {
      * </p>
      *
      * @param codePoint
-     * @return The unicode value for <code>codePoint</code>
+     * @return The unicode value for {@code codePoint}
      */
     public int getMacintoshRomanCode(int codePoint) {
         String glyphName = getEncoding().getGlyphName(codePoint);
@@ -573,7 +579,7 @@ public abstract class PDFont extends PDObject {
      * @return The next {@link PDGlyphs} referenced by the input stream.
      * @throws IOException
      */
-    abstract public PDGlyphs getNextGlyphsEncoded(ByteArrayInputStream is) throws IOException;
+    public abstract PDGlyphs getNextGlyphsEncoded(ByteArrayInputStream is) throws IOException;
 
     public CMap getToUnicode() {
         if (cachedToUnicode == UNDEFINED) {
@@ -616,10 +622,7 @@ public abstract class PDFont extends PDObject {
         if (getFontDescriptor().getFontFile2() != null) {
             return true;
         }
-        if (getFontDescriptor().getFontFile3() != null) {
-            return true;
-        }
-        return false;
+        return getFontDescriptor().getFontFile3() != null;
     }
 
     /**
@@ -645,10 +648,7 @@ public abstract class PDFont extends PDObject {
         if (getFirstChar() > 32) {
             return true;
         }
-        if (getLastChar() < 128) {
-            return true;
-        }
-        return false;
+        return getLastChar() < 128;
     }
 
     public void setBaseFont(String name) {

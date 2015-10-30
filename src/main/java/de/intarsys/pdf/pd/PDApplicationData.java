@@ -42,24 +42,25 @@ public class PDApplicationData extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDApplicationData(object);
         }
     }
 
-    static public final COSName DK_LastModified = COSName.constant("LastModified");
+    public static final COSName DK_LastModified = COSName.constant("LastModified");
 
-    static public final COSName DK_Private = COSName.constant("Private");
+    public static final COSName DK_Private = COSName.constant("Private");
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * Create the receiver class from an already defined {@link COSDictionary}.
@@ -82,9 +83,9 @@ public class PDApplicationData extends PDObject {
     }
 
     /**
-     * The private data entry or <code>COSNull</code>
+     * The private data entry or {@code COSNull}
      *
-     * @return The private data entry or <code>COSNull</code>
+     * @return The private data entry or {@code COSNull}
      */
     public COSObject cosGetData() {
         return cosGetField(DK_Private);
@@ -111,6 +112,7 @@ public class PDApplicationData extends PDObject {
      *
      * @see de.intarsys.pdf.pd.PDObject#initializeFromScratch()
      */
+    @Override
     protected void initializeFromScratch() {
         super.initializeFromScratch();
         touch();

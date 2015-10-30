@@ -40,7 +40,6 @@ import de.intarsys.pdf.content.IContentStreamProvider;
 import de.intarsys.pdf.content.TextState;
 import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSConverter;
-import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSFixed;
 import de.intarsys.pdf.cos.COSInteger;
 import de.intarsys.pdf.cos.COSName;
@@ -52,7 +51,6 @@ import de.intarsys.pdf.pd.IResourcesProvider;
 import de.intarsys.pdf.pd.PDColorSpace;
 import de.intarsys.pdf.pd.PDExtGState;
 import de.intarsys.pdf.pd.PDForm;
-import de.intarsys.pdf.pd.PDImage;
 import de.intarsys.pdf.pd.PDObject;
 import de.intarsys.pdf.pd.PDPage;
 import de.intarsys.pdf.pd.PDPattern;
@@ -91,28 +89,28 @@ public class CSCreator extends CSVirtualDevice {
     /**
      * a constant for the ease of circle creation with beziers
      */
-    static public final float KAPPA = 0.5522847498f;
+    public static final float KAPPA = 0.5522847498f;
 
     /**
      * local constants
      */
     private static final float THOUSAND = 1000f;
 
-    static public final int VALUE_COLOR_PRECISION = 3;
+    public static final int VALUE_COLOR_PRECISION = 3;
 
-    static public final int VALUE_COORDINATE_PRECISION = 3;
+    public static final int VALUE_COORDINATE_PRECISION = 3;
 
-    static public final int VALUE_DASH_PRECISION = 2;
+    public static final int VALUE_DASH_PRECISION = 2;
 
-    static public final int VALUE_FACTOR_PRECISION = 4;
+    public static final int VALUE_FACTOR_PRECISION = 4;
 
-    static public final int VALUE_FLATNESS_PRECISION = 3;
+    public static final int VALUE_FLATNESS_PRECISION = 3;
 
-    static public final int VALUE_FONT_PRECISION = 2;
+    public static final int VALUE_FONT_PRECISION = 2;
 
-    static public final int VALUE_GRAY_PRECISION = 3;
+    public static final int VALUE_GRAY_PRECISION = 3;
 
-    static public final int VALUE_WIDTH_PRECISION = 3;
+    public static final int VALUE_WIDTH_PRECISION = 3;
 
     /**
      * Create a {@link CSCreator} on an existing {@link CSContent}. The content
@@ -127,9 +125,8 @@ public class CSCreator extends CSVirtualDevice {
      *                          resources referenced in the CSContent.
      * @return The new {@link CSCreator}
      */
-    static public CSCreator createFromContent(CSContent content, IResourcesProvider resourcesProvider) {
-        CSCreator result = new CSCreator(content, null, resourcesProvider);
-        return result;
+    public static CSCreator createFromContent(CSContent content, IResourcesProvider resourcesProvider) {
+        return new CSCreator(content, null, resourcesProvider);
     }
 
     /**
@@ -143,9 +140,8 @@ public class CSCreator extends CSVirtualDevice {
      *                 result of this {@link CSCreator}
      * @return The new {@link CSCreator}
      */
-    static public CSCreator createFromProvider(IContentStreamProvider provider) {
-        CSCreator result = new CSCreator(provider.getContentStream(), provider, provider);
-        return result;
+    public static CSCreator createFromProvider(IContentStreamProvider provider) {
+        return new CSCreator(provider.getContentStream(), provider, provider);
     }
 
     /**
@@ -157,10 +153,9 @@ public class CSCreator extends CSVirtualDevice {
      *                 result of this {@link CSCreator}
      * @return The new {@link CSCreator}
      */
-    static public CSCreator createNew(IContentStreamProvider provider) {
+    public static CSCreator createNew(IContentStreamProvider provider) {
         CSContent content = CSContent.createNew();
-        CSCreator result = new CSCreator(content, provider, provider);
-        return result;
+        return new CSCreator(content, provider, provider);
     }
 
     /**
@@ -172,10 +167,9 @@ public class CSCreator extends CSVirtualDevice {
      * @param provider The provider for resources within the new {@link CSContent}.
      * @return The new {@link CSCreator}
      */
-    static public CSCreator createNewDetached(IResourcesProvider provider) {
+    public static CSCreator createNewDetached(IResourcesProvider provider) {
         CSContent content = CSContent.createNew();
-        CSCreator result = new CSCreator(content, null, provider);
-        return result;
+        return new CSCreator(content, null, provider);
     }
 
     /**
@@ -342,9 +336,9 @@ public class CSCreator extends CSVirtualDevice {
     }
 
     /**
-     * Copy all operations from <code>otherContent</code> to <code>this</code>.
+     * Copy all operations from {@code otherContent} to {@code this}.
      * <p>
-     * Currently no resources are copied for <code>otherContent</code>
+     * Currently no resources are copied for {@code otherContent}
      *
      * @param otherContent The source of the graphic operations.
      */
@@ -392,7 +386,7 @@ public class CSCreator extends CSVirtualDevice {
     /**
      * Flush all pending operations on the stream.
      * <p>
-     * This must be called before the <code>getContent</code> operation is
+     * This must be called before the {@code getContent} operation is
      * valid.
      */
     public void flush() {
@@ -403,7 +397,7 @@ public class CSCreator extends CSVirtualDevice {
     }
 
     /**
-     * The {@link CSContent} we are working on. After calling <code>flush</code>
+     * The {@link CSContent} we are working on. After calling {@code flush}
      * the {@link CSContent} contains all operations stemming from calls to
      * this.
      *
@@ -445,30 +439,9 @@ public class CSCreator extends CSVirtualDevice {
         return textBuffer;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * de.intarsys.pdf.content.CSDeviceAdapter#inlineImage(de.intarsys.pdf.pd
-     * .PDImage)
-     */
-    @Override
-    public void inlineImage(PDImage img) {
-        // ignore
-        /*
-		 * CSOperation operationBI = new CSOperation(CSOperators.CSO_BI);
-		 * getContent().addOperation(operationBI); CSOperation operationID = new
-		 * CSOperation(CSOperators.CSO_ID);
-		 * getContent().addOperation(operationID); CSOperation operationEI = new
-		 * CSOperation(CSOperators.CSO_EI);
-		 * operationEI.addOperand(COSString.create(img.cosGetStream()
-		 * .getDecodedBytes())); getContent().addOperation(operationEI);
-		 */
-    }
-
     /**
-     * Answer <code>true</code> if the actual font in the text state is equal to
-     * <code>queryFont</code> and <code>queryFontSize</code>.
+     * Answer {@code true} if the actual font in the text state is equal to
+     * {@code queryFont} and {@code queryFontSize}.
      *
      * @param queryFont     The font to query.
      * @param queryFontSize The font size to query.
@@ -492,16 +465,6 @@ public class CSCreator extends CSVirtualDevice {
     }
 
     @Override
-    public void markedContentBeginProperties(COSName tag, COSName resourceName, COSDictionary properties) {
-        // ignore
-		/*
-		 * CSOperation operation = new CSOperation(CSOperators.CSO_BMC);
-		 * operation.addOperand(tag.copyOptional());
-		 * getContent().addOperation(operation);
-		 */
-    }
-
-    @Override
     public void markedContentEnd() {
         CSOperation operation = new CSOperation(CSOperators.CSO_EMC);
         getContent().addOperation(operation);
@@ -512,16 +475,6 @@ public class CSCreator extends CSVirtualDevice {
         CSOperation operation = new CSOperation(CSOperators.CSO_MP);
         operation.addOperand(tag.copyOptional());
         getContent().addOperation(operation);
-    }
-
-    @Override
-    public void markedContentPointProperties(COSName tag, COSName resourceName, COSDictionary properties) {
-        // ignore
-		/*
-		 * CSOperation operation = new CSOperation(CSOperators.CSO_BMC);
-		 * operation.addOperand(tag.copyOptional());
-		 * getContent().addOperation(operation);
-		 */
     }
 
     /*
@@ -686,8 +639,8 @@ public class CSCreator extends CSVirtualDevice {
     }
 
     /**
-     * Draw a circle. The center of the circle is at <code>x</code>,
-     * <code>y</code> in user space. <code>r</code> defines the radius.
+     * Draw a circle. The center of the circle is at {@code x},
+     * {@code y} in user space. {@code r} defines the radius.
      *
      * @param x The x coordinate of the center.
      * @param y The y coordinate of the center.
@@ -751,8 +704,8 @@ public class CSCreator extends CSVirtualDevice {
     }
 
     /**
-     * Draw an ellipse. The center of the ellipse is at <code>x</code>,
-     * <code>y</code> in user space. <code>rx</code> and <code>ry</code> define
+     * Draw an ellipse. The center of the ellipse is at {@code x},
+     * {@code y} in user space. {@code rx} and {@code ry} define
      * the radius in x and y direction respectively.
      *
      * @param x  The x coordinate of the center.
@@ -1385,8 +1338,8 @@ public class CSCreator extends CSVirtualDevice {
     }
 
     /**
-     * Move the current text line by <code>dx</code>, <code>dy</code>. Set the
-     * current leading to the <code>dy</code> offset.
+     * Move the current text line by {@code dx}, {@code dy}. Set the
+     * current leading to the {@code dy} offset.
      * <p>
      * PDF graphics operator "TD"
      *
@@ -1462,7 +1415,7 @@ public class CSCreator extends CSVirtualDevice {
                                      (float) tm.getTranslateY() + dy);
                 } else {
                     streamEndRun();
-                    getStrings().add(new Integer(iDelta));
+                    getStrings().add(Integer.valueOf(iDelta));
                     // move
                     textState.transform.translate(dx, 0);
                     textState.globalTransform.translate(dx, 0);
@@ -1503,7 +1456,7 @@ public class CSCreator extends CSVirtualDevice {
                                      y);
                 } else {
                     streamEndRun();
-                    getStrings().add(new Integer(iDelta));
+                    getStrings().add(Integer.valueOf(iDelta));
                     // move
                     textState.transform.translate(dDeltaX, 0);
                     textState.globalTransform.translate(dDeltaX, 0);

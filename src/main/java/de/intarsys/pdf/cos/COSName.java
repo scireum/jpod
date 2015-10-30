@@ -37,23 +37,23 @@ import java.util.Arrays;
  */
 public class COSName extends COSPrimitiveObject {
 
-    static public COSName constant(String name) {
+    public static COSName constant(String name) {
         return (COSName) COSName.create(name).beConstant();
     }
 
-    static public COSName constantUTF8(String name) {
+    public static COSName constantUTF8(String name) {
         return (COSName) COSName.createUTF8(name).beConstant();
     }
 
-    static public COSName create(byte[] bytes) {
+    public static COSName create(byte[] bytes) {
         return new COSName(bytes, true);
     }
 
-    static public COSName create(String name) {
+    public static COSName create(String name) {
         return new COSName(name.getBytes(), true);
     }
 
-    static public COSName createUTF8(String name) {
+    public static COSName createUTF8(String name) {
         try {
             return new COSName(name.getBytes("UTF-8"), true); //$NON-NLS-1$
         } catch (UnsupportedEncodingException e) {
@@ -186,7 +186,7 @@ public class COSName extends COSPrimitiveObject {
         if (utf8) {
             try {
                 return new String(bytes, "UTF-8"); //$NON-NLS-1$
-            } catch (UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException ignored) {
                 return new String(bytes);
             }
         } else {
@@ -238,6 +238,7 @@ public class COSName extends COSPrimitiveObject {
      *
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
+    @Override
     public Object saveState() {
         COSName result = new COSName(bytes);
         result.string = this.string;

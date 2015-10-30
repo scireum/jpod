@@ -44,7 +44,7 @@ public class PDActionJavaScript extends PDAction {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAction.MetaClass {
+    public static class MetaClass extends PDAction.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -55,16 +55,16 @@ public class PDActionJavaScript extends PDAction {
         }
     }
 
-    static public final COSName CN_ActionType_JavaScript = COSName.constant("JavaScript"); //$NON-NLS-1$
+    public static final COSName CN_ActionType_JavaScript = COSName.constant("JavaScript"); //$NON-NLS-1$
 
-    static public final COSName DK_JS = COSName.constant("JS"); //$NON-NLS-1$
+    public static final COSName DK_JS = COSName.constant("JS"); //$NON-NLS-1$
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public PDActionJavaScript createNew(String script) {
+    public static PDActionJavaScript createNew(String script) {
         PDActionJavaScript result = (PDActionJavaScript) PDActionJavaScript.META.createNew();
         result.setJavaScript(script);
         return result;

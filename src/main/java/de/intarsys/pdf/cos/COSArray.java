@@ -167,7 +167,7 @@ public class COSArray extends COSCompositeObject {
      * he deals not with references.
      * </p>
      *
-     * @param index  The index where to insert <code>object</code>
+     * @param index  The index where to insert {@code object}
      * @param object the object to be added
      * @return this
      */
@@ -217,7 +217,7 @@ public class COSArray extends COSCompositeObject {
      * this method should only be used for low level programming (parser).
      * </p>
      *
-     * @param index   The index where to insert <code>object</code>
+     * @param index   The index where to insert {@code object}
      * @param element the element to be added
      * @return this
      */
@@ -280,10 +280,10 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * The index within this where <code>element</code> can be found or -1.
+     * The index within this where {@code element} can be found or -1.
      *
      * @param element The element to be searched within this.
-     * @return The index of <code>element</code> or -1 if nothing found.
+     * @return The index of {@code element} or -1 if nothing found.
      */
     protected int basicIndexOf(COSDocumentElement element) {
         COSDocumentElement containable = element.containable();
@@ -315,10 +315,10 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Remove <code>otherElement</code> from this.
+     * Remove {@code otherElement} from this.
      *
      * @param otherElement The element to be removed.
-     * @return <code>true</code> if element was removed.
+     * @return {@code true} if element was removed.
      */
     protected boolean basicRemovePropagate(COSDocumentElement otherElement) {
         COSObject dereferenced = otherElement.dereference();
@@ -337,7 +337,7 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Remove element at <code>index</code>.
+     * Remove element at {@code index}.
      *
      * @param index The index within this to be removed.
      * @return The {@link COSDocumentElement} that was removed at the specified
@@ -353,7 +353,7 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * replace the object at index <<code>i</code> with <code>element</code>.
+     * replace the object at index <{@code i} with {@code element}.
      *
      * @param i       the index
      * @param element the object to put at the specified index
@@ -446,7 +446,6 @@ public class COSArray extends COSCompositeObject {
      */
     @Override
     protected COSObject copySubGraph(Map copied) {
-        COSArray result = (COSArray) super.copySubGraph(copied);
 
         // for (Iterator i = basicIterator(); i.hasNext();) {
         // COSDocumentElement element = (COSDocumentElement) i.next();
@@ -466,7 +465,7 @@ public class COSArray extends COSCompositeObject {
         // }
         // result.basicAdd(copy);
         // }
-        return result;
+        return super.copySubGraph(copied);
     }
 
     @SuppressWarnings("unchecked")
@@ -513,7 +512,7 @@ public class COSArray extends COSCompositeObject {
     public COSObject get(int index) {
         try {
             return ((COSDocumentElement) objects.get(index)).dereference();
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException ignored) {
             return COSNull.NULL;
         }
     }
@@ -547,10 +546,7 @@ public class COSArray extends COSCompositeObject {
         int result = 17;
         for (Iterator iThis = this.basicIterator(); iThis.hasNext(); ) {
             COSDocumentElement oThis = (COSDocumentElement) iThis.next();
-            if (oThis.isReference()) {
-                result = (result + oThis.hashCode()) * 34;
-            } else if (((COSObject) oThis).isPrimitive()) {
-                // do not descend
+            if (oThis.isReference() || ((COSObject) oThis).isPrimitive()) {
                 result = (result + oThis.hashCode()) * 34;
             } else {
                 result = (result + 17) * 34;
@@ -560,10 +556,10 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * The index of <code>object</code> within this or -1 if not found.
+     * The index of {@code object} within this or -1 if not found.
      *
      * @param object The object to be searched within this.
-     * @return The index of <code>object</code> within this or -1 if not
+     * @return The index of {@code object} within this or -1 if not
      * found.
      */
     public int indexOf(COSObject object) {
@@ -571,12 +567,12 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * <code>true</code> if <code>this.size() == 0</code>.
+     * {@code true} if {@code this.size() == 0}.
      *
-     * @return <code>true</code> if <code>this.size() == 0</code>.
+     * @return {@code true} if {@code this.size() == 0}.
      */
     public boolean isEmpty() {
-        return objects.size() == 0;
+        return objects.isEmpty();
     }
 
     /*
@@ -624,7 +620,7 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Remove <code>object</code> from this. If <code>object</code> is not
+     * Remove {@code object} from this. If {@code object} is not
      * contained, nothing happens.
      * <p>
      * <p>
@@ -632,7 +628,7 @@ public class COSArray extends COSCompositeObject {
      * </p>
      *
      * @param object The object to remove from this.
-     * @return <code>true</code> if <code>object</code> was removed.
+     * @return {@code true} if {@code object} was removed.
      */
     public boolean remove(COSObject object) {
         willChange(this);
@@ -644,7 +640,7 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Remove the object at <code>index</code> from the collection.
+     * Remove the object at {@code index} from the collection.
      *
      * @param index The index of the object to remove from the collection.
      * @return The object previously stored at the index.
@@ -679,6 +675,7 @@ public class COSArray extends COSCompositeObject {
      *
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
+    @Override
     public Object saveState() {
         COSArray result = new COSArray(new ArrayList(this.objects));
         result.container = this.container.saveStateContainer();
@@ -686,7 +683,7 @@ public class COSArray extends COSCompositeObject {
     }
 
     /**
-     * Replace the object at index <code>i</code> with <code>object</code>.
+     * Replace the object at index {@code i} with {@code object}.
      *
      * @param i      The index
      * @param object The object to put at the specified index
@@ -719,7 +716,7 @@ public class COSArray extends COSCompositeObject {
         if (objectListeners == null) {
             return;
         }
-        Integer slotObject = new Integer(slot);
+        Integer slotObject = Integer.valueOf(slot);
         for (Iterator it = objectListeners.iterator(); it.hasNext(); ) {
             ICOSObjectListener listener = (ICOSObjectListener) it.next();
             listener.changed(this, slotObject, oldValue, newValue);

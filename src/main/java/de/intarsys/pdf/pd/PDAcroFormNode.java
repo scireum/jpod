@@ -46,11 +46,11 @@ import java.util.List;
  * Abstract superclass to factor out commons between {@link PDAcroForm} and
  * {@link PDAcroFormField}.
  */
-abstract public class PDAcroFormNode extends PDObject {
+public abstract class PDAcroFormNode extends PDObject {
     /**
      * The meta class implementation
      */
-    static public abstract class MetaClass extends PDObject.MetaClass {
+    public abstract static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -64,27 +64,27 @@ abstract public class PDAcroFormNode extends PDObject {
     /**
      * The name for the Encoding.
      */
-    static public final COSName DK_Encoding = COSName.constant("Encoding");
+    public static final COSName DK_Encoding = COSName.constant("Encoding");
 
     /**
      * The name for the default resources.
      */
-    static public final COSName DK_DR = COSName.constant("DR");
+    public static final COSName DK_DR = COSName.constant("DR");
 
     /**
      * The name for the fonts.
      */
-    static public final COSName DK_Font = COSName.constant("Font");
+    public static final COSName DK_Font = COSName.constant("Font");
 
     /**
      * The name for the DefaultAppereance entry.
      */
-    static public final COSName DK_DA = COSName.constant("DA");
+    public static final COSName DK_DA = COSName.constant("DA");
 
     /**
      * The name for the Quadding entry.
      */
-    static public final COSName DK_Q = COSName.constant("Q");
+    public static final COSName DK_Q = COSName.constant("Q");
 
     /**
      * Create a canonical form of the field name.
@@ -92,7 +92,7 @@ abstract public class PDAcroFormNode extends PDObject {
      * @param name The field name to be converted.
      * @return The canonical for of the field name.
      */
-    static public String canonicalize(String name) {
+    public static String canonicalize(String name) {
         return name.toLowerCase();
     }
 
@@ -109,7 +109,7 @@ abstract public class PDAcroFormNode extends PDObject {
      *
      * @param field The field to be inserted.
      */
-    abstract public void addField(PDAcroFormField field);
+    public abstract void addField(PDAcroFormField field);
 
     protected PDAcroFormField basicGetField(String name, boolean canonical) {
         List children = getGenericChildren();
@@ -167,23 +167,23 @@ abstract public class PDAcroFormNode extends PDObject {
      *
      * @return The {@link PDAcroForm} for this node.
      */
-    abstract public PDAcroForm getAcroForm();
+    public abstract PDAcroForm getAcroForm();
 
     /**
-     * Get an annotation from the tree beyond <code>this</code> identified by
-     * <code>index</code>.
+     * Get an annotation from the tree beyond {@code this} identified by
+     * {@code index}.
      *
-     * @return An annotation from the tree beyond <code>this</code> identified
-     * by <code>index</code>.
+     * @return An annotation from the tree beyond {@code this} identified
+     * by {@code index}.
      */
     public PDAnnotation getAnnotation(int index) {
         return (PDAnnotation) getAnnotations().get(index);
     }
 
     /**
-     * A list of all annotations in the tree beyond <code>this</code>.
+     * A list of all annotations in the tree beyond {@code this}.
      *
-     * @return A list of all annotations in the tree beyond <code>this</code>.
+     * @return A list of all annotations in the tree beyond {@code this}.
      */
     public List getAnnotations() {
         // todo 2 caching?
@@ -191,7 +191,7 @@ abstract public class PDAcroFormNode extends PDObject {
     }
 
     /**
-     * Recursively collect all annotations in the tree beyond <code>this</code>.
+     * Recursively collect all annotations in the tree beyond {@code this}.
      *
      * @param annotations The annotations collected so far.
      * @return The enhanced list of annotations for this subtree.
@@ -278,14 +278,14 @@ abstract public class PDAcroFormNode extends PDObject {
     }
 
     /**
-     * The sub-node identified by <code>path</code>. The <code>path</code> may
+     * The sub-node identified by {@code path}. The {@code path} may
      * be a navigation path containing multiple segments separated by a ".",
      * each segment identifying a sub node in the node found so far.
      * <p>
      * The navigation starts at this and the first path segment is matched
      * against the node's children. Example:<br>
      * <p>
-     * <code>
+     * {@code
      * AcroForm
      * |
      * + Field1
@@ -308,25 +308,25 @@ abstract public class PDAcroFormNode extends PDObject {
      * <p>
      * group = form.getField("Group1");
      * group.getField("FieldA");
-     * </code>
+     * }
      *
      * @param path The navigation path to the field.
-     * @return The sub-node identified by <code>path</code>.
+     * @return The sub-node identified by {@code path}.
      */
     public PDAcroFormField getField(String path) {
         return getField(path, false);
     }
 
     /**
-     * The sub-node identified by <code>path</code>. The <code>path</code> may
+     * The sub-node identified by {@code path}. The {@code path} may
      * be a navigation path containing multiple segments separated by a ".",
      * each segment identifying a sub node in the node found so far. If
-     * <code>canonicalName</code> is <code>true</code>, the name will be
+     * {@code canonicalName} is {@code true}, the name will be
      * transformed to a canonical format before lookup.
      *
      * @param name          The navigation path to the field.
      * @param canonicalName Flag if lookup uses canonical form.
-     * @return The sub-node identified by <code>path</code>
+     * @return The sub-node identified by {@code path}
      */
     public PDAcroFormField getField(String name, boolean canonicalName) {
         String basicname = canonicalName ? canonicalize(name) : name;
@@ -370,9 +370,9 @@ abstract public class PDAcroFormNode extends PDObject {
      * Remove a {@link PDAcroFormField} from the receiver.
      *
      * @param field The field to remove.
-     * @return <code>true</code> if <code>field</code> was removed.
+     * @return {@code true} if {@code field} was removed.
      */
-    abstract public boolean removeField(PDAcroFormField field);
+    public abstract boolean removeField(PDAcroFormField field);
 
     protected void setDefaultAppearance(DefaultAppearance defaultAppearanceParser) {
         this.defaultAppearance = defaultAppearanceParser;

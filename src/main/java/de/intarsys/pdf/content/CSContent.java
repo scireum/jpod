@@ -81,16 +81,14 @@ public class CSContent {
      * @param data The bytes defining the PDF content stream.
      * @return The new {@link CSContent}
      */
-    static public CSContent createFromBytes(byte[] data) {
+	public static CSContent createFromBytes(byte[] data) {
         try {
             CSContentParser parser = new CSContentParser();
             return parser.parseStream(data);
-        } catch (IOException e) {
-            throw new COSRuntimeException(e);
-        } catch (COSLoadException e) {
+        } catch (IOException | COSLoadException e) {
             throw new COSRuntimeException(e);
         }
-    }
+	}
 
     /**
      * Create {@link CSContent} from an array of {@link COSStream}, together
@@ -100,7 +98,7 @@ public class CSContent {
      *                of the content stream.
      * @return The new {@link CSContent}.
      */
-    static public CSContent createFromCos(COSArray streams) {
+	public static CSContent createFromCos(COSArray streams) {
         RandomAccessByteArray data = new RandomAccessByteArray(null);
         try {
             for (Iterator it = streams.iterator(); it.hasNext(); ) {
@@ -114,12 +112,10 @@ public class CSContent {
             CSContentParser parser = new CSContentParser();
             data.seek(0);
             return parser.parseStream(data);
-        } catch (IOException e) {
-            throw new COSRuntimeException(e);
-        } catch (COSLoadException e) {
+        } catch (IOException | COSLoadException e) {
             throw new COSRuntimeException(e);
         }
-    }
+	}
 
     /**
      * Create {@link CSContent} from a {@link COSStream} containing a PDF
@@ -128,7 +124,7 @@ public class CSContent {
      * @param stream The stream defining containing the PDF content stream.
      * @return The new {@link CSContent}
      */
-    static public CSContent createFromCos(COSStream stream) {
+	public static CSContent createFromCos(COSStream stream) {
         return createFromBytes(stream.getDecodedBytes());
     }
 
@@ -137,9 +133,8 @@ public class CSContent {
      *
      * @return The new {@link CSContent}.
      */
-    static public CSContent createNew() {
-        CSContent result = new CSContent();
-        return result;
+	public static CSContent createNew() {
+        return new CSContent();
     }
 
     /**
@@ -290,7 +285,7 @@ public class CSContent {
      * operand identifying the type of marked content.
      * <p>
      * <p>
-     * The portion between the marks is replaced with <code>content</code>.If no
+     * The portion between the marks is replaced with {@code content}.If no
      * marks are found, the new content is appended as a marked content section.
      * </p>
      *

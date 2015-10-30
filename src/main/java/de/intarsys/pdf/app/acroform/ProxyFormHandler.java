@@ -50,46 +50,57 @@ public abstract class ProxyFormHandler implements IFormHandler {
         return delegate;
     }
 
+    @Override
     public PDDocument getDoc() {
         return getDelegate().getDoc();
     }
 
+    @Override
     public String getFieldValue(Object fieldRef) {
         return getDelegate().getFieldValue(fieldRef);
     }
 
+    @Override
     public boolean isCalculate() {
         return getDelegate().isCalculate();
     }
 
+    @Override
     public boolean isValidate() {
         return getDelegate().isValidate();
     }
 
+    @Override
     public void recalculate() {
         getDelegate().recalculate();
     }
 
+    @Override
     public void recalculate(Object fieldRef) {
         getDelegate().recalculate(fieldRef);
     }
 
+    @Override
     public void resetFields() {
         getDelegate().resetFields();
     }
 
+    @Override
     public void resetFields(List fieldNames, boolean invert) {
         getDelegate().resetFields(fieldNames, invert);
     }
 
+    @Override
     public void setCalculate(boolean calculate) {
         getDelegate().setCalculate(calculate);
     }
 
+    @Override
     public void setFieldValue(Object fieldRef, Object value) {
         getDelegate().setFieldValue(fieldRef, value);
     }
 
+    @Override
     public void setValidate(boolean validate) {
         getDelegate().setValidate(validate);
     }

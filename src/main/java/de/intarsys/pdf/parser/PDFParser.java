@@ -227,7 +227,7 @@ public abstract class PDFParser {
      * @param i i a byte representation
      * @return true if i is a PDF delimiter char
      */
-    public static final boolean isDelimiter(int i) {
+    public static boolean isDelimiter(int i) {
         return characterClass[i] == CHARCLASS_DELIMITER;
     }
 
@@ -237,7 +237,7 @@ public abstract class PDFParser {
      * @param i i a byte representation
      * @return true if i is a valid digit
      */
-    public static final boolean isDigit(int i) {
+    public static boolean isDigit(int i) {
         return characterClass[i] == CHARCLASS_DIGIT;
     }
 
@@ -247,7 +247,7 @@ public abstract class PDFParser {
      * @param i i a byte representation
      * @return true if i is a valid line terminator
      */
-    public static final boolean isEOL(int i) {
+    public static boolean isEOL(int i) {
         return (i == CHAR_CR) || (i == CHAR_LF) || (i == 12);
     }
 
@@ -257,7 +257,7 @@ public abstract class PDFParser {
      * @param i i a byte representation
      * @return true if i is a valid first char for a number token
      */
-    public static final boolean isNumberStart(int i) {
+    public static boolean isNumberStart(int i) {
         int cc = characterClass[i];
         return (cc == CHARCLASS_DIGIT) || (cc == CHARCLASS_NUMBERSPECIAL);
     }
@@ -268,7 +268,7 @@ public abstract class PDFParser {
      * @param i i a byte representation
      * @return true if i is a valid octal digit
      */
-    public static final boolean isOctalDigit(int i) {
+    public static boolean isOctalDigit(int i) {
         return ((i >= '0') && (i <= '7'));
     }
 
@@ -278,7 +278,7 @@ public abstract class PDFParser {
      * @param i i a byte representation
      * @return true if i is a valid string token start
      */
-    public static final boolean isTokenStart(int i) {
+    public static boolean isTokenStart(int i) {
         return characterClass[i] == CHARCLASS_TOKEN;
     }
 
@@ -292,7 +292,7 @@ public abstract class PDFParser {
      * @param i i a byte representation
      * @return true if i is a valid whitespace
      */
-    public static final boolean isWhitespace(int i) {
+    public static boolean isWhitespace(int i) {
         return characterClass[i] == CHARCLASS_WHITESPACE;
     }
 
@@ -312,7 +312,7 @@ public abstract class PDFParser {
     /**
      * A list for object lookahead (needed with PDF references)
      */
-    private COSObject[] lookahead = new COSObject[]{null, null, null};
+    private COSObject[] lookahead = {null, null, null};
 
     /**
      * The number of elements currently in the lookahead buffer.
@@ -595,7 +595,7 @@ public abstract class PDFParser {
      * this implementation is a little more complicated, as we hava a two object
      * lookahead to detect references.
      * <p>
-     * <code>
+     * {@code
      * COSObject ::=   COSReference |
      * COSBoolean |
      * COSString |
@@ -606,7 +606,7 @@ public abstract class PDFParser {
      * COSDictionary |
      * COSStream
      * <p>
-     * </code>
+     * }
      * <p>
      * </p>
      *
@@ -739,9 +739,9 @@ public abstract class PDFParser {
      * parse a COS dictionary from the current stream position. see PDF
      * Reference v1.4, chapter 3.2.6 Dictionary objects
      * <p>
-     * <code>
+     * {@code
      * COSDictionary ::= &quot;&lt;&lt;&quot; (COSName COSObject)* &quot;&gt;&gt;&quot;
-     * </code>
+     * }
      *
      * @return the dictionary parsed
      * @throws IOException
@@ -787,7 +787,7 @@ public abstract class PDFParser {
                         dict.basicPutSilent(dictKey, value);
                     }
                 }
-            } catch (ClassCastException ex) {
+            } catch (ClassCastException ignored) {
                 COSLoadError e = new COSLoadError("name expected at character index " + input.getOffset());
                 handleError(e);
             }
@@ -819,10 +819,10 @@ public abstract class PDFParser {
      * parse a COS string encoded in hex from the current stream position. see
      * PDF Reference v1.4, chapter 3.2.3 String objects
      * <p>
-     * <code>
+     * {@code
      * COSString ::= COSString | COSHexString
      * COSHexString ::= &quot;&lt;&quot; (hexChar)* &quot;&gt;&quot;
-     * </code>
+     * }
      *
      * @return the string parsed
      * @throws IOException
@@ -850,7 +850,7 @@ public abstract class PDFParser {
                     // a warning for PDF/A related checks will be triggered
                     // exception is handled right on track
                     COSLoadWarning pwarn = new COSLoadWarning(C_WARN_ILLEGALHEX);
-                    pwarn.setHint(new Long(input.getOffset()));
+                    pwarn.setHint(Long.valueOf(input.getOffset()));
                     handleWarning(pwarn);
                     throw ioe;
                 }
@@ -870,7 +870,7 @@ public abstract class PDFParser {
             // this is a warning for uneven numbers on hex codes
             if (check) {
                 COSLoadWarning pwarn = new COSLoadWarning(C_WARN_UNEVENHEX);
-                pwarn.setHint(new Long(input.getOffset()));
+                pwarn.setHint(Long.valueOf(input.getOffset()));
                 handleWarning(pwarn);
             }
             // assume trailing "0"
@@ -983,7 +983,7 @@ public abstract class PDFParser {
                 localStream.write((byte) next);
             } else if (next == '.') {
                 isFixed = true;
-                localStream.write((byte) next);
+                localStream.write((byte) '.');
             } else if ((next == ' ') || isWhitespace(next)) {
                 break;
             } else {
@@ -992,8 +992,7 @@ public abstract class PDFParser {
             }
         } while (true);
         if (isFixed) {
-            COSFixed fixed = COSFixed.create(localStream.getBytes(), 0, localStream.size());
-            return fixed;
+            return COSFixed.create(localStream.getBytes(), 0, localStream.size());
         }
         byte[] streamBytes = localStream.getBytes();
         int streamSize = localStream.size();
@@ -1046,7 +1045,7 @@ public abstract class PDFParser {
             // ?? there are testdocuments that provide only a single CR
             if (check) {
                 COSLoadWarning pwarn = new COSLoadWarning(C_WARN_STREAMEOL);
-                pwarn.setHint(new Long(input.getOffset()));
+                pwarn.setHint(Long.valueOf(input.getOffset()));
                 handleWarning(pwarn);
             }
             input.seekBy(-1);
@@ -1059,7 +1058,7 @@ public abstract class PDFParser {
             // warning for pdfa
             if (check) {
                 COSLoadWarning pwarn = new COSLoadWarning(C_WARN_STREAMLENGTH);
-                pwarn.setHint(new Long(input.getOffset()));
+                pwarn.setHint(Long.valueOf(input.getOffset()));
                 handleWarning(pwarn);
             }
         } else {
@@ -1079,7 +1078,7 @@ public abstract class PDFParser {
                 if (check) {
                     // get additional warning for pdfa
                     COSLoadWarning pwarn = new COSLoadWarning(C_WARN_STREAMLENGTH);
-                    pwarn.setHint(new Long(input.getOffset()));
+                    pwarn.setHint(Long.valueOf(input.getOffset()));
                     handleWarning(pwarn);
                 }
                 unexpectedEndOfInput(input);
@@ -1091,7 +1090,7 @@ public abstract class PDFParser {
             int test = readEOL(input);
             if (test != 1) {
                 COSLoadWarning pwarn = new COSLoadWarning(C_WARN_ENDSTREAMEOL);
-                pwarn.setHint(new Long(input.getOffset()));
+                pwarn.setHint(Long.valueOf(input.getOffset()));
                 handleWarning(pwarn);
             }
         } else {
@@ -1107,7 +1106,7 @@ public abstract class PDFParser {
             input.seekBy(-token.length - 1);
             // a warning for PDF/A related checks will be triggered
             COSLoadWarning pwarn = new COSLoadWarning(C_WARN_ENDSTREAMCORRUPT);
-            pwarn.setHint(new Long(input.getOffset()));
+            pwarn.setHint(Long.valueOf(input.getOffset()));
             handleWarning(pwarn);
 
             if (length > 0) {
@@ -1163,18 +1162,15 @@ public abstract class PDFParser {
 
             // performance shortcut for simple space
             if ((next == ' ') || isWhitespace(next)) {
-                if (next == '\n' || next == '\r') {
-                    lastWasEOL = true;
-                } else {
-                    lastWasEOL = false;
-                }
+				lastWasEOL = next == '\n' || next == '\r';
                 continue;
             }
             break;
         }
         if (next == 's') {
             return parseOnObjectStream(input, (COSDictionary) dict);
-        } else if (next == 'e' && check && !lastWasEOL) {
+        }
+        if (next == 'e' && check && !lastWasEOL) {
             COSLoadWarning pwarn = new COSLoadWarning(C_WARN_SINGLEEOL_OBJ);
             pwarn.setHint(new Long(input.getOffset()));
             handleWarning(pwarn);
@@ -1223,7 +1219,7 @@ public abstract class PDFParser {
             } else if (next == ')') {
                 if (paraCount > 0) {
                     paraCount--;
-                    localStream.write(next);
+                    localStream.write(')');
                 } else {
                     break;
                 }
@@ -1236,7 +1232,7 @@ public abstract class PDFParser {
                 localStream.write(CHAR_LF);
             } else if (next == '(') {
                 paraCount++;
-                localStream.write(next);
+                localStream.write('(');
             } else if (next == -1) {
                 unexpectedEndOfInput(input);
             } else {
@@ -1269,7 +1265,7 @@ public abstract class PDFParser {
      * determine number of EOL sequences
      *
      * @param input
-     * @return <code>number of EOL</code>
+     * @return {@code number of EOL}
      * @throws IOException
      */
     protected int readEOL(IRandomAccess input) throws IOException {
@@ -1299,7 +1295,8 @@ public abstract class PDFParser {
                 input.seekBy(-1);
                 return 1;
             }
-        } else if (next == CHAR_LF) {
+        }
+        if (next == CHAR_LF) {
             next = input.read();
             if (next == -1) {
                 return 1;
@@ -1310,7 +1307,8 @@ public abstract class PDFParser {
                 input.seekBy(-1);
                 return 1;
             }
-        } else if (isWhitespace(next)) {
+        }
+        if (isWhitespace(next)) {
             readSpaces(input);
             return 2;
         }
@@ -1560,11 +1558,8 @@ public abstract class PDFParser {
                     messages.add(C_TOKEN_ADDWSB);
                 } else if (strict && (next == ' ')) {
                     messages.add(C_TOKEN_WSB);
-                } else if (next == '\r') {
-                    // may be CR+EOL
-                    crEol = true;
-                } else {
-                    crEol = false;
+                } else { // may be CR+EOL
+                    crEol = next == '\r';
                 }
                 continue;
             } else if (next == '%') {
@@ -1583,12 +1578,11 @@ public abstract class PDFParser {
         localStream.write(next);
         do {
             next = input.read();
-            if (next == -1) {
-                break;
-            } else if ((next == ' ') || isWhitespace(next)) { // performance
+            if ((next == ' ') || isWhitespace(next)) { // performance
                 // shortcut
                 break;
-            } else if (isDelimiter(next)) {
+            }
+            if (isDelimiter(next)) {
                 input.seekBy(-1);
                 break;
             }
@@ -1614,7 +1608,8 @@ public abstract class PDFParser {
             next = input.read();
             if (next == -1) {
                 break;
-            } else if ((next == ' ') || isWhitespace(next)) { // performance
+            }
+            if ((next == ' ') || isWhitespace(next)) { // performance
                 // shortcut
                 if (next == ' ') {
                     messages.add(C_TOKEN_ADDWSA);
@@ -1628,7 +1623,8 @@ public abstract class PDFParser {
                     input.seekBy(-1);
                 }
                 break;
-            } else if (isDelimiter(next)) {
+            }
+            if (isDelimiter(next)) {
                 messages.add(C_TOKEN_NOWSA);
                 input.seekBy(-1);
                 break;

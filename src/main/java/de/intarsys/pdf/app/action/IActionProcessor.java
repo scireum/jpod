@@ -46,12 +46,12 @@ import de.intarsys.pdf.cos.COSObject;
 public interface IActionProcessor {
 
     /**
-     * Process an <code>actionDefinition</code> of type
-     * <code>actionType</code> caused by <code>event</code>.
+     * Process an {@code actionDefinition} of type
+     * {@code actionType} caused by {@code event}.
      *
      * @param event
      * @param actionType
      * @param actionDefinition
      */
-    public void process(TriggerEvent event, COSName actionType, COSObject actionDefinition);
+    void process(TriggerEvent event, COSName actionType, COSObject actionDefinition);
 }

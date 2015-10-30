@@ -69,12 +69,12 @@ public class DifferenceEncoding extends Encoding {
 
     /**
      * Create the difference encoding from the values defined in the
-     * <code>dict</code>.
+     * {@code dict}.
      *
      * @param dict The dictionary defining the difference.
      * @param font The font defining the base encoding.
      * @return The difference encoding from the values defined in the
-     * <code>dict</code>.
+     * {@code dict}.
      */
     public static Encoding create(COSDictionary dict, PDFont font) {
         DifferenceEncoding encoding = new DifferenceEncoding(dict);
@@ -104,7 +104,7 @@ public class DifferenceEncoding extends Encoding {
                     start = ((COSNumber) element).intValue();
                 }
                 if (element instanceof COSName && (start > -1)) {
-                    String name = ((COSName) element).stringValue();
+                    String name = element.stringValue();
                     differenceEncoding.addEncoding(start, name);
                     start++;
                 }
@@ -114,7 +114,7 @@ public class DifferenceEncoding extends Encoding {
     }
 
     // the dictionary object representing the encoding
-    final private COSDictionary dict;
+	private final COSDictionary dict;
 
     // the base encoding
     private Encoding baseEncoding;

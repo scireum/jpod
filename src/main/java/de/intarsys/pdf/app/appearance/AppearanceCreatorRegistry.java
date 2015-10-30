@@ -35,6 +35,9 @@ package de.intarsys.pdf.app.appearance;
 public class AppearanceCreatorRegistry {
     private static IAppearanceCreatorRegistry ACTIVE = new StandardAppearanceCreatorRegistry();
 
+    private AppearanceCreatorRegistry() {
+    }
+
     public static IAppearanceCreatorRegistry get() {
         return ACTIVE;
     }

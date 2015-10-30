@@ -46,7 +46,7 @@ public class CSTextFilter extends CSDeviceFilter {
     }
 
     @Override
-    protected void doImage(COSName name, PDImage image) throws CSException {
+    protected void doImage(COSName name, PDImage image) {
         //
     }
 

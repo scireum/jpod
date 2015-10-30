@@ -55,6 +55,7 @@ public abstract class STXRefEntry implements Comparable {
 
     public abstract void accept(IXRefEntryVisitor visitor) throws XRefEntryVisitorException;
 
+    @Override
     public int compareTo(Object obj) {
         if (obj instanceof STXRefEntry) {
             return (getObjectNumber() - ((STXRefEntry) obj).getObjectNumber());
@@ -78,7 +79,7 @@ public abstract class STXRefEntry implements Comparable {
         return objectNumber;
     }
 
-    abstract public boolean isFree();
+    public abstract boolean isFree();
 
     public abstract COSObject load(STDocument doc, ISystemSecurityHandler securityHandler)
             throws IOException, COSLoadException;
@@ -88,5 +89,5 @@ public abstract class STXRefEntry implements Comparable {
         return getObjectNumber() + " " + getGenerationNumber() + " R"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
-    abstract protected void unlink();
+    protected abstract void unlink();
 }

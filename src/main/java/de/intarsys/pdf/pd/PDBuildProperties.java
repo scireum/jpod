@@ -44,10 +44,12 @@ public class PDBuildProperties extends PDObject {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDBuildProperties(object);
         }
 
+        @Override
         protected boolean isIndirect() {
             return false;
         }

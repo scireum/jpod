@@ -39,7 +39,7 @@ import java.security.MessageDigest;
  * {@link ICryptHandler}. The concrete implementations provide the standard RC4
  * and AES algorithms.
  */
-abstract public class StandardCryptHandler extends AbstractCryptHandler {
+public abstract class StandardCryptHandler extends AbstractCryptHandler {
     /**
      * The cipher object to be used in encrypting/decrypting
      */
@@ -65,10 +65,10 @@ abstract public class StandardCryptHandler extends AbstractCryptHandler {
      */
     private byte[] cryptKey;
 
-    abstract protected byte[] basicDecrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
+    protected abstract byte[] basicDecrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
             throws COSSecurityException;
 
-    abstract protected byte[] basicEncrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
+    protected abstract byte[] basicEncrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
             throws COSSecurityException;
 
     protected void updateHash(byte[] encryptionKey, int objectNum, int genNum) {
@@ -92,6 +92,7 @@ abstract public class StandardCryptHandler extends AbstractCryptHandler {
      * @see de.intarsys.pdf.encryption.ISecurityHandler#decrypt(de.intarsys.pdf.cos.COSObjectKey,
      *      byte[])
      */
+    @Override
     public byte[] decrypt(COSObjectKey objectKey, byte[] bytes) throws COSSecurityException {
         if (bytes == null) {
             return null;
@@ -102,10 +103,6 @@ abstract public class StandardCryptHandler extends AbstractCryptHandler {
         synchronized (this) {
             return basicDecrypt(bytes, getCryptKey(), objectKey.getObjectNumber(), objectKey.getGenerationNumber());
         }
-    }
-
-    public StandardCryptHandler() {
-        super();
     }
 
     protected int length;
@@ -124,6 +121,7 @@ abstract public class StandardCryptHandler extends AbstractCryptHandler {
      * @see de.intarsys.pdf.encryption.ISecurityHandler#encrypt(de.intarsys.pdf.cos.COSObjectKey,
      *      byte[])
      */
+    @Override
     public byte[] encrypt(COSObjectKey objectKey, byte[] bytes) throws COSSecurityException {
         if (bytes == null) {
             return null;

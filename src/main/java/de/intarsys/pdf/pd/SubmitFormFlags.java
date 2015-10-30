@@ -53,33 +53,33 @@ package de.intarsys.pdf.pd;
  * </ul>
  */
 public class SubmitFormFlags extends AbstractBitFlags {
-    static public final int Bit_Include = 1; // Bit position 1
+    public static final int Bit_Include = 1; // Bit position 1
 
-    static public final int Bit_IncludeNoValueFields = 1 << 1; // Bit pos 2
+    public static final int Bit_IncludeNoValueFields = 1 << 1; // Bit pos 2
 
-    static public final int Bit_ExportFormat = 1 << 2; // Bit pos 3
+    public static final int Bit_ExportFormat = 1 << 2; // Bit pos 3
 
-    static public final int Bit_GetMethod = 1 << 3;
+    public static final int Bit_GetMethod = 1 << 3;
 
-    static public final int Bit_SubmitCoordinates = 1 << 4;
+    public static final int Bit_SubmitCoordinates = 1 << 4;
 
-    static public final int Bit_XFDF = 1 << 5;
+    public static final int Bit_XFDF = 1 << 5;
 
-    static public final int Bit_IncludeAppendSaves = 1 << 6;
+    public static final int Bit_IncludeAppendSaves = 1 << 6;
 
-    static public final int Bit_IncludeAnnotations = 1 << 7;
+    public static final int Bit_IncludeAnnotations = 1 << 7;
 
-    static public final int Bit_SubmitPDF = 1 << 8;
+    public static final int Bit_SubmitPDF = 1 << 8;
 
-    static public final int Bit_CanonicalFormat = 1 << 9;
+    public static final int Bit_CanonicalFormat = 1 << 9;
 
-    static public final int Bit_ExclNonUserAnnots = 1 << 10;
+    public static final int Bit_ExclNonUserAnnots = 1 << 10;
 
-    static public final int Bit_ExclFKey = 1 << 11;
+    public static final int Bit_ExclFKey = 1 << 11;
 
-    static public final int Bit_NotDEFINED = 1 << 12;
+    public static final int Bit_NotDEFINED = 1 << 12;
 
-    static public final int Bit_EmbedForm = 1 << 13;
+    public static final int Bit_EmbedForm = 1 << 13;
 
     private PDActionSubmitForm submitForm;
 

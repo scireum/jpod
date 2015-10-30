@@ -39,19 +39,21 @@ import de.intarsys.pdf.cos.COSStream;
  * The representation of a XObject. A XObject defines a strokable object. The
  * content is defined in the underlying content stream.
  */
-abstract public class PDXObject extends PDObject {
+public abstract class PDXObject extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSObject doCreateCOSObject() {
             return COSStream.create(null);
         }
 
+        @Override
         protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
             COSDictionary dict;
             if (object instanceof COSStream) {
@@ -59,7 +61,7 @@ abstract public class PDXObject extends PDObject {
             } else {
                 dict = (COSDictionary) object;
             }
-            COSName subtype = (COSName) dict.get(DK_Subtype).asName();
+            COSName subtype = dict.get(DK_Subtype).asName();
             if (PDForm.CN_Subtype_Form.equals(subtype)) {
                 return PDForm.META;
             } else if (PDImage.CN_Subtype_Image.equals(subtype)) {
@@ -71,6 +73,7 @@ abstract public class PDXObject extends PDObject {
             }
         }
 
+        @Override
         public Class getRootClass() {
             return PDXObject.class;
         }
@@ -79,12 +82,12 @@ abstract public class PDXObject extends PDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     //
-    static public final COSName DK_Resources = COSName.constant("Resources");
+    public static final COSName DK_Resources = COSName.constant("Resources");
 
-    static public final COSName CN_Type_XObject = COSName.constant("XObject");
+    public static final COSName CN_Type_XObject = COSName.constant("XObject");
 
     /**
      * Create the receiver class from an already defined {@link COSStream}.
@@ -101,6 +104,7 @@ abstract public class PDXObject extends PDObject {
      *
      * @see de.intarsys.pdf.cos.COSBasedObject#cosGetDict()
      */
+    @Override
     public COSDictionary cosGetDict() {
         return cosGetStream().getDict();
     }
@@ -110,6 +114,7 @@ abstract public class PDXObject extends PDObject {
      *
      * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
      */
+    @Override
     protected COSName cosGetExpectedType() {
         return CN_Type_XObject;
     }
@@ -124,27 +129,27 @@ abstract public class PDXObject extends PDObject {
     }
 
     /**
-     * <code>true</code> if this is a form.
+     * {@code true} if this is a form.
      *
-     * @return <code>true</code> if this is a form.
+     * @return {@code true} if this is a form.
      */
     public boolean isForm() {
         return false;
     }
 
     /**
-     * <code>true</code> if this is an image.
+     * {@code true} if this is an image.
      *
-     * @return <code>true</code> if this is an image.
+     * @return {@code true} if this is an image.
      */
     public boolean isImage() {
         return false;
     }
 
     /**
-     * <code>true</code> if this is a postscript object.
+     * {@code true} if this is a postscript object.
      *
-     * @return <code>true</code> if this is a postscript object.
+     * @return {@code true} if this is a postscript object.
      */
     public boolean isPostscript() {
         return false;

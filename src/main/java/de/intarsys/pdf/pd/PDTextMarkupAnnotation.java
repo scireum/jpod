@@ -43,7 +43,7 @@ public class PDTextMarkupAnnotation extends PDMarkupAnnotation {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDMarkupAnnotation.MetaClass {
+    public static class MetaClass extends PDMarkupAnnotation.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -57,7 +57,7 @@ public class PDTextMarkupAnnotation extends PDMarkupAnnotation {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public static final COSName DK_QuadPoints = COSName.constant("QuadPoints");
 

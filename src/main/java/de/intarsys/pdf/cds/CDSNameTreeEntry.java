@@ -59,6 +59,7 @@ public class CDSNameTreeEntry extends CDSTreeEntry {
         return name;
     }
 
+    @Override
     public COSObject getKey() {
         return getName();
     }

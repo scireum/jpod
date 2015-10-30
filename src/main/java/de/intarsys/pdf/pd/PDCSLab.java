@@ -43,7 +43,7 @@ public class PDCSLab extends PDCSCIEBased {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDCSCIEBased.MetaClass {
+    public static class MetaClass extends PDCSCIEBased.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -54,7 +54,7 @@ public class PDCSLab extends PDCSCIEBased {
         }
     }
 
-    private static final float[] BlackPointDefault = new float[]{0.0f, 0.0f, 0.0f};
+    private static final float[] BlackPointDefault = {0.0f, 0.0f, 0.0f};
 
     public static final COSName DK_BlackPoint = COSName.constant("BlackPoint"); //$NON-NLS-1$
 
@@ -65,9 +65,9 @@ public class PDCSLab extends PDCSCIEBased {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    private static final float[] RangeDefault = new float[]{-100.0f, 100.0f, -100.0f, 100.0f};
+    private static final float[] RangeDefault = {-100.0f, 100.0f, -100.0f, 100.0f};
 
     private float[] blackPoint;
 

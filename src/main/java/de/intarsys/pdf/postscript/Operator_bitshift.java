@@ -40,6 +40,7 @@ public class Operator_bitshift implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) {
         int operand1;
         int operand2;
@@ -52,6 +53,6 @@ public class Operator_bitshift implements IOperator {
         } else {
             result = operand1 >> -operand2;
         }
-        handler.push(new Integer(result));
+        handler.push(Integer.valueOf(result));
     }
 }

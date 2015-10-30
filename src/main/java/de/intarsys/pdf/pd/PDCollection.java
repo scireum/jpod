@@ -37,7 +37,7 @@ public class PDCollection extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -51,17 +51,17 @@ public class PDCollection extends PDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public final COSName CN_Type_Collection = COSName.constant("Collection");
+    public static final COSName CN_Type_Collection = COSName.constant("Collection");
 
-    static public final COSName DK_Schema = COSName.constant("Schema");
+    public static final COSName DK_Schema = COSName.constant("Schema");
 
-    static public final COSName DK_D = COSName.constant("D");
+    public static final COSName DK_D = COSName.constant("D");
 
-    static public final COSName DK_View = COSName.constant("View");
+    public static final COSName DK_View = COSName.constant("View");
 
-    static public final COSName DK_Sort = COSName.constant("Sort");
+    public static final COSName DK_Sort = COSName.constant("Sort");
 
     public static final COSName CN_View_D = COSName.constant("D");
 

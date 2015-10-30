@@ -58,7 +58,7 @@ import java.util.Arrays;
  * superclass for implementing PDF content stream aware devices.
  * <p>
  */
-abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
+public abstract class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
     /**
      * the maximum number of nested states
      */
@@ -88,13 +88,6 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      */
     protected TextState textState;
 
-    /**
-     * Create a new {@link CSDeviceAdapter}
-     */
-    public CSDeviceAdapter() {
-        //
-    }
-
     protected void basicSetNonStrokeColorSpace(PDColorSpace colorSpace) {
         graphicsState.nonStrokeColorSpace = colorSpace;
         graphicsState.nonStrokeColorValues = null;
@@ -118,6 +111,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#close()
      */
+    @Override
     public void close() {
         this.interpreter = null;
     }
@@ -127,6 +121,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#compatibilityBegin()
      */
+    @Override
     public void compatibilityBegin() {
         // redefine
     }
@@ -136,11 +131,12 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#compatibilityEnd()
      */
+    @Override
     public void compatibilityEnd() {
         // redefine
     }
 
-    protected void doForm(COSName name, PDForm form) throws CSException {
+    protected void doForm(COSName name, PDForm form) {
         saveState();
         try {
             CDSMatrix m = form.getMatrix();
@@ -169,11 +165,11 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
         }
     }
 
-    protected void doImage(COSName name, PDImage image) throws CSException {
+    protected void doImage(COSName name, PDImage image) {
         // override in subclass
     }
 
-    protected void doPostScript(COSName name, PDPostScript postscript) throws CSException {
+    protected void doPostScript(COSName name, PDPostScript postscript) {
         // override in subclass
     }
 
@@ -184,6 +180,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#doShading(de.intarsys.pdf.cos.COSName,
      * de.intarsys.pdf.pd.PDShading)
      */
+    @Override
     public void doShading(COSName name, PDShading shading) {
         // override in subclass
     }
@@ -195,6 +192,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#doXObject(de.intarsys.pdf.cos.COSName,
      * de.intarsys.pdf.pd.PDXObject)
      */
+    @Override
     public void doXObject(COSName name, PDXObject xobject) {
         if (xobject == null) {
             return;
@@ -237,6 +235,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#getGraphicsState()
      */
+    @Override
     public GraphicsState getGraphicsState() {
         return graphicsState;
     }
@@ -246,6 +245,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#getInterpreter()
      */
+    @Override
     public ICSInterpreter getInterpreter() {
         return interpreter;
     }
@@ -264,6 +264,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see
      * de.intarsys.pdf.content.ICSDevice#inlineImage(de.intarsys.pdf.pd.PDImage)
      */
+    @Override
     public void inlineImage(PDImage img) {
         // redefine
     }
@@ -275,6 +276,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#markedContentBegin(de.intarsys.pdf.
      * cos.COSName)
      */
+    @Override
     public void markedContentBegin(COSName tag) {
         // redefine
     }
@@ -287,6 +289,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * .pdf.cos.COSName, de.intarsys.pdf.cos.COSName,
      * de.intarsys.pdf.cos.COSDictionary)
      */
+    @Override
     public void markedContentBeginProperties(COSName tag, COSName resourceName, COSDictionary properties) {
         // redefine
     }
@@ -296,6 +299,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#markedContentEnd()
      */
+    @Override
     public void markedContentEnd() {
         // redefine
     }
@@ -307,6 +311,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#markedContentPoint(de.intarsys.pdf.
      * cos.COSName)
      */
+    @Override
     public void markedContentPoint(COSName tag) {
         // redefine
     }
@@ -319,6 +324,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * .pdf.cos.COSName, de.intarsys.pdf.cos.COSName,
      * de.intarsys.pdf.cos.COSDictionary)
      */
+    @Override
     public void markedContentPointProperties(COSName tag, COSName resourceName, COSDictionary properties) {
         // redefine
     }
@@ -330,6 +336,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#open(de.intarsys.pdf.content.ICSInterpreter
      * )
      */
+    @Override
     public void open(ICSInterpreter pInterpreter) {
         this.interpreter = pInterpreter;
         this.graphicsState = graphicsStateCreate();
@@ -344,6 +351,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathClipEvenOdd()
      */
+    @Override
     public void pathClipEvenOdd() {
         // redefine
     }
@@ -353,6 +361,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathClipNonZero()
      */
+    @Override
     public void pathClipNonZero() {
         // redefine
     }
@@ -362,6 +371,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathClose()
      */
+    @Override
     public void pathClose() {
         // redefine
     }
@@ -371,6 +381,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathCloseFillStrokeEvenOdd()
      */
+    @Override
     public void pathCloseFillStrokeEvenOdd() {
         // redefine
     }
@@ -380,6 +391,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathCloseFillStrokeNonZero()
      */
+    @Override
     public void pathCloseFillStrokeNonZero() {
         // redefine
     }
@@ -389,6 +401,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathCloseStroke()
      */
+    @Override
     public void pathCloseStroke() {
         // redefine
     }
@@ -398,6 +411,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathEnd()
      */
+    @Override
     public void pathEnd() {
         // redefine
     }
@@ -407,6 +421,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathFillEvenOdd()
      */
+    @Override
     public void pathFillEvenOdd() {
         // redefine
     }
@@ -416,6 +431,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathFillNonZero()
      */
+    @Override
     public void pathFillNonZero() {
         // redefine
     }
@@ -425,6 +441,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathFillStrokeEvenOdd()
      */
+    @Override
     public void pathFillStrokeEvenOdd() {
         // redefine
     }
@@ -434,6 +451,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathFillStrokeNonZero()
      */
+    @Override
     public void pathFillStrokeNonZero() {
         // redefine
     }
@@ -443,6 +461,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#pathStroke()
      */
+    @Override
     public void pathStroke() {
         // redefine
     }
@@ -453,6 +472,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#penCurveToC(float, float, float,
      * float, float, float)
      */
+    @Override
     public void penCurveToC(float x1, float y1, float x2, float y2, float x3, float y3) {
         // redefine
     }
@@ -463,6 +483,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#penCurveToV(float, float, float,
      * float)
      */
+    @Override
     public void penCurveToV(float x2, float y2, float x3, float y3) {
         // redefine
     }
@@ -473,6 +494,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#penCurveToY(float, float, float,
      * float)
      */
+    @Override
     public void penCurveToY(float x1, float y1, float x3, float y3) {
         // redefine
     }
@@ -482,6 +504,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#penLineTo(float, float)
      */
+    @Override
     public void penLineTo(float x, float y) {
         // redefine
     }
@@ -491,6 +514,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#penMoveTo(float, float)
      */
+    @Override
     public void penMoveTo(float x, float y) {
         // redefine
     }
@@ -501,6 +525,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#penRectangle(float, float, float,
      * float)
      */
+    @Override
     public void penRectangle(float x, float y, float w, float h) {
         // redefine
     }
@@ -510,6 +535,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#restoreState()
      */
+    @Override
     public void restoreState() {
         if (stackPtr == 0) {
             throw new RuntimeException("stack underflow"); //$NON-NLS-1$
@@ -524,6 +550,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#saveState()
      */
+    @Override
     public void saveState() {
         if (stackPtr == MAX_STACK_SIZE) {
             throw new RuntimeException("stack overflow"); //$NON-NLS-1$
@@ -544,6 +571,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#setExtendedState(de.intarsys.pdf.cos
      * .COSName, de.intarsys.pdf.pd.PDExtGState)
      */
+    @Override
     public void setExtendedState(COSName name, PDExtGState gstate) {
         if (gstate == null) {
             return;
@@ -585,6 +613,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setFlatnessTolerance(float)
      */
+    @Override
     public void setFlatnessTolerance(float flatness) {
         // redefine
     }
@@ -594,6 +623,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setLineCap(int)
      */
+    @Override
     public void setLineCap(int capStyle) {
         graphicsState.capStyle = capStyle;
     }
@@ -603,6 +633,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setDash(float[], float)
      */
+    @Override
     public void setLineDash(float[] pattern, float phase) {
         graphicsState.dashPattern = pattern;
         graphicsState.dashPhase = phase;
@@ -613,6 +644,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setLineJoin(int)
      */
+    @Override
     public void setLineJoin(int joinStyle) {
         graphicsState.joinStyle = joinStyle;
     }
@@ -622,6 +654,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setLineWidth(float)
      */
+    @Override
     public void setLineWidth(float lineWidth) {
         graphicsState.lineWidth = lineWidth;
     }
@@ -631,6 +664,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setMiterLimit(float)
      */
+    @Override
     public void setMiterLimit(float miterLimit) {
         graphicsState.miterLimit = miterLimit;
     }
@@ -641,12 +675,13 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#setNonStrokeColorCMYK(float,
      * float, float, float)
      */
+    @Override
     public void setNonStrokeColorCMYK(float c, float m, float y, float k) {
         PDColorSpace colorSpace = PDCSDeviceCMYK.SINGLETON;
         if (graphicsState.nonStrokeColorSpace != colorSpace) {
             basicSetNonStrokeColorSpace(colorSpace);
         }
-        float[] values = new float[]{c, m, y, k};
+        float[] values = {c, m, y, k};
         if (!Arrays.equals(graphicsState.nonStrokeColorValues, values)) {
             basicSetNonStrokeColorValues(values);
         }
@@ -657,12 +692,13 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setNonStrokeColorGray(float)
      */
+    @Override
     public void setNonStrokeColorGray(float gray) {
         PDColorSpace colorSpace = PDCSDeviceGray.SINGLETON;
         if (graphicsState.nonStrokeColorSpace != colorSpace) {
             basicSetNonStrokeColorSpace(colorSpace);
         }
-        float[] values = new float[]{gray};
+        float[] values = {gray};
         if (!Arrays.equals(graphicsState.nonStrokeColorValues, values)) {
             basicSetNonStrokeColorValues(values);
         }
@@ -674,12 +710,13 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#setNonStrokeColorRGB(float, float,
      * float)
      */
+    @Override
     public void setNonStrokeColorRGB(float r, float g, float b) {
         PDColorSpace colorSpace = PDCSDeviceRGB.SINGLETON;
         if (graphicsState.nonStrokeColorSpace != colorSpace) {
             basicSetNonStrokeColorSpace(colorSpace);
         }
-        float[] values = new float[]{r, g, b};
+        float[] values = {r, g, b};
         if (!Arrays.equals(graphicsState.nonStrokeColorValues, values)) {
             basicSetNonStrokeColorValues(values);
         }
@@ -692,6 +729,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#setNonStrokeColorSpace(de.intarsys.
      * pdf.cos.COSName, de.intarsys.pdf.pd.PDColorSpace)
      */
+    @Override
     public void setNonStrokeColorSpace(COSName name, PDColorSpace colorSpace) {
         // we are not allowed to optimize color space setting when not changed
         // side effect of setting is resetting the color to black
@@ -703,6 +741,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setNonStrokeColorValues(float[])
      */
+    @Override
     public void setNonStrokeColorValues(float[] values) {
         if (!Arrays.equals(graphicsState.nonStrokeColorValues, values)) {
             basicSetNonStrokeColorValues(values);
@@ -715,6 +754,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#setNonStrokePatternValues(float[],
      * de.intarsys.pdf.pd.PDPattern)
      */
+    @Override
     public void setNonStrokeColorValues(float[] values, COSName name, PDPattern pattern) {
         // override in subclass
     }
@@ -726,6 +766,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#setRenderingIntent(de.intarsys.pdf.
      * cos.COSName)
      */
+    @Override
     public void setRenderingIntent(COSName intent) {
     }
 
@@ -735,12 +776,13 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#setStrokeColorCMYK(float, float,
      * float, float)
      */
+    @Override
     public void setStrokeColorCMYK(float c, float m, float y, float k) {
         PDColorSpace colorSpace = PDCSDeviceCMYK.SINGLETON;
         if (graphicsState.strokeColorSpace != colorSpace) {
             basicSetStrokeColorSpace(colorSpace);
         }
-        float[] values = new float[]{c, m, y, k};
+        float[] values = {c, m, y, k};
         if (!Arrays.equals(graphicsState.strokeColorValues, values)) {
             basicSetStrokeColorValues(values);
         }
@@ -751,12 +793,13 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setStrokeColorGray(float)
      */
+    @Override
     public void setStrokeColorGray(float gray) {
         PDColorSpace colorSpace = PDCSDeviceGray.SINGLETON;
         if (graphicsState.strokeColorSpace != colorSpace) {
             basicSetStrokeColorSpace(colorSpace);
         }
-        float[] values = new float[]{gray};
+        float[] values = {gray};
         if (!Arrays.equals(graphicsState.strokeColorValues, values)) {
             basicSetStrokeColorValues(values);
         }
@@ -768,12 +811,13 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#setStrokeColorRGB(float, float,
      * float)
      */
+    @Override
     public void setStrokeColorRGB(float r, float g, float b) {
         PDColorSpace colorSpace = PDCSDeviceRGB.SINGLETON;
         if (graphicsState.strokeColorSpace != colorSpace) {
             basicSetStrokeColorSpace(colorSpace);
         }
-        float[] values = new float[]{r, g, b};
+        float[] values = {r, g, b};
         if (!Arrays.equals(graphicsState.strokeColorValues, values)) {
             basicSetStrokeColorValues(values);
         }
@@ -786,6 +830,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#setStrokeColorSpace(de.intarsys.pdf
      * .cos.COSName, de.intarsys.pdf.pd.PDColorSpace)
      */
+    @Override
     public void setStrokeColorSpace(COSName name, PDColorSpace colorSpace) {
         // we are not allowed to optimize color space setting when not changed
         // side effect of setting is resetting the color to black
@@ -797,6 +842,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#setStrokeColorValues(float[])
      */
+    @Override
     public void setStrokeColorValues(float[] values) {
         if (!Arrays.equals(graphicsState.strokeColorValues, values)) {
             basicSetStrokeColorValues(values);
@@ -809,38 +855,47 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#setStrokeColorValues(float[],
      * de.intarsys.pdf.cos.COSName, de.intarsys.pdf.pd.PDPattern)
      */
+    @Override
     public void setStrokeColorValues(float[] values, COSName name, PDPattern pattern) {
         // override in subclass
     }
 
+    @Override
     public boolean supportsColorSpace() {
         return true;
     }
 
+    @Override
     public boolean supportsExtendedState() {
         return true;
     }
 
+    @Override
     public boolean supportsFont() {
         return true;
     }
 
+    @Override
     public boolean supportsInlineImage() {
         return true;
     }
 
+    @Override
     public boolean supportsPattern() {
         return true;
     }
 
+    @Override
     public boolean supportsProperties() {
         return true;
     }
 
+    @Override
     public boolean supportsShading() {
         return true;
     }
 
+    @Override
     public boolean supportsXObject() {
         return true;
     }
@@ -850,6 +905,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textBegin()
      */
+    @Override
     public void textBegin() {
         // reset text line matrix
         textState.lineTransform.setTransform(1, 0, 0, 1, 0, 0);
@@ -865,6 +921,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textEnd()
      */
+    @Override
     public void textEnd() {
         textState.active = false;
     }
@@ -874,6 +931,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textLineMove(float, float)
      */
+    @Override
     public void textLineMove(float dx, float dy) {
         // move text line
         textState.lineTransform.translate(dx, dy);
@@ -889,6 +947,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textLineNew()
      */
+    @Override
     public void textLineNew() {
         // move text line
         textState.lineTransform.translate(0, textState.leading);
@@ -904,6 +963,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textMove(float, float)
      */
+    @Override
     public void textMove(float dx, float dy) {
         // move
         textState.transform.translate(dx, dy);
@@ -915,6 +975,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textMoveTo(float, float)
      */
+    @Override
     public void textMoveTo(float x, float y) {
         // move to
         float dx = x - (float) textState.transform.getTranslateX();
@@ -927,6 +988,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textSetCharSpacing(float)
      */
+    @Override
     public void textSetCharSpacing(float charSpacing) {
         textState.charSpacing = charSpacing;
         // calculate derived values
@@ -940,6 +1002,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * de.intarsys.pdf.content.ICSDevice#textSetFont(de.intarsys.pdf.cos.COSName
      * , de.intarsys.pdf.font.PDFont, float)
      */
+    @Override
     public void textSetFont(COSName name, PDFont font, float size) {
         textState.font = font;
         textState.fontSize = size;
@@ -952,6 +1015,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textSetHorizontalScaling(float)
      */
+    @Override
     public void textSetHorizontalScaling(float scaling) {
         textState.horizontalScaling = scaling;
         // calculate derived values
@@ -966,6 +1030,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textSetLeading(float)
      */
+    @Override
     public void textSetLeading(float leading) {
         textState.leading = leading;
     }
@@ -975,6 +1040,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textSetRenderingMode(int)
      */
+    @Override
     public void textSetRenderingMode(int renderingMode) {
         textState.renderingMode = renderingMode;
     }
@@ -984,6 +1050,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textSetRise(float)
      */
+    @Override
     public void textSetRise(float rise) {
         textState.rise = rise;
     }
@@ -994,6 +1061,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#textSetTransform(float, float,
      * float, float, float, float)
      */
+    @Override
     public void textSetTransform(float a, float b, float c, float d, float e, float f) {
         // reset text line matrix
         textState.lineTransform.setTransform(a, b, c, d, e, f);
@@ -1009,22 +1077,26 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textSetWordSpacing(float)
      */
+    @Override
     public void textSetWordSpacing(float wordSpacing) {
         textState.wordSpacing = wordSpacing;
         // calculate derived values
         textState.derivedWordSpacingScaled = textState.wordSpacing * textState.derivedHorizontalScalingFactor;
     }
 
+    @Override
     public void textShow(byte[] text, int offset, int length) {
         // override in subclass
     }
 
+    @Override
     public void textShow(char[] chars, int offset, int length) {
         // todo encoding may be not correct with symbolic true type
         byte[] bytes = textState.font.getEncoding().encode(chars, offset, length);
         textShow(bytes, 0, bytes.length);
     }
 
+    @Override
     public void textShow(String text) {
         // todo encoding may be not correct with symbolic true type
         byte[] bytes = textState.font.getEncoding().encode(text.toCharArray(), 0, text.length());
@@ -1036,6 +1108,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      *
      * @see de.intarsys.pdf.content.ICSDevice#textT3SetGlyphWidth(float, float)
      */
+    @Override
     public void textT3SetGlyphWidth(float x, float y) {
         // redefine
     }
@@ -1046,6 +1119,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#textT3SetGlyphWidthBB(float,
      * float, float, float, float, float)
      */
+    @Override
     public void textT3SetGlyphWidthBB(float x, float y, float llx, float lly, float urx, float ury) {
         // redefine
     }
@@ -1056,6 +1130,7 @@ abstract public class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
      * @see de.intarsys.pdf.content.ICSDevice#transform(float, float, float,
      * float, float, float)
      */
+    @Override
     public void transform(float a, float b, float c, float d, float e, float f) {
         AffineTransform transform = new AffineTransform(a, b, c, d, e, f);
         transform.preConcatenate(graphicsState.transform);

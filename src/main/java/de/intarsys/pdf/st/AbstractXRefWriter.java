@@ -54,7 +54,7 @@ public abstract class AbstractXRefWriter implements IXRefEntryVisitor {
         this.randomAccess = randomAccess;
     }
 
-    public AbstractXRefWriter(COSWriter cosWriter) {
+    protected AbstractXRefWriter(COSWriter cosWriter) {
         this.cosWriter = cosWriter;
     }
 
@@ -105,6 +105,7 @@ public abstract class AbstractXRefWriter implements IXRefEntryVisitor {
         }
     }
 
+    @Override
     public void visitFromCompressed(STXRefEntryCompressed entry) throws XRefEntryVisitorException {
         try {
             write(entry.getStreamObjectNumber(), entry.getIndex(), getTypeCompressed());
@@ -113,6 +114,7 @@ public abstract class AbstractXRefWriter implements IXRefEntryVisitor {
         }
     }
 
+    @Override
     public void visitFromFree(STXRefEntryFree entry) throws XRefEntryVisitorException {
         try {
             write(entry.getNextFreeObjectNumber(), entry.getGenerationNumber(), getTypeFree());
@@ -121,6 +123,7 @@ public abstract class AbstractXRefWriter implements IXRefEntryVisitor {
         }
     }
 
+    @Override
     public void visitFromOccupied(STXRefEntryOccupied entry) throws XRefEntryVisitorException {
         try {
             write((int) entry.getOffset(), entry.getGenerationNumber(), getTypeOccupied());

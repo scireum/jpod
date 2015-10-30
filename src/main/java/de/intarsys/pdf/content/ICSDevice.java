@@ -57,7 +57,7 @@ import de.intarsys.pdf.pd.PDXObject;
  * Following a list of operator/method relationship. Not all operators may have
  * a corresponding method.
  * <p>
- * <code>
+ * {@code
  * b                | pathCloseFillStrokeNonZero
  * B                | pathFillStrokeNonZero
  * b*                | patcCloseFillStrokeEvenOdd
@@ -130,27 +130,27 @@ import de.intarsys.pdf.pd.PDXObject;
  * y                | penCurveToY
  * '                | use primitive methods
  * "                | use primitive methods
- * </code>
+ * }
  */
 public interface ICSDevice {
     /**
      * Close the device after use.
      */
-    public void close();
+    void close();
 
     /**
      * Begin a compatibility section.
      * <p>
      * PDF graphics operator "BX"
      */
-    public void compatibilityBegin();
+    void compatibilityBegin();
 
     /**
      * End a compatibility section.
      * <p>
      * PDF graphics operator "EX"
      */
-    public void compatibilityEnd();
+    void compatibilityEnd();
 
     /**
      * Paint shape and color shading according to shading dictionary.
@@ -160,7 +160,7 @@ public interface ICSDevice {
      * @param resourceName The logical name of the resource in the {@link PDResources}
      * @param shading      The {@link PDShading} to be painted.
      */
-    public void doShading(COSName resourceName, PDShading shading);
+    void doShading(COSName resourceName, PDShading shading);
 
     /**
      * Stroke a PDXObject. A PDXObject is a self contained graphical
@@ -172,7 +172,7 @@ public interface ICSDevice {
      * @param resourceName The logical name of the resource in the {@link PDResources}
      * @param xObject      The {@link PDXObject} to be stroked.
      */
-    public void doXObject(COSName resourceName, PDXObject xObject);
+    void doXObject(COSName resourceName, PDXObject xObject);
 
     /**
      * The current {@link GraphicsState} active.
@@ -182,7 +182,7 @@ public interface ICSDevice {
      *
      * @return The current {@link GraphicsState} active.
      */
-    public GraphicsState getGraphicsState();
+    GraphicsState getGraphicsState();
 
     /**
      * The {@link ICSInterpreter} associated with this {@link ICSDevice}. The
@@ -191,7 +191,7 @@ public interface ICSDevice {
      *
      * @return The {@link ICSInterpreter} associated with this {@link ICSDevice}.
      */
-    public ICSInterpreter getInterpreter();
+    ICSInterpreter getInterpreter();
 
     /**
      * Stroke an inlined image.
@@ -201,7 +201,7 @@ public interface ICSDevice {
      * @param img The inlined image. The image may use some special keys instead
      *            of the standard {@link PDImage} dictionary keys.
      */
-    public void inlineImage(PDImage img);
+    void inlineImage(PDImage img);
 
     /**
      * Begin a marked content sequence.
@@ -210,7 +210,7 @@ public interface ICSDevice {
      *
      * @param tag The tag indicating the role or significance.
      */
-    public void markedContentBegin(COSName tag);
+    void markedContentBegin(COSName tag);
 
     /**
      * Begin a marked content sequence with a property list.
@@ -221,14 +221,14 @@ public interface ICSDevice {
      * @param resourceName The logical name of the resource in the {@link PDResources}
      * @param properties   The properties for the marked content sequence.
      */
-    public void markedContentBeginProperties(COSName tag, COSName resourceName, COSDictionary properties);
+    void markedContentBeginProperties(COSName tag, COSName resourceName, COSDictionary properties);
 
     /**
      * End marked content sequence started with "BMC" or "BDC".
      * <p>
      * PDF graphics operator "EMC"
      */
-    public void markedContentEnd();
+    void markedContentEnd();
 
     /**
      * Set a marked point.
@@ -237,7 +237,7 @@ public interface ICSDevice {
      *
      * @param tag The tag indicating the role or significance.
      */
-    public void markedContentPoint(COSName tag);
+    void markedContentPoint(COSName tag);
 
     /**
      * Define a marked content point with a property list.
@@ -248,14 +248,14 @@ public interface ICSDevice {
      * @param resourceName The logical name of the resource in the {@link PDResources}
      * @param properties   The properties for the marked content point.
      */
-    public void markedContentPointProperties(COSName tag, COSName resourceName, COSDictionary properties);
+    void markedContentPointProperties(COSName tag, COSName resourceName, COSDictionary properties);
 
     /**
-     * Open the device for use by <code>interpreter</code>.
+     * Open the device for use by {@code interpreter}.
      *
      * @param interpreter
      */
-    public void open(ICSInterpreter interpreter);
+    void open(ICSInterpreter interpreter);
 
     /**
      * Intersect the current clipping path with the current path using the
@@ -263,7 +263,7 @@ public interface ICSDevice {
      * <p>
      * PDF graphics operator "W*"
      */
-    public void pathClipEvenOdd();
+    void pathClipEvenOdd();
 
     /**
      * Intersect the current clipping path with the current path using the
@@ -271,7 +271,7 @@ public interface ICSDevice {
      * <p>
      * PDF graphics operator "W"
      */
-    public void pathClipNonZero();
+    void pathClipNonZero();
 
     /**
      * Close the path and append a line segment from the current coordinate to
@@ -281,28 +281,28 @@ public interface ICSDevice {
      * PDF graphics operator "h"
      * </p>
      */
-    public void pathClose();
+    void pathClose();
 
     /**
      * Close, Fill and then stroke the path using the even/odd rule.
      * <p>
      * PDF graphics operator "b*"
      */
-    public void pathCloseFillStrokeEvenOdd();
+    void pathCloseFillStrokeEvenOdd();
 
     /**
      * Close, Fill and then stroke the path using the non zero winding rule.
      * <p>
      * PDF graphics operator "b"
      */
-    public void pathCloseFillStrokeNonZero();
+    void pathCloseFillStrokeNonZero();
 
     /**
      * Close and then stroke the path.
      * <p>
      * PDF graphics operator "s"
      */
-    public void pathCloseStroke();
+    void pathCloseStroke();
 
     /**
      * End the path without filling or stroking.
@@ -314,14 +314,14 @@ public interface ICSDevice {
      * <p>
      * PDF graphics operator "n"
      */
-    public void pathEnd();
+    void pathEnd();
 
     /**
      * Fill the path using the even/odd rule.
      * <p>
      * PDF graphics operator "f*"
      */
-    public void pathFillEvenOdd();
+    void pathFillEvenOdd();
 
     /**
      * Fill the path using the non-zero winding rule.
@@ -332,35 +332,35 @@ public interface ICSDevice {
      * <p>
      * PDF graphics operator "f"
      */
-    public void pathFillNonZero();
+    void pathFillNonZero();
 
     /**
      * Fill and then stroke the path using the even/odd rule.
      * <p>
      * PDF graphics operator "B*"
      */
-    public void pathFillStrokeEvenOdd();
+    void pathFillStrokeEvenOdd();
 
     /**
      * Fill and then stroke the path using the non-zero winding rule.
      * <p>
      * PDF graphics operator "B"
      */
-    public void pathFillStrokeNonZero();
+    void pathFillStrokeNonZero();
 
     /**
      * Stroke the current path.
      * <p>
      * PDF graphics operator "S"
      */
-    public void pathStroke();
+    void pathStroke();
 
     /**
      * Append a cubic bezier curve to the path.<br>
      * The curve extends from the current point to x3, y3, where x1,y1 and x2,y2
      * are the bezier control points.
      * <p>
-     * <code>
+     * {@code
      * <p>
      * current
      * +---------* x1/y1
@@ -371,7 +371,7 @@ public interface ICSDevice {
      * .
      * .
      * + x3/y3
-     * </code>
+     * }
      * <p>
      * <p>
      * PDF graphics operator "c"
@@ -384,14 +384,14 @@ public interface ICSDevice {
      * @param x3 x coordinate of endpoint
      * @param y3 y coordinate of endpoint
      */
-    public void penCurveToC(float x1, float y1, float x2, float y2, float x3, float y3);
+    void penCurveToC(float x1, float y1, float x2, float y2, float x3, float y3);
 
     /**
      * Append a cubic bezier curve to the path. The curve extends from the
      * current point to x3, y3, where the first control point coincides with the
      * current point and x2,y2 is the second bezier control point.
      * <p>
-     * <code>
+     * {@code
      * <p>
      * current
      * +
@@ -402,7 +402,7 @@ public interface ICSDevice {
      * .
      * .
      * + x3/y3
-     * </code>
+     * }
      * <p>
      * <p>
      * PDF graphics operator "v"
@@ -413,7 +413,7 @@ public interface ICSDevice {
      * @param x3 x coordinate of endpoint
      * @param y3 y coordinate of endpoint
      */
-    public void penCurveToV(float x2, float y2, float x3, float y3);
+    void penCurveToV(float x2, float y2, float x3, float y3);
 
     /**
      * Append a cubic bezier curve to the path.
@@ -421,7 +421,7 @@ public interface ICSDevice {
      * The curve extends from the current point to x3, y3, where x1,y1 and x3,y3
      * are the bezier control points.
      * <p>
-     * <code>
+     * {@code
      * <p>
      * current
      * +---------* x1/y1
@@ -432,7 +432,7 @@ public interface ICSDevice {
      * .
      * .
      * + x3/y3
-     * </code>
+     * }
      * <p>
      * <p>
      * <p>
@@ -444,11 +444,11 @@ public interface ICSDevice {
      * @param x3 x coordinate of endpoint
      * @param y3 y coordinate of endpoint
      */
-    public void penCurveToY(float x1, float y1, float x3, float y3);
+    void penCurveToY(float x1, float y1, float x3, float y3);
 
     /**
-     * Add a line from the current point to <code>x</code>, <code>y</code>.
-     * The new current point is <code>x</code>, <code>y</code>.
+     * Add a line from the current point to {@code x}, {@code y}.
+     * The new current point is {@code x}, {@code y}.
      * <p>
      * <p>
      * PDF graphics operator "l"
@@ -457,10 +457,10 @@ public interface ICSDevice {
      * @param x The new current x coordinate
      * @param y The new current y coordinate
      */
-    public void penLineTo(float x, float y);
+    void penLineTo(float x, float y);
 
     /**
-     * Move the current point to <code>x</code>, <code>y</code>. No line
+     * Move the current point to {@code x}, {@code y}. No line
      * is added to the path, a new subpath is started.
      * <p>
      * <p>
@@ -470,14 +470,14 @@ public interface ICSDevice {
      * @param x The new current x coordinate
      * @param y The new current y coordinate
      */
-    public void penMoveTo(float x, float y);
+    void penMoveTo(float x, float y);
 
     /**
      * Append a complete rectangle to as a subpath.
      * <p>
      * <p>
-     * The lower left corner is at <code>x</code>, <code>y</code>, the
-     * dimensions are <code>width</code> and <code>height</code>. The
+     * The lower left corner is at {@code x}, {@code y}, the
+     * dimensions are {@code width} and {@code height}. The
      * numbers are defined in user space.
      * </p>
      * <p>
@@ -490,21 +490,21 @@ public interface ICSDevice {
      * @param w The width in user space
      * @param h The height in user space
      */
-    public void penRectangle(float x, float y, float w, float h);
+    void penRectangle(float x, float y, float w, float h);
 
     /**
      * Restore the graphics state from the stack.
      * <p>
      * PDF graphics operator "Q"
      */
-    public void restoreState();
+    void restoreState();
 
     /**
      * Save the current graphics state on a stack for later use.
      * <p>
      * PDF graphics operator "q"
      */
-    public void saveState();
+    void saveState();
 
     /**
      * Set the dictionary as the new graphic state, creating a new
@@ -515,38 +515,38 @@ public interface ICSDevice {
      * @param resourceName The logical name of the resource in the {@link PDResources}
      * @param gstate       The new {@link PDExtGState}
      */
-    public void setExtendedState(COSName resourceName, PDExtGState gstate);
+    void setExtendedState(COSName resourceName, PDExtGState gstate);
 
     /**
-     * Set the flatness tolerance. <code>flatness</code> is a value between 0
+     * Set the flatness tolerance. {@code flatness} is a value between 0
      * and 100, with 0 defining the device's default flatness tolerance.
      * <p>
      * PDF graphics operator "i"
      *
      * @param flatness The flatness tolerance between 0 and 100.
      */
-    public void setFlatnessTolerance(float flatness);
+    void setFlatnessTolerance(float flatness);
 
     /**
      * The line cap specifies the shape to be used at the ends of open subpaths.
      * <p>
-     * <code>
+     * {@code
      * 0: Butt. The stroke is cut at the endpoint.
      * 1: Round. A circle is drawn with the diamter of the line width at the endpoint
      * 2: Square. A square is drawn with its center at the endpoint.
-     * </code>
+     * }
      * <p>
      * PDF graphics operator "J"
      *
      * @param capStyle The line cap style to use (0,1 or 2)
      */
-    public void setLineCap(int capStyle);
+    void setLineCap(int capStyle);
 
     /**
-     * Define the pattern used to stroke paths. <code>unitsOn</code> defines a
-     * length in user space where the line is drawn, <code>unitsOff</code>
+     * Define the pattern used to stroke paths. {@code unitsOn} defines a
+     * length in user space where the line is drawn, {@code unitsOff}
      * defines a length in user space wher the line is not drawn.
-     * <code>phase</code> defines a "offset" in the pattern definition.
+     * {@code phase} defines a "offset" in the pattern definition.
      * <p>
      * <p>
      * This is a simplified version that only allows for a two phase pattern.
@@ -557,25 +557,25 @@ public interface ICSDevice {
      * @param pattern The pattern array for the dash
      * @param phase   Offset in pattern
      */
-    public void setLineDash(float[] pattern, float phase);
+    void setLineDash(float[] pattern, float phase);
 
     /**
      * The line join specifies the shape to be used at the connection points of
      * two adjacent lines in a path.
      * <p>
-     * <code>
+     * {@code
      * 0: Miter Join, the outer line boreders are extended until they meet.
      * 1: Round join. A circle is drawn at the meeting point with its
      * diameter the same as the line width.
      * 2: Bevel join. The segments are cut at the endpoints as in the line cap
      * style &quot;Butt&quot;. The empty triangle is filled.
-     * </code>
+     * }
      * <p>
      * PDF graphics operator "j"
      *
      * @param joinStyle The line join style to use (one of 0,1,2)
      */
-    public void setLineJoin(int joinStyle);
+    void setLineJoin(int joinStyle);
 
     /**
      * Set the thickness of the line used to stroke a path. This is a number in
@@ -589,7 +589,7 @@ public interface ICSDevice {
      *
      * @param lineWidth The line width in user space.
      */
-    public void setLineWidth(float lineWidth);
+    void setLineWidth(float lineWidth);
 
     /**
      * The maximum ratio of MiterLength/LineWidth when connecting two lines with
@@ -600,36 +600,36 @@ public interface ICSDevice {
      * @param miterLimit The maximum ratio of MiterLength/LineWidth when connecting two
      *                   lines with miter style.
      */
-    public void setMiterLimit(float miterLimit);
+    void setMiterLimit(float miterLimit);
 
     /**
      * Set the non stroking color space to /DeviceCMYK and set the color values
-     * <code>c</code>, <code>m</code>, <code>y</code>, <code>K</code>.
+     * {@code c}, {@code m}, {@code y}, {@code K}.
      *
      * @param c A number between 0 (minimum) and 1 (maximum)
      * @param m A number between 0 (minimum) and 1 (maximum)
      * @param y A number between 0 (minimum) and 1 (maximum)
      * @param k A number between 0 (minimum) and 1 (maximum)
      */
-    public void setNonStrokeColorCMYK(float c, float m, float y, float k);
+    void setNonStrokeColorCMYK(float c, float m, float y, float k);
 
     /**
      * Set the non stroking color space to /DeviceGray and set the gray level to
-     * <code>gray</code>.
+     * {@code gray}.
      *
      * @param gray A number between 0 (black) and 1 (white)
      */
-    public void setNonStrokeColorGray(float gray);
+    void setNonStrokeColorGray(float gray);
 
     /**
      * Set the non stroking color space to /DeviceRGB and set the color values
-     * <code>r</code>, <code>g</code>, <code>b</code>.
+     * {@code r}, {@code g}, {@code b}.
      *
      * @param r A number between 0 (minimum) and 1 (maximum)
      * @param g A number between 0 (minimum) and 1 (maximum)
      * @param b A number between 0 (minimum) and 1 (maximum)
      */
-    public void setNonStrokeColorRGB(float r, float g, float b);
+    void setNonStrokeColorRGB(float r, float g, float b);
 
     /**
      * Set color space for non-stroking.
@@ -639,7 +639,7 @@ public interface ICSDevice {
      * @param resourceName The logical name of the resource in the {@link PDResources}
      * @param colorSpace   The new {@link PDColorSpace}
      */
-    public void setNonStrokeColorSpace(COSName resourceName, PDColorSpace colorSpace);
+    void setNonStrokeColorSpace(COSName resourceName, PDColorSpace colorSpace);
 
     /**
      * Set the color used for non stroking operations, dependent on the
@@ -649,7 +649,7 @@ public interface ICSDevice {
      *
      * @param values The color values
      */
-    public void setNonStrokeColorValues(float[] values);
+    void setNonStrokeColorValues(float[] values);
 
     /**
      * Set the color used for non stroking operations, dependent on the
@@ -662,7 +662,7 @@ public interface ICSDevice {
      *                     {@link PDResources}
      * @param pattern      An optional {@link PDPattern}
      */
-    public void setNonStrokeColorValues(float[] values, COSName resourceName, PDPattern pattern);
+    void setNonStrokeColorValues(float[] values, COSName resourceName, PDPattern pattern);
 
     /**
      * Set the color rendering intent.
@@ -671,36 +671,36 @@ public interface ICSDevice {
      *
      * @param intent The name of the rendering intent.
      */
-    public void setRenderingIntent(COSName intent);
+    void setRenderingIntent(COSName intent);
 
     /**
      * Set the stroking color space to /DeviceCMYK and set the color values
-     * <code>c</code>, <code>m</code>, <code>y</code>, <code>K</code>.
+     * {@code c}, {@code m}, {@code y}, {@code K}.
      *
      * @param c A number between 0 (minimum) and 1 (maximum)
      * @param m A number between 0 (minimum) and 1 (maximum)
      * @param y A number between 0 (minimum) and 1 (maximum)
      * @param k A number between 0 (minimum) and 1 (maximum)
      */
-    public void setStrokeColorCMYK(float c, float m, float y, float k);
+    void setStrokeColorCMYK(float c, float m, float y, float k);
 
     /**
      * Set the stroking color space to /DeviceGray and set the gray level to
-     * <code>gray</code>.
+     * {@code gray}.
      *
      * @param gray A number between 0 (black) and 1 (white)
      */
-    public void setStrokeColorGray(float gray);
+    void setStrokeColorGray(float gray);
 
     /**
      * Set the stroking color space to /DeviceRGB and set the color values
-     * <code>r</code>, <code>g</code>, <code>b</code>.
+     * {@code r}, {@code g}, {@code b}.
      *
      * @param r A number between 0 (minimum) and 1 (maximum)
      * @param g A number between 0 (minimum) and 1 (maximum)
      * @param b A number between 0 (minimum) and 1 (maximum)
      */
-    public void setStrokeColorRGB(float r, float g, float b);
+    void setStrokeColorRGB(float r, float g, float b);
 
     /**
      * Set color space for stroking.
@@ -710,7 +710,7 @@ public interface ICSDevice {
      * @param resourceName The logical name of the resource in the {@link PDResources}
      * @param colorSpace   The new {@link PDColorSpace}
      */
-    public void setStrokeColorSpace(COSName resourceName, PDColorSpace colorSpace);
+    void setStrokeColorSpace(COSName resourceName, PDColorSpace colorSpace);
 
     /**
      * Set the color used for stroking operations, dependent on the currently
@@ -720,7 +720,7 @@ public interface ICSDevice {
      *
      * @param values The color values.
      */
-    public void setStrokeColorValues(float[] values);
+    void setStrokeColorValues(float[] values);
 
     /**
      * Set the color used for stroking operations, dependent on the currently
@@ -733,24 +733,24 @@ public interface ICSDevice {
      *                     {@link PDResources}
      * @param pattern      An optional {@link PDPattern}
      */
-    public void setStrokeColorValues(float[] values, COSName resourceName, PDPattern pattern);
+    void setStrokeColorValues(float[] values, COSName resourceName, PDPattern pattern);
 
     /**
      * Begin text mode. User space and text space are initialized to be equal.
      * <p>
      * PDF graphics operator "BT"
      */
-    public void textBegin();
+    void textBegin();
 
     /**
      * End text mode. User space is reestablished.
      * <p>
      * PDF graphics operator "ET"
      */
-    public void textEnd();
+    void textEnd();
 
     /**
-     * Move the current text line by <code>dx</code>, <code>dy</code>.
+     * Move the current text line by {@code dx}, {@code dy}.
      * <p>
      * PDF graphics operator "Td"
      *
@@ -759,18 +759,18 @@ public interface ICSDevice {
      * @param dy The y offset for the new glyph starting point from the last
      *           text line starting point.
      */
-    public void textLineMove(float dx, float dy);
+    void textLineMove(float dx, float dy);
 
     /**
-     * Move the current position to a new line. <code>y</code>.
+     * Move the current position to a new line. {@code y}.
      * <p>
      * PDF graphics operator "T*"
      */
-    public void textLineNew();
+    void textLineNew();
 
     /**
      * Move the current text cursor represented by the current text state
-     * transform by <code>dx</code>, <code>dy</code>.
+     * transform by {@code dx}, {@code dy}.
      * <p>
      * There is no graphics operator for this. It is implemented as a tool for
      * the ease of creating a content stream.
@@ -780,11 +780,11 @@ public interface ICSDevice {
      * @param dy The x offset for the new glyph starting point from the current
      *           text cursor position.
      */
-    public void textMove(float dx, float dy);
+    void textMove(float dx, float dy);
 
     /**
      * Move the current text cursor represented by the current text state
-     * transform to <code>x</code>, <code>y</code>.
+     * transform to {@code x}, {@code y}.
      * <p>
      * There is no graphics operator for this. It is implemented as a tool for
      * the ease of creating a content stream.
@@ -792,7 +792,7 @@ public interface ICSDevice {
      * @param x The x coordinate for the next glyph starting point .
      * @param y The y coordinate for the next glyph starting point .
      */
-    public void textMoveTo(float x, float y);
+    void textMoveTo(float x, float y);
 
     /**
      * Set the character spacing.
@@ -801,7 +801,7 @@ public interface ICSDevice {
      *
      * @param charSpacing The character spacing
      */
-    public void textSetCharSpacing(float charSpacing);
+    void textSetCharSpacing(float charSpacing);
 
     /**
      * Set the current font and size.
@@ -812,7 +812,7 @@ public interface ICSDevice {
      * @param font         The new {@link PDFont}
      * @param size         The new font size (scaling)
      */
-    public void textSetFont(COSName resourceName, PDFont font, float size);
+    void textSetFont(COSName resourceName, PDFont font, float size);
 
     /**
      * Set the horizontal scling factor.
@@ -821,7 +821,7 @@ public interface ICSDevice {
      *
      * @param scale The new horizontal scaling factor.
      */
-    public void textSetHorizontalScaling(float scale);
+    void textSetHorizontalScaling(float scale);
 
     /**
      * Set the text leading.
@@ -830,7 +830,7 @@ public interface ICSDevice {
      *
      * @param leading The new leading
      */
-    public void textSetLeading(float leading);
+    void textSetLeading(float leading);
 
     /**
      * Set the text rendering mode.
@@ -839,7 +839,7 @@ public interface ICSDevice {
      *
      * @param renderingMode The new rendering mode.
      */
-    public void textSetRenderingMode(int renderingMode);
+    void textSetRenderingMode(int renderingMode);
 
     /**
      * Set the text rise.
@@ -848,7 +848,7 @@ public interface ICSDevice {
      *
      * @param rise The new text rise (super/subscript) amount
      */
-    public void textSetRise(float rise);
+    void textSetRise(float rise);
 
     /**
      * Set the text transformation matrix. Both the text matrix and the text
@@ -863,7 +863,7 @@ public interface ICSDevice {
      * @param e operand 3,1 in the matrix
      * @param f operand 3,2 in the matrix
      */
-    public void textSetTransform(float a, float b, float c, float d, float e, float f);
+    void textSetTransform(float a, float b, float c, float d, float e, float f);
 
     /**
      * Set the word spacing.
@@ -872,7 +872,7 @@ public interface ICSDevice {
      *
      * @param wordSpacing The new word spacing.
      */
-    public void textSetWordSpacing(float wordSpacing);
+    void textSetWordSpacing(float wordSpacing);
 
     /**
      * Show a sequence of bytes as text. The bytes are assumed to be encoded and
@@ -884,7 +884,7 @@ public interface ICSDevice {
      * @param offset
      * @param length
      */
-    public void textShow(byte[] text, int offset, int length);
+    void textShow(byte[] text, int offset, int length);
 
     /**
      * Show a sequence of characters as text, using the current font encoding.
@@ -899,7 +899,7 @@ public interface ICSDevice {
      * @param offset
      * @param length
      */
-    public void textShow(char[] chars, int offset, int length);
+    void textShow(char[] chars, int offset, int length);
 
     /**
      * Show a string value as text, using the current font encoding.
@@ -912,7 +912,7 @@ public interface ICSDevice {
      *
      * @param text The text value to be shown using the current fonts encoding.
      */
-    public void textShow(String text);
+    void textShow(String text);
 
     /**
      * Set the glyph width for a type 3 font.
@@ -922,7 +922,7 @@ public interface ICSDevice {
      * @param x The glyph width
      * @param y must be 0
      */
-    public void textT3SetGlyphWidth(float x, float y);
+    void textT3SetGlyphWidth(float x, float y);
 
     /**
      * Set the glyph width and bounding box for a type 3 font.
@@ -936,7 +936,7 @@ public interface ICSDevice {
      * @param urx upper right x of bounding box
      * @param ury upper right y of bounding box
      */
-    public void textT3SetGlyphWidthBB(float x, float y, float llx, float lly, float urx, float ury);
+    void textT3SetGlyphWidthBB(float x, float y, float llx, float lly, float urx, float ury);
 
     /**
      * Modify the current transformation matrix by concatenating the
@@ -953,5 +953,5 @@ public interface ICSDevice {
      * @param e operand 3,1 in the matrix
      * @param f operand 3,2 in the matrix
      */
-    public void transform(float a, float b, float c, float d, float e, float f);
+    void transform(float a, float b, float c, float d, float e, float f);
 }

@@ -48,7 +48,7 @@ public class ArcFourCryptHandler extends StandardCryptHandler {
     public static final String DIGEST_ALGORITHM = "MD5"; //$NON-NLS-1$
 
     @Override
-    synchronized protected byte[] basicDecrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
+    protected synchronized byte[] basicDecrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
             throws COSSecurityException {
         try {
             updateHash(encryptionKey, objectNum, genNum);
@@ -62,7 +62,7 @@ public class ArcFourCryptHandler extends StandardCryptHandler {
     }
 
     @Override
-    synchronized protected byte[] basicEncrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
+    protected synchronized byte[] basicEncrypt(byte[] data, byte[] encryptionKey, int objectNum, int genNum)
             throws COSSecurityException {
         try {
             updateHash(encryptionKey, objectNum, genNum);
@@ -81,9 +81,7 @@ public class ArcFourCryptHandler extends StandardCryptHandler {
         try {
             md = MessageDigest.getInstance(DIGEST_ALGORITHM);
             cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-        } catch (NoSuchAlgorithmException e) {
-            throw new COSSecurityException(e);
-        } catch (NoSuchPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             throw new COSSecurityException(e);
         }
     }

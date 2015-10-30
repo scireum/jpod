@@ -75,13 +75,13 @@ public class CDSRectangle extends CDSBase {
     /**
      * Some common constants in rectangle
      */
-    static private final float INCH_2_CM = 2.54f;
+	private static final float INCH_2_CM = 2.54f;
 
-    static private final float A4_WIDTH = 21.0f;
+    private static final float A4_WIDTH = 21.0f;
 
-    static private final float A4_HEIGHT = 29.7f;
+    private static final float A4_HEIGHT = 29.7f;
 
-    static private final float DPI = 72.0f;
+    private static final float DPI = 72.0f;
 
 	/*
      * paper sizes in mm A0 841 × 1189 B0 1000 × 1414 C0 17 × 1297 A1 594 × 841
@@ -93,16 +93,16 @@ public class CDSRectangle extends CDSBase {
 	 */
 
     // todo 4 add some common paper sizes
-    static public final float[] SIZE_A4 = {0, 0, (A4_WIDTH / INCH_2_CM * DPI), (A4_HEIGHT / INCH_2_CM * DPI)};
+	public static final float[] SIZE_A4 = {0, 0, (A4_WIDTH / INCH_2_CM * DPI), (A4_HEIGHT / INCH_2_CM * DPI)};
 
     /**
-     * Create a {@link CDSRectangle} from an <code>array</code> holding the
+     * Create a {@link CDSRectangle} from an {@code array} holding the
      * rectangle coordinates.
      *
      * @param array The base {@link COSArray}
-     * @return Create a {@link CDSRectangle} from <code>array</code>
+     * @return Create a {@link CDSRectangle} from {@code array}
      */
-    static public CDSRectangle createFromCOS(COSArray array) {
+	public static CDSRectangle createFromCOS(COSArray array) {
         if (array == null) {
             return null;
         }
@@ -166,11 +166,11 @@ public class CDSRectangle extends CDSBase {
     }
 
     /**
-     * <code>true</code> if x/y lies within this.
+     * {@code true} if x/y lies within this.
      *
      * @param x x coordinate to be checked.
      * @param y y coordinate to be checked.
-     * @return <code>true</code> if x/y lies within this.
+     * @return {@code true} if x/y lies within this.
      */
     public boolean contains(double x, double y) {
         COSArray array = cosGetArray();
@@ -195,13 +195,13 @@ public class CDSRectangle extends CDSBase {
     }
 
     /**
-     * <code>true</code> if x/y lies within this, with a "uncertainty" of
+     * {@code true} if x/y lies within this, with a "uncertainty" of
      * epsilon.
      *
      * @param x       x coordinate to be checked.
      * @param y       y coordinate to be checked.
      * @param epsilon The allowed range of uncertainty
-     * @return <code>true</code> if x/y lies within this.
+     * @return {@code true} if x/y lies within this.
      */
     public boolean contains(double x, double y, double epsilon) {
         COSArray array = cosGetArray();
@@ -320,7 +320,7 @@ public class CDSRectangle extends CDSBase {
      *
      * @param x The new x position of the lower left corner.
      * @param y The new y position of the lower left corner.
-     * @return <code>this</code>
+     * @return {@code this}
      */
     public CDSRectangle moveTo(float x, float y) {
         float width = getUpperRightX() - getLowerLeftX();
@@ -337,10 +337,10 @@ public class CDSRectangle extends CDSBase {
      * left (this means returns the smallest coordinate values).
      * <p>
      * <p>
-     * This method changes <code>this</code> in place!
+     * This method changes {@code this} in place!
      * </p>
      *
-     * @return <code>this</code>
+     * @return {@code this}
      */
     public CDSRectangle normalize() {
         float t1;

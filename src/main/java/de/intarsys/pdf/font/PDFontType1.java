@@ -53,7 +53,7 @@ public class PDFontType1 extends PDSingleByteFont {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFont.MetaClass {
+    public static class MetaClass extends PDFont.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -74,35 +74,35 @@ public class PDFontType1 extends PDSingleByteFont {
      */
     public static final Map<String, String> FONT_ALIASES_DEPRECATED;
 
-    static public String FONT_Courier = "Courier"; //$NON-NLS-1$
+    public static String FONT_Courier = "Courier"; //$NON-NLS-1$
 
-    static public String FONT_Courier_Bold = "Courier-Bold"; //$NON-NLS-1$
+    public static String FONT_Courier_Bold = "Courier-Bold"; //$NON-NLS-1$
 
-    static public String FONT_Courier_BoldOblique = "Courier-BoldOblique"; //$NON-NLS-1$
+    public static String FONT_Courier_BoldOblique = "Courier-BoldOblique"; //$NON-NLS-1$
 
-    static public String FONT_Courier_Oblique = "Courier-Oblique"; //$NON-NLS-1$
+    public static String FONT_Courier_Oblique = "Courier-Oblique"; //$NON-NLS-1$
 
-    static public String FONT_Helvetica = "Helvetica"; //$NON-NLS-1$
+    public static String FONT_Helvetica = "Helvetica"; //$NON-NLS-1$
 
-    static public String FONT_Helvetica_Bold = "Helvetica-Bold"; //$NON-NLS-1$
+    public static String FONT_Helvetica_Bold = "Helvetica-Bold"; //$NON-NLS-1$
 
-    static public String FONT_Helvetica_BoldOblique = "Helvetica-BoldOblique"; //$NON-NLS-1$
+    public static String FONT_Helvetica_BoldOblique = "Helvetica-BoldOblique"; //$NON-NLS-1$
 
-    static public String FONT_Helvetica_Oblique = "Helvetica-Oblique"; //$NON-NLS-1$
+    public static String FONT_Helvetica_Oblique = "Helvetica-Oblique"; //$NON-NLS-1$
 
-    static public String FONT_Symbol = "Symbol"; //$NON-NLS-1$
+    public static String FONT_Symbol = "Symbol"; //$NON-NLS-1$
 
-    static public String FONT_Times_Bold = "Times-Bold"; //$NON-NLS-1$
+    public static String FONT_Times_Bold = "Times-Bold"; //$NON-NLS-1$
 
-    static public String FONT_Times_BoldItalic = "Times-BoldItalic"; //$NON-NLS-1$
+    public static String FONT_Times_BoldItalic = "Times-BoldItalic"; //$NON-NLS-1$
 
-    static public String FONT_Times_Italic = "Times-Italic"; //$NON-NLS-1$
+    public static String FONT_Times_Italic = "Times-Italic"; //$NON-NLS-1$
 
-    static public String FONT_Times_Roman = "Times-Roman"; //$NON-NLS-1$
+    public static String FONT_Times_Roman = "Times-Roman"; //$NON-NLS-1$
 
-    static public String FONT_ZapfDingbats = "ZapfDingbats"; //$NON-NLS-1$
+    public static String FONT_ZapfDingbats = "ZapfDingbats"; //$NON-NLS-1$
 
-    public static final String[] FONT_BUILTINS = new String[]{FONT_Courier,
+    public static final String[] FONT_BUILTINS = {FONT_Courier,
                                                               FONT_Courier_Bold,
                                                               FONT_Courier_BoldOblique,
                                                               FONT_Courier_Oblique,
@@ -120,9 +120,9 @@ public class PDFontType1 extends PDSingleByteFont {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static private Map<String, AFM> builtins = new HashMap<String, AFM>();
+    private static Map<String, AFM> builtins = new HashMap<String, AFM>();
 
     static {
         FONT_ALIASES = new HashMap<String, String>();
@@ -214,7 +214,7 @@ public class PDFontType1 extends PDSingleByteFont {
      * @param name the name of the font to use
      * @return the new font created
      */
-    static public PDFontType1 createNew(String name) {
+    public static PDFontType1 createNew(String name) {
         PDFontType1 font = (PDFontType1) PDFontType1.META.createNew();
         String baseFontName = PDFontType1.FONT_ALIASES.get(name);
         if (baseFontName == null) {
@@ -227,15 +227,15 @@ public class PDFontType1 extends PDSingleByteFont {
         return font;
     }
 
-    static public boolean isBuiltin(String name) {
+    public static boolean isBuiltin(String name) {
         return name != null && name.equals(FONT_ALIASES.get(name));
     }
 
-    static public boolean isBuiltinAlias(String name) {
+    public static boolean isBuiltinAlias(String name) {
         return FONT_ALIASES.get(name) != null;
     }
 
-    static public boolean isBuiltinDeprecated(String name) {
+    public static boolean isBuiltinDeprecated(String name) {
         return FONT_ALIASES_DEPRECATED.get(name) != null;
     }
 
@@ -245,7 +245,7 @@ public class PDFontType1 extends PDSingleByteFont {
      * @param name
      * @return the {@link AFM} structure for the named builtin font.
      */
-    synchronized static public AFM lookupBuiltinAFM(String name) {
+    public static synchronized AFM lookupBuiltinAFM(String name) {
         String aliased = FONT_ALIASES.get(name);
         if (aliased == null) {
             aliased = FONT_ALIASES_DEPRECATED.get(name);
@@ -389,9 +389,6 @@ public class PDFontType1 extends PDSingleByteFont {
         if (cosGetField(DK_FontDescriptor).isNull()) {
             return true;
         }
-        if (Arrays.asList(FONT_BUILTINS).contains(cosGetField(DK_BaseFont))) {
-            return true;
-        }
-        return false;
+        return Arrays.asList(FONT_BUILTINS).contains(cosGetField(DK_BaseFont));
     }
 }

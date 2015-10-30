@@ -43,6 +43,7 @@ public class StandardSecurityHandlerFactory implements ISecurityHandlerFactory {
 
     public static final COSName DK_R = COSName.constant("R"); //$NON-NLS-1$
 
+    @Override
     public ISecurityHandler getSecurityHandler(COSEncryption encryption) throws COSSecurityException {
         COSName name = encryption.getFilter();
         if (name == null) {

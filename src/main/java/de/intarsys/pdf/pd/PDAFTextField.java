@@ -42,11 +42,12 @@ public class PDAFTextField extends PDAcroFormField {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAcroFormField.MetaClass {
+    public static class MetaClass extends PDAcroFormField.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDAFTextField(object);
         }
@@ -55,7 +56,7 @@ public class PDAFTextField extends PDAcroFormField {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected PDAFTextField(COSObject object) {
         super(object);
@@ -66,6 +67,7 @@ public class PDAFTextField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#cosGetExpectedFieldType()
      */
+    @Override
     public COSName cosGetExpectedFieldType() {
         return CN_FT_Tx;
     }
@@ -75,6 +77,7 @@ public class PDAFTextField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#setValueString(java.lang.String)
      */
+    @Override
     public void setValueString(String value) {
         if (value == null) {
             super.setValueString(value);
@@ -84,6 +87,7 @@ public class PDAFTextField extends PDAcroFormField {
         cosSetValue(COSString.createMultiLine(value));
     }
 
+    @Override
     public void setDefaultValue(String value) {
         if (value == null) {
             super.setDefaultValue(value);
@@ -98,6 +102,7 @@ public class PDAFTextField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#getValueString()
      */
+    @Override
     public String getValueString() {
         COSObject value = cosGetValue();
         if (value.isNull()) {
@@ -114,6 +119,7 @@ public class PDAFTextField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#getDefaultValueString()
      */
+    @Override
     public String getDefaultValueString() {
         COSObject value = cosGetDefaultValue();
         if (value.isNull()) {
@@ -130,6 +136,7 @@ public class PDAFTextField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#isTypeTx()
      */
+    @Override
     public boolean isTypeTx() {
         return true;
     }
@@ -139,6 +146,7 @@ public class PDAFTextField extends PDAcroFormField {
      *
      * @see de.intarsys.pdf.pd.PDAcroFormField#reset()
      */
+    @Override
     public void reset() {
         //
         COSObject value = cosGetDefaultValue();

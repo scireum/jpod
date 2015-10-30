@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PDSignatureLock extends PDObject {
 
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -38,7 +38,7 @@ public class PDSignatureLock extends PDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public PDSignatureLock(COSObject object) {
         super(object);

@@ -46,7 +46,7 @@ public interface IAnnotationOutlet {
      *
      * @return The list of all available {@link IAnnotationFactory} instances.
      */
-    public IAnnotationFactory[] getAnnotationFactories();
+    IAnnotationFactory[] getAnnotationFactories();
 
     /**
      * The {@link IAnnotationFactory} for the requested annotation type or null.
@@ -55,19 +55,19 @@ public interface IAnnotationOutlet {
      * @return The {@link IAnnotationFactory} for the requested annotation type
      * or null.
      */
-    public IAnnotationFactory lookupAnnotationFactory(COSName type);
+    IAnnotationFactory lookupAnnotationFactory(COSName type);
 
     /**
      * Register a new {@link IAnnotationFactory} object.
      *
      * @param factory The factory object to be registered.
      */
-    public void registerAnnotationFactory(IAnnotationFactory factory);
+    void registerAnnotationFactory(IAnnotationFactory factory);
 
     /**
      * Unregister a {@link IAnnotationFactory} object.
      *
      * @param factory The factory object to be deregistered.
      */
-    public void unregisterAnnotationFactory(IAnnotationFactory factory);
+    void unregisterAnnotationFactory(IAnnotationFactory factory);
 }

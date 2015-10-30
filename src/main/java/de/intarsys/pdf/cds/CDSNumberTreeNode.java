@@ -38,12 +38,13 @@ import de.intarsys.pdf.cos.COSObject;
  * Not Yet done!!
  */
 public class CDSNumberTreeNode extends CDSTreeNode {
-    static public final COSName DK_Nums = COSName.constant("Nums"); //$NON-NLS-1$
+    public static final COSName DK_Nums = COSName.constant("Nums"); //$NON-NLS-1$
 
     protected CDSNumberTreeNode(COSObject object) {
         super(object);
     }
 
+    @Override
     public boolean isLeaf() {
         return cosGetDict().containsKey(DK_Nums);
     }

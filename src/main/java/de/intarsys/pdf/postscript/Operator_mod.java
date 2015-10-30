@@ -40,12 +40,13 @@ public class Operator_mod implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) {
         int operand1;
         int operand2;
 
         operand2 = ((Integer) handler.pop()).intValue();
         operand1 = ((Integer) handler.pop()).intValue();
-        handler.push(new Integer(operand1 % operand2));
+        handler.push(Integer.valueOf(operand1 % operand2));
     }
 }

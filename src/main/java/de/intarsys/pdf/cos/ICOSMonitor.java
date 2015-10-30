@@ -30,5 +30,5 @@
 package de.intarsys.pdf.cos;
 
 public interface ICOSMonitor {
-    public void willChange(Object object);
+    void willChange(Object object);
 }

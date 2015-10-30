@@ -304,10 +304,10 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
     }
 
     /**
-     * <code>true</code> if this can receive the focus in an interactive
+     * {@code true} if this can receive the focus in an interactive
      * viewer.
      *
-     * @return <code>true</code> if this can receive the focus in an
+     * @return {@code true} if this can receive the focus in an
      * interactive viewer.
      */
     public boolean canReceiveFocus() {
@@ -401,7 +401,8 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
      *
      * @see de.intarsys.pdf.pd.IAdditionalActionSupport#getAdditionalActions()
      */
-    public PDAdditionalActions getAdditionalActions() {
+    @Override
+	public PDAdditionalActions getAdditionalActions() {
         COSDictionary field = cosGetField(DK_AA).asDictionary();
         return (PDAdditionalActions) PDAdditionalActions.META.createFromCos(field);
     }
@@ -627,7 +628,7 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
     protected Integer getStructParent() {
         COSInteger cosObject = cosGetField(DK_StructParent).asInteger();
         if (cosObject != null) {
-            new Integer(cosObject.intValue());
+			Integer.valueOf(cosObject.intValue());
         }
         return null;
     }
@@ -637,14 +638,15 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
      *
      * @return A {@link String} representation of this.
      */
-    abstract public String getSubtypeLabel();
+	public abstract String getSubtypeLabel();
 
     /*
      * (non-Javadoc)
      *
      * @see de.intarsys.pdf.pd.IAdditionalActionSupport#getSupportedTriggerEvents()
      */
-    public Set getSupportedTriggerEvents() {
+    @Override
+	public Set getSupportedTriggerEvents() {
         return ANNOTATION_ACTION_TRIGGERS;
     }
 
@@ -694,9 +696,9 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
     }
 
     /**
-     * <code>true</code> if this is a {@link PDMarkupAnnotation}.
+     * {@code true} if this is a {@link PDMarkupAnnotation}.
      *
-     * @return <code>true</code> if this is a {@link PDMarkupAnnotation}.
+     * @return {@code true} if this is a {@link PDMarkupAnnotation}.
      */
     public boolean isMarkupAnnotation() {
         return false;
@@ -745,9 +747,9 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
     }
 
     /**
-     * <code>true</code> if this is a {@link PDWidgetAnnotation}.
+     * {@code true} if this is a {@link PDWidgetAnnotation}.
      *
-     * @return <code>true</code> if this is a {@link PDWidgetAnnotation}.
+     * @return {@code true} if this is a {@link PDWidgetAnnotation}.
      */
     public boolean isWidgetAnnotation() {
         return false;
@@ -767,7 +769,8 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
      *
      * @see de.intarsys.pdf.pd.IAdditionalActionSupport#setActions(de.intarsys.pdf.pd.PDAdditionalActions)
      */
-    public void setAdditionalActions(PDAdditionalActions actions) {
+    @Override
+	public void setAdditionalActions(PDAdditionalActions actions) {
         setFieldObject(DK_AA, actions);
     }
 
@@ -948,10 +951,10 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
     }
 
     /**
-     * <code>true</code> if print flag can be selected/changed for this kind
+     * {@code true} if print flag can be selected/changed for this kind
      * of annotation.
      *
-     * @return <code>true</code> if print flag can be selected/changed for
+     * @return {@code true} if print flag can be selected/changed for
      * this kind of annotation.
      */
     public boolean supportsPrint() {

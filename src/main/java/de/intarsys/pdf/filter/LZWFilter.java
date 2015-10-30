@@ -49,6 +49,7 @@ public class LZWFilter extends Filter {
      *
      * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
      */
+    @Override
     protected byte[] encode(byte[] source) throws IOException {
         return null;
     }
@@ -58,6 +59,7 @@ public class LZWFilter extends Filter {
      *
      * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
      */
+    @Override
     protected byte[] decode(byte[] source) throws IOException {
         byte[] decoded;
         IPrediction prediction;

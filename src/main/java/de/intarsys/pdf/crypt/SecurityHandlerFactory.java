@@ -38,6 +38,9 @@ public class SecurityHandlerFactory {
      */
     private static ISecurityHandlerFactory UNIQUE = new StandardSecurityHandlerFactory();
 
+    private SecurityHandlerFactory() {
+    }
+
     public static void set(ISecurityHandlerFactory active) {
         SecurityHandlerFactory.UNIQUE = active;
     }

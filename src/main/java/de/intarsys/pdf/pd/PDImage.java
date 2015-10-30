@@ -157,9 +157,9 @@ public class PDImage extends PDXObject {
         COSStream cosStream;
 
         cosStream = cosGetStream();
-        while (!cosStream.getFirstFilter().stringValue().equals("DCTDecode") //$NON-NLS-1$
-               && !cosStream.getFirstFilter().stringValue().equals("DCT") //$NON-NLS-1$
-               && !cosStream.getFirstFilter().stringValue().equals("JPXDecode")) { //$NON-NLS-1$
+        while (!"DCTDecode".equals(cosStream.getFirstFilter().stringValue()) //$NON-NLS-1$
+               && !"DCT".equals(cosStream.getFirstFilter().stringValue()) //$NON-NLS-1$
+               && !"JPXDecode".equals(cosStream.getFirstFilter().stringValue())) { //$NON-NLS-1$
             cosStream = cosStream.copyDecodeFirst();
         }
         return cosStream;
@@ -357,7 +357,7 @@ public class PDImage extends PDXObject {
 
         try {
             return (PDImage) PDXObject.META.createFromCos(mask);
-        } catch (ClassCastException ex) {
+        } catch (ClassCastException ignored) {
             return null;
         }
     }

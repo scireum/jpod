@@ -47,9 +47,7 @@ public class IdentityCMap extends CMap {
     public static IdentityCMap SINGLETON = new IdentityCMap();
 
     public static CMap getSingleton(COSName name) {
-        if (name.equals(CN_Identity_H)) {
-            return IdentityCMap.SINGLETON;
-        } else if (name.equals(CN_Identity_V)) {
+        if (name.equals(CN_Identity_H) || name.equals(CN_Identity_V)) {
             return IdentityCMap.SINGLETON;
         } else {
             return null;

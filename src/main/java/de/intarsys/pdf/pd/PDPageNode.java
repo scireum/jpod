@@ -96,7 +96,7 @@ public abstract class PDPageNode extends PDObject {
         super(object);
     }
 
-    abstract protected void collectAnnotations(List annotations);
+    protected abstract void collectAnnotations(List annotations);
 
     /**
      * @deprecated
@@ -251,9 +251,9 @@ public abstract class PDPageNode extends PDObject {
     }
 
     /**
-     * The zero based index of <code>this</code> within the document.
+     * The zero based index of {@code this} within the document.
      *
-     * @return The zero based index of <code>this</code> within the document.
+     * @return The zero based index of {@code this} within the document.
      */
     public int getNodeIndex() {
         PDPageTree myParent = getParent();
@@ -264,10 +264,10 @@ public abstract class PDPageNode extends PDObject {
     }
 
     /**
-     * The page at <code>index</code> within the receivers subtree.
+     * The page at {@code index} within the receivers subtree.
      *
      * @param index The page index
-     * @return The page at <code>index</code> within the receivers subtree.
+     * @return The page at {@code index} within the receivers subtree.
      */
     public PDPage getPageAt(int index) {
         if (index >= getCount()) {
@@ -352,17 +352,17 @@ public abstract class PDPageNode extends PDObject {
     }
 
     /**
-     * Answer <code>true</code> if this is a single page node.
+     * Answer {@code true} if this is a single page node.
      *
-     * @return Answer <code>true</code> if this is a single page node.
+     * @return Answer {@code true} if this is a single page node.
      */
     public abstract boolean isPage();
 
     /**
-     * <code>true</code> if this page node object is a valid participant in
+     * {@code true} if this page node object is a valid participant in
      * the documents page tree.
      *
-     * @return <code>true</code> if this page node object is a valid
+     * @return {@code true} if this page node object is a valid
      * participant in the documents page tree.
      */
     public abstract boolean isValid();
@@ -424,11 +424,8 @@ public abstract class PDPageNode extends PDObject {
     public void setRotate(int rotate) {
         COSObject newObject = COSInteger.create(rotate);
         COSObject inheritedObject = cosGetFieldInherited(DK_Rotate);
-        if (newObject.equals(inheritedObject)) {
+        if (newObject.equals(inheritedObject) || inheritedObject.isNull() && rotate == 0) {
             // same as parent - remove
-            cosSetFieldInheritable(DK_Rotate, null);
-        } else if (inheritedObject.isNull() && rotate == 0) {
-            // default
             cosSetFieldInheritable(DK_Rotate, null);
         } else {
             cosSetFieldInheritable(DK_Rotate, newObject);

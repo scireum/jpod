@@ -40,227 +40,227 @@ import java.util.Map;
  */
 public class CSOperators {
     // list of well known operators
-    static public final CSOperator CSO_BMC = CSOperator.create("BMC"); //$NON-NLS-1$
+    public static final CSOperator CSO_BMC = CSOperator.create("BMC"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_EMC = CSOperator.create("EMC"); //$NON-NLS-1$
+    public static final CSOperator CSO_EMC = CSOperator.create("EMC"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_BT = CSOperator.create("BT"); //$NON-NLS-1$
+    public static final CSOperator CSO_BT = CSOperator.create("BT"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_ET = CSOperator.create("ET"); //$NON-NLS-1$
+    public static final CSOperator CSO_ET = CSOperator.create("ET"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Tf = CSOperator.create("Tf"); //$NON-NLS-1$
+    public static final CSOperator CSO_Tf = CSOperator.create("Tf"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Tstar = CSOperator.create("T*"); //$NON-NLS-1$
+    public static final CSOperator CSO_Tstar = CSOperator.create("T*"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_W = CSOperator.create("W"); //$NON-NLS-1$
+    public static final CSOperator CSO_W = CSOperator.create("W"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_h = CSOperator.create("h"); //$NON-NLS-1$
+    public static final CSOperator CSO_h = CSOperator.create("h"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_bstar = CSOperator.create("b*"); //$NON-NLS-1$
+    public static final CSOperator CSO_bstar = CSOperator.create("b*"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_b = CSOperator.create("b"); //$NON-NLS-1$
+    public static final CSOperator CSO_b = CSOperator.create("b"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_s = CSOperator.create("s"); //$NON-NLS-1$
+    public static final CSOperator CSO_s = CSOperator.create("s"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_y = CSOperator.create("y"); //$NON-NLS-1$
+    public static final CSOperator CSO_y = CSOperator.create("y"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_v = CSOperator.create("v"); //$NON-NLS-1$
+    public static final CSOperator CSO_v = CSOperator.create("v"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_c = CSOperator.create("c"); //$NON-NLS-1$
+    public static final CSOperator CSO_c = CSOperator.create("c"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Wstar = CSOperator.create("W*"); //$NON-NLS-1$
+    public static final CSOperator CSO_Wstar = CSOperator.create("W*"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_fstar = CSOperator.create("f*"); //$NON-NLS-1$
+    public static final CSOperator CSO_fstar = CSOperator.create("f*"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Bstar = CSOperator.create("B*"); //$NON-NLS-1$
+    public static final CSOperator CSO_Bstar = CSOperator.create("B*"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_f = CSOperator.create("f"); //$NON-NLS-1$
+    public static final CSOperator CSO_f = CSOperator.create("f"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_F = CSOperator.create("F"); //$NON-NLS-1$
+    public static final CSOperator CSO_F = CSOperator.create("F"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_B = CSOperator.create("B"); //$NON-NLS-1$
+    public static final CSOperator CSO_B = CSOperator.create("B"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_l = CSOperator.create("l"); //$NON-NLS-1$
+    public static final CSOperator CSO_l = CSOperator.create("l"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_TD = CSOperator.create("TD"); //$NON-NLS-1$
+    public static final CSOperator CSO_TD = CSOperator.create("TD"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Td = CSOperator.create("Td"); //$NON-NLS-1$
+    public static final CSOperator CSO_Td = CSOperator.create("Td"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_m = CSOperator.create("m"); //$NON-NLS-1$
+    public static final CSOperator CSO_m = CSOperator.create("m"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_n = CSOperator.create("n"); //$NON-NLS-1$
+    public static final CSOperator CSO_n = CSOperator.create("n"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_re = CSOperator.create("re"); //$NON-NLS-1$
+    public static final CSOperator CSO_re = CSOperator.create("re"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Q = CSOperator.create("Q"); //$NON-NLS-1$
+    public static final CSOperator CSO_Q = CSOperator.create("Q"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_q = CSOperator.create("q"); //$NON-NLS-1$
+    public static final CSOperator CSO_q = CSOperator.create("q"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Tc = CSOperator.create("Tc"); //$NON-NLS-1$
+    public static final CSOperator CSO_Tc = CSOperator.create("Tc"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_i = CSOperator.create("i"); //$NON-NLS-1$
+    public static final CSOperator CSO_i = CSOperator.create("i"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_g = CSOperator.create("g"); //$NON-NLS-1$
+    public static final CSOperator CSO_g = CSOperator.create("g"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_G = CSOperator.create("G"); //$NON-NLS-1$
+    public static final CSOperator CSO_G = CSOperator.create("G"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Tz = CSOperator.create("Tz"); //$NON-NLS-1$
+    public static final CSOperator CSO_Tz = CSOperator.create("Tz"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_TL = CSOperator.create("TL"); //$NON-NLS-1$
+    public static final CSOperator CSO_TL = CSOperator.create("TL"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_J = CSOperator.create("J"); //$NON-NLS-1$
+    public static final CSOperator CSO_J = CSOperator.create("J"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_d = CSOperator.create("d"); //$NON-NLS-1$
+    public static final CSOperator CSO_d = CSOperator.create("d"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_j = CSOperator.create("j"); //$NON-NLS-1$
+    public static final CSOperator CSO_j = CSOperator.create("j"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_w = CSOperator.create("w"); //$NON-NLS-1$
+    public static final CSOperator CSO_w = CSOperator.create("w"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_M = CSOperator.create("M"); //$NON-NLS-1$
+    public static final CSOperator CSO_M = CSOperator.create("M"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_rg = CSOperator.create("rg"); //$NON-NLS-1$
+    public static final CSOperator CSO_rg = CSOperator.create("rg"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_RG = CSOperator.create("RG"); //$NON-NLS-1$
+    public static final CSOperator CSO_RG = CSOperator.create("RG"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Tm = CSOperator.create("Tm"); //$NON-NLS-1$
+    public static final CSOperator CSO_Tm = CSOperator.create("Tm"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Tr = CSOperator.create("Tr"); //$NON-NLS-1$
+    public static final CSOperator CSO_Tr = CSOperator.create("Tr"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Ts = CSOperator.create("Ts"); //$NON-NLS-1$
+    public static final CSOperator CSO_Ts = CSOperator.create("Ts"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Tw = CSOperator.create("Tw"); //$NON-NLS-1$
+    public static final CSOperator CSO_Tw = CSOperator.create("Tw"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_Tj = CSOperator.create("Tj"); //$NON-NLS-1$
+    public static final CSOperator CSO_Tj = CSOperator.create("Tj"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_S = CSOperator.create("S"); //$NON-NLS-1$
+    public static final CSOperator CSO_S = CSOperator.create("S"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_cm = CSOperator.create("cm"); //$NON-NLS-1$
+    public static final CSOperator CSO_cm = CSOperator.create("cm"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_gs = CSOperator.create("gs"); //$NON-NLS-1$
+    public static final CSOperator CSO_gs = CSOperator.create("gs"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_CS = CSOperator.create("CS"); //$NON-NLS-1$
+    public static final CSOperator CSO_CS = CSOperator.create("CS"); //$NON-NLS-1$
 
-    static public final CSOperator CSO_cs = CSOperator.create("cs"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_Do = CSOperator.create("Do"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_TJ = CSOperator.create("TJ"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_Quote = CSOperator.create("'"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_DoubleQuote = CSOperator.create("\""); //$NON-NLS-1$
-
-    static public final CSOperator CSO_BDC = CSOperator.create("BDC"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_BI = CSOperator.create("BI"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_BX = CSOperator.create("BX"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_d0 = CSOperator.create("d0"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_d1 = CSOperator.create("d1"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_DP = CSOperator.create("DP"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_EI = CSOperator.create("EI"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_EX = CSOperator.create("EX"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_ID = CSOperator.create("ID"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_K = CSOperator.create("K"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_k = CSOperator.create("k"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_MP = CSOperator.create("MP"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_ri = CSOperator.create("ri"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_SC = CSOperator.create("SC"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_sc = CSOperator.create("sc"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_SCN = CSOperator.create("SCN"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_scn = CSOperator.create("scn"); //$NON-NLS-1$
-
-    static public final CSOperator CSO_sh = CSOperator.create("sh"); //$NON-NLS-1$
-
-    static public final List CSO_All = Arrays.asList(new CSOperator[]{CSO_b,
-                                                                      CSO_B,
-                                                                      CSO_BDC,
-                                                                      CSO_BI,
-                                                                      CSO_BMC,
-                                                                      CSO_bstar,
-                                                                      CSO_Bstar,
-                                                                      CSO_BT,
-                                                                      CSO_BX,
-                                                                      CSO_c,
-                                                                      CSO_cm,
-                                                                      CSO_cs,
-                                                                      CSO_CS,
-                                                                      CSO_d,
-                                                                      CSO_d0,
-                                                                      CSO_d1,
-                                                                      CSO_Do,
-                                                                      CSO_DoubleQuote,
-                                                                      CSO_DP,
-                                                                      CSO_EI,
-                                                                      CSO_EMC,
-                                                                      CSO_ET,
-                                                                      CSO_EX,
-                                                                      CSO_f,
-                                                                      CSO_F,
-                                                                      CSO_fstar,
-                                                                      CSO_g,
-                                                                      CSO_G,
-                                                                      CSO_gs,
-                                                                      CSO_h,
-                                                                      CSO_i,
-                                                                      CSO_ID,
-                                                                      CSO_j,
-                                                                      CSO_J,
-                                                                      CSO_k,
-                                                                      CSO_K,
-                                                                      CSO_l,
-                                                                      CSO_m,
-                                                                      CSO_M,
-                                                                      CSO_MP,
-                                                                      CSO_n,
-                                                                      CSO_q,
-                                                                      CSO_Q,
-                                                                      CSO_Quote,
-                                                                      CSO_re,
-                                                                      CSO_rg,
-                                                                      CSO_RG,
-                                                                      CSO_ri,
-                                                                      CSO_s,
-                                                                      CSO_S,
-                                                                      CSO_sc,
-                                                                      CSO_scn,
-                                                                      CSO_SC,
-                                                                      CSO_SCN,
-                                                                      CSO_sh,
-                                                                      CSO_Tc,
-                                                                      CSO_Td,
-                                                                      CSO_TD,
-                                                                      CSO_Tf,
-                                                                      CSO_Tj,
-                                                                      CSO_TJ,
-                                                                      CSO_TL,
-                                                                      CSO_Tm,
-                                                                      CSO_Tr,
-                                                                      CSO_Ts,
-                                                                      CSO_Tstar,
-                                                                      CSO_Tw,
-                                                                      CSO_Tz,
-                                                                      CSO_v,
-                                                                      CSO_w,
-                                                                      CSO_W,
-                                                                      CSO_Wstar,
-                                                                      CSO_y});
-
-    static private final Map descriptions = new HashMap();
+    public static final CSOperator CSO_cs = CSOperator.create("cs"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_Do = CSOperator.create("Do"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_TJ = CSOperator.create("TJ"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_Quote = CSOperator.create("'"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_DoubleQuote = CSOperator.create("\""); //$NON-NLS-1$
+
+    public static final CSOperator CSO_BDC = CSOperator.create("BDC"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_BI = CSOperator.create("BI"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_BX = CSOperator.create("BX"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_d0 = CSOperator.create("d0"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_d1 = CSOperator.create("d1"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_DP = CSOperator.create("DP"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_EI = CSOperator.create("EI"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_EX = CSOperator.create("EX"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_ID = CSOperator.create("ID"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_K = CSOperator.create("K"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_k = CSOperator.create("k"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_MP = CSOperator.create("MP"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_ri = CSOperator.create("ri"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_SC = CSOperator.create("SC"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_sc = CSOperator.create("sc"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_SCN = CSOperator.create("SCN"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_scn = CSOperator.create("scn"); //$NON-NLS-1$
+
+    public static final CSOperator CSO_sh = CSOperator.create("sh"); //$NON-NLS-1$
+
+    public static final List CSO_All = Arrays.asList(CSO_b,
+                                                     CSO_B,
+                                                     CSO_BDC,
+                                                     CSO_BI,
+                                                     CSO_BMC,
+                                                     CSO_bstar,
+                                                     CSO_Bstar,
+                                                     CSO_BT,
+                                                     CSO_BX,
+                                                     CSO_c,
+                                                     CSO_cm,
+                                                     CSO_cs,
+                                                     CSO_CS,
+                                                     CSO_d,
+                                                     CSO_d0,
+                                                     CSO_d1,
+                                                     CSO_Do,
+                                                     CSO_DoubleQuote,
+                                                     CSO_DP,
+                                                     CSO_EI,
+                                                     CSO_EMC,
+                                                     CSO_ET,
+                                                     CSO_EX,
+                                                     CSO_f,
+                                                     CSO_F,
+                                                     CSO_fstar,
+                                                     CSO_g,
+                                                     CSO_G,
+                                                     CSO_gs,
+                                                     CSO_h,
+                                                     CSO_i,
+                                                     CSO_ID,
+                                                     CSO_j,
+                                                     CSO_J,
+                                                     CSO_k,
+                                                     CSO_K,
+                                                     CSO_l,
+                                                     CSO_m,
+                                                     CSO_M,
+                                                     CSO_MP,
+                                                     CSO_n,
+                                                     CSO_q,
+                                                     CSO_Q,
+                                                     CSO_Quote,
+                                                     CSO_re,
+                                                     CSO_rg,
+                                                     CSO_RG,
+                                                     CSO_ri,
+                                                     CSO_s,
+                                                     CSO_S,
+                                                     CSO_sc,
+                                                     CSO_scn,
+                                                     CSO_SC,
+                                                     CSO_SCN,
+                                                     CSO_sh,
+                                                     CSO_Tc,
+                                                     CSO_Td,
+                                                     CSO_TD,
+                                                     CSO_Tf,
+                                                     CSO_Tj,
+                                                     CSO_TJ,
+                                                     CSO_TL,
+                                                     CSO_Tm,
+                                                     CSO_Tr,
+                                                     CSO_Ts,
+                                                     CSO_Tstar,
+                                                     CSO_Tw,
+                                                     CSO_Tz,
+                                                     CSO_v,
+                                                     CSO_w,
+                                                     CSO_W,
+                                                     CSO_Wstar,
+                                                     CSO_y);
+
+    private static final Map descriptions = new HashMap();
 
     static {
         descriptions.put(CSO_b, "close, fill and stroke path using nonzero winding rule"); //$NON-NLS-1$

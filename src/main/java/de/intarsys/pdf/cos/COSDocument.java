@@ -147,6 +147,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
 
     private INotificationListener listenSTChange = new INotificationListener() {
 
+        @Override
         public void handleEvent(Event event) {
             onStDocumentChange((AttributeChangedEvent) event);
         }
@@ -186,7 +187,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
 
     /**
      * This should not be used by the application programmer.
-     * <code>public</code> for package visibility reasons.
+     * {@code public} for package visibility reasons.
      *
      * @param element
      */
@@ -227,6 +228,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public ICOSContainer associate(ICOSContainer newContainer, COSObject object) {
         if (newContainer == this) {
             // error ?
@@ -245,7 +247,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
 
     /**
      * Close the document. Accessing a documents content is undefined after
-     * <code>close</code>.
+     * {@code close}.
      *
      * @throws IOException
      */
@@ -257,6 +259,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public COSDocumentElement containable(COSObject object) {
         return object;
     }
@@ -280,6 +283,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public ICOSContainer disassociate(ICOSContainer oldContainer, COSObject object) {
         if (oldContainer == this) {
             // object removed from container
@@ -309,7 +313,8 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * de.intarsys.tools.component.IAttributeSupport#getAttribute(java.lang.
      * Object)
      */
-    synchronized public Object getAttribute(Object key) {
+	@Override
+    public synchronized Object getAttribute(Object key) {
         return stDoc.getAttribute(key);
     }
 
@@ -326,6 +331,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public COSDocument getDoc() {
         return this;
     }
@@ -358,6 +364,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      *
      * @return The {@link ILocator} for this document.
      */
+    @Override
     public ILocator getLocator() {
         return stDoc.getLocator();
     }
@@ -397,7 +404,8 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * @seede.intarsys.pdf.cos.ICOSExceptionHandler#error(de.intarsys.pdf.cos.
      * COSRuntimeException)
      */
-    public void handleException(COSRuntimeException ex) throws COSRuntimeException {
+    @Override
+    public void handleException(COSRuntimeException ex) {
         if (exceptionHandler != null) {
             exceptionHandler.handleException(ex);
         } else {
@@ -405,6 +413,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
         }
     }
 
+    @Override
     public void harden(COSObject object) {
         // ignore
     }
@@ -430,9 +439,9 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
     }
 
     /**
-     * Answer <code>true</code> if the document has changes to be committed.
+     * Answer {@code true} if the document has changes to be committed.
      *
-     * @return Answer <code>true</code> if the document has changes to be
+     * @return Answer {@code true} if the document has changes to be
      * committed.
      */
     public boolean isDirty() {
@@ -440,18 +449,18 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
     }
 
     /**
-     * Answer <code>true</code> if the document is encrypted.
+     * Answer {@code true} if the document is encrypted.
      *
-     * @return Answer <code>true</code> if the document is encrypted.
+     * @return Answer {@code true} if the document is encrypted.
      */
     public boolean isEncrypted() {
         return stGetDoc().isEncrypted();
     }
 
     /**
-     * Answer <code>true</code> if the document is new, i.e. not yet written.
+     * Answer {@code true} if the document is new, i.e. not yet written.
      *
-     * @return Answer <code>true</code> if the document is new, i.e. not yet
+     * @return Answer {@code true} if the document is new, i.e. not yet
      * written.
      */
     public boolean isNew() {
@@ -459,11 +468,11 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
     }
 
     /**
-     * Answer <code>true</code> if the document is read only. To save the
+     * Answer {@code true} if the document is read only. To save the
      * document and its changes you have to define another {@link ILocator} when
      * saving.
      *
-     * @return Answer <code>true</code> if the document is read only.
+     * @return Answer {@code true} if the document is read only.
      */
     public boolean isReadOnly() {
         return stDoc.isReadOnly();
@@ -491,6 +500,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
 
             COSIndirectObject io = null;
 
+            @Override
             public boolean hasNext() {
                 if (io != null) {
                     return true;
@@ -505,6 +515,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
                 return io != null;
             }
 
+            @Override
             public Object next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
@@ -514,6 +525,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
                 return result.dereference();
             }
 
+            @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }
@@ -535,6 +547,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public int referenceCount() {
         return 1;
     }
@@ -543,6 +556,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public COSIndirectObject referenceIndirect(COSObject object) {
         // i contain the trailer - that will never be indirect
         throw new IllegalStateException("document can not have indirect references"); //$NON-NLS-1$
@@ -552,6 +566,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public void register(COSDocumentElement object) {
         object.registerWith(this);
     }
@@ -563,7 +578,8 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * de.intarsys.tools.component.IAttributeSupport#removeAttribute(java.lang
      * .Object)
      */
-    synchronized public Object removeAttribute(Object key) {
+	@Override
+    public synchronized Object removeAttribute(Object key) {
         return stDoc.removeAttribute(key);
     }
 
@@ -613,6 +629,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public ICOSContainer restoreStateContainer(ICOSContainer container) {
         return container;
     }
@@ -638,7 +655,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
 
     /**
      * Save the document to an optional new {@link ILocator} using the
-     * <code>options</code> to control specific serializing behavior such as
+     * {@code options} to control specific serializing behavior such as
      * "incremental writing".
      *
      * @param locator
@@ -655,6 +672,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public ICOSContainer saveStateContainer() {
         return this;
     }
@@ -666,7 +684,8 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * de.intarsys.tools.attribute.IAttributeSupport#setAttribute(java.lang.
      * Object, java.lang.Object)
      */
-    synchronized public Object setAttribute(Object key, Object value) {
+	@Override
+    public synchronized Object setAttribute(Object key, Object value) {
         return stDoc.setAttribute(key, value);
     }
 
@@ -726,6 +745,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
         stDoc.setWriteModeHint(writeMode);
     }
 
+    @Override
     public void soften(COSObject object) {
         // ignore
     }
@@ -771,6 +791,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * This method should not be used by the application programmer. This is
      * called in the {@link COSObject} lifecycle to ensure internal consistency.
      */
+    @Override
     public void willChange(COSObject change) {
         setDirty(true);
         if (monitors == null) {

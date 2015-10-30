@@ -55,7 +55,7 @@ public class CDSDate extends CDSBase {
     // YYYY MM DD HH mm SS O HH ' mm '
     public static final Pattern DatePattern =
             Pattern.compile("D:(\\d{4})(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\+|-|Z|z)?(\\d{2})?\\'?(\\d{2})?.*");
-            //$NON-NLS-1$
+    //$NON-NLS-1$
 
     private static final DateFormat PDF_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
 
@@ -67,7 +67,7 @@ public class CDSDate extends CDSBase {
      * @param string The base string.
      * @return Create a {@link CDSDate} from a {@link COSString}
      */
-    static public CDSDate createFromCOS(COSString string) {
+    public static CDSDate createFromCOS(COSString string) {
         if (string == null) {
             return null;
         }
@@ -87,18 +87,18 @@ public class CDSDate extends CDSBase {
     }
 
     /**
-     * Format a {@link CDSDate} using <code>format</code>.
+     * Format a {@link CDSDate} using {@code format}.
      *
      * @param format  The format to be used for formatting
      * @param cdsDate The date to be formatted
-     * @return A formatted {@link String} representation of <code>cdsDate</code>
+     * @return A formatted {@link String} representation of {@code cdsDate}
      */
     public static String format(Format format, CDSDate cdsDate) {
         String strDate = ""; //$NON-NLS-1$
         if (cdsDate != null) {
             try {
                 strDate = format.format(cdsDate.toDate());
-            } catch (ParseException e) {
+            } catch (ParseException ignored) {
                 strDate = cdsDate.toString();
             }
         }
@@ -228,7 +228,7 @@ public class CDSDate extends CDSBase {
 
     /**
      * Create a new date object with the date defined in
-     * <code>newDateString</code>.
+     * {@code newDateString}.
      *
      * @param newDateString The string representation of the new CDSDate.
      */
@@ -242,7 +242,7 @@ public class CDSDate extends CDSBase {
      * @return The {@link String} representation of this.
      */
     public String stringValue() {
-        return ((COSString) cosGetObject()).stringValue();
+        return cosGetObject().stringValue();
     }
 
     /**

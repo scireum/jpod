@@ -46,10 +46,12 @@ public class ASCII85Filter extends StreamBasedFilter {
         super(options);
     }
 
+    @Override
     protected InputStream createInputFilterStream(InputStream is) throws IOException {
         return new ASCII85InputStream(is);
     }
 
+    @Override
     protected OutputStream createOutputFilterStream(OutputStream os) throws IOException {
         return new ASCII85OutputStream(os);
     }

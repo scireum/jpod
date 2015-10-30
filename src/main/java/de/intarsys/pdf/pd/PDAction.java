@@ -43,11 +43,11 @@ import java.util.List;
  * This is an abstract superclass for the implementation of the various action
  * types.
  */
-abstract public class PDAction extends PDObject {
+public abstract class PDAction extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -105,13 +105,13 @@ abstract public class PDAction extends PDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public final COSName DK_S = COSName.constant("S");
+    public static final COSName DK_S = COSName.constant("S");
 
-    static public final COSName DK_Next = COSName.constant("Next");
+    public static final COSName DK_Next = COSName.constant("Next");
 
-    static public final COSName CN_Type_Action = COSName.constant("Action");
+    public static final COSName CN_Type_Action = COSName.constant("Action");
 
     protected PDAction(COSObject object) {
         super(object);
@@ -162,7 +162,7 @@ abstract public class PDAction extends PDObject {
      * @return The action type expected for a {@link PDAction} of the
      * instantiated class.
      */
-    abstract public COSName cosGetExpectedActionType();
+    public abstract COSName cosGetExpectedActionType();
 
     /*
      * (non-Javadoc)

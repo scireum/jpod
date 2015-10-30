@@ -54,14 +54,14 @@ import java.lang.reflect.InvocationTargetException;
  * created via META) and defines the lifecycle of the {@link COSBasedObject}.
  * <p>
  * A {@link COSBasedObject} should always be created using
- * <code>META.createNew</code> or <code>META.createFromCos</code>.
+ * {@code META.createNew} or {@code META.createFromCos}.
  * </p>
  * <p>
  * <p>
  * A {@link COSBasedObject} based on a {@link COSDictionary} can use some
  * convenience methods for generic access to its fields. As a convention, filed
  * names are always declared with the associated {@link COSBasedObject} as
- * <code>public static final COSName DK_<name></code>.
+ * {@code public static final COSName DK_<name>}.
  * <p>
  * <p>
  * The {@link COSBasedObject} implements {@link IAttributeSupport}. Client code
@@ -123,13 +123,13 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
                 synchronized (this) {
                     // lazy access must be synchronized
                     if (constructor == null) {
-                        constructor = getInstanceClass().getDeclaredConstructor(new Class[]{COSObject.class});
+                        constructor = getInstanceClass().getDeclaredConstructor(COSObject.class);
                         constructor.setAccessible(true);
                     }
                 }
-                result = (COSBasedObject) constructor.newInstance(new Object[]{object});
+                result = (COSBasedObject) constructor.newInstance(object);
                 return result;
-            } catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException ignored) {
                 throw new IllegalStateException("Constructor " //$NON-NLS-1$
                                                 + getInstanceClass().getName() + "(COSObject) missing"); //$NON-NLS-1$
             } catch (InstantiationException e) {
@@ -206,6 +206,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
      * .COSObject, java.lang.Object, de.intarsys.pdf.cos.COSObject,
      * de.intarsys.pdf.cos.COSObject)
      */
+    @Override
     public void changed(COSObject pObject, Object slot, Object oldValue, Object newValue) {
         if (slot != COSObject.SLOT_CONTAINER) {
             invalidateCaches();
@@ -246,13 +247,13 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * The {@link COSObject} associated with <code>name</code> in the receiver
+     * The {@link COSObject} associated with {@code name} in the receiver
      * or {@link COSNull}.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
      * @param name The {@link COSDictionary} field to read
-     * @return The {@link COSObject} associated with <code>name</code> in the
+     * @return The {@link COSObject} associated with {@code name} in the
      * receiver or {@link COSNull}.
      */
     public COSObject cosGetField(COSName name) {
@@ -281,13 +282,13 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * Answer <code>true</code> if this has a field named <code>name</code>.
+     * Answer {@code true} if this has a field named {@code name}.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
      * @param name the field to check
-     * @return Answer <code>true</code> if this has a field named
-     * <code>name</code>.
+     * @return Answer {@code true} if this has a field named
+     * {@code name}.
      */
     public boolean cosHasField(COSName name) {
         return !cosGetDict().get(name).isNull();
@@ -330,20 +331,21 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
      * de.intarsys.tools.component.IAttributeSupport#getAttribute(java.lang.
      * Object)
      */
+    @Override
     public Object getAttribute(Object key) {
         return attributeSupport.getAttribute(new TaggedAttribute(key, getClass()));
     }
 
     /**
-     * The value of a field within this as a <code>boolean</code> or the
-     * <code>defaultValue</code> if not found or not a {@link COSBoolean}.
+     * The value of a field within this as a {@code boolean} or the
+     * {@code defaultValue} if not found or not a {@link COSBoolean}.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
      * @param name         The name of the field.
      * @param defaultValue The default value to return if field is not found or not of
      *                     appropriate type.
-     * @return The value of a field within this as a <code>boolean</code>
+     * @return The value of a field within this as a {@code boolean}
      */
     public boolean getFieldBoolean(COSName name, boolean defaultValue) {
         COSBoolean value = cosGetField(name).asBoolean();
@@ -355,7 +357,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
 
     /**
      * The value of a field within this as a {@link CDSDate} or the
-     * <code>defaultValue</code> if not found or not a {@link COSString}.
+     * {@code defaultValue} if not found or not a {@link COSString}.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
@@ -373,15 +375,15 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * The value of a field within this as a <code>float</code> or the
-     * <code>defaultValue</code> if not found or not a {@link COSNumber}.
+     * The value of a field within this as a {@code float} or the
+     * {@code defaultValue} if not found or not a {@link COSNumber}.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
      * @param name         The name of the field.
      * @param defaultValue The default value to return if field is not found or not of
      *                     appropriate type.
-     * @return The value of a field within this as a <code>float</code>
+     * @return The value of a field within this as a {@code float}
      */
     public float getFieldFixed(COSName name, float defaultValue) {
         COSNumber value = cosGetField(name).asNumber();
@@ -392,15 +394,15 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * The value of a field within this as a <code>float[]</code> or the
-     * <code>defaultValue</code> if not found or not a {@link COSArray}.
+     * The value of a field within this as a {@code float[]} or the
+     * {@code defaultValue} if not found or not a {@link COSArray}.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
      * @param name         The name of the field.
      * @param defaultValue The default value to return if field is not found or not of
      *                     appropriate type.
-     * @return The value of a field within this as a <code>float[]</code>
+     * @return The value of a field within this as a {@code float[]}
      */
     public float[] getFieldFixedArray(COSName name, float[] defaultValue) {
         COSArray array = cosGetField(name).asArray();
@@ -421,15 +423,15 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * The value of a field within this as a <code>int</code> or the
-     * <code>defaultValue</code> if not found or not a {@link COSNumber}.
+     * The value of a field within this as a {@code int} or the
+     * {@code defaultValue} if not found or not a {@link COSNumber}.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
      * @param name         The name of the field.
      * @param defaultValue The default value to return if field is not found or not of
      *                     appropriate type.
-     * @return The value of a field within this as a <code>int</code>
+     * @return The value of a field within this as a {@code int}
      */
     public int getFieldInt(COSName name, int defaultValue) {
         COSNumber value = cosGetField(name).asNumber();
@@ -440,8 +442,8 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * The value of a field within this as a <code>String</code> or the
-     * <code>defaultValue</code> if not found or not a {@link COSString}. The
+     * The value of a field within this as a {@code String} or the
+     * {@code defaultValue} if not found or not a {@link COSString}. The
      * String is "expanded" to containn the correct new line characters.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
@@ -449,7 +451,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
      * @param name         The name of the field.
      * @param defaultValue The default value to return if field is not found or not of
      *                     appropriate type.
-     * @return The value of a field within this as a <code>String</code>
+     * @return The value of a field within this as a {@code String}
      */
     public String getFieldMLString(COSName name, String defaultValue) {
         COSObject value = cosGetField(name);
@@ -466,15 +468,15 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * The value of a field within this as a <code>String</code> or the
-     * <code>defaultValue</code> if not found or not a {@link COSString}.
+     * The value of a field within this as a {@code String} or the
+     * {@code defaultValue} if not found or not a {@link COSString}.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
      * @param name         The name of the field.
      * @param defaultValue The default value to return if field is not found or not of
      *                     appropriate type.
-     * @return The value of a field within this as a <code>String</code>
+     * @return The value of a field within this as a {@code String}
      */
     public String getFieldString(COSName name, String defaultValue) {
         COSObject value = cosGetField(name);
@@ -514,6 +516,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
      * de.intarsys.tools.component.IAttributeSupport#removeAttribute(java.lang
      * .Object)
      */
+    @Override
     public Object removeAttribute(Object key) {
         return attributeSupport.removeAttribute(new TaggedAttribute(key, getClass()));
     }
@@ -525,12 +528,13 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
      * de.intarsys.tools.component.IAttributeSupport#setAttribute(java.lang.
      * Object, java.lang.Object)
      */
+    @Override
     public Object setAttribute(Object key, Object value) {
         return attributeSupport.setAttribute(new TaggedAttribute(key, getClass()), value);
     }
 
     /**
-     * Set the value of field <code>name</code>within this.
+     * Set the value of field {@code name}within this.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
@@ -544,7 +548,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * Set the value of field <code>name</code>within this.
+     * Set the value of field {@code name}within this.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
@@ -558,7 +562,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * Set the value of field <code>name</code>within this.
+     * Set the value of field {@code name}within this.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
@@ -579,7 +583,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * Set the value of field <code>name</code>within this.
+     * Set the value of field {@code name}within this.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
@@ -593,7 +597,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * Set the value of field <code>name</code>within this.
+     * Set the value of field {@code name}within this.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
@@ -611,7 +615,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * Set the value of field <code>name</code>within this.
+     * Set the value of field {@code name}within this.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
@@ -629,7 +633,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * Set the value of field <code>name</code>within this.
+     * Set the value of field {@code name}within this.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *
@@ -646,7 +650,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
     }
 
     /**
-     * Set the value of field <code>name</code>within this.
+     * Set the value of field {@code name}within this.
      * <p>
      * This method requires the base object to be a {@link COSDictionary}.
      *

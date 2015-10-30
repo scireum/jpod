@@ -51,11 +51,7 @@ public class StandardSecurityHandlerR4 extends StandardSecurityHandler {
     /**
      * A byte sequence to be include in the hash under certain circumstances.
      */
-    private static byte[] HIGH_BYTES = new byte[]{(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF};
-
-    public StandardSecurityHandlerR4() {
-        super();
-    }
+    private static byte[] HIGH_BYTES = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF};
 
     @Override
     public boolean authenticateOwner(byte[] owner) throws COSSecurityException {

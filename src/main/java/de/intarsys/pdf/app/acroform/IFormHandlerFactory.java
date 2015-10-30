@@ -45,5 +45,5 @@ public interface IFormHandlerFactory {
      * @param options TODO
      * @return Get the {@link IFormHandler} related to {@link PDDocument}.
      */
-    public IFormHandler createFormHandler(PDDocument doc, Map options);
+    IFormHandler createFormHandler(PDDocument doc, Map options);
 }

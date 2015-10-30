@@ -92,13 +92,9 @@ public class MappedEncoding extends Encoding {
         }
     }
 
-    public MappedEncoding() {
-        super();
-    }
-
     /**
      * When constructing manually, one can define a map from
-     * <code>codePoint</code> to <code>name</code> with this method.
+     * {@code codePoint} to {@code name} with this method.
      *
      * @param codePoint The codePoint from 0..255 where the character should be
      *                  mapped.
@@ -138,11 +134,11 @@ public class MappedEncoding extends Encoding {
     protected void defineEntry(int codepoint, int character, String name) {
         // byte/name association
         nameDecoding[codepoint] = name;
-        Integer codePointInteger = new Integer(codepoint);
+        Integer codePointInteger = Integer.valueOf(codepoint);
         namedEncoding.put(name, codePointInteger);
         // byte character association
         indexDecoding[codepoint] = character;
-        indexedEncoding.put(new Integer(character), codePointInteger);
+        indexedEncoding.put(Integer.valueOf(character), codePointInteger);
         //
         if ((character >= 0) && (character < ARRAY_MAPPING_SIZE)) {
             fastEncoding[character] = codepoint;
@@ -159,7 +155,7 @@ public class MappedEncoding extends Encoding {
         if ((character >= 0) && (character < ARRAY_MAPPING_SIZE)) {
             return fastEncoding[character];
         } else {
-            Integer ii = (Integer) indexedEncoding.get(new Integer(character));
+            Integer ii = (Integer) indexedEncoding.get(Integer.valueOf(character));
             if (ii == null) {
                 return -1;
             }

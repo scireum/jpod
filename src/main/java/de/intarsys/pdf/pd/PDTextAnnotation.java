@@ -40,7 +40,7 @@ public class PDTextAnnotation extends PDMarkupAnnotation {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDMarkupAnnotation.MetaClass {
+    public static class MetaClass extends PDMarkupAnnotation.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -54,7 +54,7 @@ public class PDTextAnnotation extends PDMarkupAnnotation {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public static final COSName CN_Subtype_Text = COSName.constant("Text");
 

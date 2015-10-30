@@ -42,7 +42,7 @@ import java.util.Map;
  * A superclass implementation for all containers of other {@link COSObject}
  * instances.
  */
-abstract public class COSCompositeObject extends COSObject implements ICOSContainer, IAttributeSupport {
+public abstract class COSCompositeObject extends COSObject implements ICOSContainer, IAttributeSupport {
     /**
      * Generic attribute support
      */
@@ -82,6 +82,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      * de.intarsys.pdf.cos.ICOSContainer#associate(de.intarsys.pdf.cos.ICOSContainer
      * , de.intarsys.pdf.cos.COSObject)
      */
+    @Override
     public ICOSContainer associate(ICOSContainer newContainer, COSObject object) {
         if (newContainer == this) {
             // error ?
@@ -99,6 +100,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      * de.intarsys.pdf.cos.ICOSContainer#containable(de.intarsys.pdf.cos.COSObject
      * )
      */
+    @Override
     public COSDocumentElement containable(COSObject object) {
         return object;
     }
@@ -134,6 +136,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      * @seede.intarsys.pdf.cos.ICOSContainer#disassociate(de.intarsys.pdf.cos.
      * ICOSContainer, de.intarsys.pdf.cos.COSObject)
      */
+    @Override
     public ICOSContainer disassociate(ICOSContainer oldContainer, COSObject object) {
         if (oldContainer == this) {
             // object removed from container
@@ -152,7 +155,8 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      * de.intarsys.tools.component.IAttributeSupport#getAttribute(java.lang.
      * Object)
      */
-    final synchronized public Object getAttribute(Object key) {
+    @Override
+    public final synchronized Object getAttribute(Object key) {
         if (attributes == null) {
             return null;
         }
@@ -164,6 +168,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      *
      * @see de.intarsys.pdf.cos.ICOSContainer#harden(de.intarsys.pdf.cos.COSObject)
      */
+    @Override
     public void harden(COSObject object) {
         container.harden(object);
     }
@@ -202,6 +207,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      *
      * @see de.intarsys.pdf.cos.ICOSContainer#referenceCount()
      */
+    @Override
     public int referenceCount() {
         return 1;
     }
@@ -230,6 +236,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      *
      * @param object
      */
+    @Override
     public COSIndirectObject referenceIndirect(COSObject object) {
         return COSIndirectObject.create(object);
     }
@@ -240,6 +247,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      * @see
      * de.intarsys.pdf.cos.ICOSContainer#register(de.intarsys.pdf.cos.COSObject)
      */
+    @Override
     public void register(COSDocumentElement object) {
         COSDocument doc = getDoc();
         if (doc != null) {
@@ -270,7 +278,8 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      * de.intarsys.tools.component.IAttributeSupport#removeAttribute(java.lang
      * .Object)
      */
-    final synchronized public Object removeAttribute(Object key) {
+    @Override
+    public final synchronized Object removeAttribute(Object key) {
         if (attributes != null) {
             attributes.removeAttribute(key);
         }
@@ -302,6 +311,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      * de.intarsys.pdf.cos.ICOSContainer#restoreStateContainer(de.intarsys.pdf
      * .cos.ICOSContainer)
      */
+    @Override
     public ICOSContainer restoreStateContainer(ICOSContainer pContainer) {
         return pContainer;
     }
@@ -311,6 +321,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      *
      * @see de.intarsys.pdf.cos.ICOSContainer#saveStateContainer()
      */
+    @Override
     public ICOSContainer saveStateContainer() {
         return this;
     }
@@ -322,7 +333,8 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      * de.intarsys.tools.attribute.IAttributeSupport#setAttribute(java.lang.
      * Object, java.lang.Object)
      */
-    final synchronized public Object setAttribute(Object key, Object value) {
+    @Override
+    public final synchronized Object setAttribute(Object key, Object value) {
         if (attributes == null) {
             attributes = new AttributeMap(1);
         }
@@ -334,6 +346,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      *
      * @see de.intarsys.pdf.cos.ICOSContainer#soften(de.intarsys.pdf.cos.COSObject)
      */
+    @Override
     public void soften(COSObject object) {
         container.soften(object);
     }
@@ -356,6 +369,7 @@ abstract public class COSCompositeObject extends COSObject implements ICOSContai
      * de.intarsys.pdf.cos.ICOSContainer#willChange(de.intarsys.pdf.cos.COSObject
      * )
      */
+    @Override
     public void willChange(COSObject change) {
         container.willChange(change);
     }

@@ -39,7 +39,7 @@ public class PDFontAny extends PDSingleByteFont {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFont.MetaClass {
+    public static class MetaClass extends PDFont.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -53,20 +53,10 @@ public class PDFontAny extends PDSingleByteFont {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected PDFontAny(COSObject object) {
         super(object);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see de.intarsys.pdf.font.PDFont#createBuiltinFontDescriptor()
-     */
-    @Override
-    protected PDFontDescriptor createBuiltinFontDescriptor() {
-        return null;
     }
 
     /*

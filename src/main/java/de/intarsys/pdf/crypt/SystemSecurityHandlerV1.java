@@ -56,14 +56,17 @@ public class SystemSecurityHandlerV1 extends SystemSecurityHandler {
         return getCryptHandler().decrypt(objectKey, bytes);
     }
 
+    @Override
     public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         return decrypt(key, bytes);
     }
 
+    @Override
     public byte[] decryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         return decrypt(key, bytes);
     }
 
+    @Override
     public byte[] decryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         return decrypt(key, bytes);
     }
@@ -75,14 +78,17 @@ public class SystemSecurityHandlerV1 extends SystemSecurityHandler {
         return getCryptHandler().encrypt(objectKey, bytes);
     }
 
+    @Override
     public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         return encrypt(key, bytes);
     }
 
+    @Override
     public byte[] encryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         return encrypt(key, bytes);
     }
 
+    @Override
     public byte[] encryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         return encrypt(key, bytes);
     }

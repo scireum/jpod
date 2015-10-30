@@ -45,28 +45,28 @@ public interface IActionHandlerRegistry {
      *
      * @return A collection of all registered {@link IActionHandler} instances.
      */
-    public IActionHandler[] getActionHandlers();
+    IActionHandler[] getActionHandlers();
 
     /**
-     * The {@link IActionHandler} for the specified <code>actionType</code>.
+     * The {@link IActionHandler} for the specified {@code actionType}.
      *
      * @param actionType The type of action to be executed, for example /JavaScript
      * @return The {@link IActionHandler} able to process an action definition
      * of the specified type.
      */
-    public IActionHandler lookupActionHandler(COSName actionType);
+    IActionHandler lookupActionHandler(COSName actionType);
 
     /**
      * Register an {@link IActionHandler}.
      *
      * @param handler The new handler
      */
-    public void registerActionHandler(IActionHandler handler);
+    void registerActionHandler(IActionHandler handler);
 
     /**
      * Unregister an {@link IActionHandler}.
      *
      * @param handler The {@link IActionHandler} to be unregistered.
      */
-    public void unregisterActionHandler(IActionHandler handler);
+    void unregisterActionHandler(IActionHandler handler);
 }

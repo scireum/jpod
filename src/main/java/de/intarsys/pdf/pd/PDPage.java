@@ -271,9 +271,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport, ICon
     public void dispose() {
         // todo 1 too much logic here...
         if (getAnnotations() != null) {
-            Iterator iter = getAnnotations().iterator();
-            while (iter.hasNext()) {
-                PDAnnotation annotation = (PDAnnotation) iter.next();
+            for (PDAnnotation annotation : getAnnotations()) {
                 annotation.dispose();
             }
         }
@@ -283,7 +281,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport, ICon
     /**
      * A collection of all {@link PDAcroFormField}s that have
      * {@link PDAnnotation}s on the receiver that are children of
-     * <code>parent</code>.
+     * {@code parent}.
      *
      * @param parent The parent {@link PDAcroForm} or {@link PDAcroFormField}.
      * @param result The collection of {@link PDAnnotation}s collected so far.
@@ -341,11 +339,11 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport, ICon
     }
 
     /**
-     * The {@link PDApplicationData} associated with <code>name</code> on the
+     * The {@link PDApplicationData} associated with {@code name} on the
      * page.
      *
      * @param name The name of the {@link PDApplicationData} to lookup.
-     * @return The {@link PDApplicationData} associated with <code>name</code>
+     * @return The {@link PDApplicationData} associated with {@code name}
      * on the page.
      */
     public PDApplicationData getApplicationData(String name) {
@@ -419,7 +417,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport, ICon
         if (getAnnotations() == null) {
             return null;
         }
-        if (getAnnotations().size() == 0) {
+        if (getAnnotations().isEmpty()) {
             return null;
         }
         return getAnnotations().get(0);
@@ -482,7 +480,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport, ICon
 
     /**
      * The {@link PDAnnotation} following the given {@link PDAnnotation} annot
-     * or null, if <code>annot</code> was the last one in the list or does't
+     * or null, if {@code annot} was the last one in the list or does't
      * exist on this page.
      *
      * @param annot a PDAnnotation
@@ -662,7 +660,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport, ICon
     }
 
     /**
-     * Remove the {@link PDApplicationData} associated with <code>name</code>
+     * Remove the {@link PDApplicationData} associated with {@code name}
      * from this page.
      *
      * @param name The name of the application data object to be removed.
@@ -690,7 +688,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport, ICon
 
     /**
      * Associate a {@link PDApplicationData} instance with this using
-     * <code>name</code>.
+     * {@code name}.
      *
      * @param name The name for the {@link PDApplicationData} instance within
      *             this.

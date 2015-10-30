@@ -39,11 +39,12 @@ public class PDAnyAnnotation extends PDAnnotation {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAnnotation.MetaClass {
+    public static class MetaClass extends PDAnnotation.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDAnyAnnotation(object);
         }
@@ -52,12 +53,13 @@ public class PDAnyAnnotation extends PDAnnotation {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected PDAnyAnnotation(COSObject object) {
         super(object);
     }
 
+    @Override
     public String getSubtypeLabel() {
         return "Annotation";
     }

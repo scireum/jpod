@@ -73,7 +73,7 @@ public class FontQuery implements IFontQuery {
     /**
      * Create a new {@link IFontQuery} based on another {@link PDFont}. USe the
      * setter methods to overwrite the attributes you want to be different from
-     * <code>baseFont</code>.
+     * {@code baseFont}.
      *
      * @param baseFont The font serivng as a template for this query.
      */
@@ -89,7 +89,7 @@ public class FontQuery implements IFontQuery {
 
     /**
      * Create a new {@link IFontQuery} denoting a font from the
-     * <code>family</code> in style <code>style</code>.
+     * {@code family} in style {@code style}.
      *
      * @param family The family of the FontQuery.
      * @param style  The style of the FontQuery.
@@ -102,7 +102,7 @@ public class FontQuery implements IFontQuery {
 
     /**
      * Create a new {@link IFontQuery} denoting a font from the
-     * <code>family</code> in style <code>style</code>.
+     * {@code family} in style {@code style}.
      *
      * @param family The family of the FontQuery.
      * @param style  The style of the FontQuery.
@@ -121,6 +121,7 @@ public class FontQuery implements IFontQuery {
         return baseFont;
     }
 
+    @Override
     public Encoding getEncoding() {
         if (getOverrideEncoding() == null) {
             if (getBaseFont() == null) {
@@ -133,6 +134,7 @@ public class FontQuery implements IFontQuery {
         }
     }
 
+    @Override
     public String getFontFamilyName() {
         if (getOverrideFontFamilyName() == null) {
             if (getBaseFont() == null) {
@@ -145,6 +147,7 @@ public class FontQuery implements IFontQuery {
         }
     }
 
+    @Override
     public String getFontName() {
         if (getOverrideFontName() == null) {
             if (getBaseFont() == null || getOverrideFontFamilyName() == null || getOverrideFontStyle() == null) {
@@ -157,6 +160,7 @@ public class FontQuery implements IFontQuery {
         }
     }
 
+    @Override
     public PDFontStyle getFontStyle() {
         if (getOverrideFontStyle() == PDFontStyle.UNDEFINED) {
             if (getBaseFont() == null) {
@@ -169,6 +173,7 @@ public class FontQuery implements IFontQuery {
         }
     }
 
+    @Override
     public String getFontType() {
         if (getOverrideFontType() == null) {
             if (getBaseFont() == null) {

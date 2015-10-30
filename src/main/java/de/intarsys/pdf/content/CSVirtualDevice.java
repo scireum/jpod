@@ -35,9 +35,6 @@ package de.intarsys.pdf.content;
  * If you want a default path and text handling, use {@link CSBasicDevice}
  * instead.
  */
-abstract public class CSVirtualDevice extends CSDeviceAdapter {
+public abstract class CSVirtualDevice extends CSDeviceAdapter {
 
-    public CSVirtualDevice() {
-        super();
-    }
 }

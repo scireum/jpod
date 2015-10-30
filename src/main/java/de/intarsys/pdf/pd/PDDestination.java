@@ -47,10 +47,12 @@ public abstract class PDDestination extends PDObject {
             super(instanceClass);
         }
 
+        @Override
         public Class getRootClass() {
             return PDDestination.class;
         }
 
+        @Override
         protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
             if (object instanceof COSArray) {
                 return PDExplicitDestination.META;
@@ -64,6 +66,7 @@ public abstract class PDDestination extends PDObject {
             return super.doDetermineClass(object);
         }
 
+        @Override
         protected COSObject doCreateCOSObject() {
             return COSArray.create();
         }
@@ -78,5 +81,5 @@ public abstract class PDDestination extends PDObject {
         super(object);
     }
 
-    abstract public PDExplicitDestination getResolvedDestination(PDDocument doc);
+    public abstract PDExplicitDestination getResolvedDestination(PDDocument doc);
 }

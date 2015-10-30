@@ -40,9 +40,11 @@ import java.util.Iterator;
  * A tool class for common tasks with {@link PDAppearance} instances.
  */
 public class PDAppearanceTools {
-    static protected PDForm createAppearanceForm() {
-        PDForm form = (PDForm) PDForm.META.createNew();
-        return form;
+    private PDAppearanceTools() {
+    }
+
+    protected static PDForm createAppearanceForm() {
+        return (PDForm) PDForm.META.createNew();
     }
 
     public static boolean createState(PDAppearance appearance, String state) {
@@ -50,7 +52,7 @@ public class PDAppearanceTools {
         COSName cosState = COSName.create(state);
 
         //
-        COSName[] keys = new COSName[]{PDAppearance.DK_N, PDAppearance.DK_R, PDAppearance.DK_D};
+        COSName[] keys = {PDAppearance.DK_N, PDAppearance.DK_R, PDAppearance.DK_D};
         for (COSName key : keys) {
             COSDictionary dict = appearance.cosGetDict().get(key).asDictionary();
             if (dict != null) {
@@ -122,7 +124,7 @@ public class PDAppearanceTools {
         COSName cosOldState = COSName.create(oldState);
         COSName cosNewState = COSName.create(newState);
 
-        COSName[] keys = new COSName[]{PDAppearance.DK_N, PDAppearance.DK_R, PDAppearance.DK_D};
+        COSName[] keys = {PDAppearance.DK_N, PDAppearance.DK_R, PDAppearance.DK_D};
         for (COSName key : keys) {
             COSDictionary dict = appearance.cosGetDict().get(key).asDictionary();
             if (dict != null) {

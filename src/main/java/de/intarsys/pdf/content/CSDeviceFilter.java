@@ -48,9 +48,9 @@ import de.intarsys.pdf.pd.PDXObject;
  * <p>
  * Just create a subclass and switch of / extend the methods of interest.
  */
-abstract public class CSDeviceFilter implements ICSDevice, ICSDeviceFeatures {
+public abstract class CSDeviceFilter implements ICSDevice, ICSDeviceFeatures {
 
-    final private ICSDevice device;
+    private final ICSDevice device;
 
     private boolean supportsColorSpace = true;
 
@@ -68,7 +68,7 @@ abstract public class CSDeviceFilter implements ICSDevice, ICSDeviceFeatures {
 
     private boolean supportsXObject = true;
 
-    public CSDeviceFilter(ICSDevice device) {
+    protected CSDeviceFilter(ICSDevice device) {
         this.device = device;
         if (device instanceof ICSDeviceFeatures) {
             supportsColorSpace = ((ICSDeviceFeatures) device).supportsColorSpace();
@@ -82,19 +82,22 @@ abstract public class CSDeviceFilter implements ICSDevice, ICSDeviceFeatures {
         }
     }
 
+    @Override
     public void close() {
         getDevice().close();
     }
 
+    @Override
     public void compatibilityBegin() {
         getDevice().compatibilityBegin();
     }
 
+    @Override
     public void compatibilityEnd() {
         getDevice().compatibilityEnd();
     }
 
-    protected void doForm(COSName name, PDForm form) throws CSException {
+    protected void doForm(COSName name, PDForm form) {
         saveState();
         try {
             CDSMatrix m = form.getMatrix();
@@ -113,18 +116,20 @@ abstract public class CSDeviceFilter implements ICSDevice, ICSDeviceFeatures {
         }
     }
 
-    protected void doImage(COSName name, PDImage image) throws CSException {
+    protected void doImage(COSName name, PDImage image) {
         getDevice().doXObject(name, image);
     }
 
-    protected void doPostScript(COSName name, PDPostScript postscript) throws CSException {
+    protected void doPostScript(COSName name, PDPostScript postscript) {
         // ignore
     }
 
+    @Override
     public void doShading(COSName resourceName, PDShading shading) {
         getDevice().doShading(resourceName, shading);
     }
 
+    @Override
     public void doXObject(COSName name, PDXObject xobject) {
         if (xobject == null) {
             return;
@@ -162,310 +167,387 @@ abstract public class CSDeviceFilter implements ICSDevice, ICSDeviceFeatures {
         return device;
     }
 
+    @Override
     public GraphicsState getGraphicsState() {
         return getDevice().getGraphicsState();
     }
 
+    @Override
     public ICSInterpreter getInterpreter() {
         return getDevice().getInterpreter();
     }
 
+    @Override
     public void inlineImage(PDImage img) {
         getDevice().inlineImage(img);
     }
 
+    @Override
     public void markedContentBegin(COSName tag) {
         getDevice().markedContentBegin(tag);
     }
 
+    @Override
     public void markedContentBeginProperties(COSName tag, COSName resourceName, COSDictionary properties) {
         getDevice().markedContentBeginProperties(tag, resourceName, properties);
     }
 
+    @Override
     public void markedContentEnd() {
         getDevice().markedContentEnd();
     }
 
+    @Override
     public void markedContentPoint(COSName tag) {
         getDevice().markedContentPoint(tag);
     }
 
+    @Override
     public void markedContentPointProperties(COSName tag, COSName resourceName, COSDictionary properties) {
         getDevice().markedContentPointProperties(tag, resourceName, properties);
     }
 
+    @Override
     public void open(ICSInterpreter interpreter) {
         getDevice().open(interpreter);
     }
 
+    @Override
     public void pathClipEvenOdd() {
         getDevice().pathClipEvenOdd();
     }
 
+    @Override
     public void pathClipNonZero() {
         getDevice().pathClipNonZero();
     }
 
+    @Override
     public void pathClose() {
         getDevice().pathClose();
     }
 
+    @Override
     public void pathCloseFillStrokeEvenOdd() {
         getDevice().pathCloseFillStrokeEvenOdd();
     }
 
+    @Override
     public void pathCloseFillStrokeNonZero() {
         getDevice().pathCloseFillStrokeNonZero();
     }
 
+    @Override
     public void pathCloseStroke() {
         getDevice().pathCloseStroke();
     }
 
+    @Override
     public void pathEnd() {
         getDevice().pathEnd();
     }
 
+    @Override
     public void pathFillEvenOdd() {
         getDevice().pathFillEvenOdd();
     }
 
+    @Override
     public void pathFillNonZero() {
         getDevice().pathFillNonZero();
     }
 
+    @Override
     public void pathFillStrokeEvenOdd() {
         getDevice().pathFillStrokeEvenOdd();
     }
 
+    @Override
     public void pathFillStrokeNonZero() {
         getDevice().pathFillStrokeNonZero();
     }
 
+    @Override
     public void pathStroke() {
         getDevice().pathStroke();
     }
 
+    @Override
     public void penCurveToC(float x1, float y1, float x2, float y2, float x3, float y3) {
         getDevice().penCurveToC(x1, y1, x2, y2, x3, y3);
     }
 
+    @Override
     public void penCurveToV(float x2, float y2, float x3, float y3) {
         getDevice().penCurveToV(x2, y2, x3, y3);
     }
 
+    @Override
     public void penCurveToY(float x1, float y1, float x3, float y3) {
         getDevice().penCurveToY(x1, y1, x3, y3);
     }
 
+    @Override
     public void penLineTo(float x, float y) {
         getDevice().penLineTo(x, y);
     }
 
+    @Override
     public void penMoveTo(float x, float y) {
         getDevice().penMoveTo(x, y);
     }
 
+    @Override
     public void penRectangle(float x, float y, float w, float h) {
         getDevice().penRectangle(x, y, w, h);
     }
 
+    @Override
     public void restoreState() {
         getDevice().restoreState();
     }
 
+    @Override
     public void saveState() {
         getDevice().saveState();
     }
 
+    @Override
     public void setExtendedState(COSName resourceName, PDExtGState gstate) {
         getDevice().setExtendedState(resourceName, gstate);
     }
 
+    @Override
     public void setFlatnessTolerance(float flatness) {
         getDevice().setFlatnessTolerance(flatness);
     }
 
+    @Override
     public void setLineCap(int capStyle) {
         getDevice().setLineCap(capStyle);
     }
 
+    @Override
     public void setLineDash(float[] pattern, float phase) {
         getDevice().setLineDash(pattern, phase);
     }
 
+    @Override
     public void setLineJoin(int joinStyle) {
         getDevice().setLineJoin(joinStyle);
     }
 
+    @Override
     public void setLineWidth(float lineWidth) {
         getDevice().setLineWidth(lineWidth);
     }
 
+    @Override
     public void setMiterLimit(float miterLimit) {
         getDevice().setMiterLimit(miterLimit);
     }
 
+    @Override
     public void setNonStrokeColorCMYK(float c, float m, float y, float k) {
         getDevice().setNonStrokeColorCMYK(c, m, y, k);
     }
 
+    @Override
     public void setNonStrokeColorGray(float gray) {
         getDevice().setNonStrokeColorGray(gray);
     }
 
+    @Override
     public void setNonStrokeColorRGB(float r, float g, float b) {
         getDevice().setNonStrokeColorRGB(r, g, b);
     }
 
+    @Override
     public void setNonStrokeColorSpace(COSName resourceName, PDColorSpace colorSpace) {
         getDevice().setNonStrokeColorSpace(resourceName, colorSpace);
     }
 
+    @Override
     public void setNonStrokeColorValues(float[] values) {
         getDevice().setNonStrokeColorValues(values);
     }
 
+    @Override
     public void setNonStrokeColorValues(float[] values, COSName resourceName, PDPattern pattern) {
         getDevice().setNonStrokeColorValues(values, resourceName, pattern);
     }
 
+    @Override
     public void setRenderingIntent(COSName intent) {
         getDevice().setRenderingIntent(intent);
     }
 
+    @Override
     public void setStrokeColorCMYK(float c, float m, float y, float k) {
         getDevice().setStrokeColorCMYK(c, m, y, k);
     }
 
+    @Override
     public void setStrokeColorGray(float gray) {
         getDevice().setStrokeColorGray(gray);
     }
 
+    @Override
     public void setStrokeColorRGB(float r, float g, float b) {
         getDevice().setStrokeColorRGB(r, g, b);
     }
 
+    @Override
     public void setStrokeColorSpace(COSName resourceName, PDColorSpace colorSpace) {
         getDevice().setStrokeColorSpace(resourceName, colorSpace);
     }
 
+    @Override
     public void setStrokeColorValues(float[] values) {
         getDevice().setStrokeColorValues(values);
     }
 
+    @Override
     public void setStrokeColorValues(float[] values, COSName resourceName, PDPattern pattern) {
         getDevice().setStrokeColorValues(values, resourceName, pattern);
     }
 
+    @Override
     public boolean supportsColorSpace() {
         return supportsColorSpace;
     }
 
+    @Override
     public boolean supportsExtendedState() {
         return supportsExtendedState;
     }
 
+    @Override
     public boolean supportsFont() {
         return supportsFont;
     }
 
+    @Override
     public boolean supportsInlineImage() {
         return supportsInlineImage;
     }
 
+    @Override
     public boolean supportsPattern() {
         return supportsPattern;
     }
 
+    @Override
     public boolean supportsProperties() {
         return supportsProperties;
     }
 
+    @Override
     public boolean supportsShading() {
         return supportsShading;
     }
 
+    @Override
     public boolean supportsXObject() {
         return supportsXObject;
     }
 
+    @Override
     public void textBegin() {
         getDevice().textBegin();
     }
 
+    @Override
     public void textEnd() {
         getDevice().textEnd();
     }
 
+    @Override
     public void textLineMove(float dx, float dy) {
         getDevice().textLineMove(dx, dy);
     }
 
+    @Override
     public void textLineNew() {
         getDevice().textLineNew();
     }
 
+    @Override
     public void textMove(float dx, float dy) {
         getDevice().textMove(dx, dy);
     }
 
+    @Override
     public void textMoveTo(float x, float y) {
         getDevice().textMoveTo(x, y);
     }
 
+    @Override
     public void textSetCharSpacing(float charSpacing) {
         getDevice().textSetCharSpacing(charSpacing);
     }
 
+    @Override
     public void textSetFont(COSName resourceName, PDFont font, float size) {
         getDevice().textSetFont(resourceName, font, size);
     }
 
+    @Override
     public void textSetHorizontalScaling(float scale) {
         getDevice().textSetHorizontalScaling(scale);
     }
 
+    @Override
     public void textSetLeading(float leading) {
         getDevice().textSetLeading(leading);
     }
 
+    @Override
     public void textSetRenderingMode(int renderingMode) {
         getDevice().textSetRenderingMode(renderingMode);
     }
 
+    @Override
     public void textSetRise(float rise) {
         getDevice().textSetRise(rise);
     }
 
+    @Override
     public void textSetTransform(float a, float b, float c, float d, float e, float f) {
         getDevice().textSetTransform(a, b, c, d, e, f);
     }
 
+    @Override
     public void textSetWordSpacing(float wordSpacing) {
         getDevice().textSetWordSpacing(wordSpacing);
     }
 
+    @Override
     public void textShow(byte[] text, int offset, int length) {
         getDevice().textShow(text, offset, length);
     }
 
+    @Override
     public void textShow(char[] chars, int offset, int length) {
         getDevice().textShow(chars, offset, length);
     }
 
+    @Override
     public void textShow(String text) {
         getDevice().textShow(text);
     }
 
+    @Override
     public void textT3SetGlyphWidth(float x, float y) {
         getDevice().textT3SetGlyphWidth(x, y);
     }
 
+    @Override
     public void textT3SetGlyphWidthBB(float x, float y, float llx, float lly, float urx, float ury) {
         getDevice().textT3SetGlyphWidthBB(x, y, llx, lly, urx, ury);
     }
 
+    @Override
     public void transform(float a, float b, float c, float d, float e, float f) {
         getDevice().transform(a, b, c, d, e, f);
     }

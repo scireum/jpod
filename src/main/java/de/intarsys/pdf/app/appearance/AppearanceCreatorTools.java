@@ -51,7 +51,10 @@ public class AppearanceCreatorTools {
 
     private static final IAppearanceCreator APPEARANCECREATOR_NULL = new NullAppearanceCreator();
 
-    public static void createAppearance(PDAcroFormField field) {
+	private AppearanceCreatorTools() {
+	}
+
+	public static void createAppearance(PDAcroFormField field) {
         IAppearanceCreator appearanceCreator = getAppearanceCreator(field);
         for (Iterator i = field.getLogicalRoot().getAnnotations().iterator(); i.hasNext(); ) {
             PDAnnotation annot = (PDAnnotation) i.next();
@@ -59,12 +62,12 @@ public class AppearanceCreatorTools {
         }
     }
 
-    static public PDAppearance createAppearance(PDAnnotation annotation) {
+    public static PDAppearance createAppearance(PDAnnotation annotation) {
         IAppearanceCreator appearanceCreator = getAppearanceCreator(annotation);
         return createAppearance(annotation, appearanceCreator);
     }
 
-    static public PDAppearance createAppearance(PDAnnotation annotation, IAppearanceCreator appearanceCreator) {
+    public static PDAppearance createAppearance(PDAnnotation annotation, IAppearanceCreator appearanceCreator) {
         if (appearanceCreator == null) {
             COSName type = annotation.cosGetSubtype();
             appearanceCreator = AppearanceCreatorRegistry.get().lookupAppearanceCreator(type);
@@ -79,21 +82,21 @@ public class AppearanceCreatorTools {
         return appearance;
     }
 
-    static public IAppearanceCreator getAppearanceCreator(PDObject fieldOrAnntotation) {
+    public static IAppearanceCreator getAppearanceCreator(PDObject fieldOrAnntotation) {
         return (IAppearanceCreator) fieldOrAnntotation.getAttribute(ATTR_APPEARANCECREATOR);
     }
 
-    static public void resumeAppearanceCreation(PDObject fieldOrAnntotation) {
+    public static void resumeAppearanceCreation(PDObject fieldOrAnntotation) {
         IAppearanceCreator previousAppearanceCreator =
                 (IAppearanceCreator) fieldOrAnntotation.removeAttribute(ATTR_PREVIOUSAPPEARANCECREATOR);
         setAppearanceCreator(fieldOrAnntotation, previousAppearanceCreator);
     }
 
-    static public void setAppearanceCreator(PDObject fieldOrAnntotation, IAppearanceCreator appearanceCreator) {
+    public static void setAppearanceCreator(PDObject fieldOrAnntotation, IAppearanceCreator appearanceCreator) {
         fieldOrAnntotation.setAttribute(ATTR_APPEARANCECREATOR, appearanceCreator);
     }
 
-    static public void suspendAppearanceCreation(PDObject fieldOrAnntotation) {
+    public static void suspendAppearanceCreation(PDObject fieldOrAnntotation) {
         IAppearanceCreator currentAppearanceCreator = getAppearanceCreator(fieldOrAnntotation);
         fieldOrAnntotation.setAttribute(ATTR_PREVIOUSAPPEARANCECREATOR, currentAppearanceCreator);
         setAppearanceCreator(fieldOrAnntotation, APPEARANCECREATOR_IDENTITY);

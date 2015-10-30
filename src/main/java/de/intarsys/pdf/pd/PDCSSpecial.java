@@ -34,11 +34,11 @@ import de.intarsys.pdf.cos.COSObject;
 /**
  * Abstract superclass for special color spaces.
  */
-abstract public class PDCSSpecial extends PDColorSpace {
+public abstract class PDCSSpecial extends PDColorSpace {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDColorSpace.MetaClass {
+    public static class MetaClass extends PDColorSpace.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -47,7 +47,7 @@ abstract public class PDCSSpecial extends PDColorSpace {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected PDCSSpecial(COSObject object) {
         super(object);

@@ -135,19 +135,16 @@ public class ParserTokenManager implements ParserConstants {
 
     public static final String[] lexStateNames = {"DEFAULT",};
 
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+    private static boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return ((jjbitVec2[i2] & l2) != 0L);
             default:
-                if ((jjbitVec0[i1] & l1) != 0L) {
-                    return true;
-                }
-                return false;
+                return (jjbitVec0[i1] & l1) != 0L;
         }
     }
 
-    private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+    private static boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return ((jjbitVec4[i2] & l2) != 0L);
@@ -160,10 +157,7 @@ public class ParserTokenManager implements ParserConstants {
             case 61:
                 return ((jjbitVec8[i2] & l2) != 0L);
             default:
-                if ((jjbitVec3[i1] & l1) != 0L) {
-                    return true;
-                }
-                return false;
+                return (jjbitVec3[i1] & l1) != 0L;
         }
     }
 
@@ -211,7 +205,7 @@ public class ParserTokenManager implements ParserConstants {
         for (; ; ) {
             try {
                 curChar = input_stream.BeginToken();
-            } catch (java.io.IOException e) {
+            } catch (java.io.IOException ignored) {
                 jjmatchedKind = 0;
                 matchedToken = jjFillToken();
                 return matchedToken;
@@ -238,7 +232,7 @@ public class ParserTokenManager implements ParserConstants {
             try {
                 input_stream.readChar();
                 input_stream.backup(1);
-            } catch (java.io.IOException e1) {
+            } catch (java.io.IOException ignored) {
                 EOFSeen = true;
                 error_after = (curPos <= 1) ? "" : input_stream.GetImage();
                 if ((curChar == '\n') || (curChar == '\r')) {
@@ -262,31 +256,31 @@ public class ParserTokenManager implements ParserConstants {
         }
     }
 
-    private final void jjAddStates(int start, int end) {
+    private void jjAddStates(int start, int end) {
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);
     }
 
-    private final void jjCheckNAdd(int state) {
+    private void jjCheckNAdd(int state) {
         if (jjrounds[state] != jjround) {
             jjstateSet[jjnewStateCnt++] = state;
             jjrounds[state] = jjround;
         }
     }
 
-    private final void jjCheckNAddStates(int start) {
+    private void jjCheckNAddStates(int start) {
         jjCheckNAdd(jjnextStates[start]);
         jjCheckNAdd(jjnextStates[start + 1]);
     }
 
-    private final void jjCheckNAddStates(int start, int end) {
+    private void jjCheckNAddStates(int start, int end) {
         do {
             jjCheckNAdd(jjnextStates[start]);
         } while (start++ != end);
     }
 
-    private final void jjCheckNAddTwoStates(int state1, int state2) {
+    private void jjCheckNAddTwoStates(int state1, int state2) {
         jjCheckNAdd(state1);
         jjCheckNAdd(state2);
     }
@@ -303,7 +297,7 @@ public class ParserTokenManager implements ParserConstants {
         return t;
     }
 
-    private final int jjMoveNfa_0(int startState, int curPos) {
+    private int jjMoveNfa_0(int startState, int curPos) {
         // int[] nextStates;
         int startsAt = 0;
         jjnewStateCnt = 68;
@@ -316,7 +310,6 @@ public class ParserTokenManager implements ParserConstants {
             }
             if (curChar < 64) {
                 long l = 1L << curChar;
-                MatchLoop:
                 do {
                     switch (jjstateSet[--i]) {
                         case 0:
@@ -716,7 +709,6 @@ public class ParserTokenManager implements ParserConstants {
                 } while (i != startsAt);
             } else if (curChar < 128) {
                 long l = 1L << (curChar & 077);
-                MatchLoop:
                 do {
                     switch (jjstateSet[--i]) {
                         case 0:
@@ -836,12 +828,11 @@ public class ParserTokenManager implements ParserConstants {
                     }
                 } while (i != startsAt);
             } else {
-                int hiByte = (int) (curChar >> 8);
+                int hiByte = curChar >> 8;
                 int i1 = hiByte >> 6;
                 long l1 = 1L << (hiByte & 077);
                 int i2 = (curChar & 0xff) >> 6;
                 long l2 = 1L << (curChar & 077);
-                MatchLoop:
                 do {
                     switch (jjstateSet[--i]) {
                         case 0:
@@ -900,13 +891,13 @@ public class ParserTokenManager implements ParserConstants {
             }
             try {
                 curChar = input_stream.readChar();
-            } catch (java.io.IOException e) {
+            } catch (java.io.IOException ignored) {
                 return curPos;
             }
         }
     }
 
-    private final int jjMoveStringLiteralDfa0_0() {
+    private int jjMoveStringLiteralDfa0_0() {
         switch (curChar) {
             case 91:
                 return jjStopAtPos(0, 16);
@@ -921,28 +912,28 @@ public class ParserTokenManager implements ParserConstants {
         }
     }
 
-    private final int jjStartNfa_0(int pos, long active0) {
+    private int jjStartNfa_0(int pos, long active0) {
         return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
     }
 
-    private final int jjStartNfaWithStates_0(int pos, int kind, int state) {
+    private int jjStartNfaWithStates_0(int pos, int kind, int state) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (java.io.IOException ignored) {
             return pos + 1;
         }
         return jjMoveNfa_0(state, pos + 1);
     }
 
-    private final int jjStopAtPos(int pos, int kind) {
+    private int jjStopAtPos(int pos, int kind) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
         return pos + 1;
     }
 
-    private final int jjStopStringLiteralDfa_0(int pos, long active0) {
+    private int jjStopStringLiteralDfa_0(int pos, long active0) {
         switch (pos) {
             default:
                 return -1;
@@ -961,7 +952,7 @@ public class ParserTokenManager implements ParserConstants {
         SwitchTo(lexState);
     }
 
-    private final void ReInitRounds() {
+    private void ReInitRounds() {
         int i;
         jjround = 0x80000001;
         for (i = 68; i-- > 0; ) {

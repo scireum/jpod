@@ -45,6 +45,7 @@ public class StandardAuthenticationHandlerFactory implements IAuthenticationHand
      *
      * @see de.intarsys.pdf.crypt.IAuthenticationHandlerFactory#createAuthenticationHandler(de.intarsys.pdf.crypt.ISecurityHandler)
      */
+    @Override
     public IAuthenticationHandler createAuthenticationHandler(ISecurityHandler securityHandler) {
         STDocument doc = securityHandler.stGetDoc();
         if (doc == null) {

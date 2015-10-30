@@ -49,7 +49,7 @@ public class FlateFilter extends StreamBasedFilter {
 
     static class PDFDeflaterOutputStream extends DeflaterOutputStream {
 
-        public PDFDeflaterOutputStream(OutputStream out, Deflater def, int size) {
+        PDFDeflaterOutputStream(OutputStream out, Deflater def, int size) {
             super(out, def, size);
         }
 
@@ -62,7 +62,7 @@ public class FlateFilter extends StreamBasedFilter {
 
     static class PDFInflaterOutputStream extends InflaterInputStream {
 
-        public PDFInflaterOutputStream(InputStream in, Inflater inf, int size) {
+        PDFInflaterOutputStream(InputStream in, Inflater inf, int size) {
             super(in, inf, size);
         }
 
@@ -75,18 +75,22 @@ public class FlateFilter extends StreamBasedFilter {
 
     private static IPoolObjectFactory deflaterFactory = new IPoolObjectFactory() {
 
+        @Override
         public void destroyObject(Object obj) throws Exception {
             ((Deflater) obj).end();
         }
 
+        @Override
         public void deactivateObject(Object obj) throws Exception {
             ((Deflater) obj).reset();
         }
 
+        @Override
         public Object createObject() throws Exception {
             return new Deflater();
         }
 
+        @Override
         public void activateObject(Object obj) throws Exception {
             //
         }
@@ -94,18 +98,22 @@ public class FlateFilter extends StreamBasedFilter {
 
     private static IPoolObjectFactory inflaterFactory = new IPoolObjectFactory() {
 
+        @Override
         public void destroyObject(Object obj) throws Exception {
             ((Inflater) obj).end();
         }
 
+        @Override
         public void deactivateObject(Object obj) throws Exception {
             ((Inflater) obj).reset();
         }
 
+        @Override
         public Object createObject() throws Exception {
             return new Inflater();
         }
 
+        @Override
         public void activateObject(Object obj) throws Exception {
             //
         }

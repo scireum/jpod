@@ -74,7 +74,7 @@ public class XRefFallbackParser extends AbstractXRefParser {
      * @throws IOException
      * @throws COSLoadException
      */
-    private void checkXRefSections() throws IOException, COSLoadException {
+    private void checkXRefSections() throws COSLoadException {
         if (trailers.isEmpty()) {
             COSLoadError e = new COSLoadError("no trailer found");
             handleError(e);
@@ -88,7 +88,7 @@ public class XRefFallbackParser extends AbstractXRefParser {
                 break;
             }
         }
-        if (rootFound == false) {
+        if (!rootFound) {
             COSLoadError e = new COSLoadError("trailer doesn't contain a root entry");
             handleError(e);
         }
@@ -118,9 +118,7 @@ public class XRefFallbackParser extends AbstractXRefParser {
                 COSDictionary trailer = getParser().parseTrailer(input);
                 trailers.add(trailer);
                 continue;
-            } catch (IOException e) {
-                // no trailer
-            } catch (COSLoadException e) {
+            } catch (IOException | COSLoadException e) {
                 // no trailer
             }
             try {

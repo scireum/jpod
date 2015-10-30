@@ -40,6 +40,7 @@ public class Operator_dup implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) {
         handler.push(handler.peek());
     }

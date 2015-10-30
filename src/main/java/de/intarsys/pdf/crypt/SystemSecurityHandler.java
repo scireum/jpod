@@ -43,11 +43,11 @@ import de.intarsys.pdf.st.STStreamXRefSection;
 /**
  * An abstract superclass for implementing the PDF security process.
  */
-abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
+public abstract class SystemSecurityHandler implements ISystemSecurityHandler {
 
     public static final int DEFAULT_LENGTH = 40;
 
-    static public SystemSecurityHandler createFromSt(STDocument doc) throws COSSecurityException {
+    public static SystemSecurityHandler createFromSt(STDocument doc) throws COSSecurityException {
         SystemSecurityHandler systemSecurityHandler = null;
         COSDictionary dict = doc.cosGetTrailer().get(COSTrailer.DK_Encrypt).asDictionary();
         if (dict != null) {
@@ -74,7 +74,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         return systemSecurityHandler;
     }
 
-    static public SystemSecurityHandler createNewV1() {
+    public static SystemSecurityHandler createNewV1() {
         COSDictionary dict = COSDictionary.create();
         dict.beIndirect();
         SystemSecurityHandler result = new SystemSecurityHandlerV1(dict);
@@ -82,7 +82,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         return result;
     }
 
-    static public SystemSecurityHandler createNewV2() {
+    public static SystemSecurityHandler createNewV2() {
         COSDictionary dict = COSDictionary.create();
         dict.beIndirect();
         SystemSecurityHandler result = new SystemSecurityHandlerV2(dict);
@@ -90,7 +90,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         return result;
     }
 
-    static public SystemSecurityHandler createNewV4() {
+    public static SystemSecurityHandler createNewV4() {
         COSDictionary dict = COSDictionary.create();
         dict.beIndirect();
         SystemSecurityHandler result = new SystemSecurityHandlerV4(dict);
@@ -98,11 +98,11 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         return result;
     }
 
-    final private COSDictionary cosEncryption;
+    private final COSDictionary cosEncryption;
 
     private COSArray currentCosIDs;
 
-    final private COSEncryption encryption;
+    private final COSEncryption encryption;
 
     private COSDictionary currentCosTrailer;
 
@@ -124,6 +124,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         this.encryption = (COSEncryption) COSEncryption.META.createFromCos(dict);
     }
 
+    @Override
     public void attach(STDocument stDoc) throws COSSecurityException {
         this.stDoc = stDoc;
         currentCosTrailer = stDoc.cosGetTrailer();
@@ -135,6 +136,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         forceFullWrite();
     }
 
+    @Override
     public void authenticate() throws COSSecurityException {
         securityHandler.authenticate();
     }
@@ -143,6 +145,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         return cosEncryption;
     }
 
+    @Override
     public void detach(STDocument stDoc) throws COSSecurityException {
         if (getSecurityHandler() != null) {
             getSecurityHandler().detach(stDoc);
@@ -159,6 +162,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         stGetDoc().setWriteModeHint(EnumWriteMode.FULL);
     }
 
+    @Override
     public COSCompositeObject getContextObject() {
         if (stackPtr < 0) {
             return null;
@@ -170,17 +174,20 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         return encryption;
     }
 
+    @Override
     public int getLength() {
         COSEncryption encryption = getEncryption();
         return encryption.getFieldInt(COSEncryption.DK_Length, DEFAULT_LENGTH);
     }
 
+    @Override
     public ISecurityHandler getSecurityHandler() {
         return securityHandler;
     }
 
-    abstract public int getVersion();
+    public abstract int getVersion();
 
+    @Override
     public void initialize(STDocument doc) throws COSSecurityException {
         this.stDoc = doc;
         initializeFromSt();
@@ -201,6 +208,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         return enabled;
     }
 
+    @Override
     public COSCompositeObject popContextObject() {
         COSCompositeObject contextObject = contextStack[stackPtr--];
         // enable encryption when no longer in encryption dict of file id's
@@ -217,6 +225,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         return contextObject;
     }
 
+    @Override
     public void pushContextObject(COSCompositeObject contextObject) {
         stackPtr++;
         if (stackPtr >= contextStack.length) {
@@ -243,6 +252,7 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         encryption.setFieldInt(COSEncryption.DK_Length, length);
     }
 
+    @Override
     public void setSecurityHandler(ISecurityHandler pSecurityHandler) throws COSSecurityException {
         if (securityHandler != null) {
             securityHandler.detach(stGetDoc());
@@ -253,10 +263,12 @@ abstract public class SystemSecurityHandler implements ISystemSecurityHandler {
         }
     }
 
+    @Override
     public STDocument stGetDoc() {
         return stDoc;
     }
 
+    @Override
     public void updateTrailer(COSDictionary trailer) {
         this.currentCosTrailer = trailer;
         this.currentCosIDs = currentCosTrailer.get(COSTrailer.DK_ID).asArray();

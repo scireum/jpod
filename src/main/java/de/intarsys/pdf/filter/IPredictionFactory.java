@@ -37,5 +37,5 @@ import java.io.IOException;
  * A factory for {@link IPrediction} objects.
  */
 public interface IPredictionFactory {
-    public IPrediction createPrediction(COSDictionary options) throws IOException;
+    IPrediction createPrediction(COSDictionary options) throws IOException;
 }

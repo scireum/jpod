@@ -39,11 +39,14 @@ public class AuthenticationHandlerFactory {
 
     private static IAuthenticationHandlerFactory ACTIVE = new StandardAuthenticationHandlerFactory();
 
-    static public IAuthenticationHandlerFactory get() {
+    private AuthenticationHandlerFactory() {
+    }
+
+    public static IAuthenticationHandlerFactory get() {
         return ACTIVE;
     }
 
-    static public void set(IAuthenticationHandlerFactory factory) {
+    public static void set(IAuthenticationHandlerFactory factory) {
         ACTIVE = factory;
     }
 }

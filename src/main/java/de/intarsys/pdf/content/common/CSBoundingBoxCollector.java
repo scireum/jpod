@@ -7,7 +7,6 @@
 package de.intarsys.pdf.content.common;
 
 import de.intarsys.pdf.content.CSBasicDevice;
-import de.intarsys.pdf.content.CSException;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.font.PDGlyphs;
 import de.intarsys.pdf.pd.PDImage;
@@ -21,24 +20,20 @@ import java.awt.geom.Rectangle2D;
  * Determine the bounding box of the content streams graphic primitives.
  * <p>
  * Usage <br>
- * <code>
+ * {@code
  * CSBoundingBoxCollector bbCollector = new CSBoundingBoxCollector();
  * CSDeviceBasedInterpreter interpreter = new CSDeviceBasedInterpreter(null, bbCollector);
  * interpreter.process(content, getResources());
  * if (bbCollector.getBoundingBox() != null) {
  * ...
  * }
- * </code>
+ * }
  * </p>
  * ATTENTION: The {@link CSBoundingBoxCollector} does not take care of text yet !!
  */
 public class CSBoundingBoxCollector extends CSBasicDevice {
 
     private Rectangle2D boundingBox;
-
-    public CSBoundingBoxCollector() {
-        super();
-    }
 
     protected void addBoundingBox(Rectangle2D rect, boolean addLineWidth) {
         GeometryTools.normalizeRect(rect);
@@ -81,7 +76,7 @@ public class CSBoundingBoxCollector extends CSBasicDevice {
     }
 
     @Override
-    protected void basicTextShowGlyphs(PDGlyphs glyphs, float advance) throws CSException {
+    protected void basicTextShowGlyphs(PDGlyphs glyphs, float advance) {
         double factor = textState.fontSize / 1000f;
         float x = 0;
         float y = (float) (glyphs.getDescent() * factor);
@@ -95,7 +90,7 @@ public class CSBoundingBoxCollector extends CSBasicDevice {
     }
 
     @Override
-    protected void doImage(COSName name, PDImage image) throws CSException {
+    protected void doImage(COSName name, PDImage image) {
         Area area = new Area(new Rectangle2D.Float(0, 0, 1, 1));
         area.transform(graphicsState.transform);
         addBoundingBox(area.getBounds2D(), false);
@@ -105,7 +100,7 @@ public class CSBoundingBoxCollector extends CSBasicDevice {
      * The bounding box containing all graphics artifacts stemming from
      * operations in the content stream processed.
      * <p>
-     * The result may be <code>null</code>.
+     * The result may be {@code null}.
      *
      * @return The bounding box containing all graphics artifacts stemming from
      * operations in the content stream processed.

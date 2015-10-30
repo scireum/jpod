@@ -51,7 +51,7 @@ public class PDActionSubmitForm extends PDAction {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAction.MetaClass {
+    public static class MetaClass extends PDAction.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -65,17 +65,17 @@ public class PDActionSubmitForm extends PDAction {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public final COSName CN_ActionType_SubmitForm = COSName.constant("SubmitForm");
+    public static final COSName CN_ActionType_SubmitForm = COSName.constant("SubmitForm");
 
-    static public final COSName DK_F = COSName.constant("F");
+    public static final COSName DK_F = COSName.constant("F");
 
-    static public final COSName DK_Fields = COSName.constant("Fields");
+    public static final COSName DK_Fields = COSName.constant("Fields");
 
-    static public final COSName DK_Flags = COSName.constant("Flags");
+    public static final COSName DK_Flags = COSName.constant("Flags");
 
-    static public PDActionSubmitForm createNew(URL url) {
+    public static PDActionSubmitForm createNew(URL url) {
         PDActionSubmitForm result = (PDActionSubmitForm) PDActionSubmitForm.META.createNew();
         result.setUrl(url);
         return result;

@@ -40,7 +40,7 @@ import de.intarsys.pdf.pd.PDDocument;
  */
 public interface IFontFactory {
     /**
-     * A font based on <code>font</code>, but with "bold" style.
+     * A font based on {@code font}, but with "bold" style.
      * <p>
      * The font returned may be either a new one or a font already in use in a
      * {@link PDDocument}. This decision is up to the factory.Be careful when
@@ -48,13 +48,13 @@ public interface IFontFactory {
      * </p>
      *
      * @param font The base font to be "bolded".
-     * @return A font based on <code>font</code>, but with "bold" style.
+     * @return A font based on {@code font}, but with "bold" style.
      * @throws FontFactoryException
      */
-    public PDFont getBoldFlavor(PDFont font) throws FontFactoryException;
+    PDFont getBoldFlavor(PDFont font) throws FontFactoryException;
 
     /**
-     * A font satisfying the conditions defined in <code>query</code>.
+     * A font satisfying the conditions defined in {@code query}.
      * <p>
      * The font returned may be either a new one or a font already in use in a
      * {@link PDDocument}. This decision is up to the factory. Be careful when
@@ -62,13 +62,13 @@ public interface IFontFactory {
      * </p>
      *
      * @param query A query defining the {@link PDFont} to be looked up.
-     * @return A font satisfying the conditions defined in <code>query</code>.
+     * @return A font satisfying the conditions defined in {@code query}.
      * @throws FontFactoryException
      */
-    public PDFont getFont(IFontQuery query) throws FontFactoryException;
+    PDFont getFont(IFontQuery query) throws FontFactoryException;
 
     /**
-     * A font based on <code>font</code>, but with "italic" style.
+     * A font based on {@code font}, but with "italic" style.
      * <p>
      * The font returned may be either a new one or a font already in use in a
      * {@link PDDocument}. This decision is up to the factory.Be careful when
@@ -76,13 +76,13 @@ public interface IFontFactory {
      * </p>
      *
      * @param font The base font to be "italicized".
-     * @return A font based on <code>font</code>, but with "italic" style.
+     * @return A font based on {@code font}, but with "italic" style.
      * @throws FontFactoryException
      */
-    public PDFont getItalicFlavor(PDFont font) throws FontFactoryException;
+    PDFont getItalicFlavor(PDFont font) throws FontFactoryException;
 
     /**
-     * A font based on <code>font</code>, but with "regular" style.
+     * A font based on {@code font}, but with "regular" style.
      * <p>
      * The font returned may be either a new one or a font already in use in a
      * {@link PDDocument}. This decision is up to the factory. Be careful when
@@ -90,15 +90,15 @@ public interface IFontFactory {
      * </p>
      *
      * @param font The base font to be "regularized".
-     * @return A font based on <code>font</code>, but with "regular" style.
+     * @return A font based on {@code font}, but with "regular" style.
      * @throws FontFactoryException
      */
-    public PDFont getRegularFlavor(PDFont font) throws FontFactoryException;
+    PDFont getRegularFlavor(PDFont font) throws FontFactoryException;
 
     /**
      * Register a new font available for public use.
      *
      * @param font The new font available for clients .
      */
-    public void registerFont(PDFont font);
+    void registerFont(PDFont font);
 }

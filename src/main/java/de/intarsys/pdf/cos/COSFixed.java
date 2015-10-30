@@ -33,9 +33,9 @@ package de.intarsys.pdf.cos;
  * Represents floating point numbers in pdf.
  */
 public class COSFixed extends COSNumber {
-    static public final int DEFAULT_PRECISION = 5;
+    public static final int DEFAULT_PRECISION = 5;
 
-    static public COSFixed create(byte[] bytes, int start, int length) {
+    public static COSFixed create(byte[] bytes, int start, int length) {
         long result = 0;
         long decimal = 1;
         int end = start + length;
@@ -63,24 +63,24 @@ public class COSFixed extends COSNumber {
             }
         }
         if (negative) {
-            return new COSFixed(-(float) ((double) result / (double) decimal), precision);
+            return new COSFixed(-(float) ((double) result / decimal), precision);
         }
-        return new COSFixed((float) ((double) result / (double) decimal), precision);
+        return new COSFixed((float) ((double) result / decimal), precision);
     }
 
-    static public COSFixed create(double value) {
+    public static COSFixed create(double value) {
         return new COSFixed((float) value, DEFAULT_PRECISION);
     }
 
-    static public COSFixed create(double value, int precision) {
+    public static COSFixed create(double value, int precision) {
         return new COSFixed((float) value, precision);
     }
 
-    static public COSFixed create(float value) {
+    public static COSFixed create(float value) {
         return new COSFixed(value, DEFAULT_PRECISION);
     }
 
-    static public COSFixed create(float value, int precision) {
+    public static COSFixed create(float value, int precision) {
         return new COSFixed(value, precision);
     }
 
@@ -197,6 +197,7 @@ public class COSFixed extends COSNumber {
      *
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
+    @Override
     public Object saveState() {
         COSFixed result = new COSFixed(floatValue, precision);
         result.container = this.container.saveStateContainer();

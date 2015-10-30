@@ -40,5 +40,5 @@ public interface ICOSProxyVisitor {
      * @return any Object depending on the visitor implementation, or null
      * @throws COSVisitorException If there is an error while visiting this object.
      */
-    public Object visitFromProxy(COSObjectProxy obj) throws COSVisitorException;
+    Object visitFromProxy(COSObjectProxy obj) throws COSVisitorException;
 }

@@ -44,7 +44,7 @@ import java.util.Iterator;
  * </p>
  */
 public class CSOperation {
-    static public final COSName OPERAND_Tx = COSName.constant("Tx"); //$NON-NLS-1$
+    public static final COSName OPERAND_Tx = COSName.constant("Tx"); //$NON-NLS-1$
 
     /**
      * More efficient internal representation of operator
@@ -91,10 +91,10 @@ public class CSOperation {
     }
 
     /**
-     * The operand at index <code>i</code>.
+     * The operand at index {@code i}.
      *
      * @param i The index of the perand in the operand's list.
-     * @return The operand at index <code>i</code>.
+     * @return The operand at index {@code i}.
      */
     public COSObject getOperand(int i) {
         return operands[i];
@@ -124,21 +124,21 @@ public class CSOperation {
     }
 
     /**
-     * Answer <code>true</code> if an operator is already defined.
+     * Answer {@code true} if an operator is already defined.
      *
-     * @return Answer <code>true</code> if an operator is already defined.
+     * @return Answer {@code true} if an operator is already defined.
      */
     public boolean hasOperator() {
         return operatorToken != null;
     }
 
     /**
-     * <code>true</code> if this is a "begin marked content" operation with
-     * the operand <code>mark</code> (or any operation when mark is null).
+     * {@code true} if this is a "begin marked content" operation with
+     * the operand {@code mark} (or any operation when mark is null).
      *
      * @param mark The requested operand to the operation.
-     * @return <code>true</code> if this is a "begin marked content" operation
-     * with the operand <code>mark</code>.
+     * @return {@code true} if this is a "begin marked content" operation
+     * with the operand {@code mark}.
      */
     public boolean isOpBeginMarkedContent(COSName mark) {
         if (matchesOperator(CSOperators.CSO_BMC)) {
@@ -146,7 +146,7 @@ public class CSOperation {
                 return true;
             }
             COSObject operand = getOperand(0);
-            if (operand instanceof COSName && ((COSName) operand).equals(mark)) {
+            if (operand instanceof COSName && operand.equals(mark)) {
                 return true;
             }
         }
@@ -154,24 +154,21 @@ public class CSOperation {
     }
 
     /**
-     * <code>true</code> if this is a "end marked content" operation.
+     * {@code true} if this is a "end marked content" operation.
      *
-     * @return <code>true</code> if this is a "end marked content" operation
+     * @return {@code true} if this is a "end marked content" operation
      */
     public boolean isOpEndMarkedContent() {
-        if (matchesOperator(CSOperators.CSO_EMC)) {
-            return true;
-        }
-        return false;
+        return matchesOperator(CSOperators.CSO_EMC);
     }
 
     /**
-     * Answer <code>true</code> if this operator's name matches the token
-     * <code>other</code>.
+     * Answer {@code true} if this operator's name matches the token
+     * {@code other}.
      *
      * @param other token to check against the operators name.
-     * @return Answer <code>true</code> if this operator's name matches the
-     * token <code>other</code>.
+     * @return Answer {@code true} if this operator's name matches the
+     * token {@code other}.
      */
     public boolean matchesOperator(CSOperator other) {
         return Arrays.equals(operatorToken, (other).getToken());
@@ -191,11 +188,11 @@ public class CSOperation {
     }
 
     /**
-     * Set operand at index <code>i</code> to <code>objec</code>.
+     * Set operand at index {@code i} to {@code objec}.
      *
      * @param i      The index of the perand in the operand's list.
      * @param object the operand object
-     * @return The previous operand at index <code>i</code>.
+     * @return The previous operand at index {@code i}.
      */
     public COSObject setOperand(int i, COSObject object) {
         COSObject old = operands[i];

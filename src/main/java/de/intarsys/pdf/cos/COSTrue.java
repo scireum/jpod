@@ -33,7 +33,7 @@ package de.intarsys.pdf.cos;
  * Represents the boolean value "true"
  */
 public class COSTrue extends COSBoolean {
-    static public COSTrue create() {
+    public static COSTrue create() {
         return new COSTrue();
     }
 
@@ -93,6 +93,7 @@ public class COSTrue extends COSBoolean {
      *
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
+    @Override
     public Object saveState() {
         COSObject result = new COSTrue();
         result.container = this.container.saveStateContainer();

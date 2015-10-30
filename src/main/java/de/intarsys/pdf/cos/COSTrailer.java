@@ -128,7 +128,7 @@ public class COSTrailer extends COSBasedObject {
      */
     public COSString cosGetPermanentFileID() {
         COSArray fileID = cosGetField(DK_ID).asArray();
-        if ((fileID == null) || (fileID.size() == 0)) {
+        if ((fileID == null) || (fileID.isEmpty())) {
             return null;
         } else {
             return (COSString) fileID.get(0);
@@ -148,12 +148,12 @@ public class COSTrailer extends COSBasedObject {
      * Create a random id for use in the PDF file id. The document is not
      * changed. <br>
      * <p>
-     * <code>
+     * {@code
      * - include time
      * - file location
      * - size
      * - document information dictionary
-     * </code>
+     * }
      *
      * @return a byte array with the created ID
      */
@@ -281,7 +281,7 @@ public class COSTrailer extends COSBasedObject {
             fileID = COSArray.create();
             cosSetField(DK_ID, fileID);
         }
-        if (fileID.size() == 0) {
+        if (fileID.isEmpty()) {
             if (id1 == null) {
                 byte[] id = createFileID();
                 id1 = COSString.create(id);

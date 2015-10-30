@@ -39,6 +39,7 @@ public class PNGUpPrediction extends PNGPrediction {
         super(options);
     }
 
+    @Override
     public void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
         int actualSourceOffset;
 

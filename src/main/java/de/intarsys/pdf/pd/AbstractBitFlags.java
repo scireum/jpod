@@ -39,7 +39,7 @@ import de.intarsys.pdf.cos.COSName;
  * the access method to the value within the object or by an independent integer
  * value itself.
  */
-abstract public class AbstractBitFlags {
+public abstract class AbstractBitFlags {
 
     private int value;
 
@@ -47,13 +47,13 @@ abstract public class AbstractBitFlags {
 
     private COSName field;
 
-    public AbstractBitFlags(COSBasedObject object, COSName field) {
+    protected AbstractBitFlags(COSBasedObject object, COSName field) {
         super();
         this.object = object;
         this.field = field;
     }
 
-    public AbstractBitFlags(int value) {
+    protected AbstractBitFlags(int value) {
         super();
         this.value = value;
     }
@@ -64,7 +64,7 @@ abstract public class AbstractBitFlags {
      *
      * @return the integer containing the bit flags.
      */
-    final public int getValue() {
+    public final int getValue() {
         if (object == null) {
             return value;
         } else {
@@ -111,7 +111,7 @@ abstract public class AbstractBitFlags {
         if (flag) {
             setValue(getValue() | bitMask);
         } else {
-            setValue(getValue() & (-1 ^ bitMask));
+            setValue(getValue() & (~bitMask));
         }
     }
 
@@ -120,7 +120,7 @@ abstract public class AbstractBitFlags {
      *
      * @param newValue the whole integer containing all bit flags
      */
-    final public void setValue(int newValue) {
+    public final void setValue(int newValue) {
         if (object == null) {
             value = newValue;
         } else {

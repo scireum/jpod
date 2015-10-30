@@ -85,31 +85,31 @@ public class CDSMatrix extends CDSBase {
      * Static information needed for rotation: rotate 0 degress (identity
      * matrix)
      */
-    static public float[] MATRIX_0 = new float[]{1, 0, 0, 1, 0, 0};
+    public static float[] MATRIX_0 = {1, 0, 0, 1, 0, 0};
 
     /**
      * Static information needed for rotation: rotate 90 degrees
      */
-    static public float[] MATRIX_90 = new float[]{0, 1, -1, 0, 0, 0};
+    public static float[] MATRIX_90 = {0, 1, -1, 0, 0, 0};
 
     /**
      * Static information needed for rotation: rotate 180 degrees
      */
-    static public float[] MATRIX_180 = new float[]{-1, 0, 0, -1, 0, 0};
+    public static float[] MATRIX_180 = {-1, 0, 0, -1, 0, 0};
 
     /**
      * Static information needed for rotation: rotate 270 degrees
      */
-    static public float[] MATRIX_270 = new float[]{0, -1, 1, 0, 0, 0};
+    public static float[] MATRIX_270 = {0, -1, 1, 0, 0, 0};
 
     /**
-     * Create a {@link CDSMatrix} from an <code>array</code> holding the
+     * Create a {@link CDSMatrix} from an {@code array} holding the
      * transformation parameters.
      *
      * @param array The base {@link COSArray}
-     * @return Create a {@link CDSMatrix} from <code>array</code>
+     * @return Create a {@link CDSMatrix} from {@code array}
      */
-    static public CDSMatrix createFromCOS(COSArray array) {
+    public static CDSMatrix createFromCOS(COSArray array) {
         if (array == null) {
             return null;
         }
@@ -198,8 +198,7 @@ public class CDSMatrix extends CDSBase {
      * @return a new copy of the receiver
      */
     public CDSMatrix copy() {
-        CDSMatrix result = new CDSMatrix((COSArray) cosGetObject().copyShallow());
-        return result;
+        return new CDSMatrix((COSArray) cosGetObject().copyShallow());
     }
 
     /**
@@ -421,7 +420,7 @@ public class CDSMatrix extends CDSBase {
     }
 
     /**
-     * Transform a vector <code>v</code> using this.
+     * Transform a vector {@code v} using this.
      *
      * @param v The vector that will be transformed.
      * @return The transformed vector.

@@ -52,28 +52,31 @@ public class StandardActionHandlerRegistry implements IActionHandlerRegistry {
         nameMap = new HashMap<COSName, IActionHandler>(5);
     }
 
-    synchronized public IActionHandler[] getActionHandlers() {
+    @Override
+    public synchronized IActionHandler[] getActionHandlers() {
         return nameMap.values().toArray(new IActionHandler[nameMap.size()]);
     }
 
-    synchronized public IActionHandler getDefaultHandler() {
+    public synchronized IActionHandler getDefaultHandler() {
         return defaultHandler;
     }
 
-    synchronized public IActionHandler lookupActionHandler(COSName actionType) {
-        IActionHandler result = nameMap.get(actionType);
-        return result;
+    @Override
+    public synchronized IActionHandler lookupActionHandler(COSName actionType) {
+        return nameMap.get(actionType);
     }
 
-    synchronized public void registerActionHandler(IActionHandler handler) {
+    @Override
+    public synchronized void registerActionHandler(IActionHandler handler) {
         nameMap.put(handler.getActionType(), handler);
     }
 
-    synchronized public void registerDefaultHandler(IActionHandler handler) {
+    public synchronized void registerDefaultHandler(IActionHandler handler) {
         defaultHandler = handler;
     }
 
-    synchronized public void unregisterActionHandler(IActionHandler handler) {
+    @Override
+    public synchronized void unregisterActionHandler(IActionHandler handler) {
         nameMap.remove(handler.getActionType());
     }
 }

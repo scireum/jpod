@@ -36,10 +36,12 @@ public class NoPrediction extends Prediction {
         super(options);
     }
 
+    @Override
     public byte[] decode(byte[] source) {
         return source;
     }
 
+    @Override
     protected void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
         throw new InternalError("Program execution should not reach this point.");
     }

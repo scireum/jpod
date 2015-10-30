@@ -89,12 +89,12 @@ public class COSTools {
      * @return The resulting {@link COSObject}
      * @deprecated use {@link COSConverter}
      */
-    @Deprecated
-    static public COSObject createObject(Object javaObject) {
+	@Deprecated
+	public static COSObject createObject(Object javaObject) {
         return COSConverter.toCos(javaObject);
     }
 
-    public static List<Revision> getRevisions(COSDocument doc) throws IOException, COSLoadException {
+    public static List<Revision> getRevisions(COSDocument doc) throws IOException {
         List<Revision> result = new ArrayList<Revision>();
         STDocument stDoc = doc.stGetDoc();
         STXRefSection xRef = stDoc.getXRefSection();
@@ -113,10 +113,11 @@ public class COSTools {
                 public int compare(STXRefSection o1, STXRefSection o2) {
                     if (o1.getOffset() < o2.getOffset()) {
                         return 1;
-                    } else if (o1.getOffset() > o2.getOffset()) {
+                    }
+					if (o1.getOffset() > o2.getOffset()) {
                         return -1;
                     }
-                    return 0;
+					return 0;
                 }
             });
 
@@ -148,7 +149,7 @@ public class COSTools {
     }
 
     public static List<Revision> getSubsequentRevisions(COSDocument doc, STXRefSection base)
-            throws IOException, COSLoadException {
+            throws IOException {
         List<Revision> revisions = getRevisions(doc);
         List<Revision> result = new ArrayList<Revision>();
         boolean include = false;
@@ -174,7 +175,7 @@ public class COSTools {
      * @throws IOException
      * @throws COSLoadException
      */
-    static public List<ILocator> getVersions(COSDocument doc) throws IOException, COSLoadException {
+	public static List<ILocator> getVersions(COSDocument doc) throws IOException {
         List<Revision> revisions = getRevisions(doc);
         List<ILocator> result = new ArrayList<ILocator>();
         for (Revision revision : revisions) {
@@ -183,7 +184,7 @@ public class COSTools {
         return result;
     }
 
-    static protected boolean readUptoNewLine(IRandomAccess input) throws IOException {
+    protected static boolean readUptoNewLine(IRandomAccess input) throws IOException {
         int i;
         while (true) {
             i = input.read();
@@ -202,8 +203,8 @@ public class COSTools {
         }
     }
 
-    static protected long searchNextEOF(IRandomAccess input, long start, long end)
-            throws IOException, COSLoadException {
+    protected static long searchNextEOF(IRandomAccess input, long start, long end)
+            throws IOException {
         input.seek(start);
         int comparisonIndex = 0;
         for (int i = input.read(); (i != -1) && (input.getOffset() < end); i = input.read()) {

@@ -44,7 +44,7 @@ public class PDActionURI extends PDAction {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAction.MetaClass {
+    public static class MetaClass extends PDAction.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -58,15 +58,15 @@ public class PDActionURI extends PDAction {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public final COSName CN_ActionType_URI = COSName.constant("URI"); //$NON-NLS-1$
+    public static final COSName CN_ActionType_URI = COSName.constant("URI"); //$NON-NLS-1$
 
     public static final COSName DK_URI = COSName.constant("URI"); //$NON-NLS-1$
 
     public static final COSName DK_IsMap = COSName.constant("IsMap"); //$NON-NLS-1$
 
-    static public PDActionURI createNew(String uri) {
+    public static PDActionURI createNew(String uri) {
         PDActionURI result = (PDActionURI) PDActionURI.META.createNew();
         result.setURI(uri);
         return result;

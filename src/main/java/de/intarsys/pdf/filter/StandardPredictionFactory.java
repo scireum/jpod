@@ -38,6 +38,7 @@ import java.io.IOException;
  * The standard implementation for the {@link IPredictionFactory}.
  */
 public class StandardPredictionFactory implements IPredictionFactory {
+    @Override
     public IPrediction createPrediction(COSDictionary options) throws IOException {
         COSInteger value;
         int predictor;
@@ -61,9 +62,5 @@ public class StandardPredictionFactory implements IPredictionFactory {
             return new PNGOptimumPrediction(options);
         }
         throw new IOException("unknown predictor: " + predictor);
-    }
-
-    public StandardPredictionFactory() {
-        super();
     }
 }

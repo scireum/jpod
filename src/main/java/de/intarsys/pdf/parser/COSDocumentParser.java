@@ -155,11 +155,11 @@ public class COSDocumentParser extends PDFParser {
                 // todo 2 kkr add check for additional whitespace after
                 // endstream
                 // before endobj
-                if (messages.size() > 0
+                if (!messages.isEmpty()
                     && !(messages.size() == 1 && messages.contains(C_TOKEN_ADDWSB))
                     && !(messages.size() == 1 && messages.contains(C_TOKEN_ADDWSA2))) {
                     COSLoadWarning pwarn = new COSLoadWarning(C_WARN_SINGLEEOL_OBJ);
-                    pwarn.setHint(new Long(input.getOffset()));
+                    pwarn.setHint(Long.valueOf(input.getOffset()));
                     handleWarning(pwarn);
                 }
             } else {
@@ -201,10 +201,10 @@ public class COSDocumentParser extends PDFParser {
             objNumber = Integer.parseInt(new String(token));
             if (messages.size() > 1) {
                 COSLoadWarning pwarn = new COSLoadWarning(C_WARN_SINGLESPACE_OBJ);
-                pwarn.setHint(new Long(input.getOffset()));
+                pwarn.setHint(Long.valueOf(input.getOffset()));
                 handleWarning(pwarn);
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException ignored) {
             COSLoadError e = new COSLoadError("invalid object number at character index " + input.getOffset());
             handleError(e);
         }
@@ -226,10 +226,10 @@ public class COSDocumentParser extends PDFParser {
             genNumber = Integer.parseInt(new String(token));
             if (messages.size() > 1) {
                 COSLoadWarning pwarn = new COSLoadWarning(C_WARN_SINGLESPACE_OBJ);
-                pwarn.setHint(new Long(input.getOffset()));
+                pwarn.setHint(Long.valueOf(input.getOffset()));
                 handleWarning(pwarn);
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException ignored) {
             COSLoadError e = new COSLoadError("invalid generation number at character index " + input.getOffset());
             handleError(e);
         }
@@ -252,15 +252,15 @@ public class COSDocumentParser extends PDFParser {
             handleError(e);
         }
         if (check) {
-            if (messages.size() > 0) {
+            if (!messages.isEmpty()) {
                 COSLoadWarning pwarn = new COSLoadWarning(C_WARN_SINGLESPACE_OBJ);
-                pwarn.setHint(new Long(input.getOffset()));
+                pwarn.setHint(Long.valueOf(input.getOffset()));
                 handleWarning(pwarn);
             }
 
             if (readEOL(input) > 1) {
                 COSLoadWarning pwarn = new COSLoadWarning(C_WARN_SINGLEEOL_OBJ);
-                pwarn.setHint(new Long(input.getOffset()));
+                pwarn.setHint(Long.valueOf(input.getOffset()));
                 handleWarning(pwarn);
             }
         } else {
@@ -395,7 +395,8 @@ public class COSDocumentParser extends PDFParser {
                 }
                 result = -1;
                 break;
-            } else if (next == '%') {
+            }
+            if (next == '%') {
                 parseComment(input); // this is the binary comment
             } else {
                 break;

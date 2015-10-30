@@ -54,9 +54,9 @@ import java.util.Map;
  */
 public class PasswordProvider {
 
-    static public final String ATTR_PASSWORD = "password";
+    public static final String ATTR_PASSWORD = "password";
 
-    static public final String ATTR_PASSWORDPROVIDER = "passwordProvider";
+    public static final String ATTR_PASSWORDPROVIDER = "passwordProvider";
 
     private static final ThreadLocal<IPasswordProvider> threadLocal = new ThreadLocal<IPasswordProvider>();
 
@@ -70,14 +70,14 @@ public class PasswordProvider {
      *
      * @return Return the unique factory.
      */
-    static public IPasswordProvider get() {
+    public static IPasswordProvider get() {
         if (getThreadLocal() == null) {
             return Unique;
         }
         return getThreadLocal();
     }
 
-    static public char[] getPassword(STDocument doc) {
+    public static char[] getPassword(STDocument doc) {
         Object password = doc.getAttribute(ATTR_PASSWORD);
         if (password instanceof String) {
             return ((String) password).toCharArray();
@@ -91,7 +91,7 @@ public class PasswordProvider {
         return null;
     }
 
-    static public IPasswordProvider getPasswordProvider(STDocument doc) {
+    public static IPasswordProvider getPasswordProvider(STDocument doc) {
         Object passwordProvider = doc.getAttribute(ATTR_PASSWORDPROVIDER);
         if (passwordProvider instanceof IPasswordProvider) {
             return (IPasswordProvider) passwordProvider;
@@ -108,7 +108,7 @@ public class PasswordProvider {
      *
      * @param unique The new unique factory.
      */
-    static public void set(IPasswordProvider unique) {
+    public static void set(IPasswordProvider unique) {
         Unique = unique;
     }
 

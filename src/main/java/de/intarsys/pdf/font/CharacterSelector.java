@@ -35,7 +35,7 @@ package de.intarsys.pdf.font;
  * <p>
  * A character may be identified by different means (name, index, unicode..).
  */
-abstract public class CharacterSelector {
+public abstract class CharacterSelector {
     /**
      * The special selector for undefined glyphs.
      */
@@ -69,7 +69,7 @@ abstract public class CharacterSelector {
      *
      * @return The number of bytes this selector occupies.
      */
-    abstract public int getLength();
+    public abstract int getLength();
 
     /**
      * The integer equivalent of the selector.
@@ -78,5 +78,5 @@ abstract public class CharacterSelector {
      *
      * @return The integer equivalent of the selector.
      */
-    abstract public int getValue();
+    public abstract int getValue();
 }

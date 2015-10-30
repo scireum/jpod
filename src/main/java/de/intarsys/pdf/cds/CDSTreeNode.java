@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Abstract superclass for implementing name and number trees.
  */
-abstract public class CDSTreeNode extends CDSBase {
+public abstract class CDSTreeNode extends CDSBase {
 
     /**
      * common names
@@ -57,7 +57,7 @@ abstract public class CDSTreeNode extends CDSBase {
      */
     protected COSArray limits;
 
-    public CDSTreeNode(COSObject object) {
+    protected CDSTreeNode(COSObject object) {
         super(object);
     }
 
@@ -65,5 +65,5 @@ abstract public class CDSTreeNode extends CDSBase {
         return cosGetDict().containsKey(DK_Kids);
     }
 
-    abstract public boolean isLeaf();
+    public abstract boolean isLeaf();
 }

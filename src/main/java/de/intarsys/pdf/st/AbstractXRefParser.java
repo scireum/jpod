@@ -45,7 +45,7 @@ public abstract class AbstractXRefParser {
 
     private COSDocumentParser parser;
 
-    public AbstractXRefParser(STDocument doc, COSDocumentParser parser) {
+    protected AbstractXRefParser(STDocument doc, COSDocumentParser parser) {
         this.doc = doc;
         this.parser = parser;
     }
@@ -59,14 +59,14 @@ public abstract class AbstractXRefParser {
     }
 
     /**
-     * Parser the {@link STXRefSection} from the <code>randomAccess</code>.
+     * Parser the {@link STXRefSection} from the {@code randomAccess}.
      *
      * @param randomAcces
      * @return The parsed {@link STXRefSection}
      * @throws IOException
      * @throws COSLoadException
      */
-    abstract public STXRefSection parse(IRandomAccess randomAcces) throws IOException, COSLoadException;
+    public abstract STXRefSection parse(IRandomAccess randomAcces) throws IOException, COSLoadException;
 
     protected void handleWarning(COSLoadWarning warning) throws COSLoadException {
         parser.handleWarning(warning);

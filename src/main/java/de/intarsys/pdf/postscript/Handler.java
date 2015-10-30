@@ -95,7 +95,7 @@ public class Handler {
         IOperator operator;
 
         name = MessageFormat.format("de.intarsys.pdf.postscript.Operator_{0}", //$NON-NLS-1$
-                                    new Object[]{string});
+                                    string);
         try {
             clazz = Class.forName(name);
         } catch (Exception ex) {

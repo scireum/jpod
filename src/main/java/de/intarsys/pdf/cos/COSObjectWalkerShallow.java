@@ -39,15 +39,13 @@ import java.util.Iterator;
  * originating from a COS object.
  */
 public class COSObjectWalkerShallow implements ICOSObjectVisitor {
-    public COSObjectWalkerShallow() {
-        //
-    }
 
     /*
      * (non-Javadoc)
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromArray(de.intarsys.pdf.cos.COSArray)
      */
+    @Override
     public Object visitFromArray(COSArray array) throws COSVisitorException {
         if (visitFromArrayBefore(array)) {
             for (Iterator i = array.basicIterator(); i.hasNext(); ) {
@@ -73,6 +71,7 @@ public class COSObjectWalkerShallow implements ICOSObjectVisitor {
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromBoolean(de.intarsys.pdf.cos.COSBoolean)
      */
+    @Override
     public Object visitFromBoolean(COSBoolean bool) throws COSVisitorException {
         return null;
     }
@@ -82,6 +81,7 @@ public class COSObjectWalkerShallow implements ICOSObjectVisitor {
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromDictionary(de.intarsys.pdf.cos.COSDictionary)
      */
+    @Override
     public Object visitFromDictionary(COSDictionary dict) throws COSVisitorException {
         if (visitFromDictionaryBefore(dict)) {
             for (Iterator i = dict.basicIterator(); i.hasNext(); ) {
@@ -104,6 +104,7 @@ public class COSObjectWalkerShallow implements ICOSObjectVisitor {
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromFixed(de.intarsys.pdf.cos.COSFixed)
      */
+    @Override
     public Object visitFromFixed(COSFixed fixed) throws COSVisitorException {
         return null;
     }
@@ -113,6 +114,7 @@ public class COSObjectWalkerShallow implements ICOSObjectVisitor {
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromInteger(de.intarsys.pdf.cos.COSInteger)
      */
+    @Override
     public Object visitFromInteger(COSInteger integer) throws COSVisitorException {
         return null;
     }
@@ -122,6 +124,7 @@ public class COSObjectWalkerShallow implements ICOSObjectVisitor {
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromName(de.intarsys.pdf.cos.COSName)
      */
+    @Override
     public Object visitFromName(COSName name) throws COSVisitorException {
         return null;
     }
@@ -131,6 +134,7 @@ public class COSObjectWalkerShallow implements ICOSObjectVisitor {
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromNull(de.intarsys.pdf.cos.COSNull)
      */
+    @Override
     public Object visitFromNull(COSNull nullObj) throws COSVisitorException {
         return null;
     }
@@ -140,6 +144,7 @@ public class COSObjectWalkerShallow implements ICOSObjectVisitor {
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromStream(de.intarsys.pdf.cos.COSStream)
      */
+    @Override
     public Object visitFromStream(COSStream stream) throws COSVisitorException {
         stream.getDict().accept(this);
         return null;
@@ -150,6 +155,7 @@ public class COSObjectWalkerShallow implements ICOSObjectVisitor {
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromString(de.intarsys.pdf.cos.COSString)
      */
+    @Override
     public Object visitFromString(COSString string) throws COSVisitorException {
         return null;
     }
@@ -159,6 +165,7 @@ public class COSObjectWalkerShallow implements ICOSObjectVisitor {
      *
      * @see de.intarsys.pdf.cos.ICOSObjectVisitor#visitFromIndirectObject(de.intarsys.pdf.cos.COSIndirectObject)
      */
+    @Override
     public Object visitFromIndirectObject(COSIndirectObject io) throws COSVisitorException {
         return null;
     }

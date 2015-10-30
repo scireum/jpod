@@ -151,7 +151,7 @@ public class XRefTrailerParser extends AbstractXRefParser {
         }
         if (c != 32) {
             COSLoadWarning pwarn = new COSLoadWarning(PDFParser.C_WARN_SINGLESPACE);
-            pwarn.setHint(new Long(randomAccess.getOffset()));
+            pwarn.setHint(Long.valueOf(randomAccess.getOffset()));
             getParser().handleWarning(pwarn);
         }
         c = randomAccess.read();
@@ -161,7 +161,7 @@ public class XRefTrailerParser extends AbstractXRefParser {
         randomAccess.seekBy(-1);
         if (!PDFParser.isDigit(c)) {
             COSLoadWarning pwarn = new COSLoadWarning(PDFParser.C_WARN_SINGLESPACE);
-            pwarn.setHint(new Long(randomAccess.getOffset()));
+            pwarn.setHint(Long.valueOf(randomAccess.getOffset()));
             getParser().handleWarning(pwarn);
         }
 

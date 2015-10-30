@@ -40,10 +40,11 @@ public class Operator_neg implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) {
         int operand;
 
         operand = ((Integer) handler.pop()).intValue();
-        handler.push(new Integer(-operand));
+        handler.push(Integer.valueOf(-operand));
     }
 }

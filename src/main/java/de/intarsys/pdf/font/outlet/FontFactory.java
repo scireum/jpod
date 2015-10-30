@@ -37,13 +37,16 @@ import java.util.Iterator;
  * A singleton to access the current {@link IFontFactory}.
  */
 public class FontFactory {
-    static private boolean lookupProviders = true;
+    private static boolean lookupProviders = true;
     /**
      * The default factory.
      */
     private static IFontFactory Unique;
 
-    static protected IFontFactory findProviders() {
+    private FontFactory() {
+    }
+
+    protected static IFontFactory findProviders() {
         Iterator<IFontFactory> ps = ProviderTools.providers(IFontFactory.class);
         while (ps.hasNext()) {
             try {
@@ -60,14 +63,14 @@ public class FontFactory {
      *
      * @return The {@link IFontFactory} singleton.
      */
-    static public IFontFactory get() {
+    public static IFontFactory get() {
         if (Unique == null) {
             init();
         }
         return Unique;
     }
 
-    static protected void init() {
+    protected static void init() {
         if (lookupProviders) {
             Unique = findProviders();
         }
@@ -85,7 +88,7 @@ public class FontFactory {
      *
      * @param factory The {@link IFontFactory} singleton.
      */
-    static public void set(IFontFactory factory) {
+    public static void set(IFontFactory factory) {
         Unique = factory;
     }
 

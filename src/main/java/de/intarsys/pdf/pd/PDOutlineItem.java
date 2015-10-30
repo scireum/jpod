@@ -48,10 +48,12 @@ public class PDOutlineItem extends PDOutlineNode {
             super(paramInstanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDOutlineItem(object);
         }
 
+        @Override
         protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
             // there are documents around that do not correctly contain
             // a /Parent reference - so we can't really determine type but from
@@ -160,6 +162,7 @@ public class PDOutlineItem extends PDOutlineNode {
      *
      * @return The parent item.
      */
+    @Override
     public PDOutlineNode getParent() {
         return (PDOutlineNode) PDOutlineNode.META.createFromCos(cosGetField(DK_Parent));
     }

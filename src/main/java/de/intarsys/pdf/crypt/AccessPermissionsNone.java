@@ -34,7 +34,7 @@ package de.intarsys.pdf.crypt;
  */
 public final class AccessPermissionsNone implements IAccessPermissions {
 
-    final private static AccessPermissionsNone active = new AccessPermissionsNone();
+    private static final AccessPermissionsNone active = new AccessPermissionsNone();
 
     public static AccessPermissionsNone get() {
         return active;
@@ -49,7 +49,8 @@ public final class AccessPermissionsNone implements IAccessPermissions {
      *
      * @see de.intarsys.pdf.encryption.IAccessPermissions#mayAssemble()
      */
-    public final boolean mayAssemble() {
+    @Override
+    public boolean mayAssemble() {
         return false;
     }
 
@@ -58,7 +59,8 @@ public final class AccessPermissionsNone implements IAccessPermissions {
      *
      * @see de.intarsys.pdf.encryption.IAccessPermissions#mayCopy()
      */
-    public final boolean mayCopy() {
+    @Override
+    public boolean mayCopy() {
         return false;
     }
 
@@ -67,7 +69,8 @@ public final class AccessPermissionsNone implements IAccessPermissions {
      *
      * @see de.intarsys.pdf.encryption.IAccessPermissions#mayExtract()
      */
-    public final boolean mayExtract() {
+    @Override
+    public boolean mayExtract() {
         return false;
     }
 
@@ -76,7 +79,8 @@ public final class AccessPermissionsNone implements IAccessPermissions {
      *
      * @see de.intarsys.pdf.encryption.IAccessPermissions#mayFillForm()
      */
-    public final boolean mayFillForm() {
+    @Override
+    public boolean mayFillForm() {
         return false;
     }
 
@@ -85,7 +89,8 @@ public final class AccessPermissionsNone implements IAccessPermissions {
      *
      * @see de.intarsys.pdf.encryption.IAccessPermissions#mayModify()
      */
-    public final boolean mayModify() {
+    @Override
+    public boolean mayModify() {
         return false;
     }
 
@@ -94,7 +99,8 @@ public final class AccessPermissionsNone implements IAccessPermissions {
      *
      * @see de.intarsys.pdf.encryption.IAccessPermissions#mayModifyAnnotation()
      */
-    public final boolean mayModifyAnnotation() {
+    @Override
+    public boolean mayModifyAnnotation() {
         return false;
     }
 
@@ -103,7 +109,8 @@ public final class AccessPermissionsNone implements IAccessPermissions {
      *
      * @see de.intarsys.pdf.encryption.IAccessPermissions#mayPrint()
      */
-    public final boolean mayPrint() {
+    @Override
+    public boolean mayPrint() {
         return false;
     }
 
@@ -112,7 +119,8 @@ public final class AccessPermissionsNone implements IAccessPermissions {
      *
      * @see de.intarsys.pdf.encryption.IAccessPermissions#mayPrintHighQuality()
      */
-    public final boolean mayPrintHighQuality() {
+    @Override
+    public boolean mayPrintHighQuality() {
         return false;
     }
 }

@@ -257,11 +257,11 @@ public class PDResources extends PDObject {
     protected COSName createResourceName(COSName resourceType) {
         Integer count = (Integer) currentCounters.get(resourceType);
         if (count == null) {
-            count = new Integer(0);
+            count = Integer.valueOf(0);
         }
         String prefix = (String) resourceNamePrefixes.get(resourceType);
         while (true) {
-            count = new Integer(count.intValue() + 1);
+            count = Integer.valueOf(count.intValue() + 1);
             COSName newName = COSName.create((prefix + count).getBytes());
             COSObject object = cosGetResource(resourceType, newName);
             if (object.isNull()) {

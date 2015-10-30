@@ -15,7 +15,7 @@ import de.intarsys.pdf.pd.PDXObject;
  * <p>
  * This optional interface can signal to the interpreter that it is not
  * interested in some of the arguments in the {@link ICSDevice} callback. Only
- * the arguments are replaced with <code>null</code>, the callback itself is
+ * the arguments are replaced with {@code null}, the callback itself is
  * performed to support lightweight implementations that for example only rely
  * on the object name.
  * <p>
@@ -27,74 +27,74 @@ import de.intarsys.pdf.pd.PDXObject;
 public interface ICSDeviceFeatures {
 
     /**
-     * <code>true</code> if this device supports (needs) {@link PDColorSpace}
+     * {@code true} if this device supports (needs) {@link PDColorSpace}
      * objects to be reported in its callbacks.
      *
-     * @return <code>true</code> if this device supports (needs)
+     * @return {@code true} if this device supports (needs)
      * {@link PDColorSpace} objects to be reported in its callbacks.
      */
-    public boolean supportsColorSpace();
+    boolean supportsColorSpace();
 
     /**
-     * <code>true</code> if this device supports (needs) {@link PDExtGState}
+     * {@code true} if this device supports (needs) {@link PDExtGState}
      * objects to be reported in its callbacks.
      *
-     * @return <code>true</code> if this device supports (needs)
+     * @return {@code true} if this device supports (needs)
      * {@link PDExtGState} objects to be reported in its callbacks.
      */
-    public boolean supportsExtendedState();
+    boolean supportsExtendedState();
 
     /**
-     * <code>true</code> if this device supports (needs) {@link PDFont} objects
+     * {@code true} if this device supports (needs) {@link PDFont} objects
      * to be reported in its callbacks.
      *
-     * @return <code>true</code> if this device supports (needs) {@link PDFont}
+     * @return {@code true} if this device supports (needs) {@link PDFont}
      * objects to be reported in its callbacks.
      */
-    public boolean supportsFont();
+    boolean supportsFont();
 
     /**
-     * <code>true</code> if this device supports (needs) {@link PDImage} objects
+     * {@code true} if this device supports (needs) {@link PDImage} objects
      * to be reported in its "inlineImage" callbacks.
      *
-     * @return <code>true</code> if this device supports (needs) {@link PDImage}
+     * @return {@code true} if this device supports (needs) {@link PDImage}
      * objects to be reported in its callbacks.
      */
-    public boolean supportsInlineImage();
+    boolean supportsInlineImage();
 
     /**
-     * <code>true</code> if this device supports (needs) {@link PDPattern}
+     * {@code true} if this device supports (needs) {@link PDPattern}
      * objects to be reported in its callbacks.
      *
-     * @return <code>true</code> if this device supports (needs)
+     * @return {@code true} if this device supports (needs)
      * {@link PDPattern} objects to be reported in its callbacks.
      */
-    public boolean supportsPattern();
+    boolean supportsPattern();
 
     /**
-     * <code>true</code> if this device supports (needs) properties to be
+     * {@code true} if this device supports (needs) properties to be
      * reported in its callbacks.
      *
-     * @return <code>true</code> if this device supports (needs) properties to
+     * @return {@code true} if this device supports (needs) properties to
      * be reported in its callbacks.
      */
-    public boolean supportsProperties();
+    boolean supportsProperties();
 
     /**
-     * <code>true</code> if this device supports (needs) {@link PDShading}
+     * {@code true} if this device supports (needs) {@link PDShading}
      * objects to be reported in its callbacks.
      *
-     * @return <code>true</code> if this device supports (needs)
+     * @return {@code true} if this device supports (needs)
      * {@link PDShading} objects to be reported in its callbacks.
      */
-    public boolean supportsShading();
+    boolean supportsShading();
 
     /**
-     * <code>true</code> if this device supports (needs) {@link PDXObject}
+     * {@code true} if this device supports (needs) {@link PDXObject}
      * objects to be reported in its callbacks.
      *
-     * @return <code>true</code> if this device supports (needs)
+     * @return {@code true} if this device supports (needs)
      * {@link PDXObject} objects to be reported in its callbacks.
      */
-    public boolean supportsXObject();
+    boolean supportsXObject();
 }

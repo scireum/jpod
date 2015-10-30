@@ -40,7 +40,7 @@ public interface IAccessPermissions {
      *
      * @return if the document may be assembled
      */
-    public abstract boolean mayAssemble();
+    boolean mayAssemble();
 
     /**
      * Copy or otherwise extract text and graphics from the document in support
@@ -48,7 +48,7 @@ public interface IAccessPermissions {
      *
      * @return if parts of the document may be copied
      */
-    public abstract boolean mayCopy();
+    boolean mayCopy();
 
     /**
      * Extract text and graphics (in support of accessibility to disabled users
@@ -56,14 +56,14 @@ public interface IAccessPermissions {
      *
      * @return if parts of the document may be extracted
      */
-    public abstract boolean mayExtract();
+    boolean mayExtract();
 
     /**
      * Fill in existing interactive form fields (including signature fields)
      *
      * @return if form fields may be filled
      */
-    public abstract boolean mayFillForm();
+    boolean mayFillForm();
 
     /**
      * Modify the contents of the document by operations other than those
@@ -71,7 +71,7 @@ public interface IAccessPermissions {
      *
      * @return if document may be modified
      */
-    public abstract boolean mayModify();
+    boolean mayModify();
 
     /**
      * Add or modify text annotations, fill in interactice form fields, and if
@@ -80,14 +80,14 @@ public interface IAccessPermissions {
      *
      * @return if annotations may be modified
      */
-    public abstract boolean mayModifyAnnotation();
+    boolean mayModifyAnnotation();
 
     /**
      * Print the document
      *
      * @return if the document may be printed
      */
-    public abstract boolean mayPrint();
+    boolean mayPrint();
 
     /**
      * Print the document to a representation from which a faithful digital copy
@@ -97,5 +97,5 @@ public interface IAccessPermissions {
      *
      * @return if the document may be high quality printed
      */
-    public abstract boolean mayPrintHighQuality();
+    boolean mayPrintHighQuality();
 }

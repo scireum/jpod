@@ -32,6 +32,6 @@ package de.intarsys.pdf.crypt;
 /**
  * Abstract superclass for implementing {@link ICryptHandler}.
  */
-abstract public class AbstractCryptHandler implements ICryptHandler {
+public abstract class AbstractCryptHandler implements ICryptHandler {
 
 }

@@ -63,7 +63,7 @@ public class PDAFButtonField extends PDAcroFormField {
      */
     public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static public final COSName DK_Opt = COSName.constant("Opt");
+    public static final COSName DK_Opt = COSName.constant("Opt");
 
     protected PDAFButtonField(COSObject object) {
         super(object);
@@ -179,9 +179,9 @@ public class PDAFButtonField extends PDAcroFormField {
     }
 
     /**
-     * <code>true</code> if this is checked.
+     * {@code true} if this is checked.
      *
-     * @return <code>true</code> if this is checked.
+     * @return {@code true} if this is checked.
      */
     public boolean isChecked() {
         if (isCheckbox()) {
@@ -191,18 +191,18 @@ public class PDAFButtonField extends PDAcroFormField {
     }
 
     /**
-     * <code>true</code> if this is a pushbutton.
+     * {@code true} if this is a pushbutton.
      *
-     * @return <code>true</code> if this is a pushbutton.
+     * @return {@code true} if this is a pushbutton.
      */
     public boolean isPushbutton() {
         return getFieldFlags().isPushbutton();
     }
 
     /**
-     * <code>true</code> if this is a radio button.
+     * {@code true} if this is a radio button.
      *
-     * @return <code>true</code> if this is a radio button.
+     * @return {@code true} if this is a radio button.
      */
     public boolean isRadio() {
         return getFieldFlags().isRadio();
@@ -255,7 +255,7 @@ public class PDAFButtonField extends PDAcroFormField {
             state = offState;
             value = value.toLowerCase().trim();
             // todo 3 provide property "true" characters
-            if (value.equals("1") || value.startsWith("t") || // true
+            if ("1".equals(value) || value.startsWith("t") || // true
                 value.startsWith("y") || // yes
                 value.startsWith("w") || // wahr
                 value.startsWith("j") || // ja

@@ -41,7 +41,7 @@ import de.intarsys.pdf.cos.COSObject;
  * {@link de.intarsys.pdf.cos.COSArray}.
  * </p>
  */
-abstract public class CDSBase extends COSBasedObject {
+public abstract class CDSBase extends COSBasedObject {
     protected CDSBase(COSObject object) {
         super(object);
     }

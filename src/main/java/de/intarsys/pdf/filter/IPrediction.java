@@ -35,5 +35,5 @@ import java.io.IOException;
  *
  */
 public interface IPrediction {
-    public byte[] decode(byte[] source) throws IOException;
+    byte[] decode(byte[] source) throws IOException;
 }

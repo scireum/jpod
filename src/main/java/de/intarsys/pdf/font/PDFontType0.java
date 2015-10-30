@@ -116,7 +116,7 @@ public class PDFontType0 extends PDFont {
      */
     public CIDFont getDescendantFont() {
         COSArray fonts = cosGetField(DK_DescendantFonts).asArray();
-        if ((fonts == null) || (fonts.size() == 0)) {
+        if ((fonts == null) || (fonts.isEmpty())) {
             return null;
         }
         COSObject font = fonts.get(0);
@@ -203,7 +203,7 @@ public class PDFontType0 extends PDFont {
             fonts = COSArray.create();
             cosSetField(DK_DescendantFonts, fonts);
         }
-        if (fonts.size() == 0) {
+        if (fonts.isEmpty()) {
             fonts.add(font.cosGetObject());
         } else {
             fonts.set(0, font.cosGetObject());

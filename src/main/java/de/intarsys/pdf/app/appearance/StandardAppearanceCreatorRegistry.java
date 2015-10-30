@@ -70,7 +70,8 @@ public class StandardAppearanceCreatorRegistry implements IAppearanceCreatorRegi
         return result.toArray(new IAppearanceCreator[result.size()]);
     }
 
-    synchronized public IAppearanceCreator[] getAppearanceCreators() {
+    @Override
+    public synchronized IAppearanceCreator[] getAppearanceCreators() {
         init();
         return instances.values().toArray(new IAppearanceCreator[instances.size()]);
     }
@@ -91,12 +92,14 @@ public class StandardAppearanceCreatorRegistry implements IAppearanceCreatorRegi
         return lookupProviders;
     }
 
-    synchronized public IAppearanceCreator lookupAppearanceCreator(COSName type) {
+    @Override
+    public synchronized IAppearanceCreator lookupAppearanceCreator(COSName type) {
         init();
         return instances.get(type);
     }
 
-    synchronized public void registerAppearanceCreator(IAppearanceCreator creator) {
+    @Override
+    public synchronized void registerAppearanceCreator(IAppearanceCreator creator) {
         instances.put(creator.getAnnotationType(), creator);
     }
 
@@ -104,7 +107,8 @@ public class StandardAppearanceCreatorRegistry implements IAppearanceCreatorRegi
         this.lookupProviders = lookupProviders;
     }
 
-    synchronized public void unregisterAppearanceCreator(IAppearanceCreator creator) {
+    @Override
+    public synchronized void unregisterAppearanceCreator(IAppearanceCreator creator) {
         instances.remove(creator.getAnnotationType());
     }
 }

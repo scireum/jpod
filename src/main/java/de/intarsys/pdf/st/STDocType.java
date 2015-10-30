@@ -63,6 +63,7 @@ public class STDocType {
         this.typeName = typeName;
     }
 
+    @Override
     public String toString() {
         return getTypeName() + "-" + getVersion(); //$NON-NLS-1$
     }

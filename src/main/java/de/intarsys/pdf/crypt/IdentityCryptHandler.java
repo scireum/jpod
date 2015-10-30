@@ -42,6 +42,7 @@ public class IdentityCryptHandler extends AbstractCryptHandler {
      * @see de.intarsys.pdf.crypt.ICryptHandler#decrypt(de.intarsys.pdf.cos.COSObjectKey,
      *      byte[])
      */
+    @Override
     public byte[] decrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         return bytes;
     }
@@ -52,6 +53,7 @@ public class IdentityCryptHandler extends AbstractCryptHandler {
      * @see de.intarsys.pdf.crypt.ICryptHandler#encrypt(de.intarsys.pdf.cos.COSObjectKey,
      *      byte[])
      */
+    @Override
     public byte[] encrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         return bytes;
     }

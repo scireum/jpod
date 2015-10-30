@@ -35,11 +35,14 @@ package de.intarsys.pdf.filter;
 public class FilterFactory {
     private static IFilterFactory ACTIVE = new StandardFilterFactory();
 
-    static public IFilterFactory get() {
+    private FilterFactory() {
+    }
+
+    public static IFilterFactory get() {
         return ACTIVE;
     }
 
-    static public void set(IFilterFactory factory) {
+    public static void set(IFilterFactory factory) {
         ACTIVE = factory;
     }
 }

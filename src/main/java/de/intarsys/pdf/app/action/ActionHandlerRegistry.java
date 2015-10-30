@@ -38,6 +38,9 @@ public class ActionHandlerRegistry {
      */
     private static IActionHandlerRegistry Active = new StandardActionHandlerRegistry();
 
+    private ActionHandlerRegistry() {
+    }
+
     /**
      * Set the active {@link IActionHandlerRegistry} for the VM.
      *

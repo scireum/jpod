@@ -98,17 +98,16 @@ public class CSContentParser extends PDFParser {
             case 's':
                 if (token.length == 1) {
                     return true;
-                } else {
-                    switch (token[1]) {
-                        case 'c':
-                            if (token.length == 2) {
-                                return true;
-                            } else {
-                                return token.length == 3;
-                            }
-                        case 'h':
-                            return token.length == 2;
-                    }
+                }
+                switch (token[1]) {
+                    case 'c':
+                        if (token.length == 2) {
+                            return true;
+                        } else {
+                            return token.length == 3;
+                        }
+                    case 'h':
+                        return token.length == 2;
                 }
                 break;
             case 'g':
@@ -142,21 +141,20 @@ public class CSContentParser extends PDFParser {
             case 'B':
                 if (token.length == 1) {
                     return true;
-                } else {
-                    switch (token[1]) {
-                        case '*':
-                            return token.length == 2;
-                        case 'T':
-                            return token.length == 2;
-                        case 'M':
-                            return token.length == 3;
-                        case 'D':
-                            return token.length == 3;
-                        case 'I':
-                            return token.length == 2;
-                        case 'X':
-                            return token.length == 2;
-                    }
+                }
+                switch (token[1]) {
+                    case '*':
+                        return token.length == 2;
+                    case 'T':
+                        return token.length == 2;
+                    case 'M':
+                        return token.length == 3;
+                    case 'D':
+                        return token.length == 3;
+                    case 'I':
+                        return token.length == 2;
+                    case 'X':
+                        return token.length == 2;
                 }
                 break;
             case 'b':
@@ -187,13 +185,12 @@ public class CSContentParser extends PDFParser {
             case 'c':
                 if (token.length == 1) {
                     return true;
-                } else {
-                    switch (token[1]) {
-                        case 'm':
-                            return token.length == 2;
-                        case 's':
-                            return token.length == 2;
-                    }
+                }
+                switch (token[1]) {
+                    case 'm':
+                        return token.length == 2;
+                    case 's':
+                        return token.length == 2;
                 }
                 break;
             case 'E':
@@ -219,13 +216,12 @@ public class CSContentParser extends PDFParser {
             case 'd':
                 if (token.length == 1) {
                     return true;
-                } else {
-                    switch (token[1]) {
-                        case '0':
-                            return token.length == 2;
-                        case '1':
-                            return token.length == 2;
-                    }
+                }
+                switch (token[1]) {
+                    case '0':
+                        return token.length == 2;
+                    case '1':
+                        return token.length == 2;
                 }
                 break;
             case 'D':
@@ -271,13 +267,6 @@ public class CSContentParser extends PDFParser {
     private Object[] operands = new Object[10];
 
     private int size = 0;
-
-    /**
-     * create a COSDocumentParser
-     */
-    public CSContentParser() {
-        super();
-    }
 
     /*
      * (non-Javadoc)

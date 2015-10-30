@@ -59,6 +59,7 @@ public class StandardAuthenticationHandler implements IAuthenticationHandler {
      *
      * @see de.intarsys.pdf.crypt.IAuthenticationHandler#authenticate(de.intarsys.pdf.crypt.ISecurityHandler)
      */
+    @Override
     public void authenticate(ISecurityHandler securityHandler) throws COSSecurityException {
         if (!(securityHandler instanceof StandardSecurityHandler)) {
             throw new COSSecurityException("security handler not supported"); //$NON-NLS-1$
@@ -93,10 +94,7 @@ public class StandardAuthenticationHandler implements IAuthenticationHandler {
         if (standardSecurityHandler.authenticateOwner(bytes)) {
             return true;
         }
-        if (standardSecurityHandler.authenticateUser(bytes)) {
-            return true;
-        }
-        return false;
+        return standardSecurityHandler.authenticateUser(bytes);
     }
 
     protected void authenticate(StandardSecurityHandler standardSecurityHandler, IPasswordProvider passwordProvider)

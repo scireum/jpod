@@ -44,7 +44,7 @@ import java.util.logging.Logger;
  * For a specification see
  * http://www.adobe.com/devnet/opentype/archives/glyph.html
  */
-public class GlyphNameMap extends Object {
+public class GlyphNameMap {
     /**
      * The number of 1:1 mappings from unicode to code points.
      * <p>
@@ -52,13 +52,13 @@ public class GlyphNameMap extends Object {
      * This is done for the first 256 bytes to cache the most often used chars.
      * </p>
      */
-    static private final int ARRAY_MAPPING_SIZE = 256;
+    private static final int ARRAY_MAPPING_SIZE = 256;
 
-    static public final GlyphNameMap Standard = new GlyphNameMap();
+    public static final GlyphNameMap Standard = new GlyphNameMap();
 
-    static public final String GLYPH_NOTDEF = ".notdef"; //$NON-NLS-1$
+    public static final String GLYPH_NOTDEF = ".notdef"; //$NON-NLS-1$
 
-    static private Logger Log = LogTools.getLogger(GlyphNameMap.class);
+    private static Logger Log = LogTools.getLogger(GlyphNameMap.class);
 
     private static final String AdobeGlyphList = "AdobeGlyphList.txt";
 
@@ -91,8 +91,8 @@ public class GlyphNameMap extends Object {
      * @param unicode   The unicode code point.
      */
     protected void addEntry(String glyphName, int unicode) {
-        glyphNameToUnicode.put(glyphName, new Integer(unicode));
-        unicodeToGlyphName.put(new Integer(unicode), glyphName);
+        glyphNameToUnicode.put(glyphName, Integer.valueOf(unicode));
+        unicodeToGlyphName.put(Integer.valueOf(unicode), glyphName);
         if ((unicode >= 0) && (unicode < ARRAY_MAPPING_SIZE)) {
             asciiToGlyphName[unicode] = glyphName;
         }
@@ -109,7 +109,7 @@ public class GlyphNameMap extends Object {
         if ((unicode >= 0) && (unicode < ARRAY_MAPPING_SIZE)) {
             return asciiToGlyphName[unicode];
         } else {
-            String glyphName = (String) unicodeToGlyphName.get(new Integer(unicode));
+            String glyphName = (String) unicodeToGlyphName.get(Integer.valueOf(unicode));
             if (glyphName == null) {
                 return GLYPH_NOTDEF;
             } else {
@@ -171,7 +171,7 @@ public class GlyphNameMap extends Object {
         InputStream is = getClass().getResourceAsStream(AdobeGlyphList);
         try {
             load(is);
-        } catch (IOException e) {
+        } catch (IOException ignored) {
             Log.log(Level.WARNING, "error loading Adobe glyph list");
         }
     }

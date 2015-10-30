@@ -47,7 +47,7 @@ public class PDAdditionalActions extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -58,61 +58,61 @@ public class PDAdditionalActions extends PDObject {
         }
     }
 
-    static public final COSName CN_trigger_E = COSName.constant("E");
+    public static final COSName CN_trigger_E = COSName.constant("E");
 
-    static public final COSName CN_trigger_X = COSName.constant("X");
+    public static final COSName CN_trigger_X = COSName.constant("X");
 
-    static public final COSName CN_trigger_D = COSName.constant("D");
+    public static final COSName CN_trigger_D = COSName.constant("D");
 
-    static public final COSName CN_trigger_U = COSName.constant("U");
+    public static final COSName CN_trigger_U = COSName.constant("U");
 
-    static public final COSName CN_trigger_Fo = COSName.constant("Fo");
+    public static final COSName CN_trigger_Fo = COSName.constant("Fo");
 
-    static public final COSName CN_trigger_Bl = COSName.constant("Bl");
+    public static final COSName CN_trigger_Bl = COSName.constant("Bl");
 
-    static public final COSName CN_trigger_PO = COSName.constant("PO");
+    public static final COSName CN_trigger_PO = COSName.constant("PO");
 
-    static public final COSName CN_trigger_PC = COSName.constant("PC");
+    public static final COSName CN_trigger_PC = COSName.constant("PC");
 
-    static public final COSName CN_trigger_PV = COSName.constant("PV");
+    public static final COSName CN_trigger_PV = COSName.constant("PV");
 
-    static public final COSName CN_trigger_PI = COSName.constant("PI");
+    public static final COSName CN_trigger_PI = COSName.constant("PI");
 
-    static public final COSName CN_trigger_O = COSName.constant("O");
+    public static final COSName CN_trigger_O = COSName.constant("O");
 
-    static public final COSName CN_trigger_K = COSName.constant("K");
+    public static final COSName CN_trigger_K = COSName.constant("K");
 
-    static public final COSName CN_trigger_F = COSName.constant("F");
+    public static final COSName CN_trigger_F = COSName.constant("F");
 
-    static public final COSName CN_trigger_V = COSName.constant("V");
+    public static final COSName CN_trigger_V = COSName.constant("V");
 
-    static public final COSName CN_trigger_C = COSName.constant("C");
+    public static final COSName CN_trigger_C = COSName.constant("C");
 
-    static public final COSName CN_trigger_DC = COSName.constant("DC");
+    public static final COSName CN_trigger_DC = COSName.constant("DC");
 
     /**
      * WC is the same as DC - not specified, but used by acrobat
      */
-    static public final COSName CN_trigger_WC = COSName.constant("WC");
+    public static final COSName CN_trigger_WC = COSName.constant("WC");
 
-    static public final COSName CN_trigger_WS = COSName.constant("WS");
+    public static final COSName CN_trigger_WS = COSName.constant("WS");
 
-    static public final COSName CN_trigger_DS = COSName.constant("DS");
+    public static final COSName CN_trigger_DS = COSName.constant("DS");
 
-    static public final COSName CN_trigger_WP = COSName.constant("WP");
+    public static final COSName CN_trigger_WP = COSName.constant("WP");
 
-    static public final COSName CN_trigger_DP = COSName.constant("DP");
+    public static final COSName CN_trigger_DP = COSName.constant("DP");
 
-    static private Map reasonToName = new HashMap();
+    private static Map reasonToName = new HashMap();
 
-    static private Map reasonToType = new HashMap();
+    private static Map reasonToType = new HashMap();
 
-    static public final COSName CN_T_Mouse_Down = CN_trigger_D;
+    public static final COSName CN_T_Mouse_Down = CN_trigger_D;
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     static {
         reasonToName.put(CN_trigger_K, "Keystroke");
@@ -148,7 +148,7 @@ public class PDAdditionalActions extends PDObject {
         reasonToType.put(CN_trigger_DS, "Doc");
     }
 
-    static public String getEventName(COSName reason) {
+    public static String getEventName(COSName reason) {
         String result = (String) reasonToName.get(reason);
         if (result == null) {
             return "";
@@ -156,7 +156,7 @@ public class PDAdditionalActions extends PDObject {
         return result;
     }
 
-    static public String getEventType(COSName reason) {
+    public static String getEventType(COSName reason) {
         String result = (String) reasonToType.get(reason);
         if (result == null) {
             return "";

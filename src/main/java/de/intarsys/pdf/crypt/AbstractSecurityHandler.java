@@ -48,6 +48,7 @@ public abstract class AbstractSecurityHandler implements ISecurityHandler {
         super();
     }
 
+    @Override
     public void attach(STDocument stDoc) {
         if (stDoc == null) {
             return;
@@ -61,6 +62,7 @@ public abstract class AbstractSecurityHandler implements ISecurityHandler {
         return cosEncryption;
     }
 
+    @Override
     public void detach(STDocument stDoc) throws COSSecurityException {
         this.stDoc = null;
     }
@@ -69,12 +71,14 @@ public abstract class AbstractSecurityHandler implements ISecurityHandler {
         return encryption;
     }
 
+    @Override
     public void initialize(STDocument stDoc) {
         this.stDoc = stDoc;
         cosEncryption = stDoc.cosGetTrailer().get(COSTrailer.DK_Encrypt).asDictionary();
         encryption = (COSEncryption) COSEncryption.META.createFromCos(cosEncryption);
     }
 
+    @Override
     public STDocument stGetDoc() {
         return stDoc;
     }

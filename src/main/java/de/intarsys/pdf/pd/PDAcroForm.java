@@ -47,7 +47,7 @@ public class PDAcroForm extends PDAcroFormNode {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDAcroFormNode.MetaClass {
+    public static class MetaClass extends PDAcroFormNode.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -69,12 +69,12 @@ public class PDAcroForm extends PDAcroFormNode {
     /**
      * The name of the fields entry.
      */
-    static public final COSName DK_Fields = COSName.constant("Fields"); // //$NON-NLS-1$
+    public static final COSName DK_Fields = COSName.constant("Fields"); // //$NON-NLS-1$
 
     /**
      * The name of the NeedApperances entry.
      */
-    static public final COSName DK_NeedAppearances = COSName.constant("NeedAppearances"); // //$NON-NLS-1$
+    public static final COSName DK_NeedAppearances = COSName.constant("NeedAppearances"); // //$NON-NLS-1$
 
     /**
      * The name of the SignatureFlags entry.
@@ -84,22 +84,22 @@ public class PDAcroForm extends PDAcroFormNode {
      *
      * @see de.intarsys.pdf.pd.AcroFormSigFlags
      */
-    static public final COSName DK_SigFlags = COSName.constant("SigFlags"); //$NON-NLS-1$
+    public static final COSName DK_SigFlags = COSName.constant("SigFlags"); //$NON-NLS-1$
 
     /**
      * The name of the CalculationOrder entry.
      */
-    static public final COSName DK_CO = COSName.constant("CO"); //$NON-NLS-1$
+    public static final COSName DK_CO = COSName.constant("CO"); //$NON-NLS-1$
 
     /**
      * The name of the XFAResources entry.
      */
-    static public final COSName DK_XFA = COSName.constant("XFA"); // //$NON-NLS-1$
+    public static final COSName DK_XFA = COSName.constant("XFA"); // //$NON-NLS-1$
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     private AcroFormSigFlags sigFlags;
 
@@ -135,7 +135,7 @@ public class PDAcroForm extends PDAcroFormNode {
             fieldsChecked = true;
             // reconstruct form fields if there is an empty fields array
             COSArray fields = cosGetField(DK_Fields).asArray();
-            if ((fields != null) && (fields.size() == 0)) {
+            if ((fields != null) && (fields.isEmpty())) {
                 COSArray cosFields = reconstruct(getDoc());
                 cosGetDict().basicPutSilent(DK_Fields, cosFields);
             }
@@ -230,9 +230,9 @@ public class PDAcroForm extends PDAcroFormNode {
     }
 
     /**
-     * <code>true</code> if /NeedAppearances is set for this form.
+     * {@code true} if /NeedAppearances is set for this form.
      *
-     * @return <code>true</code> if /NeedAppearances is set for this form.
+     * @return {@code true} if /NeedAppearances is set for this form.
      */
     public boolean getNeedAppearances() {
         return getFieldBoolean(DK_NeedAppearances, false);
@@ -266,11 +266,11 @@ public class PDAcroForm extends PDAcroFormNode {
     }
 
     /**
-     * <code>true</code> if this form has a signature field. This is NOT the
+     * {@code true} if this form has a signature field. This is NOT the
      * same as the flag in the SigFlags entry but may be used to compute this
      * entry.
      *
-     * @return <code>true</code> if this form has a signature field.
+     * @return {@code true} if this form has a signature field.
      */
     public boolean isSignatureExists() {
         for (Iterator i = collectLeafFields().iterator(); i.hasNext(); ) {
@@ -283,9 +283,9 @@ public class PDAcroForm extends PDAcroFormNode {
     }
 
     /**
-     * <code>true</code> if this form has a signed signature field.
+     * {@code true} if this form has a signed signature field.
      *
-     * @return <code>true</code> if this form has a signed signature field.
+     * @return {@code true} if this form has a signed signature field.
      */
     public boolean isSigned() {
         for (Iterator i = collectLeafFields().iterator(); i.hasNext(); ) {
@@ -382,7 +382,7 @@ public class PDAcroForm extends PDAcroFormNode {
     }
 
     /**
-     * Set the /NeedAppearances field for the form. When <code>true</code>, a
+     * Set the /NeedAppearances field for the form. When {@code true}, a
      * viewer application is required to re-create the visual appearances for
      * the fields.
      *

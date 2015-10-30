@@ -41,7 +41,7 @@ import java.util.Arrays;
  */
 public class CSOperator {
 
-    static public CSOperator create(String name) {
+    public static CSOperator create(String name) {
         char[] chars = name.toCharArray();
         byte[] bytes = new byte[chars.length];
         for (int i = 0; i < chars.length; i++) {

@@ -34,22 +34,27 @@ import de.intarsys.pdf.font.PDFontType1;
 
 public class NullFontFactory implements IFontFactory {
 
+    @Override
     public PDFont getBoldFlavor(PDFont font) {
         return font;
     }
 
+    @Override
     public PDFont getFont(IFontQuery query) {
         return PDFontType1.createNew(PDFontType1.FONT_Helvetica);
     }
 
+    @Override
     public PDFont getItalicFlavor(PDFont font) {
         return font;
     }
 
+    @Override
     public PDFont getRegularFlavor(PDFont font) {
         return font;
     }
 
+    @Override
     public void registerFont(PDFont font) {
         //
     }

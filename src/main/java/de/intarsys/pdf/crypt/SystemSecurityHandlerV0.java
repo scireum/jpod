@@ -41,26 +41,32 @@ public class SystemSecurityHandlerV0 extends SystemSecurityHandler {
         super(dict);
     }
 
+    @Override
     public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         throw new COSSecurityException("unsupported security version 0");
     }
 
+    @Override
     public byte[] decryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         throw new COSSecurityException("unsupported security version 0");
     }
 
+    @Override
     public byte[] decryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         throw new COSSecurityException("unsupported security version 0");
     }
 
+    @Override
     public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         throw new COSSecurityException("unsupported security version 0");
     }
 
+    @Override
     public byte[] encryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
         throw new COSSecurityException("unsupported security version 0");
     }
 
+    @Override
     public byte[] encryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
         throw new COSSecurityException("unsupported security version 0");
     }

@@ -41,7 +41,7 @@ public class PDInterpolationFunction extends PDFunction {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFunction.MetaClass {
+    public static class MetaClass extends PDFunction.MetaClass {
         protected MetaClass(Class paramInstanceClass) {
             super(paramInstanceClass);
         }

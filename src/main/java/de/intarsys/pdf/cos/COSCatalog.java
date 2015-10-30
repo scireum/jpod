@@ -36,7 +36,7 @@ public class COSCatalog extends COSBasedObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends COSBasedObject.MetaClass {
+	public static class MetaClass extends COSBasedObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -51,21 +51,21 @@ public class COSCatalog extends COSBasedObject {
 
     public static final COSName DK_Collection = COSName.constant("Collection"); //$NON-NLS-1$
 
-    static public final COSName DK_Dests = COSName.constant("Dests"); //$NON-NLS-1$
+    public static final COSName DK_Dests = COSName.constant("Dests"); //$NON-NLS-1$
 
-    static public final COSName DK_EmbeddedFiles = COSName.constant("EmbeddedFiles"); //$NON-NLS-1$
+    public static final COSName DK_EmbeddedFiles = COSName.constant("EmbeddedFiles"); //$NON-NLS-1$
 
-    static public final COSName DK_JavaScript = COSName.constant("JavaScript"); //$NON-NLS-1$
+    public static final COSName DK_JavaScript = COSName.constant("JavaScript"); //$NON-NLS-1$
 
     public static final COSName DK_FDF = COSName.constant("FDF"); //$NON-NLS-1$
 
-    static public final COSName DK_Names = COSName.constant("Names"); //$NON-NLS-1$
+    public static final COSName DK_Names = COSName.constant("Names"); //$NON-NLS-1$
 
-    static public final COSName DK_MarkInfo = COSName.constant("MarkInfo"); //$NON-NLS-1$
+    public static final COSName DK_MarkInfo = COSName.constant("MarkInfo"); //$NON-NLS-1$
 
-    static public final COSName DK_OpenAction = COSName.constant("OpenAction"); //$NON-NLS-1$
+    public static final COSName DK_OpenAction = COSName.constant("OpenAction"); //$NON-NLS-1$
 
-    static public final COSName DK_Outlines = COSName.constant("Outlines"); //$NON-NLS-1$
+    public static final COSName DK_Outlines = COSName.constant("Outlines"); //$NON-NLS-1$
 
     public static final COSName DK_Sig = COSName.constant("Sig"); //$NON-NLS-1$
 
@@ -93,29 +93,29 @@ public class COSCatalog extends COSBasedObject {
 
     public static final COSName DK_OutputIntents = COSName.constant("OutputIntents"); //$NON-NLS-1$
 
-    static public final COSName DK_PageMode = COSName.constant("PageMode"); //$NON-NLS-1$
+    public static final COSName DK_PageMode = COSName.constant("PageMode"); //$NON-NLS-1$
 
     public static final COSName DK_Pages = COSName.constant("Pages"); //$NON-NLS-1$
 
     public static final COSName DK_PieceInfo = COSName.constant("PieceInfo"); //$NON-NLS-1$
 
-    static public final COSName CN_Type_Catalog = COSName.constant("Catalog"); //$NON-NLS-1$
+    public static final COSName CN_Type_Catalog = COSName.constant("Catalog"); //$NON-NLS-1$
 
     public static final COSName DK_URI = COSName.constant("URI"); //$NON-NLS-1$
 
-    static public final COSName DK_Version = COSName.constant("Version"); //$NON-NLS-1$
+    public static final COSName DK_Version = COSName.constant("Version"); //$NON-NLS-1$
 
     public static final COSName DK_OCProperties = COSName.constant("OCProperties"); //$NON-NLS-1$
 
     /**
      * Well known attribute names
      */
-    static public final COSName CN_Version_1_4 = COSName.constant("1.4"); //$NON-NLS-1$
+	public static final COSName CN_Version_1_4 = COSName.constant("1.4"); //$NON-NLS-1$
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+	public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected COSCatalog(COSObject object) {
         super(object);

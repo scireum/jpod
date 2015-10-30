@@ -32,22 +32,22 @@ package de.intarsys.pdf.parser;
 /**
  * An exceptional condition when parsing a PDF data stream.
  */
-abstract public class COSLoadException extends Exception {
+public abstract class COSLoadException extends Exception {
     private Object hint;
 
-    public COSLoadException(String message) {
+    protected COSLoadException(String message) {
         super(message);
     }
 
-    public COSLoadException(String message, Throwable cause) {
+    protected COSLoadException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public COSLoadException() {
+    protected COSLoadException() {
         super();
     }
 
-    public COSLoadException(Throwable cause) {
+    protected COSLoadException(Throwable cause) {
         super(cause);
     }
 

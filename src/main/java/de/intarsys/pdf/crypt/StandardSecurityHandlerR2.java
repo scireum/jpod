@@ -45,10 +45,6 @@ public class StandardSecurityHandlerR2 extends StandardSecurityHandler {
 
     public static final String CIPHER_ALGORITHM = "RC4"; //$NON-NLS-1$
 
-    public StandardSecurityHandlerR2() {
-        super();
-    }
-
     @Override
     public boolean authenticateOwner(byte[] owner) throws COSSecurityException {
         try {
@@ -146,8 +142,7 @@ public class StandardSecurityHandlerR2 extends StandardSecurityHandler {
             byte[] preparedUser = prepareBytes(user);
             Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, skeySpec);
-            byte[] encrypted = cipher.doFinal(preparedUser);
-            return encrypted;
+            return cipher.doFinal(preparedUser);
         } catch (Exception e) {
             throw new COSSecurityException(e);
         }
@@ -160,8 +155,7 @@ public class StandardSecurityHandlerR2 extends StandardSecurityHandler {
             SecretKey skeySpec = new SecretKeySpec(encryptionKey, KEY_ALGORITHM);
             Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-            byte[] encrypted = cipher.doFinal(PADDING);
-            return encrypted;
+            return cipher.doFinal(PADDING);
         } catch (Exception e) {
             throw new COSSecurityException(e);
         }

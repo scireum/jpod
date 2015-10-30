@@ -35,6 +35,9 @@ package de.intarsys.pdf.cos;
 public class COSDocumentFactory {
     private static ICOSDocumentFactory ACTIVE = new StandardDocumentFactory();
 
+    private COSDocumentFactory() {
+    }
+
     public static ICOSDocumentFactory get() {
         return ACTIVE;
     }

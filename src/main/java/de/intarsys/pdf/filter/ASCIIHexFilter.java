@@ -46,10 +46,12 @@ public class ASCIIHexFilter extends StreamBasedFilter {
         super(options);
     }
 
+    @Override
     protected InputStream createInputFilterStream(InputStream is) throws IOException {
         return new ASCIIHexInputStream(is);
     }
 
+    @Override
     protected OutputStream createOutputFilterStream(OutputStream os) throws IOException {
         return new ASCIIHexOutputStream(os);
     }

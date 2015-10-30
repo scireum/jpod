@@ -38,11 +38,14 @@ import java.util.Iterator;
  */
 public class FontOutlet {
 
-    static private boolean lookupProviders = true;
+    private static boolean lookupProviders = true;
 
     private static IFontOutlet Unique;
 
-    static protected IFontOutlet findProviders() {
+    private FontOutlet() {
+    }
+
+    protected static IFontOutlet findProviders() {
         Iterator<IFontOutlet> ps = ProviderTools.providers(IFontOutlet.class);
         while (ps.hasNext()) {
             try {
@@ -59,14 +62,14 @@ public class FontOutlet {
      *
      * @return The {@link IFontOutlet} singleton.
      */
-    static public IFontOutlet get() {
+    public static IFontOutlet get() {
         if (Unique == null) {
             init();
         }
         return Unique;
     }
 
-    static protected void init() {
+    protected static void init() {
         if (lookupProviders) {
             Unique = findProviders();
         }
@@ -84,7 +87,7 @@ public class FontOutlet {
      *
      * @param outlet The {@link IFontOutlet} singleton.
      */
-    static public void set(IFontOutlet outlet) {
+    public static void set(IFontOutlet outlet) {
         Unique = outlet;
     }
 

@@ -41,53 +41,55 @@ public class PDAppearanceCharacteristics extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDAppearanceCharacteristics(object);
         }
 
+        @Override
         protected boolean isIndirect() {
             return false;
         }
     }
 
-    static public final COSName DK_AC = COSName.constant("AC"); //$NON-NLS-1$
+    public static final COSName DK_AC = COSName.constant("AC"); //$NON-NLS-1$
 
-    static public final COSName DK_BC = COSName.constant("BC"); //$NON-NLS-1$
+    public static final COSName DK_BC = COSName.constant("BC"); //$NON-NLS-1$
 
-    static public final COSName DK_BG = COSName.constant("BG"); //$NON-NLS-1$
+    public static final COSName DK_BG = COSName.constant("BG"); //$NON-NLS-1$
 
-    static public final COSName DK_CA = COSName.constant("CA"); //$NON-NLS-1$
+    public static final COSName DK_CA = COSName.constant("CA"); //$NON-NLS-1$
 
-    static public final COSName DK_I = COSName.constant("I"); //$NON-NLS-1$
+    public static final COSName DK_I = COSName.constant("I"); //$NON-NLS-1$
 
-    static public final COSName DK_IF = COSName.constant("IF"); //$NON-NLS-1$
+    public static final COSName DK_IF = COSName.constant("IF"); //$NON-NLS-1$
 
-    static public final COSName DK_IX = COSName.constant("IX"); //$NON-NLS-1$
+    public static final COSName DK_IX = COSName.constant("IX"); //$NON-NLS-1$
 
-    static public final COSName DK_R = COSName.constant("R"); //$NON-NLS-1$
+    public static final COSName DK_R = COSName.constant("R"); //$NON-NLS-1$
 
-    static public final COSName DK_RC = COSName.constant("RC"); //$NON-NLS-1$
+    public static final COSName DK_RC = COSName.constant("RC"); //$NON-NLS-1$
 
-    static public final COSName DK_RI = COSName.constant("RI"); //$NON-NLS-1$
+    public static final COSName DK_RI = COSName.constant("RI"); //$NON-NLS-1$
 
-    static public final int TP_CAPTION_ONLY = 0;
+    public static final int TP_CAPTION_ONLY = 0;
 
-    static public final int TP_ICON_ONLY = 1;
+    public static final int TP_ICON_ONLY = 1;
 
-    static public final int TP_CAPTION_BELOW_ICON = 2;
+    public static final int TP_CAPTION_BELOW_ICON = 2;
 
-    static public final int TP_CAPTION_ABOVE_ICON = 3;
+    public static final int TP_CAPTION_ABOVE_ICON = 3;
 
-    static public final int TP_CAPTION_RIGHT_OF_ICON = 4;
+    public static final int TP_CAPTION_RIGHT_OF_ICON = 4;
 
-    static public final int TP_CAPTION_LEFT_OF_ICON = 5;
+    public static final int TP_CAPTION_LEFT_OF_ICON = 5;
 
-    static public final int TP_CAPTION_OVERLAIS_ICON = 6;
+    public static final int TP_CAPTION_OVERLAIS_ICON = 6;
 
     /**
      * The name for the caption entry.
@@ -104,12 +106,12 @@ public class PDAppearanceCharacteristics extends PDObject {
      * <li>6: Caption overlaid directly on the icon
      * </ul>
      */
-    static public final COSName DK_TP = COSName.constant("TP"); //$NON-NLS-1$
+    public static final COSName DK_TP = COSName.constant("TP"); //$NON-NLS-1$
 
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected PDAppearanceCharacteristics(COSObject object) {
         super(object);

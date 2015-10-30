@@ -122,7 +122,7 @@ public abstract class PDOutlineNode extends PDObject {
     /**
      * Collapse this node (mark the children invisible).
      *
-     * @return <code>true </code> if the expansion state of the node changes.
+     * @return {@code true } if the expansion state of the node changes.
      */
     public boolean collapse() {
         if (getCount() <= 0) {
@@ -138,7 +138,7 @@ public abstract class PDOutlineNode extends PDObject {
     /**
      * Expand this node (mark the children visible).
      *
-     * @return <code>true </code> if the expansion state of the node changes.
+     * @return {@code true } if the expansion state of the node changes.
      */
     public boolean expand() {
         if (getCount() >= 0) {
@@ -198,9 +198,9 @@ public abstract class PDOutlineNode extends PDObject {
     }
 
     /**
-     * <code>true</code> if this is the outline (root element) itself.
+     * {@code true} if this is the outline (root element) itself.
      *
-     * @return <code>true</code> if this is the outline (root element) itself.
+     * @return {@code true} if this is the outline (root element) itself.
      */
     public boolean isOutline() {
         return false;
@@ -210,7 +210,7 @@ public abstract class PDOutlineNode extends PDObject {
      * Remove a {@link PDOutlineItem} from this.
      *
      * @param pItem The item to be removed.
-     * @return <code>true</code> if the item was removed.
+     * @return {@code true} if the item was removed.
      */
     public boolean removeItem(PDOutlineItem pItem) {
         if (pItem.getParent() != this) {

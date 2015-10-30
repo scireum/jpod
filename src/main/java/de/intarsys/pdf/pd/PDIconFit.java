@@ -44,11 +44,12 @@ public class PDIconFit extends PDObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
 
+        @Override
         protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
             return new PDIconFit(object);
         }
@@ -57,49 +58,49 @@ public class PDIconFit extends PDObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    static private final float ALIGNMENT_CENTER = 0.5f;
+    private static final float ALIGNMENT_CENTER = 0.5f;
 
-    private static final float[] DEFAULT_ALIGNMENT = new float[]{ALIGNMENT_CENTER, ALIGNMENT_CENTER};
+    private static final float[] DEFAULT_ALIGNMENT = {ALIGNMENT_CENTER, ALIGNMENT_CENTER};
 
-    static public final COSName DK_SW = COSName.constant("SW");
+    public static final COSName DK_SW = COSName.constant("SW");
 
-    static public final COSName DK_S = COSName.constant("S");
+    public static final COSName DK_S = COSName.constant("S");
 
-    static public final COSName DK_A = COSName.constant("A");
+    public static final COSName DK_A = COSName.constant("A");
 
-    static public final COSName DK_FB = COSName.constant("FB");
+    public static final COSName DK_FB = COSName.constant("FB");
 
     /**
      * always scale, the default
      */
-    static public final COSName CN_SW_A = COSName.constant("A");
+    public static final COSName CN_SW_A = COSName.constant("A");
 
     /**
      * scale only when the icon is bigger than the annotation rectangle
      */
-    static public final COSName CN_SW_B = COSName.constant("B");
+    public static final COSName CN_SW_B = COSName.constant("B");
 
     /**
      * scale only when the icon is smaller than the annotation rectangle
      */
-    static public final COSName CN_SW_S = COSName.constant("S");
+    public static final COSName CN_SW_S = COSName.constant("S");
 
     /**
      * never scale
      */
-    static public final COSName CN_SW_N = COSName.constant("N");
+    public static final COSName CN_SW_N = COSName.constant("N");
 
     /**
      * Anamorphic scaling
      */
-    static public final COSName CN_S_A = COSName.constant("A");
+    public static final COSName CN_S_A = COSName.constant("A");
 
     /**
      * Proportional scaling, default
      */
-    static public final COSName CN_S_P = COSName.constant("P");
+    public static final COSName CN_S_P = COSName.constant("P");
 
     protected PDIconFit(COSObject object) {
         super(object);

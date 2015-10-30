@@ -40,7 +40,7 @@ import java.util.Map;
  * An abstrct superclass for implementing an interpreter for PDF content
  * streams.
  */
-abstract public class CSInterpreter implements ICSInterpreter {
+public abstract class CSInterpreter implements ICSInterpreter {
 
     protected static final int PageLevel = 0;
 
@@ -67,7 +67,7 @@ abstract public class CSInterpreter implements ICSInterpreter {
 
     private boolean interruptible;
 
-    public CSInterpreter(Map paramOptions) {
+    protected CSInterpreter(Map paramOptions) {
         super();
         options = paramOptions;
     }
@@ -98,6 +98,7 @@ abstract public class CSInterpreter implements ICSInterpreter {
      *
      * @see de.intarsys.pdf.content.ICSInterpreter#getExceptionHandler()
      */
+    @Override
     public ICSExceptionHandler getExceptionHandler() {
         return exceptionHandler;
     }
@@ -107,6 +108,7 @@ abstract public class CSInterpreter implements ICSInterpreter {
      *
      * @see de.intarsys.pdf.content.ICSInterpreter#getOptions()
      */
+    @Override
     public Map getOptions() {
         return options;
     }
@@ -115,7 +117,7 @@ abstract public class CSInterpreter implements ICSInterpreter {
         return frame.resources;
     }
 
-    protected void handleError(CSError error) throws CSException {
+    protected void handleError(CSError error) {
         if (exceptionHandler != null) {
             exceptionHandler.error(error);
         } else {
@@ -123,7 +125,7 @@ abstract public class CSInterpreter implements ICSInterpreter {
         }
     }
 
-    protected void handleWarning(CSWarning warning) throws CSException {
+    protected void handleWarning(CSWarning warning) {
         if (exceptionHandler != null) {
             exceptionHandler.warning(warning);
         } else {
@@ -143,7 +145,7 @@ abstract public class CSInterpreter implements ICSInterpreter {
         return interruptible;
     }
 
-    protected void notSupported(CSOperation operation) throws CSException {
+    protected void notSupported(CSOperation operation) {
         if (isCompatibilitySection()) {
             return;
         }
@@ -158,7 +160,8 @@ abstract public class CSInterpreter implements ICSInterpreter {
      * de.intarsys.pdf.content.ICSInterpreter#process(de.intarsys.pdf.content
      * .CSContent, de.intarsys.pdf.pd.PDResources)
      */
-    public void process(CSContent pContent, PDResources pResources) throws CSException {
+    @Override
+    public void process(CSContent pContent, PDResources pResources) {
         if (pContent == null) {
             return;
         }
@@ -215,7 +218,7 @@ abstract public class CSInterpreter implements ICSInterpreter {
         }
     }
 
-    protected void process(CSOperation operation) throws CSException {
+    protected void process(CSOperation operation) {
         byte[] token = operation.getOperatorToken();
         switch (token[0]) {
             case 'q':
@@ -491,357 +494,357 @@ abstract public class CSInterpreter implements ICSInterpreter {
         }
     }
 
-    protected void render_b(CSOperation operation) throws CSException {
+    protected void render_b(CSOperation operation) {
         // close, fill and stroke path using nonzero winding rule
         notSupported(operation);
     }
 
-    protected void render_B(CSOperation operation) throws CSException {
+    protected void render_B(CSOperation operation) {
         // fill and stroke path using nonzero winding rule
         notSupported(operation);
     }
 
-    protected void render_BDC(CSOperation operation) throws CSException {
+    protected void render_BDC(CSOperation operation) {
         // begin marked content sequence with property
         notSupported(operation);
     }
 
-    protected void render_BMC(CSOperation operation) throws CSException {
+    protected void render_BMC(CSOperation operation) {
         // begin marked content sequence
         notSupported(operation);
     }
 
-    protected void render_bstar(CSOperation operation) throws CSException {
+    protected void render_bstar(CSOperation operation) {
         // close, fill and stroke path using even/odd rule
         notSupported(operation);
     }
 
-    protected void render_Bstar(CSOperation operation) throws CSException {
+    protected void render_Bstar(CSOperation operation) {
         // fill and stroke path using even/odd rule
         notSupported(operation);
     }
 
-    protected void render_BT(CSOperation operation) throws CSException {
+    protected void render_BT(CSOperation operation) {
         // begin text
         notSupported(operation);
     }
 
-    protected void render_BX(CSOperation operation) throws CSException {
+    protected void render_BX(CSOperation operation) {
         // begin compatibility section
         incCompatibilitySectionDepth();
     }
 
-    protected void render_c(CSOperation operation) throws CSException {
+    protected void render_c(CSOperation operation) {
         // append curved segment
         notSupported(operation);
     }
 
-    protected void render_cm(CSOperation operation) throws CSException {
+    protected void render_cm(CSOperation operation) {
         // concatenate matrix
         notSupported(operation);
     }
 
-    protected void render_cs(CSOperation operation) throws CSException {
+    protected void render_cs(CSOperation operation) {
         // set color space for non stroking
         notSupported(operation);
     }
 
-    protected void render_CS(CSOperation operation) throws CSException {
+    protected void render_CS(CSOperation operation) {
         // set color space for stroking
         notSupported(operation);
     }
 
-    protected void render_d(CSOperation operation) throws CSException {
+    protected void render_d(CSOperation operation) {
         // set line dash pattern
         notSupported(operation);
     }
 
-    protected void render_d0(CSOperation operation) throws CSException {
+    protected void render_d0(CSOperation operation) {
         // set glyph width in type 3
         notSupported(operation);
     }
 
-    protected void render_d1(CSOperation operation) throws CSException {
+    protected void render_d1(CSOperation operation) {
         // set glyph width and bounding box
         notSupported(operation);
     }
 
-    protected void render_Do(CSOperation operation) throws CSException {
+    protected void render_Do(CSOperation operation) {
         // invoke XObject
         notSupported(operation);
     }
 
-    protected void render_DoubleQuote(CSOperation operation) throws CSException {
+    protected void render_DoubleQuote(CSOperation operation) {
         // set word and character spacing, move to next line, show text
         notSupported(operation);
     }
 
-    protected void render_DP(CSOperation operation) throws CSException {
+    protected void render_DP(CSOperation operation) {
         // define marked content with property
         notSupported(operation);
     }
 
-    protected void render_EI(CSOperation operation) throws CSException {
+    protected void render_EI(CSOperation operation) {
         // end inline image
         notSupported(operation);
     }
 
-    protected void render_EMC(CSOperation operation) throws CSException {
+    protected void render_EMC(CSOperation operation) {
         // end marked content
         notSupported(operation);
     }
 
-    protected void render_ET(CSOperation operation) throws CSException {
+    protected void render_ET(CSOperation operation) {
         // end text
         notSupported(operation);
     }
 
-    protected void render_EX(CSOperation operation) throws CSException {
+    protected void render_EX(CSOperation operation) {
         // end compatibility
         decCompatibilitySectionDepth();
     }
 
-    protected void render_f(CSOperation operation) throws CSException {
+    protected void render_f(CSOperation operation) {
         // fill path using nonzero winding rule
         notSupported(operation);
     }
 
-    protected void render_F(CSOperation operation) throws CSException {
+    protected void render_F(CSOperation operation) {
         // fill path using nonzero winding rule (obsolete)
         notSupported(operation);
     }
 
-    protected void render_fstar(CSOperation operation) throws CSException {
+    protected void render_fstar(CSOperation operation) {
         // fill path using even/odd rule
         notSupported(operation);
     }
 
-    protected void render_g(CSOperation operation) throws CSException {
+    protected void render_g(CSOperation operation) {
         // gray level for non stroking operations
         notSupported(operation);
     }
 
-    protected void render_G(CSOperation operation) throws CSException {
+    protected void render_G(CSOperation operation) {
         // gray level for stroking operations
         notSupported(operation);
     }
 
-    protected void render_gs(CSOperation operation) throws CSException {
+    protected void render_gs(CSOperation operation) {
         // set parameters from graphics state parameters
         notSupported(operation);
     }
 
-    protected void render_h(CSOperation operation) throws CSException {
+    protected void render_h(CSOperation operation) {
         // close subpath, line to start
         notSupported(operation);
     }
 
-    protected void render_i(CSOperation operation) throws CSException {
+    protected void render_i(CSOperation operation) {
         // set flatness tolerance
         notSupported(operation);
     }
 
-    protected void render_j(CSOperation operation) throws CSException {
+    protected void render_j(CSOperation operation) {
         // set line joins style
         notSupported(operation);
     }
 
-    protected void render_J(CSOperation operation) throws CSException {
+    protected void render_J(CSOperation operation) {
         // set line cap style
         notSupported(operation);
     }
 
-    protected void render_k(CSOperation operation) throws CSException {
+    protected void render_k(CSOperation operation) {
         // set CMYK color for non stroking
         notSupported(operation);
     }
 
-    protected void render_K(CSOperation operation) throws CSException {
+    protected void render_K(CSOperation operation) {
         // set CMYK color for stroking
         notSupported(operation);
     }
 
-    protected void render_l(CSOperation operation) throws CSException {
+    protected void render_l(CSOperation operation) {
         // append line to path
         notSupported(operation);
     }
 
-    protected void render_m(CSOperation operation) throws CSException {
+    protected void render_m(CSOperation operation) {
         // move current point
         notSupported(operation);
     }
 
-    protected void render_M(CSOperation operation) throws CSException {
+    protected void render_M(CSOperation operation) {
         // set miter limit
         notSupported(operation);
     }
 
-    protected void render_MP(CSOperation operation) throws CSException {
+    protected void render_MP(CSOperation operation) {
         // define marked content point
         notSupported(operation);
     }
 
-    protected void render_n(CSOperation operation) throws CSException {
+    protected void render_n(CSOperation operation) {
         // end path without filling or stroking
         notSupported(operation);
     }
 
-    protected void render_q(CSOperation operation) throws CSException {
+    protected void render_q(CSOperation operation) {
         // save graphics state
         notSupported(operation);
     }
 
-    protected void render_Q(CSOperation operation) throws CSException {
+    protected void render_Q(CSOperation operation) {
         // restore graphics state
         notSupported(operation);
     }
 
-    protected void render_Quote(CSOperation operation) throws CSException {
+    protected void render_Quote(CSOperation operation) {
         // move to next line and show text
         notSupported(operation);
     }
 
-    protected void render_re(CSOperation operation) throws CSException {
+    protected void render_re(CSOperation operation) {
         // append rectangle to path
         notSupported(operation);
     }
 
-    protected void render_rg(CSOperation operation) throws CSException {
+    protected void render_rg(CSOperation operation) {
         // set RGB color for non stroking
         notSupported(operation);
     }
 
-    protected void render_RG(CSOperation operation) throws CSException {
+    protected void render_RG(CSOperation operation) {
         // set RGB color for stroking
         notSupported(operation);
     }
 
-    protected void render_ri(CSOperation operation) throws CSException {
+    protected void render_ri(CSOperation operation) {
         // set color rendering intent
         notSupported(operation);
     }
 
-    protected void render_s(CSOperation operation) throws CSException {
+    protected void render_s(CSOperation operation) {
         // close and stroke path
         notSupported(operation);
     }
 
-    protected void render_S(CSOperation operation) throws CSException {
+    protected void render_S(CSOperation operation) {
         // stroke path
         notSupported(operation);
     }
 
-    protected void render_sc(CSOperation operation) throws CSException {
+    protected void render_sc(CSOperation operation) {
         // set color for non stroking
         notSupported(operation);
     }
 
-    protected void render_SC(CSOperation operation) throws CSException {
+    protected void render_SC(CSOperation operation) {
         // set color for stroking
         notSupported(operation);
     }
 
-    protected void render_scn(CSOperation operation) throws CSException {
+    protected void render_scn(CSOperation operation) {
         // set color for non stroking (ICCBased, special color spaces)
         notSupported(operation);
     }
 
-    protected void render_SCN(CSOperation operation) throws CSException {
+    protected void render_SCN(CSOperation operation) {
         // set color for stroking (ICCBased, special color spaces)
         notSupported(operation);
     }
 
-    protected void render_sh(CSOperation operation) throws CSException {
+    protected void render_sh(CSOperation operation) {
         // paint area defined by shading pattern
         notSupported(operation);
     }
 
-    protected void render_Tc(CSOperation operation) throws CSException {
+    protected void render_Tc(CSOperation operation) {
         // set character spacing
         notSupported(operation);
     }
 
-    protected void render_Td(CSOperation operation) throws CSException {
+    protected void render_Td(CSOperation operation) {
         // move text position
         notSupported(operation);
     }
 
-    protected void render_TD(CSOperation operation) throws CSException {
+    protected void render_TD(CSOperation operation) {
         // move text position and set leading
         notSupported(operation);
     }
 
-    protected void render_Tf(CSOperation operation) throws CSException {
+    protected void render_Tf(CSOperation operation) {
         // set text font and size
         notSupported(operation);
     }
 
-    protected void render_Tj(CSOperation operation) throws CSException {
+    protected void render_Tj(CSOperation operation) {
         // show text
         notSupported(operation);
     }
 
-    protected void render_TJ(CSOperation operation) throws CSException {
+    protected void render_TJ(CSOperation operation) {
         // show text, allowing individual positioning
         notSupported(operation);
     }
 
-    protected void render_TL(CSOperation operation) throws CSException {
+    protected void render_TL(CSOperation operation) {
         // set text leading
         notSupported(operation);
     }
 
-    protected void render_Tm(CSOperation operation) throws CSException {
+    protected void render_Tm(CSOperation operation) {
         // set text matrix and text line matrix
         notSupported(operation);
     }
 
-    protected void render_Tr(CSOperation operation) throws CSException {
+    protected void render_Tr(CSOperation operation) {
         // set text rendering mode
         notSupported(operation);
     }
 
-    protected void render_Ts(CSOperation operation) throws CSException {
+    protected void render_Ts(CSOperation operation) {
         // set text rise
         notSupported(operation);
     }
 
-    protected void render_Tstar(CSOperation operation) throws CSException {
+    protected void render_Tstar(CSOperation operation) {
         // move to start of next line
         notSupported(operation);
     }
 
-    protected void render_Tw(CSOperation operation) throws CSException {
+    protected void render_Tw(CSOperation operation) {
         // set word spacing
         notSupported(operation);
     }
 
-    protected void render_Tz(CSOperation operation) throws CSException {
+    protected void render_Tz(CSOperation operation) {
         // set horizontal text scaling
         notSupported(operation);
     }
 
-    protected void render_v(CSOperation operation) throws CSException {
+    protected void render_v(CSOperation operation) {
         // append curved segment to path (initial point replicated)
         notSupported(operation);
     }
 
-    protected void render_w(CSOperation operation) throws CSException {
+    protected void render_w(CSOperation operation) {
         // set line width
         notSupported(operation);
     }
 
-    protected void render_W(CSOperation operation) throws CSException {
+    protected void render_W(CSOperation operation) {
         // request clipping path using nonzero winding rule
         notSupported(operation);
     }
 
-    protected void render_Wstar(CSOperation operation) throws CSException {
+    protected void render_Wstar(CSOperation operation) {
         // request clipping path using even/odd winding rule
         notSupported(operation);
     }
 
-    protected void render_y(CSOperation operation) throws CSException {
+    protected void render_y(CSOperation operation) {
         // append curved segment to path (final point replicated)
         notSupported(operation);
     }
@@ -853,6 +856,7 @@ abstract public class CSInterpreter implements ICSInterpreter {
      * de.intarsys.pdf.content.ICSInterpreter#setExceptionHandler(de.intarsys
      * .pdf.content.ICSExceptionHandler)
      */
+    @Override
     public void setExceptionHandler(ICSExceptionHandler errorHandler) {
         this.exceptionHandler = errorHandler;
     }

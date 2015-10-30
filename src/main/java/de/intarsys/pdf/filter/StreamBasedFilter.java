@@ -41,11 +41,11 @@ import java.io.OutputStream;
 /**
  *
  */
-abstract public class StreamBasedFilter extends Filter {
+public abstract class StreamBasedFilter extends Filter {
     /**
      *
      */
-    public StreamBasedFilter(COSDictionary options) {
+    protected StreamBasedFilter(COSDictionary options) {
         super(options);
     }
 
@@ -54,6 +54,7 @@ abstract public class StreamBasedFilter extends Filter {
      *
      * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
      */
+    @Override
     protected byte[] encode(byte[] source) throws IOException {
         ByteArrayInputStream is = new ByteArrayInputStream(source);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -67,6 +68,7 @@ abstract public class StreamBasedFilter extends Filter {
      *
      * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
      */
+    @Override
     protected byte[] decode(byte[] source) throws IOException {
         ByteArrayInputStream is = new ByteArrayInputStream(source);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -75,7 +77,7 @@ abstract public class StreamBasedFilter extends Filter {
         return os.toByteArray();
     }
 
-    abstract protected InputStream createInputFilterStream(InputStream is) throws IOException;
+    protected abstract InputStream createInputFilterStream(InputStream is) throws IOException;
 
-    abstract protected OutputStream createOutputFilterStream(OutputStream os) throws IOException;
+    protected abstract OutputStream createOutputFilterStream(OutputStream os) throws IOException;
 }

@@ -40,14 +40,12 @@ public class NullAppearanceCreator implements IAppearanceCreator {
 
     private static final COSName CN_NULL = COSName.constant("Null"); //$NON-NLS-1$
 
-    public NullAppearanceCreator() {
-        super();
-    }
-
+    @Override
     public PDAppearance createAppearance(PDAnnotation annotation, PDAppearance appearance) {
         return null;
     }
 
+    @Override
     public COSName getAnnotationType() {
         return CN_NULL;
     }

@@ -131,7 +131,7 @@ public abstract class STXRefSection {
      */
     public abstract COSDictionary cosGetDict();
 
-    abstract public COSObject cosGetObject();
+    public abstract COSObject cosGetObject();
 
     protected void createNewSubsection(int pStart) {
     }
@@ -144,6 +144,7 @@ public abstract class STXRefSection {
 
             private STXRefSubsection myNext = getXRefSubsection();
 
+            @Override
             public boolean hasNext() {
                 if (currentIterator != null && currentIterator.hasNext()) {
                     return true;
@@ -157,6 +158,7 @@ public abstract class STXRefSection {
                 return false;
             }
 
+            @Override
             public Object next() {
                 if (hasNext()) {
                     return currentIterator.next();
@@ -164,6 +166,7 @@ public abstract class STXRefSection {
                 throw new NoSuchElementException();
             }
 
+            @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }
@@ -344,10 +347,12 @@ public abstract class STXRefSection {
         return new Iterator() {
             private STXRefSubsection current = getXRefSubsection();
 
+            @Override
             public boolean hasNext() {
                 return current != null;
             }
 
+            @Override
             public Object next() {
                 if (current == null) {
                     throw new NoSuchElementException();
@@ -357,6 +362,7 @@ public abstract class STXRefSection {
                 return result;
             }
 
+            @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }

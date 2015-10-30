@@ -40,6 +40,7 @@ public class Operator_abs implements IOperator {
         super();
     }
 
+    @Override
     public void execute(Handler handler) {
         Number element;
 
@@ -49,7 +50,7 @@ public class Operator_abs implements IOperator {
         }
         handler.pop();
         if (element instanceof Integer) {
-            handler.push(new Integer(Math.abs(element.intValue())));
+            handler.push(Integer.valueOf(Math.abs(element.intValue())));
             return;
         }
         handler.push(new Double(Math.abs(element.doubleValue())));

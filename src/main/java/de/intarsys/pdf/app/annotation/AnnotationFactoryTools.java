@@ -42,6 +42,9 @@ import java.util.Map;
  */
 public class AnnotationFactoryTools {
 
+    private AnnotationFactoryTools() {
+    }
+
     /**
      * Create a new {@link PDAnnotation} from scratch.
      *
@@ -50,10 +53,10 @@ public class AnnotationFactoryTools {
      * @param rect       The rectangle bounds of the annotation.
      * @param attributes More attributes that are required for annotation creation in
      *                   their special {@link IAnnotationFactory} implementation.
-     * @return The newly created {@link PDAnnotation} or <code>null</code>
+     * @return The newly created {@link PDAnnotation} or {@code null}
      * @throws ObjectCreationException
      */
-    static public PDAnnotation createAnnotation(COSName type, PDPage page, Rectangle2D rect, Map attributes)
+    public static PDAnnotation createAnnotation(COSName type, PDPage page, Rectangle2D rect, Map attributes)
             throws ObjectCreationException {
         IAnnotationFactory factory = AnnotationOutlet.get().lookupAnnotationFactory(type);
         if (factory != null) {

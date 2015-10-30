@@ -61,43 +61,43 @@ import java.util.Iterator;
  * </ul>
  */
 public class AcroFormFieldFlags extends AbstractBitFlags {
-    final public static int Bit_ReadOnly = 1; // Bit position 1
+    public static final int Bit_ReadOnly = 1; // Bit position 1
 
-    final public static int Bit_Required = 1 << 1; // Bit position 2
+    public static final int Bit_Required = 1 << 1; // Bit position 2
 
-    final public static int Bit_NoExport = 1 << 2; // Bit position 3
+    public static final int Bit_NoExport = 1 << 2; // Bit position 3
 
-    final public static int Bit_Multiline = 1 << 12;
+    public static final int Bit_Multiline = 1 << 12;
 
-    final public static int Bit_Password = 1 << 13;
+    public static final int Bit_Password = 1 << 13;
 
-    final public static int Bit_NoToggleToOff = 1 << 14;
+    public static final int Bit_NoToggleToOff = 1 << 14;
 
-    final public static int Bit_Radio = 1 << 15;
+    public static final int Bit_Radio = 1 << 15;
 
-    final public static int Bit_Pushbutton = 1 << 16;
+    public static final int Bit_Pushbutton = 1 << 16;
 
-    final public static int Bit_Combo = 1 << 17;
+    public static final int Bit_Combo = 1 << 17;
 
-    final public static int Bit_Edit = 1 << 18;
+    public static final int Bit_Edit = 1 << 18;
 
-    final public static int Bit_Sort = 1 << 19;
+    public static final int Bit_Sort = 1 << 19;
 
-    final public static int Bit_FileSelect = 1 << 20;
+    public static final int Bit_FileSelect = 1 << 20;
 
-    final public static int Bit_MultiSelect = 1 << 21;
+    public static final int Bit_MultiSelect = 1 << 21;
 
-    final public static int Bit_DoNotSpellCheck = 1 << 22;
+    public static final int Bit_DoNotSpellCheck = 1 << 22;
 
-    final public static int Bit_DoNotScroll = 1 << 23;
+    public static final int Bit_DoNotScroll = 1 << 23;
 
-    final public static int Bit_Comb = 1 << 24;
+    public static final int Bit_Comb = 1 << 24;
 
-    final public static int Bit_RadiosInUnison = 1 << 25;
+    public static final int Bit_RadiosInUnison = 1 << 25;
 
-    final public static int Bit_CommitOnSelChange = 1 << 26;
+    public static final int Bit_CommitOnSelChange = 1 << 26;
 
-    final public static int Bit_RichText = 1 << 27;
+    public static final int Bit_RichText = 1 << 27;
 
     private PDAcroFormField field;
 

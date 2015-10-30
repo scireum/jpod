@@ -59,7 +59,7 @@ public interface IAppearanceCreator {
      * @param appearance
      * @return the created appearance
      */
-    public PDAppearance createAppearance(PDAnnotation annotation, PDAppearance appearance);
+    PDAppearance createAppearance(PDAnnotation annotation, PDAppearance appearance);
 
     /**
      * The type of annotations this handler can process.
@@ -68,5 +68,5 @@ public interface IAppearanceCreator {
      *
      * @return The type of annotations this handler can process.
      */
-    public COSName getAnnotationType();
+    COSName getAnnotationType();
 }

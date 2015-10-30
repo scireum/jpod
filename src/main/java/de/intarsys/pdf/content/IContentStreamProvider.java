@@ -41,12 +41,12 @@ public interface IContentStreamProvider extends IResourcesProvider {
      *
      * @return The {@link CSContent} contained in this.
      */
-    public CSContent getContentStream();
+    CSContent getContentStream();
 
     /**
      * Assign the new {@link CSContent} to this.
      *
      * @param content The new content
      */
-    public void setContentStream(CSContent content);
+    void setContentStream(CSContent content);
 }

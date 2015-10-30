@@ -39,25 +39,25 @@ import java.util.List;
  * The {@link IFormHandler} manages the complex protocols when handling forms.
  */
 public interface IFormHandler {
-    public void setValidate(boolean validate);
+    void setValidate(boolean validate);
 
-    public boolean isValidate();
+    boolean isValidate();
 
-    public void setCalculate(boolean calculate);
+    void setCalculate(boolean calculate);
 
-    public boolean isCalculate();
+    boolean isCalculate();
 
-    public abstract String getFieldValue(Object fieldRef);
+    String getFieldValue(Object fieldRef);
 
-    public void setFieldValue(Object fieldRef, Object value);
+    void setFieldValue(Object fieldRef, Object value);
 
-    public void resetFields();
+    void resetFields();
 
-    public void resetFields(List fieldNames, boolean invert);
+    void resetFields(List fieldNames, boolean invert);
 
-    public void recalculate(Object fieldRef);
+    void recalculate(Object fieldRef);
 
-    public void recalculate();
+    void recalculate();
 
-    public PDDocument getDoc();
+    PDDocument getDoc();
 }

@@ -36,6 +36,7 @@ public class PNGNonePrediction extends PNGPrediction {
         super(options);
     }
 
+    @Override
     protected void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
         System.arraycopy(source, sourceOffset + 1, result, resultOffset, getResultRowSize());
     }

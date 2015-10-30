@@ -60,7 +60,7 @@ public class TokenMgrError extends Error {
      * Replaces unprintable characters by their espaced (or unicode escaped)
      * equivalents in the given string
      */
-    protected static final String addEscapes(String str) {
+    protected static String addEscapes(String str) {
         StringBuilder retval = new StringBuilder();
         char ch;
         for (int i = 0; i < str.length(); i++) {
@@ -173,6 +173,7 @@ public class TokenMgrError extends Error {
      * <p>
      * from this method for such cases in the release version of your parser.
      */
+    @Override
     public String getMessage() {
         return super.getMessage();
     }

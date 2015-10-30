@@ -53,16 +53,16 @@ import java.util.List;
  * classes to ensure the semantics implemented in the PD layer, as for example
  * PD object identity, subclass selection or proper initialization. <br>
  * Example: <br>
- * <code>
+ * {@code
  * PDPage page = (PDPage)PDPage.META.createNew();
- * </code>
+ * }
  * </p>
  */
-abstract public class PDObject extends COSBasedObject {
+public abstract class PDObject extends COSBasedObject {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends COSBasedObject.MetaClass {
+    public static class MetaClass extends COSBasedObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -71,10 +71,10 @@ abstract public class PDObject extends COSBasedObject {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     // keys
-    static public final COSName DK_Type = COSName.constant("Type"); //
+    public static final COSName DK_Type = COSName.constant("Type"); //
 
     public static final COSName DK_Subtype = COSName.constant("Subtype");
 
@@ -169,7 +169,7 @@ abstract public class PDObject extends COSBasedObject {
      *
      * @return The /Subtype field of this.
      */
-    final public COSName cosGetSubtype() {
+    public final COSName cosGetSubtype() {
         return cosGetDict().get(DK_Subtype).asName();
     }
 
@@ -180,7 +180,7 @@ abstract public class PDObject extends COSBasedObject {
      *
      * @return The /Type field of this.
      */
-    final public COSName cosGetType() {
+    public final COSName cosGetType() {
         return cosGetField(DK_Type).asName();
     }
 
@@ -191,7 +191,7 @@ abstract public class PDObject extends COSBasedObject {
      * the receiver and all its descendants.
      *
      * @param name the field to remove from the receiver
-     * @return The object previously associated with <code>name</code> in this
+     * @return The object previously associated with {@code name} in this
      */
     public COSObject cosRemoveFieldInheritable(COSName name) {
         COSObject result = cosRemoveField(name);
@@ -214,7 +214,7 @@ abstract public class PDObject extends COSBasedObject {
      *
      * @param name   the field to set
      * @param cosObj the object to set in the field
-     * @return The object previously associated with <code>name</code> in this
+     * @return The object previously associated with {@code name} in this
      */
     public COSObject cosSetFieldInheritable(COSName name, COSObject cosObj) {
         COSObject result = cosSetField(name, cosObj);
@@ -235,7 +235,7 @@ abstract public class PDObject extends COSBasedObject {
      *
      * @return The /Subtype previously associated with this.
      */
-    final public COSName cosSetSubtype(COSName newType) {
+    public final COSName cosSetSubtype(COSName newType) {
         return cosSetField(DK_Subtype, newType).asName();
     }
 
@@ -246,7 +246,7 @@ abstract public class PDObject extends COSBasedObject {
      *
      * @return The /Type previously associated with this.
      */
-    final public COSName cosSetType(COSName newType) {
+    public final COSName cosSetType(COSName newType) {
         return cosSetField(DK_Type, newType).asName();
     }
 

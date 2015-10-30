@@ -49,7 +49,7 @@ public class PDPostScriptFunction extends PDFunction {
     /**
      * The meta class implementation
      */
-    static public class MetaClass extends PDFunction.MetaClass {
+    public static class MetaClass extends PDFunction.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -68,7 +68,7 @@ public class PDPostScriptFunction extends PDFunction {
     /**
      * The meta class instance
      */
-    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     private String code;
 

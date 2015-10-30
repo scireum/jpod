@@ -36,7 +36,10 @@ import de.intarsys.tools.message.MessageBundleTools;
 import java.util.logging.Logger;
 
 public class PACKAGE {
-    public final static MessageBundle Messages = MessageBundleTools.getMessageBundle(PACKAGE.class);
+    public static final MessageBundle Messages = MessageBundleTools.getMessageBundle(PACKAGE.class);
 
-    public final static Logger Log = LogTools.getLogger(PACKAGE.class);
+    public static final Logger Log = LogTools.getLogger(PACKAGE.class);
+
+    private PACKAGE() {
+    }
 }
