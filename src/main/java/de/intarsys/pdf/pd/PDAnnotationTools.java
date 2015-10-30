@@ -35,12 +35,13 @@ import java.util.List;
 import de.intarsys.pdf.cds.CDSMatrix;
 import de.intarsys.pdf.cds.CDSRectangle;
 import de.intarsys.pdf.cos.COSDictionary;
+import de.intarsys.pdf.cos.COSDocument;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.st.STDocument;
 
 /**
  * Tool class for common tasks with {@link PDAnnotation} objects.
- * 
+ *
  */
 public class PDAnnotationTools {
 	public static final String CAPTION_CHECK = "4";
@@ -92,14 +93,19 @@ public class PDAnnotationTools {
 		}
 		// adjust annotation
 		if (changedRect) {
-			STDocument doc = annotation.getDoc().cosGetDoc().stGetDoc();
-			boolean wasDirty = doc.isDirty();
+		    STDocument stDoc = getSTDocument(annotation);
+
+		    boolean wasDirty = stDoc == null || stDoc.isDirty();
 			annotation.setRectangle(rect);
 			if (!wasDirty) {
-				doc.setDirty(false);
+				stDoc.setDirty(false);
 			}
 		}
+	}
 
+	private static STDocument getSTDocument(PDAnnotation annotation) {
+	    COSDocument cosDoc = annotation.cosGetDoc();
+	    return cosDoc == null ? null : cosDoc.stGetDoc();
 	}
 
 	/**
@@ -107,7 +113,7 @@ public class PDAnnotationTools {
 	 * yet available, a new one is created but NOT associated with the
 	 * annotation. This behavior is intended to allow for dynamic appearance
 	 * creation when rendering without changing the document itself.
-	 * 
+	 *
 	 * @return The {@link PDAppearance} for <code>annotation</code>.
 	 */
 	public static PDAppearance getAppearance(PDAnnotation annotation) {
@@ -167,9 +173,9 @@ public class PDAnnotationTools {
 	 * page. Returns <code>null</code> if no annotation following
 	 * <code>annotation</code> could be found or <code>annotation</code> is the
 	 * last one on the page.
-	 * 
+	 *
 	 * @param annotation
-	 * 
+	 *
 	 * @return the next annotation or <code>null</code>
 	 */
 	static public PDAnnotation getNextAnnotation(PDAnnotation annotation) {
@@ -184,9 +190,9 @@ public class PDAnnotationTools {
 	 * Returns the next annotation following <code>annotation</code> in the
 	 * whole document. Returns <code>null</code> if no annotation following
 	 * <code>annotation</code> could be found in the document.
-	 * 
+	 *
 	 * @param annotation
-	 * 
+	 *
 	 * @return the next annotation or <code>null</code>
 	 */
 	static public PDAnnotation getNextAnnotationAllPages(PDAnnotation annotation) {
@@ -235,9 +241,9 @@ public class PDAnnotationTools {
 	 * page. Returns <code>null</code> if no annotation preceding
 	 * <code>annotation</code> could be found or <code>annotation</code> is the
 	 * first one on the page.
-	 * 
+	 *
 	 * @param annotation
-	 * 
+	 *
 	 * @return the preceding annotation or <code>null</code>
 	 */
 	static public PDAnnotation getPreviousAnnotation(PDAnnotation annotation) {
@@ -252,9 +258,9 @@ public class PDAnnotationTools {
 	 * Returns the annotation preceding <code>annotation</code> in the whole
 	 * document. Returns <code>null</code> if no annotation preceding
 	 * <code>annotation</code> could be found in the document.
-	 * 
+	 *
 	 * @param annotation
-	 * 
+	 *
 	 * @return the previous annotation or <code>null</code>
 	 */
 	static public PDAnnotation getPreviousAnnotationAllPages(
@@ -277,7 +283,7 @@ public class PDAnnotationTools {
 	/**
 	 * Lookup the state that is used to represent "not off" in
 	 * <code>annotation</code>.
-	 * 
+	 *
 	 * @param annotation
 	 *            The annotation to inspect for its "not off" state.
 	 * @return Lookup the state that is used to represent "not off" in
@@ -297,7 +303,7 @@ public class PDAnnotationTools {
 	/**
 	 * Checks a COSDictionary for being a subtyped known annotation as of Spec
 	 * PDF 1.4
-	 * 
+	 *
 	 * @param dict
 	 * @return <code>true</code> if known as of Spec PDF 1.4
 	 */
@@ -373,7 +379,7 @@ public class PDAnnotationTools {
 	 * <code>true</code> if <code>state</code> represents a state that is not
 	 * "/Off". "/Off" is the only legal way to switch of a toggle button, so
 	 * anything else is "on".
-	 * 
+	 *
 	 * @param state
 	 *            The state to inspect if it is not "/Off".
 	 * @return <code>true</code> if <code>state</code> represents a state that

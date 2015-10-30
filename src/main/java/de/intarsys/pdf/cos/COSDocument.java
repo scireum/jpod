@@ -44,6 +44,7 @@ import de.intarsys.pdf.st.EnumWriteMode;
 import de.intarsys.pdf.st.STDocType;
 import de.intarsys.pdf.st.STDocument;
 import de.intarsys.pdf.st.STXRefSection;
+import de.intarsys.pdf.writer.COSWriter;
 import de.intarsys.tools.attribute.Attribute;
 import de.intarsys.tools.attribute.IAttributeSupport;
 import de.intarsys.tools.event.AttributeChangedEvent;
@@ -180,7 +181,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler,
 	 * <p>
 	 * This one does no initialization, use the factory method.
 	 * 
-	 * @param storage
+	 * @param pStDoc
 	 *            The storage level document
 	 */
 	protected COSDocument(STDocument pStDoc) {
@@ -425,6 +426,18 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler,
 
 	protected void initializeFromST() {
 		//
+	}
+
+	/**
+	 * When auto update is true, the {@link COSWriter} will automatically create
+	 * new values for the file modification date in the info dictionary and the
+	 * file id in the trailer. When false, these values are under client code
+	 * control.
+	 * 
+	 * @return
+	 */
+	public boolean isAutoUpdate() {
+		return stDoc.isAutoUpdate();
 	}
 
 	/**
@@ -674,6 +687,10 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler,
 	 */
 	synchronized public Object setAttribute(Object key, Object value) {
 		return stDoc.setAttribute(key, value);
+	}
+
+	public void setAutoUpdate(boolean autoUpdate) {
+		stDoc.setAutoUpdate(autoUpdate);
 	}
 
 	/**

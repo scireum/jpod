@@ -29,9 +29,9 @@
  */
 package de.intarsys.pdf.cos;
 
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
-
-import de.intarsys.tools.collection.EmptyIterator;
 
 /**
  * Primitive COS datatypes. These objects are "immutable" in their PDF
@@ -60,7 +60,7 @@ abstract public class COSPrimitiveObject extends COSObject {
 	 */
 	@Override
 	public java.util.Iterator basicIterator() {
-		return EmptyIterator.UNIQUE;
+		return Collections.emptyIterator();
 	}
 
 	/*
@@ -119,8 +119,8 @@ abstract public class COSPrimitiveObject extends COSObject {
 	 * @see de.intarsys.pdf.cos.COSObject#iterator()
 	 */
 	@Override
-	public java.util.Iterator iterator() {
-		return EmptyIterator.UNIQUE;
+	public Iterator<COSObject> iterator() {
+		return Collections.emptyIterator();
 	}
 
 	/*

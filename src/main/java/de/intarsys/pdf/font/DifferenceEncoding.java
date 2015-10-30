@@ -213,7 +213,7 @@ public class DifferenceEncoding extends Encoding {
 	@Override
 	public String getGlyphName(int codePoint) {
 		String name = getDifferenceEncoding().getGlyphName(codePoint);
-		if ((name == null) || name == GlyphNameMap.GLYPH_NOTDEF) {
+		if (name == null || GlyphNameMap.GLYPH_NOTDEF.equals(name)) {
 			name = getBaseEncoding().getGlyphName(codePoint);
 		}
 		return name;

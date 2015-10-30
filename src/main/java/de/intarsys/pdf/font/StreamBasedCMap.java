@@ -101,6 +101,11 @@ abstract public class StreamBasedCMap extends CMap {
 	protected StreamBasedCMap(COSObject object) {
 		super(object);
 	}
+	
+	@Override
+	public COSDictionary cosGetDict() {
+		return cosGetStream().getDict();
+	}
 
 	protected void addDefinition(COSName key, COSObject value) {
 		definitions.put(key, value);

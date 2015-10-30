@@ -274,6 +274,8 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 	 */
 	private STXRefSection xRefSection;
 
+	private boolean autoUpdate = true;
+
 	/**
 	 * A new empty document.
 	 * <p>
@@ -306,6 +308,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 		}
 	}
 
+	@Override
 	public void addNotificationListener(EventType type,
 			INotificationListener listener) {
 		dispatcher.addNotificationListener(type, listener);
@@ -336,13 +339,13 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 			if (getXRefSection().cosGetDict() == null) {
 				throw new COSLoadError("trailer missing"); //$NON-NLS-1$
 			}
-		}
-		// check catalog
-		COSDictionary dict = getTrailer().getRoot().cosGetDict();
-		if (dict == null
-				|| !COSCatalog.CN_Type_Catalog.equals(dict
-						.get(PDObject.DK_Type))) {
-			throw new COSLoadError("catalog invalid"); //$NON-NLS-1$
+			// check catalog
+			COSDictionary dict = getTrailer().getRoot().cosGetDict();
+			if (dict == null
+					|| !COSCatalog.CN_Type_Catalog.equals(dict
+							.get(PDObject.DK_Type))) {
+				throw new COSLoadError("catalog invalid"); //$NON-NLS-1$
+			}
 		}
 	}
 
@@ -527,6 +530,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 		return AccessPermissionsFull.get();
 	}
 
+	@Override
 	final synchronized public Object getAttribute(Object key) {
 		return attributes.get(key);
 	}
@@ -590,6 +594,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 	 * 
 	 * @return THe locator for the document data.
 	 */
+	@Override
 	public ILocator getLocator() {
 		return locator;
 	}
@@ -790,6 +795,18 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 		setDirty(true);
 	}
 
+	/**
+	 * When auto update is true, the {@link COSWriter} will automatically create
+	 * new values for the file modification date in the info dictionary and the
+	 * file id in the trailer. When false, these values are under client code
+	 * control.
+	 * 
+	 * @return
+	 */
+	public boolean isAutoUpdate() {
+		return autoUpdate;
+	}
+
 	public boolean isClosed() {
 		return closed;
 	}
@@ -914,10 +931,12 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 			int i = 1;
 			int size = getXRefSection().getSize();
 
+			@Override
 			public boolean hasNext() {
 				return i < size;
 			}
 
+			@Override
 			public Object next() {
 				if (!hasNext()) {
 					throw new NoSuchElementException(""); //$NON-NLS-1$
@@ -925,6 +944,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 				return getObjectReference(i++, 0);
 			}
 
+			@Override
 			public void remove() {
 				throw new UnsupportedOperationException("remove not supported"); //$NON-NLS-1$
 			}
@@ -944,12 +964,14 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 		}
 	}
 
+	@Override
 	final synchronized public Object removeAttribute(Object key) {
 		Object oldValue = attributes.remove(key);
 		triggerChanged(key, oldValue, null);
 		return oldValue;
 	}
 
+	@Override
 	public void removeNotificationListener(EventType type,
 			INotificationListener listener) {
 		dispatcher.removeNotificationListener(type, listener);
@@ -1090,15 +1112,21 @@ public class STDocument implements INotificationSupport, IAttributeSupport,
 		}
 		COSWriter writer = new COSWriter(tempRandomAccess,
 				getWriteSecurityHandler());
+		writer.setAutoUpdate(isAutoUpdate());
 		writer.setIncremental(incremental);
 		writer.writeDocument(this);
 		readSecurityHandler = writeSecurityHandler;
 	}
 
+	@Override
 	final synchronized public Object setAttribute(Object key, Object value) {
 		Object oldValue = attributes.put(key, value);
 		triggerChanged(key, oldValue, value);
 		return oldValue;
+	}
+
+	public void setAutoUpdate(boolean autoUpdate) {
+		this.autoUpdate = autoUpdate;
 	}
 
 	protected void setClosed(boolean closed) {

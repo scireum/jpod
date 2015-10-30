@@ -112,6 +112,28 @@ public class PDFileSpecification extends PDObject {
 	/** File URL */
 	static public final COSName CN_FS_URL = COSName.constant("URL");
 
+	/** File is original source material for the associated content */
+	static public final COSName CN_Source = COSName.constant("Source");
+
+	/** File represents information used to derive a visual presentation */
+	static public final COSName CN_Data = COSName.constant("Data");
+
+	/** File is an alternative representation of content */
+	static public final COSName CN_Alternative = COSName.constant("Alternative");
+
+	/**
+	 * File represents a supplemental representation of the original source or
+	 * data that may be more easily consumable
+	 */
+	static public final COSName CN_Supplement = COSName.constant("Supplement");
+
+	/**
+	 * File relationship is not known or can�t be described using one of the
+	 * other values
+	 */
+	static public final COSName CN_Unspecified = COSName
+			.constant("Unspecified");
+
 	/** Embedded file dict */
 	static public final COSName DK_EF = COSName.constant("EF");
 
@@ -120,6 +142,9 @@ public class PDFileSpecification extends PDObject {
 
 	/** Description */
 	static public final COSName DK_Desc = COSName.constant("Desc");
+
+	/** Associated file relationship */
+	static public final COSName DK_AFRelationship = COSName.constant("AFRelationship");
 
 	private COSName fileSystem = null;
 
@@ -135,6 +160,14 @@ public class PDFileSpecification extends PDObject {
 	@Override
 	protected COSName cosGetExpectedType() {
 		return CN_Type_Filespec;
+	}
+
+	public COSName getAFRelationship() {
+		COSName value = cosGetField(DK_AFRelationship).asName();
+		if (value == null) {
+			value = CN_Unspecified;
+		}
+		return value;
 	}
 
 	public String getDescription() {
@@ -200,6 +233,10 @@ public class PDFileSpecification extends PDObject {
 	protected void initializeFromScratch() {
 		super.initializeFromScratch();
 		cosSetField(DK_FS, getFileSystem());
+	}
+
+	public void setAFRelationship(COSName relationship) {
+		cosSetField(DK_AFRelationship, relationship);
 	}
 
 	public void setDescription(String description) {

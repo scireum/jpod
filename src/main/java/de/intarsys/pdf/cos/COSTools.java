@@ -100,45 +100,50 @@ public class COSTools {
 		List<Revision> result = new ArrayList<Revision>();
 		STDocument stDoc = doc.stGetDoc();
 		STXRefSection xRef = stDoc.getXRefSection();
-		if (stDoc.getRandomAccess() == null) {
+		IRandomAccess randomAccess = stDoc.getLocator().getRandomAccess();
+		if (randomAccess == null) {
 			return result;
 		}
-		List<STXRefSection> offsetSortedXRefs = new ArrayList<STXRefSection>();
-		while (xRef != null) {
-			offsetSortedXRefs.add(xRef);
-			xRef = xRef.getPrevious();
-		}
-		Collections.sort(offsetSortedXRefs, new Comparator<STXRefSection>() {
-			public int compare(STXRefSection o1, STXRefSection o2) {
-				if (o1.getOffset() < o2.getOffset()) {
-					return 1;
-				} else if (o1.getOffset() > o2.getOffset()) {
-					return -1;
-				}
-				return 0;
+		try {
+			List<STXRefSection> offsetSortedXRefs = new ArrayList<STXRefSection>();
+			while (xRef != null) {
+				offsetSortedXRefs.add(xRef);
+				xRef = xRef.getPrevious();
 			}
-		});
+			Collections.sort(offsetSortedXRefs, new Comparator<STXRefSection>() {
+						@Override
+						public int compare(STXRefSection o1, STXRefSection o2) {
+							if (o1.getOffset() < o2.getOffset()) {
+								return 1;
+							} else if (o1.getOffset() > o2.getOffset()) {
+								return -1;
+							}
+							return 0;
+						}
+					});
 
-		long lastEnd = -1;
-		for (STXRefSection section : offsetSortedXRefs) {
-			COSDictionary cosDict = section.cosGetDict();
-			if (!cosDict.get(COSTrailer.DK_Root).isNull()) {
-				// the dummy trailer in a linearized pdf does not need /Root
-				long limit = lastEnd;
-				if (limit == -1) {
-					limit = stDoc.getRandomAccess().getLength();
-				}
-				long end = searchNextEOF(stDoc.getRandomAccess(), section
-						.getOffset(), limit);
-				// if (end != -1 && lastEnd != end) {
-				if (end != -1) {
-					Revision revision = new Revision();
-					revision.setXRefSection(section);
-					revision.setLength(end);
-					result.add(revision);
-					lastEnd = end;
+			long lastEnd = -1;
+			for (STXRefSection section : offsetSortedXRefs) {
+				COSDictionary cosDict = section.cosGetDict();
+				if (!cosDict.get(COSTrailer.DK_Root).isNull()) {
+					// the dummy trailer in a linearized pdf does not need /Root
+					long limit = lastEnd;
+					if (limit == -1) {
+						limit = randomAccess.getLength();
+					}
+					long end = searchNextEOF(randomAccess, section.getOffset(), limit);
+					// if (end != -1 && lastEnd != end) {
+					if (end != -1) {
+						Revision revision = new Revision();
+						revision.setXRefSection(section);
+						revision.setLength(end);
+						result.add(revision);
+						lastEnd = end;
+					}
 				}
 			}
+		} finally {
+			randomAccess.close();
 		}
 		Collections.reverse(result);
 		return result;

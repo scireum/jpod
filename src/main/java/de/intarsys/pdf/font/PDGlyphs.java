@@ -32,6 +32,10 @@ package de.intarsys.pdf.font;
 import de.intarsys.tools.attribute.AttributeMap;
 import de.intarsys.tools.attribute.IAttributeSupport;
 
+/**
+ * The representation of the glyphs for a codepoint in the {@link PDFont}.
+ * 
+ */
 public class PDGlyphs implements IAttributeSupport {
 
 	final private AttributeMap attributes = new AttributeMap();
@@ -55,6 +59,7 @@ public class PDGlyphs implements IAttributeSupport {
 		return font.getFontDescriptor().getAscent();
 	}
 
+	@Override
 	final public Object getAttribute(Object key) {
 		return attributes.getAttribute(key);
 	}
@@ -112,6 +117,7 @@ public class PDGlyphs implements IAttributeSupport {
 		return whitespace;
 	}
 
+	@Override
 	final public Object removeAttribute(Object key) {
 		return attributes.removeAttribute(key);
 	}
@@ -120,6 +126,7 @@ public class PDGlyphs implements IAttributeSupport {
 		this.width = font.getGlyphWidthEncoded(codepoint);
 	}
 
+	@Override
 	final public Object setAttribute(Object key, Object o) {
 		return attributes.setAttribute(key, o);
 	}

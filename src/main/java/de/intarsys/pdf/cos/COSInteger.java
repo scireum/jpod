@@ -71,14 +71,16 @@ public class COSInteger extends COSNumber {
 		for (int i = start; i < end; i++) {
 			resultLong = ((resultLong * 10) + bytes[i]) - '0';
 		}
+
+		if (negative) {
+		    resultLong = -resultLong;
+		}
+
 		if (resultLong > Integer.MAX_VALUE || resultLong < Integer.MIN_VALUE) {
 			return null;
 		}
-		int resultInt = (int) resultLong;
-		if (negative) {
-			return new COSInteger(-resultInt);
-		}
-		return new COSInteger(resultInt);
+
+		return new COSInteger((int) resultLong);
 	}
 
 	/** the integer value represented */
@@ -90,7 +92,7 @@ public class COSInteger extends COSNumber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
 	 */
 	@Override
@@ -101,7 +103,7 @@ public class COSInteger extends COSNumber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#asInteger()
 	 */
 	@Override
@@ -111,7 +113,7 @@ public class COSInteger extends COSNumber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#basicToString()
 	 */
 	@Override
@@ -121,7 +123,7 @@ public class COSInteger extends COSNumber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#copyBasic()
 	 */
 	@Override
@@ -131,7 +133,7 @@ public class COSInteger extends COSNumber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -144,7 +146,7 @@ public class COSInteger extends COSNumber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSNumber#floatValue()
 	 */
 	@Override
@@ -154,7 +156,7 @@ public class COSInteger extends COSNumber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -164,7 +166,7 @@ public class COSInteger extends COSNumber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSNumber#intValue()
 	 */
 	@Override
@@ -174,10 +176,11 @@ public class COSInteger extends COSNumber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
 	 */
-	public Object saveState() {
+	@Override
+    public Object saveState() {
 		COSInteger result = new COSInteger(value);
 		result.container = this.container.saveStateContainer();
 		return result;

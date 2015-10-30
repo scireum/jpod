@@ -141,6 +141,9 @@ public class COSTrailer extends COSBasedObject {
 	}
 
 	/**
+	 * Create a random id for use in the PDF file id. The document is not
+	 * changed. <br>
+	 * 
 	 * <code> 
 	 * - include time 
 	 * - file location 
@@ -150,7 +153,7 @@ public class COSTrailer extends COSBasedObject {
 	 * 
 	 * @return a byte array with the created ID
 	 */
-	protected byte[] createFileID() {
+	public byte[] createFileID() {
 		try {
 			COSDocument cosDoc = cosGetDoc();
 			if (cosDoc == null) {
@@ -268,22 +271,47 @@ public class COSTrailer extends COSBasedObject {
 	 * Generates a unique file ID array (10.3).
 	 */
 	public void updateFileID() {
+		updateFileID(null, null);
+	}
+
+	/**
+	 * Update the file id. id1 and id2 are optional default values for the new
+	 * file id.
+	 */
+	public void updateFileID(COSString id1, COSString id2) {
 		COSArray fileID = cosGetField(DK_ID).asArray();
-		if ((fileID == null) || (fileID.size() == 0)) {
+		if (fileID == null) {
 			fileID = COSArray.create();
 			cosSetField(DK_ID, fileID);
-			byte[] id = createFileID();
-			COSString permanentID = COSString.create(id);
-			fileID.add(permanentID);
-			fileID.add(permanentID);
-		} else {
-			byte[] id = createFileID();
-			COSString changingID = COSString.create(id);
-			if (fileID.size() < 2) {
-				fileID.add(changingID);
-			} else {
-				fileID.set(1, changingID);
+		}
+		if (fileID.size() == 0) {
+			if (id1 == null) {
+				byte[] id = createFileID();
+				id1 = COSString.create(id);
 			}
+			fileID.add(id1);
+			if (id2 == null) {
+				id2 = id1;
+			}
+			fileID.add(id2);
+		} else if (fileID.size() == 1) {
+			if (id1 != null) {
+				fileID.set(0, id1);
+			}
+			if (id2 == null) {
+				byte[] id = createFileID();
+				id2 = COSString.create(id);
+			}
+			fileID.add(id2);
+		} else if (fileID.size() == 2) {
+			if (id1 != null) {
+				fileID.set(0, id1);
+			}
+			if (id2 == null) {
+				byte[] id = createFileID();
+				id2 = COSString.create(id);
+			}
+			fileID.set(1, id2);
 		}
 	}
 }

@@ -42,8 +42,8 @@ import java.util.regex.Pattern;
 import de.intarsys.pdf.cos.COSString;
 
 /**
- * The implementation for a date string based on a {@link
- * de.intarsys.pdf.cos.COSString}.
+ * The implementation for a date string based on a
+ * {@link de.intarsys.pdf.cos.COSString}.
  * 
  * <p>
  * The string follows the format defined in [PDF], chapter 3.8.2.
@@ -152,7 +152,7 @@ public class CDSDate extends CDSBase {
 			}
 			if (m.group(7) != null) {
 				String o = m.group(7);
-				if (o.toLowerCase().equals("z")) { //$NON-NLS-1$
+				if ("z".equals(o.toLowerCase())) { //$NON-NLS-1$
 					hourOffset = 0;
 					minOffset = 0;
 				} else if ("-".equals(o)) { //$NON-NLS-1$
@@ -181,7 +181,7 @@ public class CDSDate extends CDSBase {
 					offset = offset + TimeZone.getDefault().getDSTSavings();
 				}
 			}
-			offset /= (60 * 1000);
+			offset /= 60 * 1000;
 			hourOffset = Math.abs(offset / 60);
 			minOffset = offset % 60;
 			if (offset < 0) {
@@ -220,7 +220,7 @@ public class CDSDate extends CDSBase {
 			result.append("Z"); //$NON-NLS-1$
 		}
 		int hours = Math.abs(offset / (60 * 60 * 1000));
-		if ((hours / 10) < 1) {
+		if (hours / 10 < 1) {
 			result.append("0"); //$NON-NLS-1$
 		}
 		result.append(hours);

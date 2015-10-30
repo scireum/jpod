@@ -88,7 +88,7 @@ public abstract class PDOutlineNode extends PDObject {
 
 	/**
 	 * Add a new {@link PDOutlineItem}.
-	 * 
+	 *
 	 * @param newItem
 	 *            The new item to be inserted at the end.
 	 */
@@ -122,7 +122,7 @@ public abstract class PDOutlineNode extends PDObject {
 
 	/**
 	 * Collapse this node (mark the children invisible).
-	 * 
+	 *
 	 * @return <code>true </code> if the expansion state of the node changes.
 	 */
 	public boolean collapse() {
@@ -138,7 +138,7 @@ public abstract class PDOutlineNode extends PDObject {
 
 	/**
 	 * Expand this node (mark the children visible).
-	 * 
+	 *
 	 * @return <code>true </code> if the expansion state of the node changes.
 	 */
 	public boolean expand() {
@@ -154,11 +154,11 @@ public abstract class PDOutlineNode extends PDObject {
 
 	/**
 	 * The list of all child nodes for this.
-	 * 
+	 *
 	 * @return The list of all child nodes for this.
 	 */
-	public List getChildren() {
-		List result = new ArrayList();
+	public List<PDOutlineItem> getChildren() {
+		List<PDOutlineItem> result = new ArrayList<>();
 		PDOutlineItem current = getFirst();
 		while (current != null) {
 			result.add(current);
@@ -169,7 +169,7 @@ public abstract class PDOutlineNode extends PDObject {
 
 	/**
 	 * The number of child elements.
-	 * 
+	 *
 	 * @return The number of child elements.
 	 */
 	public int getCount() {
@@ -178,7 +178,7 @@ public abstract class PDOutlineNode extends PDObject {
 
 	/**
 	 * The first child element in the linked list of children.
-	 * 
+	 *
 	 * @return The first child element in the linked list of children.
 	 */
 	public PDOutlineItem getFirst() {
@@ -188,7 +188,7 @@ public abstract class PDOutlineNode extends PDObject {
 
 	/**
 	 * The last child element in the linked list of children.
-	 * 
+	 *
 	 * @return The last child element in the linked list of children.
 	 */
 	public PDOutlineItem getLast() {
@@ -202,7 +202,7 @@ public abstract class PDOutlineNode extends PDObject {
 
 	/**
 	 * <code>true</code> if this is the outline (root element) itself.
-	 * 
+	 *
 	 * @return <code>true</code> if this is the outline (root element) itself.
 	 */
 	public boolean isOutline() {
@@ -211,7 +211,7 @@ public abstract class PDOutlineNode extends PDObject {
 
 	/**
 	 * Remove a {@link PDOutlineItem} from this.
-	 * 
+	 *
 	 * @param pItem
 	 *            The item to be removed.
 	 * @return <code>true</code> if the item was removed.

@@ -31,7 +31,6 @@ package de.intarsys.pdf.cos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -39,12 +38,12 @@ import java.util.Set;
 
 /**
  * Represents a collection of associations (Map).
- * 
+ *
  * <p>
  * The keys of the association are COSName objects, the value may be any
  * COSDocumentElement
  * </p>
- * 
+ *
  */
 public class COSDictionary extends COSCompositeObject {
 	public static class Entry implements Map.Entry {
@@ -72,7 +71,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * Create an empty {@link COSDictionary}.
-	 * 
+	 *
 	 * @return Create an empty {@link COSDictionary}.
 	 */
 	public static COSDictionary create() {
@@ -81,7 +80,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * Create an empty {@link COSDictionary} with an initial capacity.
-	 * 
+	 *
 	 * @return Create an empty {@link COSDictionary} with an initial capacity.
 	 */
 	public static COSDictionary create(int size) {
@@ -108,7 +107,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
 	 */
 	@Override
@@ -120,7 +119,7 @@ public class COSDictionary extends COSCompositeObject {
 	/**
 	 * Add all objects from <code>dict</code>. Associations already available
 	 * in this are replaced with new content .
-	 * 
+	 *
 	 * @param dict
 	 *            The collection of associations to add to this.
 	 */
@@ -140,7 +139,7 @@ public class COSDictionary extends COSCompositeObject {
 	/**
 	 * Add all values from <code>dict</code> that are not yet defined in the
 	 * receiver.
-	 * 
+	 *
 	 * @param dict
 	 *            The dictionary with the associations to add.
 	 */
@@ -166,7 +165,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#getCOSDictionary()
 	 */
 	@Override
@@ -176,7 +175,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * Remove all associations from this.
-	 * 
+	 *
 	 */
 	protected void basicClearPropagate() {
 		for (Iterator i = objects.values().iterator(); i.hasNext();) {
@@ -193,7 +192,7 @@ public class COSDictionary extends COSCompositeObject {
 	/**
 	 * An iterator over all entries. The value of the entries returned are the
 	 * not - dereferenced elements.
-	 * 
+	 *
 	 * @return An interator over all entries.
 	 */
 	public Iterator basicEntryIterator() {
@@ -202,10 +201,10 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * The {@link COSDocumentElement} associated with <code>key</code>.
-	 * 
+	 *
 	 * @param key
 	 *            The name to lookup
-	 * 
+	 *
 	 * @return The {@link COSDocumentElement} associated with <code>key</code>.
 	 */
 	public COSDocumentElement basicGet(COSName key) {
@@ -214,7 +213,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * An iterator over all values. The objects returned are not dereferenced.
-	 * 
+	 *
 	 * @return An iterator over all values.
 	 */
 	@Override
@@ -224,12 +223,12 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * Add a {@link COSDocumentElement} to the collection.
-	 * 
+	 *
 	 * @param key
 	 *            The key where to store the new element.
 	 * @param element
 	 *            The {@link COSDocumentElement} to store.
-	 * 
+	 *
 	 * @return The {@link COSDocumentElement} associated with <code>key</code>
 	 *         so far.
 	 */
@@ -262,12 +261,12 @@ public class COSDictionary extends COSCompositeObject {
 	 * <p>
 	 * This should not be used by the application level programmer. It is public
 	 * for package visibility reasons.
-	 * 
+	 *
 	 * @param key
 	 *            The key where to store the new element.
 	 * @param element
 	 *            The {@link COSDocumentElement} to store.
-	 * 
+	 *
 	 * @return The {@link COSDocumentElement} associated with <code>key</code>
 	 *         so far.
 	 */
@@ -285,10 +284,10 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * Remove the element associated with <code>key</code> from the collection .
-	 * 
+	 *
 	 * @param key
 	 *            The key of the element to be removed
-	 * 
+	 *
 	 * @return The {@link COSDocumentElement} removed or null.
 	 */
 	protected COSDocumentElement basicRemovePropagate(COSName key) {
@@ -311,10 +310,10 @@ public class COSDictionary extends COSCompositeObject {
 	 * <p>
 	 * This should not be used by the application level programmer. It is public
 	 * for package visibility reasons.
-	 * 
+	 *
 	 * @param key
 	 *            The key of the element to be removed
-	 * 
+	 *
 	 * @return The {@link COSDocumentElement} removed or null.
 	 */
 	public COSDocumentElement basicRemoveSilent(COSName key) {
@@ -328,7 +327,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#basicToString()
 	 */
 	@Override
@@ -349,10 +348,10 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * Answer true if <code>key</code> is a valid key in the collection .
-	 * 
+	 *
 	 * @param key
 	 *            The key whose existence is to be checked.
-	 * 
+	 *
 	 * @return Answer true if <code>key</code> is a valid key in the
 	 *         collection .
 	 */
@@ -363,10 +362,10 @@ public class COSDictionary extends COSCompositeObject {
 	/**
 	 * Answer <code>true</code> if <code>obj</code> is contained in the
 	 * collection
-	 * 
+	 *
 	 * @param obj
 	 *            The object to look up in the collection
-	 * 
+	 *
 	 * @return Answer <code>true</code> if <code>obj</code> is contained in
 	 *         the collection
 	 */
@@ -383,7 +382,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#copyBasic()
 	 */
 	@Override
@@ -393,7 +392,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSCompositeObject#copyDeep(java.util.Map)
 	 */
 	@Override
@@ -411,7 +410,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#copyShallow()
 	 */
 	@Override
@@ -428,7 +427,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#copySubGraph(java.util.Map)
 	 */
 	@Override
@@ -461,10 +460,10 @@ public class COSDictionary extends COSCompositeObject {
 	/**
 	 * An iterator over all entries, returning a collection of {@link Entry}
 	 * instances. The {@link Entry} values are dereferenced.
-	 * 
+	 *
 	 * @return An iterator over all entries, returning a collection of
 	 *         {@link Entry} instances.
-	 * 
+	 *
 	 */
 	public Iterator entryIterator() {
 		return new Iterator() {
@@ -486,60 +485,49 @@ public class COSDictionary extends COSCompositeObject {
 		};
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object o) {
-		return this.equals(o, new HashSet());
+		return this.equals(o, new PairRegister());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	protected boolean equals(Object o, Set visited) {
-		if (isIndirect()) {
-			if (visited.contains(getIndirectObject())) {
-				return true;
-			}
-			visited.add(getIndirectObject());
-		}
+    protected boolean equals(Object o, PairRegister visited) {
+	    if (this == o) {
+	        return true;
+	    }
 
-		if (this == o) {
-			return true;
-		}
+	    if (o == null || this.getClass() != o.getClass()) {
+	        return false;
+	    }
 
-		if (!(o instanceof COSDictionary)) {
-			return false;
-		}
+	    COSDictionary other = (COSDictionary) o;
+	    if (visited.check(this, other)) {
+            // We've already seen this pair.
+	        return true;
+	    }
 
-		COSDictionary other = (COSDictionary) o;
-		if (size() != other.size()) {
-			return false;
-		}
+	    if (this.size() != other.size()) {
+	        return false;
+	    }
 
-		for (Iterator i = keySet().iterator(); i.hasNext();) {
-			COSName key = (COSName) i.next();
-			COSDocumentElement eThis = get(key);
-			COSObject oThis = eThis.dereference();
-			COSDocumentElement eOther = other.get(key);
-			COSObject oOther = eOther.dereference();
-			if ((oThis == null) && (oOther != null)) {
-				return false;
-			}
-			if (!oThis.equals(oOther, visited)) {
-				return false;
-			}
-		}
-		return true;
+	    for (COSName key : (Set<COSName>) this.keySet()) {
+	        COSObject oThis = this.get(key).dereference();
+	        COSObject oOther = other.get(key).dereference();
+	        if (!oThis.equals(oOther, visited)) {
+	            return false;
+	        }
+	    }
+
+	    return true;
 	}
 
 	/**
 	 * The {@link COSObject} associated with <code>key</code>.
-	 * 
+	 *
 	 * @param key
 	 *            The key to lookup
-	 * 
+	 *
 	 * @return The {@link COSObject} associated with <code>key</code>.
 	 */
 	public COSObject get(COSName key) {
@@ -553,22 +541,25 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#iterator()
 	 */
 	@Override
-	public java.util.Iterator iterator() {
-		return new Iterator() {
-			private Iterator i = getObjects().values().iterator();
+	public Iterator<COSObject> iterator() {
+		return new Iterator<COSObject>() {
+			private Iterator<COSDocumentElement> i = getObjects().values().iterator();
 
+			@Override
 			public boolean hasNext() {
 				return i.hasNext();
 			}
 
-			public Object next() {
-				return ((COSDocumentElement) i.next()).dereference();
+			@Override
+			public COSObject next() {
+				return i.next().dereference();
 			}
 
+			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
 			}
@@ -577,10 +568,10 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * The key of obj when it is contained in this or {@link COSNull}.
-	 * 
+	 *
 	 * @param obj
 	 *            The object to look up in the collection
-	 * 
+	 *
 	 * @return The key of obj when it is contained in this or {@link COSNull}.
 	 */
 	public COSObject keyOf(COSObject obj) {
@@ -596,7 +587,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * The set of keys. Keys are {@link COSName} instances.
-	 * 
+	 *
 	 * @return The set of keys .
 	 */
 	public Set keySet() {
@@ -605,12 +596,12 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * Add an association to the collection.
-	 * 
+	 *
 	 * @param key
 	 *            The key where to store the object
 	 * @param object
 	 *            The object to store in the collection
-	 * 
+	 *
 	 * @return The {@link COSObject} associated with <code>key</code> so far.
 	 */
 	public COSObject put(COSName key, COSObject object) {
@@ -633,7 +624,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#referenceIndirect(de.intarsys.pdf.cos.COSIndirectObject)
 	 */
 	@Override
@@ -652,10 +643,10 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * Remove the element from the collection associated with <code>key</code>.
-	 * 
+	 *
 	 * @param key
 	 *            The key of the object to remove
-	 * 
+	 *
 	 * @return The {@link COSObject} removed or null.
 	 */
 	public COSObject remove(COSName key) {
@@ -675,7 +666,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.cos.COSObject#restoreState(java.lang.Object)
 	 */
 	@Override
@@ -688,7 +679,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
 	 */
 	public Object saveState() {
@@ -699,7 +690,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * The number of elements in this.
-	 * 
+	 *
 	 * @return The number of elements in this.
 	 */
 	public int size() {
@@ -708,7 +699,7 @@ public class COSDictionary extends COSCompositeObject {
 
 	/**
 	 * A list of {@link COSObject} instances within this.
-	 * 
+	 *
 	 * @return A list of {@link COSObject} instances within this.
 	 */
 	public List values() {

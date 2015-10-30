@@ -61,6 +61,14 @@ public class PDFontDescriptorEmbedded extends PDFontDescriptor {
 		}
 	}
 
+	static public final COSName CN_SubType_Type1C = COSName.constant("Type1C"); //$NON-NLS-1$
+
+	static public final COSName CN_SubType_CIDFontType0C = COSName
+			.constant("CIDFontType0C"); //$NON-NLS-1$
+
+	static public final COSName CN_SubType_OpenType = COSName
+			.constant("OpenType"); //$NON-NLS-1$
+
 	static public final COSName DK_Ascent = COSName.constant("Ascent");
 
 	static public final COSName DK_AvgWidth = COSName.constant("AvgWidth");
@@ -121,8 +129,8 @@ public class PDFontDescriptorEmbedded extends PDFontDescriptor {
 	static public final COSName DK_XHeight = COSName.constant("XHeight");
 
 	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+	static public final MetaClass META = new MetaClass(
+			MetaClass.class.getDeclaringClass());
 
 	/**
 	 * Create the receiver class from an already defined {@link COSDictionary}.
@@ -399,7 +407,7 @@ public class PDFontDescriptorEmbedded extends PDFontDescriptor {
 
 	@Override
 	public void setFontFamily(String value) {
-		setFieldName(DK_FontFamily, value);
+		setFieldString(DK_FontFamily, value);
 	}
 
 	@Override

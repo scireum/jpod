@@ -39,7 +39,7 @@ import de.intarsys.tools.component.ISaveStateSupport;
  * Abstract superclass for all COS level object types
  */
 abstract public class COSObject extends COSDocumentElement implements
-		ISaveStateSupport {
+		ISaveStateSupport, Iterable<COSObject> {
 	/**
 	 * This is the container for template objects. Template objects can be
 	 * created static in the application and are copied behind the scenes when
@@ -771,7 +771,8 @@ abstract public class COSObject extends COSDocumentElement implements
 	 * 
 	 * @return Iterator over contained objects.
 	 */
-	abstract public Iterator iterator();
+	@Override
+	abstract public Iterator<COSObject> iterator();
 
 	/**
 	 * <code>true</code> if this object may be swapped from memory by the

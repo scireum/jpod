@@ -43,7 +43,7 @@ import de.intarsys.pdf.tools.kernel.PDFFileTools;
  * The Launch action.
  * <p>
  * When executed the action opens a file.
- * 
+ *
  */
 public class PDActionLaunch extends PDAction {
 	/**
@@ -100,6 +100,10 @@ public class PDActionLaunch extends PDAction {
 			}
 		}
 		return file;
+	}
+
+	public void setFile(PDFileSpecification file) {
+		cosSetField(DK_F, file.cosGetObject());
 	}
 
 	@Override

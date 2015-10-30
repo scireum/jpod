@@ -61,8 +61,14 @@ public class PDEmbeddedFile extends PDObject {
 	}
 
 	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+	static public final MetaClass META = new MetaClass(
+			MetaClass.class.getDeclaringClass());
+
+	static public final COSName DK_Params = COSName.constant("Params"); //
+
+	static public final COSName DK_Subtype = COSName.constant("Subtype"); //
+
+	static public final COSName CN_ModDate = COSName.constant("ModDate"); //
 
 	static public final COSName CN_Type_EmbeddedFile = COSName
 			.constant("EmbeddedFile"); //
@@ -100,6 +106,23 @@ public class PDEmbeddedFile extends PDObject {
 		return cosGetStream().getDecodedBytes();
 	}
 
+	public PDEmbeddedFileParams getParams() {
+		COSDictionary cosParams = cosGetField(DK_Params).asDictionary();
+		if (cosParams == null) {
+			return null;
+		}
+		return (PDEmbeddedFileParams) PDEmbeddedFileParams.META
+				.createFromCos(cosParams);
+	}
+
+	public String getSubtype() {
+		COSName value = cosGetField(DK_Subtype).asName();
+		if (value == null) {
+			return null;
+		}
+		return value.stringValue();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -119,5 +142,13 @@ public class PDEmbeddedFile extends PDObject {
 	 */
 	public void setBytes(byte[] bytes) {
 		cosGetStream().setDecodedBytes(bytes);
+	}
+
+	public void setParams(PDEmbeddedFileParams params) {
+		setFieldObject(DK_Params, params);
+	}
+
+	public void setSubtype(String subtype) {
+		setFieldName(DK_Subtype, subtype);
 	}
 }

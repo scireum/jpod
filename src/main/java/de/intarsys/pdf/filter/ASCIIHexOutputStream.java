@@ -36,13 +36,13 @@ import java.io.OutputStream;
 import de.intarsys.tools.hex.HexTools;
 
 /**
- * Output stream to encode binary data with ascii representable byte codes. The
+ * Output stream to encode binary data with ASCII representable byte codes. The
  * algorithm produces the hex representation of the data.
  */
 public class ASCIIHexOutputStream extends FilterOutputStream {
 	/**
 	 * Constructor for ASCIIHexOutputStream.
-	 * 
+	 *
 	 * @param out
 	 */
 	public ASCIIHexOutputStream(OutputStream out) {
@@ -52,7 +52,8 @@ public class ASCIIHexOutputStream extends FilterOutputStream {
 	/**
 	 * @see java.io.OutputStream#close()
 	 */
-	public void close() throws IOException {
+	@Override
+    public void close() throws IOException {
 		super.write('>');
 		super.close();
 	}
@@ -60,7 +61,8 @@ public class ASCIIHexOutputStream extends FilterOutputStream {
 	/**
 	 * @see java.io.OutputStream#write(int)
 	 */
-	public void write(int b) throws IOException {
-		super.write(HexTools.ByteToHex[b]);
+	@Override
+    public void write(int b) throws IOException {
+		out.write(HexTools.ByteToHex[b]);
 	}
 }

@@ -107,9 +107,9 @@ public abstract class PDFParser {
 
 	public static final String C_WARN_ILLEGALHEX = "616b"; //$NON-NLS-1$
 
-	public static final String C_WARN_STRINGTOLONG = "ImplLimitString"; //$NON-NLS-1$
+	public static final String C_WARN_STRING_TOO_LONG = "ImplLimitString"; //$NON-NLS-1$
 
-	public static final String C_WARN_NAMETOLONG = "ImplLimitName"; //$NON-NLS-1$
+	public static final String C_WARN_NAME_TOO_LONG = "ImplLimitName"; //$NON-NLS-1$
 
 	public static final String C_WARN_ARRAYSIZE = "ImplLimitArray"; //$NON-NLS-1$
 
@@ -219,14 +219,14 @@ public abstract class PDFParser {
 
 	/**
 	 * evaluate to true if i is a PDF Delimiter char.
-	 * 
+	 *
 	 * <p>
 	 * See pdf spec delimiter characters.
 	 * </p>
-	 * 
+	 *
 	 * @param i
 	 *            i a byte representation
-	 * 
+	 *
 	 * @return true if i is a PDF delimiter char
 	 */
 	public static final boolean isDelimiter(int i) {
@@ -235,10 +235,10 @@ public abstract class PDFParser {
 
 	/**
 	 * evaluate to true if i is a valid digit.
-	 * 
+	 *
 	 * @param i
 	 *            i a byte representation
-	 * 
+	 *
 	 * @return true if i is a valid digit
 	 */
 	public static final boolean isDigit(int i) {
@@ -247,10 +247,10 @@ public abstract class PDFParser {
 
 	/**
 	 * evaluate to true if i is a valid line terminator.
-	 * 
+	 *
 	 * @param i
 	 *            i a byte representation
-	 * 
+	 *
 	 * @return true if i is a valid line terminator
 	 */
 	public static final boolean isEOL(int i) {
@@ -259,10 +259,10 @@ public abstract class PDFParser {
 
 	/**
 	 * evaluate to true if i is a valid first char for a number token.
-	 * 
+	 *
 	 * @param i
 	 *            i a byte representation
-	 * 
+	 *
 	 * @return true if i is a valid first char for a number token
 	 */
 	public static final boolean isNumberStart(int i) {
@@ -272,10 +272,10 @@ public abstract class PDFParser {
 
 	/**
 	 * evaluate to true if i is a valid octal digit.
-	 * 
+	 *
 	 * @param i
 	 *            i a byte representation
-	 * 
+	 *
 	 * @return true if i is a valid octal digit
 	 */
 	public static final boolean isOctalDigit(int i) {
@@ -284,10 +284,10 @@ public abstract class PDFParser {
 
 	/**
 	 * evaluate to true if i is a valid string token start.
-	 * 
+	 *
 	 * @param i
 	 *            i a byte representation
-	 * 
+	 *
 	 * @return true if i is a valid string token start
 	 */
 	public static final boolean isTokenStart(int i) {
@@ -296,14 +296,14 @@ public abstract class PDFParser {
 
 	/**
 	 * evaluate to true if i is a valid whitespace.
-	 * 
+	 *
 	 * <p>
 	 * See pdf spec "white space characters"
 	 * </p>
-	 * 
+	 *
 	 * @param i
 	 *            i a byte representation
-	 * 
+	 *
 	 * @return true if i is a valid whitespace
 	 */
 	public static final boolean isWhitespace(int i) {
@@ -312,12 +312,12 @@ public abstract class PDFParser {
 
 	/**
 	 * parse the given byte array to a valid COSObject.
-	 * 
+	 *
 	 * @param data
 	 *            a byte array containing COS encoded objects
-	 * 
+	 *
 	 * @return a COSObject
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -367,7 +367,7 @@ public abstract class PDFParser {
 
 	/**
 	 * Handle an error if an exceptionHandler is set.
-	 * 
+	 *
 	 * @param error
 	 * @throws COSLoadException
 	 */
@@ -381,7 +381,7 @@ public abstract class PDFParser {
 
 	/**
 	 * Handle a warning if an exceptionHandler is set.
-	 * 
+	 *
 	 * @param warning
 	 * @throws COSLoadException
 	 */
@@ -397,7 +397,7 @@ public abstract class PDFParser {
 	 * in order to read references we need a two object lookahead for the
 	 * integer numbers this method pops the first object from the fifo
 	 * structure.
-	 * 
+	 *
 	 * @return The topmost {@link COSObject}in the object lookahead buffer.
 	 */
 	protected COSObject lookaheadPop() {
@@ -417,7 +417,7 @@ public abstract class PDFParser {
 	/**
 	 * in order to read references we need a two object lookahead for the
 	 * integer numbers this method pushes an object in the fifo structure.
-	 * 
+	 *
 	 * @param obj
 	 *            The {@link COSObject}to push in the buffer.
 	 */
@@ -428,7 +428,7 @@ public abstract class PDFParser {
 	/**
 	 * comment see PDF Reference v1.4, chapter 3.1.2 comments Comment ::= "%"
 	 * anyChar EOL read until end of line.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	protected void parseComment(IRandomAccess input) throws IOException {
@@ -446,18 +446,18 @@ public abstract class PDFParser {
 
 	/**
 	 * parse the basic elements from the current stream position.
-	 * 
+	 *
 	 * <p>
 	 * see PDF Reference v1.4, chapter 3.2 Objects
 	 * </p>
-	 * 
+	 *
 	 * <p>
 	 * COSObject ::= COSToken | COSBoolean | COSString | COSNumber | COSName |
 	 * COSNull | COSArray | COSDictionary | COSStream
 	 * </p>
-	 * 
+	 *
 	 * @return the object parsed
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -543,7 +543,7 @@ public abstract class PDFParser {
 	/**
 	 * pdf header see PDF Reference v1.4, chapter 3.4.1 Header COSHEader ::=
 	 * "%PDF-" version.
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -607,15 +607,15 @@ public abstract class PDFParser {
 	/**
 	 * Parse a valid COS object for use in document context from the current
 	 * stream position.
-	 * 
+	 *
 	 * <p>
 	 * see PDF Reference v1.4, chapter 3.2 Objects
 	 * </p>
-	 * 
+	 *
 	 * <p>
 	 * this implementation is a little more complicated, as we hava a two object
 	 * lookahead to detect references.
-	 * 
+	 *
 	 * <code>
 	 * COSObject ::=   COSReference |
 	 *                 COSBoolean |
@@ -628,11 +628,11 @@ public abstract class PDFParser {
 	 *                 COSStream
 	 *
 	 * </code>
-	 * 
+	 *
 	 * </p>
-	 * 
+	 *
 	 * @return the object parsed
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -715,10 +715,10 @@ public abstract class PDFParser {
 	/**
 	 * parse a COS array from the current stream position. see PDF Reference
 	 * v1.4, chapter 3.2.5 Array objects COSArray ::= "[" (COSObject) "]"
-	 * 
+	 *
 	 * @return the array parsed
 	 * @throws IOException
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	protected COSObject parseOnObjectArray(IRandomAccess input)
@@ -767,13 +767,13 @@ public abstract class PDFParser {
 	/**
 	 * parse a COS dictionary from the current stream position. see PDF
 	 * Reference v1.4, chapter 3.2.6 Dictionary objects
-	 * 
+	 *
 	 * <code>
 	 * COSDictionary ::= &quot;&lt;&lt;&quot; (COSName COSObject)* &quot;&gt;&gt;&quot;
 	 * </code>
-	 * 
+	 *
 	 * @return the dictionary parsed
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -850,14 +850,14 @@ public abstract class PDFParser {
 	/**
 	 * parse a COS string encoded in hex from the current stream position. see
 	 * PDF Reference v1.4, chapter 3.2.3 String objects
-	 * 
+	 *
 	 * <code>
 	 * COSString ::= COSString | COSHexString
 	 * COSHexString ::= &quot;&lt;&quot; (hexChar)* &quot;&gt;&quot;
 	 * </code>
-	 * 
+	 *
 	 * @return the string parsed
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -879,6 +879,8 @@ public abstract class PDFParser {
 				if (!isWhitespace(next)) {
 					IOException ioe = new IOException("<" + next + "> '"
 							+ (char) next + "' not a valid hex char");
+
+					// todo 3 @mit Warning is useless. Due to the IOException, such documents cannot be loaded anyway. Remove it?
 
 					// a warning for PDF/A related checks will be triggered
 					// exception is handled right on track
@@ -927,8 +929,8 @@ public abstract class PDFParser {
 				handleWarning(warning);
 			}
 		}
-		if (check && (result.stringValue().length() > 65535)) {
-			COSLoadWarning pwarn = new COSLoadWarning(C_WARN_STRINGTOLONG);
+		if (check && (result.stringValue().length() > 32767)) {
+			COSLoadWarning pwarn = new COSLoadWarning(C_WARN_STRING_TOO_LONG);
 			pwarn.setHint(result);
 			handleWarning(pwarn);
 		}
@@ -938,9 +940,9 @@ public abstract class PDFParser {
 	/**
 	 * parse a COS name from the current stream position. see PDF Reference
 	 * v1.4, chapter 3.2.4 Name Objects COSName ::= "/" nameChars
-	 * 
+	 *
 	 * @return the name parsed
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -989,7 +991,7 @@ public abstract class PDFParser {
 		byte[] bytes = localStream.toByteArray();
 		COSName result = COSName.create(bytes);
 		if (check && (result.stringValue().length() > 127)) {
-			COSLoadWarning pwarn = new COSLoadWarning(C_WARN_NAMETOLONG);
+			COSLoadWarning pwarn = new COSLoadWarning(C_WARN_NAME_TOO_LONG);
 			pwarn.setHint(result);
 			handleWarning(pwarn);
 		}
@@ -1000,9 +1002,9 @@ public abstract class PDFParser {
 	 * parse a COS number from the current stream position. see PDF Reference
 	 * v1.4, chapter 3.2.2 Numeric objects COSNumber ::= COSFixed | COSInteger
 	 * COSFixed ::= (+ | -)? (digit) "." (digit) COSInteger ::= (+ | -)? (digit)
-	 * 
+	 *
 	 * @return the number parsed
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -1051,12 +1053,12 @@ public abstract class PDFParser {
 	 * parse a COS stream from the current stream position. see PDF Reference
 	 * v1.4, chapter 3.2.7 Stream objects COSStream ::= COSDictionary "stream"
 	 * bytes "endstream"
-	 * 
+	 *
 	 * @param dict
 	 *            The object that should be filled with the dictionary entries.
-	 * 
+	 *
 	 * @return The stream parsed.
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -1195,9 +1197,9 @@ public abstract class PDFParser {
 	/**
 	 * parse a COS stream or dictionary from the current stream position.
 	 * COSStreamOrDict ::= COSStream | COSDict
-	 * 
+	 *
 	 * @return the object parsed
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -1237,9 +1239,9 @@ public abstract class PDFParser {
 	/**
 	 * parse a COS stream or dictionary or hex string from the current stream
 	 * position. COSStreamOrDictOrHex ::= COSStream | COSDict | COSHexString
-	 * 
+	 *
 	 * @return the object parsed
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -1256,9 +1258,9 @@ public abstract class PDFParser {
 	/**
 	 * parse a COS string from the current stream position. see PDF Reference
 	 * v1.4, chapter 3.2.3. String objects COSString ::= "(" stringData ")"
-	 * 
+	 *
 	 * @return the string parsed
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws COSLoadException
 	 */
@@ -1313,8 +1315,8 @@ public abstract class PDFParser {
 				handleWarning(warning);
 			}
 		}
-		if (check && (result.stringValue().length() > 65535)) {
-			COSLoadWarning pwarn = new COSLoadWarning(C_WARN_STRINGTOLONG);
+		if (check && (result.stringValue().length() > 32767)) {
+			COSLoadWarning pwarn = new COSLoadWarning(C_WARN_STRING_TOO_LONG);
 			pwarn.setHint(result);
 			handleWarning(pwarn);
 		}
@@ -1323,7 +1325,7 @@ public abstract class PDFParser {
 
 	/**
 	 * determine number of EOL sequences
-	 * 
+	 *
 	 * @param input
 	 * @return <code>number of EOL</code>
 	 * @throws IOException
@@ -1376,9 +1378,9 @@ public abstract class PDFParser {
 
 	/**
 	 * read an esacped char from the stream.
-	 * 
+	 *
 	 * @return the character corresponding to the escape code
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	protected int readEscape(IRandomAccess input) throws IOException {
@@ -1422,7 +1424,7 @@ public abstract class PDFParser {
 	/**
 	 * reads the next integer on input. consumes one trailing space if
 	 * consumeSpaceAfter is set to true. Consumes leading spaces and comments.
-	 * 
+	 *
 	 * @param input
 	 * @param consumeSpaceAfter
 	 * @return The integer read.
@@ -1473,9 +1475,9 @@ public abstract class PDFParser {
 
 	/**
 	 * read an octal character from the stream.
-	 * 
+	 *
 	 * @return the integer value of the character read or -1
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	protected int readOctalChar(IRandomAccess input) throws IOException {
@@ -1516,7 +1518,7 @@ public abstract class PDFParser {
 	 * read all characters until EOF or non space char appears. the first non
 	 * space char is pushed back so the next char read is the first non space
 	 * char.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void readSpaces(IRandomAccess input) throws IOException {
@@ -1541,9 +1543,9 @@ public abstract class PDFParser {
 	 * <p>
 	 * ATTENTION this is a heuristic approach as the tag "endstream" may be part
 	 * of the stream data!
-	 * 
+	 *
 	 * @return All characters up to "endstream"
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	protected byte[] readStream(IRandomAccess input) throws IOException {
@@ -1572,9 +1574,9 @@ public abstract class PDFParser {
 
 	/**
 	 * read a single token.
-	 * 
+	 *
 	 * @return the array of characters belonging to the token
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public byte[] readToken(IRandomAccess input) throws IOException {
@@ -1598,7 +1600,7 @@ public abstract class PDFParser {
 	/**
 	 * derive of readToken, populates the messages list with non-fatal error
 	 * messages
-	 * 
+	 *
 	 * @param input
 	 * @param messages
 	 * @return token bytes
@@ -1664,7 +1666,7 @@ public abstract class PDFParser {
 	/**
 	 * derive of readToken, populates the messages list with non-fatal error
 	 * messages
-	 * 
+	 *
 	 * @param input
 	 * @param next
 	 * @param messages

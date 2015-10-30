@@ -31,11 +31,11 @@ package de.intarsys.pdf.cos;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
 import de.intarsys.pdf.writer.COSWriter;
-import de.intarsys.tools.collection.EmptyIterator;
 import de.intarsys.tools.randomaccess.IRandomAccess;
 
 /**
@@ -48,7 +48,7 @@ import de.intarsys.tools.randomaccess.IRandomAccess;
  * 
  */
 abstract public class COSObjectProxy extends COSCompositeObject implements
-		Cloneable {
+Cloneable {
 	/** The position when the signal from the serializer was detected */
 	private long position = -1;
 
@@ -77,7 +77,7 @@ abstract public class COSObjectProxy extends COSCompositeObject implements
 	@Override
 	public Iterator basicIterator() {
 		if (object == null) {
-			return EmptyIterator.UNIQUE;
+			return Collections.emptyIterator();
 		}
 		return object.basicIterator();
 	}
@@ -221,9 +221,9 @@ abstract public class COSObjectProxy extends COSCompositeObject implements
 	}
 
 	@Override
-	public Iterator iterator() {
+	public Iterator<COSObject> iterator() {
 		if (object == null) {
-			return EmptyIterator.UNIQUE;
+			return Collections.emptyIterator();
 		}
 		return object.iterator();
 	}
@@ -243,6 +243,7 @@ abstract public class COSObjectProxy extends COSCompositeObject implements
 		this.length = pLength;
 	}
 
+	@Override
 	public Object saveState() {
 		return null;
 	}

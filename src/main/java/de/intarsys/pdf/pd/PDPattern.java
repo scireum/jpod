@@ -39,7 +39,7 @@ import de.intarsys.pdf.cos.COSStream;
 
 /**
  * A pattern to be used when filling a shape.
- * 
+ *
  */
 public abstract class PDPattern extends PDObject {
 	/**
@@ -74,7 +74,7 @@ public abstract class PDPattern extends PDObject {
 				return PDShadingPattern.META;
 			default:
 				object.handleException(new COSRuntimeException(
-						"unsupported pattern type " + patternType));
+						"unsupported pattern type " + patternType)); //$NON-NLS-1$
 				return null;
 			}
 		}
@@ -102,7 +102,7 @@ public abstract class PDPattern extends PDObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
 	 */
 	@Override
@@ -113,4 +113,8 @@ public abstract class PDPattern extends PDObject {
 	public CDSMatrix getMatrix() {
 		return CDSMatrix.createFromCOS(cosGetField(DK_Matrix).asArray());
 	}
+
+    public void setMatrix(CDSMatrix matrix) {
+        setFieldObject(DK_Matrix, matrix);
+    }
 }
