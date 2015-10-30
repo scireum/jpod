@@ -56,7 +56,7 @@ public abstract class COSObjectProxy extends COSCompositeObject implements Clone
 
     private COSObject object;
 
-	@Override
+    @Override
     public Object accept(ICOSObjectVisitor visitor) throws COSVisitorException {
         if (object != null) {
             return object.accept(visitor);
@@ -132,7 +132,7 @@ public abstract class COSObjectProxy extends COSCompositeObject implements Clone
      * @return the represented object
      * @throws IOException
      */
-	protected abstract COSObject createCOSObject(IRandomAccess randomAccessData) throws IOException;
+    protected abstract COSObject createCOSObject(IRandomAccess randomAccessData) throws IOException;
 
     @Override
     public COSObject dereference() {

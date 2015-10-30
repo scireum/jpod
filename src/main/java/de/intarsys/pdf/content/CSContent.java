@@ -81,14 +81,14 @@ public class CSContent {
      * @param data The bytes defining the PDF content stream.
      * @return The new {@link CSContent}
      */
-	public static CSContent createFromBytes(byte[] data) {
+    public static CSContent createFromBytes(byte[] data) {
         try {
             CSContentParser parser = new CSContentParser();
             return parser.parseStream(data);
         } catch (IOException | COSLoadException e) {
             throw new COSRuntimeException(e);
         }
-	}
+    }
 
     /**
      * Create {@link CSContent} from an array of {@link COSStream}, together
@@ -98,7 +98,7 @@ public class CSContent {
      *                of the content stream.
      * @return The new {@link CSContent}.
      */
-	public static CSContent createFromCos(COSArray streams) {
+    public static CSContent createFromCos(COSArray streams) {
         RandomAccessByteArray data = new RandomAccessByteArray(null);
         try {
             for (Iterator it = streams.iterator(); it.hasNext(); ) {
@@ -115,7 +115,7 @@ public class CSContent {
         } catch (IOException | COSLoadException e) {
             throw new COSRuntimeException(e);
         }
-	}
+    }
 
     /**
      * Create {@link CSContent} from a {@link COSStream} containing a PDF
@@ -124,7 +124,7 @@ public class CSContent {
      * @param stream The stream defining containing the PDF content stream.
      * @return The new {@link CSContent}
      */
-	public static CSContent createFromCos(COSStream stream) {
+    public static CSContent createFromCos(COSStream stream) {
         return createFromBytes(stream.getDecodedBytes());
     }
 
@@ -133,7 +133,7 @@ public class CSContent {
      *
      * @return The new {@link CSContent}.
      */
-	public static CSContent createNew() {
+    public static CSContent createNew() {
         return new CSContent();
     }
 

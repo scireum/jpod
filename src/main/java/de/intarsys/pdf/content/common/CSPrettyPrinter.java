@@ -63,7 +63,7 @@ public class CSPrettyPrinter {
      */
     private int indent = 0;
 
-	public String getValue() {
+    public String getValue() {
         return sb.toString();
     }
 

@@ -75,7 +75,7 @@ public class CDSRectangle extends CDSBase {
     /**
      * Some common constants in rectangle
      */
-	private static final float INCH_2_CM = 2.54f;
+    private static final float INCH_2_CM = 2.54f;
 
     private static final float A4_WIDTH = 21.0f;
 
@@ -83,17 +83,17 @@ public class CDSRectangle extends CDSBase {
 
     private static final float DPI = 72.0f;
 
-	/*
+    /*
      * paper sizes in mm A0 841 × 1189 B0 1000 × 1414 C0 17 × 1297 A1 594 × 841
-	 * B1 707 × 1000 C1 648 × 917 A2 420 × 594 B2 500 × 707 C2 458 × 648 A3 297 ×
-	 * 420 B3 353 × 500 C3 324 × 458 A4 210 × 297 B4 250 × 353 C4 229 × 324 A5
-	 * 148 × 210 B5 176 × 250 C5 162 × 229 A6 105 × 148 B6 125 × 176 C6 114 ×
-	 * 162 A7 74 × 105 B7 88 × 125 C7 81 × 114 A8 52 × 74 B8 62 × 88 C8 57 × 81
-	 * A9 37 × 52 B9 44 × 62 C9 40 × 57 A10 26 × 37 B10 31 × 44 C10 28 × 40
-	 */
+     * B1 707 × 1000 C1 648 × 917 A2 420 × 594 B2 500 × 707 C2 458 × 648 A3 297 ×
+     * 420 B3 353 × 500 C3 324 × 458 A4 210 × 297 B4 250 × 353 C4 229 × 324 A5
+     * 148 × 210 B5 176 × 250 C5 162 × 229 A6 105 × 148 B6 125 × 176 C6 114 ×
+     * 162 A7 74 × 105 B7 88 × 125 C7 81 × 114 A8 52 × 74 B8 62 × 88 C8 57 × 81
+     * A9 37 × 52 B9 44 × 62 C9 40 × 57 A10 26 × 37 B10 31 × 44 C10 28 × 40
+     */
 
     // todo 4 add some common paper sizes
-	public static final float[] SIZE_A4 = {0, 0, (A4_WIDTH / INCH_2_CM * DPI), (A4_HEIGHT / INCH_2_CM * DPI)};
+    public static final float[] SIZE_A4 = {0, 0, (A4_WIDTH / INCH_2_CM * DPI), (A4_HEIGHT / INCH_2_CM * DPI)};
 
     /**
      * Create a {@link CDSRectangle} from an {@code array} holding the
@@ -102,7 +102,7 @@ public class CDSRectangle extends CDSBase {
      * @param array The base {@link COSArray}
      * @return Create a {@link CDSRectangle} from {@code array}
      */
-	public static CDSRectangle createFromCOS(COSArray array) {
+    public static CDSRectangle createFromCOS(COSArray array) {
         if (array == null) {
             return null;
         }

@@ -379,7 +379,7 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
     }
 
     @Override
-	public PDAdditionalActions getAdditionalActions() {
+    public PDAdditionalActions getAdditionalActions() {
         COSDictionary aa = null;
         COSCatalog catalog = getCatalog();
         if (catalog != null) {
@@ -414,8 +414,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * de.intarsys.tools.component.IAttributeSupport#getAttribute(java.lang.
      * Object)
      */
-	@Override
-	public final Object getAttribute(Object key) {
+    @Override
+    public final Object getAttribute(Object key) {
         return cosDoc.getAttribute(key);
     }
 
@@ -501,7 +501,7 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
     }
 
     @Override
-	public ILocator getLocator() {
+    public ILocator getLocator() {
         return cosDoc.getLocator();
     }
 
@@ -635,7 +635,7 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * de.intarsys.pdf.pd.IAdditionalActionSupport#getSupportedTriggerEvents()
      */
     @Override
-	public Set getSupportedTriggerEvents() {
+    public Set getSupportedTriggerEvents() {
         return CATALOG_ACTION_TRIGGERS;
     }
 
@@ -795,8 +795,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * de.intarsys.tools.component.IAttributeSupport#removeAttribute(java.lang
      * .Object)
      */
-	@Override
-	public final Object removeAttribute(Object key) {
+    @Override
+    public final Object removeAttribute(Object key) {
         return cosDoc.removeAttribute(key);
     }
 
@@ -852,7 +852,7 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * .pd.PDAdditionalActions)
      */
     @Override
-	public void setAdditionalActions(PDAdditionalActions actions) {
+    public void setAdditionalActions(PDAdditionalActions actions) {
         COSCatalog catalog = getCatalog();
         if (catalog != null) {
             catalog.setFieldObject(DK_AA, actions);
@@ -880,8 +880,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
      * de.intarsys.tools.component.IAttributeSupport#setAttribute(java.lang.
      * Object, java.lang.Object)
      */
-	@Override
-	public final Object setAttribute(Object key, Object o) {
+    @Override
+    public final Object setAttribute(Object key, Object o) {
         return cosDoc.setAttribute(key, o);
     }
 

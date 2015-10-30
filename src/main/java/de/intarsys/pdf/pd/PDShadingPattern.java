@@ -40,7 +40,7 @@ public class PDShadingPattern extends PDPattern {
     /**
      * The meta class implementation
      */
-	public static class MetaClass extends PDPattern.MetaClass {
+    public static class MetaClass extends PDPattern.MetaClass {
         protected MetaClass(Class<?> paramInstanceClass) {
             super(paramInstanceClass);
         }

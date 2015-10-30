@@ -32,8 +32,8 @@ package de.intarsys.pdf.postscript;
 
 public class TokenMgrError extends Error {
     /*
-	 * Ordinals for various reasons why an Error of this type can be thrown.
-	 */
+     * Ordinals for various reasons why an Error of this type can be thrown.
+     */
 
     /**
      * Tried to change to an invalid lexical state.

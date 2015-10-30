@@ -71,8 +71,8 @@ public class PDCSDeviceN extends PDCSSpecial {
             namedComponents[index] = namedComponentsArray.get(index).asName().stringValue();
         }
         /*
-		 * alternateSpace and tintTransform will be resolved lazily
-		 */
+         * alternateSpace and tintTransform will be resolved lazily
+         */
     }
 
     public PDColorSpace getAlternate() {

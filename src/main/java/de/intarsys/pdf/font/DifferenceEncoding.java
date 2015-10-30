@@ -114,7 +114,7 @@ public class DifferenceEncoding extends Encoding {
     }
 
     // the dictionary object representing the encoding
-	private final COSDictionary dict;
+    private final COSDictionary dict;
 
     // the base encoding
     private Encoding baseEncoding;

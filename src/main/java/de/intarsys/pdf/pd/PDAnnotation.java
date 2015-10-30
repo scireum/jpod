@@ -402,7 +402,7 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
      * @see de.intarsys.pdf.pd.IAdditionalActionSupport#getAdditionalActions()
      */
     @Override
-	public PDAdditionalActions getAdditionalActions() {
+    public PDAdditionalActions getAdditionalActions() {
         COSDictionary field = cosGetField(DK_AA).asDictionary();
         return (PDAdditionalActions) PDAdditionalActions.META.createFromCos(field);
     }
@@ -628,7 +628,7 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
     protected Integer getStructParent() {
         COSInteger cosObject = cosGetField(DK_StructParent).asInteger();
         if (cosObject != null) {
-			Integer.valueOf(cosObject.intValue());
+            Integer.valueOf(cosObject.intValue());
         }
         return null;
     }
@@ -638,7 +638,7 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
      *
      * @return A {@link String} representation of this.
      */
-	public abstract String getSubtypeLabel();
+    public abstract String getSubtypeLabel();
 
     /*
      * (non-Javadoc)
@@ -646,7 +646,7 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
      * @see de.intarsys.pdf.pd.IAdditionalActionSupport#getSupportedTriggerEvents()
      */
     @Override
-	public Set getSupportedTriggerEvents() {
+    public Set getSupportedTriggerEvents() {
         return ANNOTATION_ACTION_TRIGGERS;
     }
 
@@ -770,7 +770,7 @@ public abstract class PDAnnotation extends PDObject implements IAdditionalAction
      * @see de.intarsys.pdf.pd.IAdditionalActionSupport#setActions(de.intarsys.pdf.pd.PDAdditionalActions)
      */
     @Override
-	public void setAdditionalActions(PDAdditionalActions actions) {
+    public void setAdditionalActions(PDAdditionalActions actions) {
         setFieldObject(DK_AA, actions);
     }
 

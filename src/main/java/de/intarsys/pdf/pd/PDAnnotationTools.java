@@ -171,7 +171,7 @@ public class PDAnnotationTools {
      * @param annotation
      * @return the next annotation or {@code null}
      */
-	public static PDAnnotation getNextAnnotation(PDAnnotation annotation) {
+    public static PDAnnotation getNextAnnotation(PDAnnotation annotation) {
         PDPage page = getPage(annotation);
         if (page == null) {
             return null;
@@ -187,7 +187,7 @@ public class PDAnnotationTools {
      * @param annotation
      * @return the next annotation or {@code null}
      */
-	public static PDAnnotation getNextAnnotationAllPages(PDAnnotation annotation) {
+    public static PDAnnotation getNextAnnotationAllPages(PDAnnotation annotation) {
         PDPage page = getPage(annotation);
         if (page == null) {
             return null;
@@ -236,7 +236,7 @@ public class PDAnnotationTools {
      * @param annotation
      * @return the preceding annotation or {@code null}
      */
-	public static PDAnnotation getPreviousAnnotation(PDAnnotation annotation) {
+    public static PDAnnotation getPreviousAnnotation(PDAnnotation annotation) {
         PDPage page = getPage(annotation);
         if (page == null) {
             return null;
@@ -252,7 +252,7 @@ public class PDAnnotationTools {
      * @param annotation
      * @return the previous annotation or {@code null}
      */
-	public static PDAnnotation getPreviousAnnotationAllPages(PDAnnotation annotation) {
+    public static PDAnnotation getPreviousAnnotationAllPages(PDAnnotation annotation) {
         PDPage page = getPage(annotation);
         if (page == null) {
             return null;
@@ -355,8 +355,8 @@ public class PDAnnotationTools {
         if (subtype.equals(COSName.constant("PrinterMark"))) {
             return true;
         }
-		return subtype.equals(COSName.constant("TrapNet"));
-	}
+        return subtype.equals(COSName.constant("TrapNet"));
+    }
 
     /**
      * {@code true} if {@code state} represents a state that is not

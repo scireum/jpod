@@ -36,7 +36,7 @@ public class COSCatalog extends COSBasedObject {
     /**
      * The meta class implementation
      */
-	public static class MetaClass extends COSBasedObject.MetaClass {
+    public static class MetaClass extends COSBasedObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -110,12 +110,12 @@ public class COSCatalog extends COSBasedObject {
     /**
      * Well known attribute names
      */
-	public static final COSName CN_Version_1_4 = COSName.constant("1.4"); //$NON-NLS-1$
+    public static final COSName CN_Version_1_4 = COSName.constant("1.4"); //$NON-NLS-1$
 
     /**
      * The meta class instance
      */
-	public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected COSCatalog(COSObject object) {
         super(object);

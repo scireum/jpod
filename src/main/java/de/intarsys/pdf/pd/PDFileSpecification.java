@@ -44,7 +44,7 @@ public class PDFileSpecification extends PDObject {
     /**
      * The meta class implementation
      */
-	public static class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class instanceClass) {
             super(instanceClass);
         }
@@ -89,89 +89,89 @@ public class PDFileSpecification extends PDObject {
     /**
      * The meta class instance
      */
-	public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     /**
      * Name of the file system.
      */
-	public static final COSName DK_FS = COSName.constant("FS");
+    public static final COSName DK_FS = COSName.constant("FS");
 
     /**
      * File
      */
-	public static final COSName DK_F = COSName.constant("F");
+    public static final COSName DK_F = COSName.constant("F");
 
     /**
      * Unicode File
      */
-	public static final COSName DK_UF = COSName.constant("UF");
+    public static final COSName DK_UF = COSName.constant("UF");
 
     /**
      * File specification string for DOS files
      */
-	public static final COSName CN_F_DOS = COSName.constant("DOS");
+    public static final COSName CN_F_DOS = COSName.constant("DOS");
 
     /**
      * File specification string for Macintosh files
      */
-	public static final COSName CN_F_Mac = COSName.constant("Mac");
+    public static final COSName CN_F_Mac = COSName.constant("Mac");
 
     /**
      * File specification string for UNIX files
      */
-	public static final COSName CN_F_Unix = COSName.constant("Unix");
+    public static final COSName CN_F_Unix = COSName.constant("Unix");
 
     /**
      * File URL
      */
-	public static final COSName CN_FS_URL = COSName.constant("URL");
+    public static final COSName CN_FS_URL = COSName.constant("URL");
 
     /**
      * File is original source material for the associated content
      */
-	public static final COSName CN_Source = COSName.constant("Source");
+    public static final COSName CN_Source = COSName.constant("Source");
 
     /**
      * File represents information used to derive a visual presentation
      */
-	public static final COSName CN_Data = COSName.constant("Data");
+    public static final COSName CN_Data = COSName.constant("Data");
 
     /**
      * File is an alternative representation of content
      */
-	public static final COSName CN_Alternative = COSName.constant("Alternative");
+    public static final COSName CN_Alternative = COSName.constant("Alternative");
 
     /**
      * File represents a supplemental representation of the original source or
      * data that may be more easily consumable
      */
-	public static final COSName CN_Supplement = COSName.constant("Supplement");
+    public static final COSName CN_Supplement = COSName.constant("Supplement");
 
     /**
      * File relationship is not known or can�t be described using one of the
      * other values
      */
-	public static final COSName CN_Unspecified = COSName.constant("Unspecified");
+    public static final COSName CN_Unspecified = COSName.constant("Unspecified");
 
     /**
      * Embedded file dict
      */
-	public static final COSName DK_EF = COSName.constant("EF");
+    public static final COSName DK_EF = COSName.constant("EF");
 
     /**
      * Embedded file array dict.
      */
-	public static final COSName DK_RF = COSName.constant("RF");
+    public static final COSName DK_RF = COSName.constant("RF");
 
     /**
      * Description
      */
-	public static final COSName DK_Desc = COSName.constant("Desc");
+    public static final COSName DK_Desc = COSName.constant("Desc");
 
     /**
      * Associated file relationship
      */
-	public static final COSName DK_AFRelationship = COSName.constant("AFRelationship");
+    public static final COSName DK_AFRelationship = COSName.constant("AFRelationship");
 
     private COSName fileSystem = null;
 

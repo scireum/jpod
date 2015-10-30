@@ -160,12 +160,12 @@ public class COSName extends COSPrimitiveObject {
 
     protected String decode() {
         /*
-		 * UTF-8 Test: a UTF-8 encoded character starts with 110xxxxx or
-		 * 1110xxxx or 11110xxx followed by 1 to 3 bytes in form: 10xxxxxx. This
-		 * algorithm looks for the UTF-8 start and 1 followup character. If one
-		 * sequence is found, UTF-8 is assumed, otherwise not. F8: 1111 1000 F0:
-		 * 1111 0000 E0: 1110 0000 C0: 1100 0000 08: 1000 0000
-		 */
+         * UTF-8 Test: a UTF-8 encoded character starts with 110xxxxx or
+         * 1110xxxx or 11110xxx followed by 1 to 3 bytes in form: 10xxxxxx. This
+         * algorithm looks for the UTF-8 start and 1 followup character. If one
+         * sequence is found, UTF-8 is assumed, otherwise not. F8: 1111 1000 F0:
+         * 1111 0000 E0: 1110 0000 C0: 1100 0000 08: 1000 0000
+         */
         boolean utf8 = false;
         for (int i = 0; i < bytes.length; i++) {
             if (bytes[i] < 0) {

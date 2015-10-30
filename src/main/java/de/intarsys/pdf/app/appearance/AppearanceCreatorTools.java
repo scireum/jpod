@@ -51,10 +51,10 @@ public class AppearanceCreatorTools {
 
     private static final IAppearanceCreator APPEARANCECREATOR_NULL = new NullAppearanceCreator();
 
-	private AppearanceCreatorTools() {
-	}
+    private AppearanceCreatorTools() {
+    }
 
-	public static void createAppearance(PDAcroFormField field) {
+    public static void createAppearance(PDAcroFormField field) {
         IAppearanceCreator appearanceCreator = getAppearanceCreator(field);
         for (Iterator i = field.getLogicalRoot().getAnnotations().iterator(); i.hasNext(); ) {
             PDAnnotation annot = (PDAnnotation) i.next();

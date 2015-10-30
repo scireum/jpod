@@ -289,13 +289,13 @@ public class CSContentParser extends PDFParser {
         // see test doc "CCITTFax G4 inline 1"
         while (next != -1) {
             /*
-			 * spec is not clear but some internet articles claim that before
-			 * "EI" a line break is required. spaces and CRs have been seen in
-			 * real world documents; accept these and LF as possible end and
-			 * check if valid operation follows. treat any CR followed by a LF
-			 * as belonging to the image data, because this also has been seen
-			 * out there.
-			 */
+             * spec is not clear but some internet articles claim that before
+             * "EI" a line break is required. spaces and CRs have been seen in
+             * real world documents; accept these and LF as possible end and
+             * check if valid operation follows. treat any CR followed by a LF
+             * as belonging to the image data, because this also has been seen
+             * out there.
+             */
             if ((next == '\n') || (next == '\r') || (next == ' ')) {
                 // remember position
                 long mark = input.getOffset();

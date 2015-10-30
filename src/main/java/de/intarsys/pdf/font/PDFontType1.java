@@ -103,19 +103,19 @@ public class PDFontType1 extends PDSingleByteFont {
     public static String FONT_ZapfDingbats = "ZapfDingbats"; //$NON-NLS-1$
 
     public static final String[] FONT_BUILTINS = {FONT_Courier,
-                                                              FONT_Courier_Bold,
-                                                              FONT_Courier_BoldOblique,
-                                                              FONT_Courier_Oblique,
-                                                              FONT_Helvetica,
-                                                              FONT_Helvetica_Bold,
-                                                              FONT_Helvetica_BoldOblique,
-                                                              FONT_Helvetica_Oblique,
-                                                              FONT_Symbol,
-                                                              FONT_Times_Bold,
-                                                              FONT_Times_BoldItalic,
-                                                              FONT_Times_Italic,
-                                                              FONT_Times_Roman,
-                                                              FONT_ZapfDingbats};
+                                                  FONT_Courier_Bold,
+                                                  FONT_Courier_BoldOblique,
+                                                  FONT_Courier_Oblique,
+                                                  FONT_Helvetica,
+                                                  FONT_Helvetica_Bold,
+                                                  FONT_Helvetica_BoldOblique,
+                                                  FONT_Helvetica_Oblique,
+                                                  FONT_Symbol,
+                                                  FONT_Times_Bold,
+                                                  FONT_Times_BoldItalic,
+                                                  FONT_Times_Italic,
+                                                  FONT_Times_Roman,
+                                                  FONT_ZapfDingbats};
 
     /**
      * The meta class instance

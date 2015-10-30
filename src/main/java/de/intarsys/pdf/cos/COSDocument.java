@@ -313,7 +313,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * de.intarsys.tools.component.IAttributeSupport#getAttribute(java.lang.
      * Object)
      */
-	@Override
+    @Override
     public synchronized Object getAttribute(Object key) {
         return stDoc.getAttribute(key);
     }
@@ -578,7 +578,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * de.intarsys.tools.component.IAttributeSupport#removeAttribute(java.lang
      * .Object)
      */
-	@Override
+    @Override
     public synchronized Object removeAttribute(Object key) {
         return stDoc.removeAttribute(key);
     }
@@ -684,7 +684,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * de.intarsys.tools.attribute.IAttributeSupport#setAttribute(java.lang.
      * Object, java.lang.Object)
      */
-	@Override
+    @Override
     public synchronized Object setAttribute(Object key, Object value) {
         return stDoc.setAttribute(key, value);
     }

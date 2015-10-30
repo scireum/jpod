@@ -208,13 +208,13 @@ public class PDSignature extends PDObject {
      */
     public byte[] getContentBytes() {
         /*
-		 * Upon writing, /Contents are handled by a COSObjectProxy and inserted
-		 * after serializing the document. The data is not processed by the
-		 * standard COSWriter, especially it is not encrypted even if the
-		 * document has a security handler. <br> <p> Now, reading the /Content
-		 * is done the same way to circumvent any context specific processing
-		 * (especially decrypting).
-		 */
+         * Upon writing, /Contents are handled by a COSObjectProxy and inserted
+         * after serializing the document. The data is not processed by the
+         * standard COSWriter, especially it is not encrypted even if the
+         * document has a security handler. <br> <p> Now, reading the /Content
+         * is done the same way to circumvent any context specific processing
+         * (especially decrypting).
+         */
         byte[] contentBytes = null;
         COSDocumentElement content = cosGetDict().basicGet(DK_Contents);
         if (content instanceof COSString) {

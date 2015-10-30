@@ -363,9 +363,9 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
                 if (cs instanceof COSName) {
                     if (getResources() != null) {
                         /*
-						 * will be null if cs is one of the predefined names. pd
-						 * image will resolve lazily then
-						 */
+                         * will be null if cs is one of the predefined names. pd
+                         * image will resolve lazily then
+                         */
                         PDColorSpace pdCS = getResources().getColorSpaceResource((COSName) cs);
                         if (pdCS != null) {
                             image.setColorSpace(pdCS);

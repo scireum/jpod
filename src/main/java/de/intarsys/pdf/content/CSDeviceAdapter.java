@@ -147,9 +147,9 @@ public abstract class CSDeviceAdapter implements ICSDevice, ICSDeviceFeatures {
             if (r != null) {
                 Rectangle2D tempRect = r.toNormalizedRectangle();
                 /*
-				 * using the "operations" interface is not exactly right but
-				 * don't have a "private" interface right now
-				 */
+                 * using the "operations" interface is not exactly right but
+                 * don't have a "private" interface right now
+                 */
                 penRectangle((float) tempRect.getMinX(),
                              (float) tempRect.getMinY(),
                              (float) tempRect.getWidth(),

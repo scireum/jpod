@@ -56,17 +56,17 @@ public class COSDictionary extends COSCompositeObject {
         }
 
         @Override
-		public Object getKey() {
+        public Object getKey() {
             return key;
         }
 
         @Override
-		public Object getValue() {
+        public Object getValue() {
             return value.dereference();
         }
 
         @Override
-		public Object setValue(Object newValue) {
+        public Object setValue(Object newValue) {
             return value = (COSDocumentElement) newValue;
         }
     }
@@ -444,18 +444,18 @@ public class COSDictionary extends COSCompositeObject {
             private Iterator it = getObjects().entrySet().iterator();
 
             @Override
-			public boolean hasNext() {
+            public boolean hasNext() {
                 return it.hasNext();
             }
 
             @Override
-			public Object next() {
+            public Object next() {
                 Map.Entry entry = (Map.Entry) it.next();
                 return new Entry((COSName) entry.getKey(), (COSDocumentElement) entry.getValue());
             }
 
             @Override
-			public void remove() {
+            public void remove() {
                 throw new UnsupportedOperationException();
             }
         };
@@ -650,7 +650,7 @@ public class COSDictionary extends COSCompositeObject {
      * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
      */
     @Override
-	public Object saveState() {
+    public Object saveState() {
         COSObject result = new COSDictionary(new HashMap(this.objects));
         result.container = this.container.saveStateContainer();
         return result;

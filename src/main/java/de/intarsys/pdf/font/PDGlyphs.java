@@ -59,7 +59,7 @@ public class PDGlyphs implements IAttributeSupport {
     }
 
     @Override
-	public final Object getAttribute(Object key) {
+    public final Object getAttribute(Object key) {
         return attributes.getAttribute(key);
     }
 
@@ -117,7 +117,7 @@ public class PDGlyphs implements IAttributeSupport {
     }
 
     @Override
-	public final Object removeAttribute(Object key) {
+    public final Object removeAttribute(Object key) {
         return attributes.removeAttribute(key);
     }
 
@@ -126,7 +126,7 @@ public class PDGlyphs implements IAttributeSupport {
     }
 
     @Override
-	public final Object setAttribute(Object key, Object o) {
+    public final Object setAttribute(Object key, Object o) {
         return attributes.setAttribute(key, o);
     }
 

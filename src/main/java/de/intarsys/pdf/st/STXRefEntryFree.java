@@ -99,10 +99,10 @@ public class STXRefEntryFree extends STXRefEntry {
     public STXRefEntryOccupied fill(int pos) {
         unlink();
 
-		/*
+        /*
          * STXRefEntry newEntry = STXRefEntryOccupied.create( getObjectNumber(),
-		 * pos, getGenerationNumber() ); return newEntry.fill(pos);
-		 */
+         * pos, getGenerationNumber() ); return newEntry.fill(pos);
+         */
         return null;
     }
 

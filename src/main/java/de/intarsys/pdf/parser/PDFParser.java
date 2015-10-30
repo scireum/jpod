@@ -1162,7 +1162,7 @@ public abstract class PDFParser {
 
             // performance shortcut for simple space
             if ((next == ' ') || isWhitespace(next)) {
-				lastWasEOL = next == '\n' || next == '\r';
+                lastWasEOL = next == '\n' || next == '\r';
                 continue;
             }
             break;

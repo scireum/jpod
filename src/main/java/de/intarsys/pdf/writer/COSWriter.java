@@ -79,9 +79,9 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 
     public static final byte[] COMMENT = "%".getBytes(); //$NON-NLS-1$
 
-	/*
+    /*
      * todo 1 @mit break up streams longer than allowed line (255 chars, pp67)
-	 */
+     */
 
     /**
      * To be used when 2 byte sequence is enforced.

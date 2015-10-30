@@ -46,27 +46,27 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      */
     public static final ICOSContainer CONSTANT_CONTAINER = new ICOSContainer() {
         @Override
-		public ICOSContainer associate(ICOSContainer newContainer, COSObject object) {
+        public ICOSContainer associate(ICOSContainer newContainer, COSObject object) {
             throw new IllegalStateException("constants can not be contained"); //$NON-NLS-1$
         }
 
         @Override
-		public COSDocumentElement containable(COSObject object) {
+        public COSDocumentElement containable(COSObject object) {
             return object.copyDeep().containable();
         }
 
         @Override
-		public ICOSContainer disassociate(ICOSContainer oldContainer, COSObject object) {
+        public ICOSContainer disassociate(ICOSContainer oldContainer, COSObject object) {
             throw new IllegalStateException("constants can not be contained"); //$NON-NLS-1$
         }
 
         @Override
-		public COSDocument getDoc() {
+        public COSDocument getDoc() {
             return null;
         }
 
         @Override
-		public void harden(COSObject object) {
+        public void harden(COSObject object) {
             // ignore
         }
 
@@ -77,17 +77,17 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
          * @see de.intarsys.pdf.cos.ICOSContainer#referenceCount()
          */
         @Override
-		public int referenceCount() {
+        public int referenceCount() {
             return 0;
         }
 
         @Override
-		public COSIndirectObject referenceIndirect(COSObject object) {
+        public COSIndirectObject referenceIndirect(COSObject object) {
             throw new IllegalStateException("constants can not be indirect"); //$NON-NLS-1$
         }
 
         @Override
-		public void register(COSDocumentElement object) {
+        public void register(COSDocumentElement object) {
             // do nothing
         }
 
@@ -97,7 +97,7 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
          * @see de.intarsys.pdf.cos.ICOSContainer#restoreStateContainer(de.intarsys.pdf.cos.ICOSContainer)
          */
         @Override
-		public ICOSContainer restoreStateContainer(ICOSContainer container) {
+        public ICOSContainer restoreStateContainer(ICOSContainer container) {
             return container;
         }
 
@@ -107,17 +107,17 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
          * @see de.intarsys.pdf.cos.ICOSContainer#storeStateContainer()
          */
         @Override
-		public ICOSContainer saveStateContainer() {
+        public ICOSContainer saveStateContainer() {
             return this;
         }
 
         @Override
-		public void soften(COSObject object) {
+        public void soften(COSObject object) {
             // ignore
         }
 
         @Override
-		public void willChange(COSObject object) {
+        public void willChange(COSObject object) {
             // do nothing
         }
     };
@@ -127,29 +127,29 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      */
     public static final ICOSContainer NULL_CONTAINER = new ICOSContainer() {
         @Override
-		public ICOSContainer associate(ICOSContainer newContainer, COSObject object) {
+        public ICOSContainer associate(ICOSContainer newContainer, COSObject object) {
             object.basicSetContainer(newContainer);
             newContainer.register(object);
             return newContainer;
         }
 
         @Override
-		public COSDocumentElement containable(COSObject object) {
+        public COSDocumentElement containable(COSObject object) {
             return object;
         }
 
         @Override
-		public ICOSContainer disassociate(ICOSContainer oldContainer, COSObject object) {
+        public ICOSContainer disassociate(ICOSContainer oldContainer, COSObject object) {
             throw new IllegalStateException("association inconsistent"); //$NON-NLS-1$
         }
 
         @Override
-		public COSDocument getDoc() {
+        public COSDocument getDoc() {
             return null;
         }
 
         @Override
-		public void harden(COSObject object) {
+        public void harden(COSObject object) {
             // ignore
         }
 
@@ -160,17 +160,17 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
          * @see de.intarsys.pdf.cos.ICOSContainer#referenceCount()
          */
         @Override
-		public int referenceCount() {
+        public int referenceCount() {
             return 0;
         }
 
         @Override
-		public COSIndirectObject referenceIndirect(COSObject object) {
+        public COSIndirectObject referenceIndirect(COSObject object) {
             return COSIndirectObject.create(object);
         }
 
         @Override
-		public void register(COSDocumentElement object) {
+        public void register(COSDocumentElement object) {
             // do nothing
         }
 
@@ -180,7 +180,7 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
          * @see de.intarsys.pdf.cos.ICOSContainer#restoreStateContainer(de.intarsys.pdf.cos.ICOSContainer)
          */
         @Override
-		public ICOSContainer restoreStateContainer(ICOSContainer container) {
+        public ICOSContainer restoreStateContainer(ICOSContainer container) {
             return container;
         }
 
@@ -190,17 +190,17 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
          * @see de.intarsys.pdf.cos.ICOSContainer#storeStateContainer()
          */
         @Override
-		public ICOSContainer saveStateContainer() {
+        public ICOSContainer saveStateContainer() {
             return this;
         }
 
         @Override
-		public void soften(COSObject object) {
+        public void soften(COSObject object) {
             // ignore
         }
 
         @Override
-		public void willChange(COSObject object) {
+        public void willChange(COSObject object) {
             // do nothing
         }
     };
@@ -237,7 +237,7 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      *
      * @param listener The listener to be informed about changes.
      */
-	public abstract void addObjectListener(ICOSObjectListener listener);
+    public abstract void addObjectListener(ICOSObjectListener listener);
 
     /**
      * {@code this} as a {@link COSArray} or {@code null}
@@ -322,7 +322,7 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      *
      * @return Iterator over contained objects and references.
      */
-	public abstract Iterator<COSDocumentElement> basicIterator();
+    public abstract Iterator<COSDocumentElement> basicIterator();
 
     protected void basicSetContainer(ICOSContainer newContainer) {
         container = newContainer;
@@ -333,7 +333,7 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      *
      * @return A string representation for the receiver.
      */
-	protected abstract String basicToString();
+    protected abstract String basicToString();
 
     /**
      * Declare this to be a constant. This declaration ensures that when using
@@ -376,7 +376,7 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      *
      * @return The new instance of a COSObject
      */
-	protected abstract COSObject copyBasic();
+    protected abstract COSObject copyBasic();
 
     /**
      * Make a deep copy of the receiver within the same document. The result is
@@ -399,7 +399,7 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      *
      * @return the object copied recursively
      */
-	public abstract COSObject copyDeep();
+    public abstract COSObject copyDeep();
 
     /**
      * Make a deep copy of the receiver within the same document. The result is
@@ -428,8 +428,8 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      *
      * @return the object copied recursively
      */
-	@Override
-	public abstract COSObject copyDeep(Map copied);
+    @Override
+    public abstract COSObject copyDeep(Map copied);
 
     /**
      * Make a copy of the receiver within the same document. A copy is made only
@@ -746,14 +746,14 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      * {@code true} if an {@link ICOSObjectListener} is registered. This
      * is for test purposes.
      */
-	public abstract boolean isObjectListenerAvailable();
+    public abstract boolean isObjectListenerAvailable();
 
     /**
      * Answer true if this object is of a primitive type
      *
      * @return Answer true if this object is of a primitive type
      */
-	public abstract boolean isPrimitive();
+    public abstract boolean isPrimitive();
 
     /*
      * (non-Javadoc)
@@ -776,8 +776,8 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      *
      * @return Iterator over contained objects.
      */
-	@Override
-	public abstract Iterator<COSObject> iterator();
+    @Override
+    public abstract Iterator<COSObject> iterator();
 
     /**
      * {@code true} if this object may be swapped from memory by the
@@ -805,7 +805,7 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      *
      * @param listener The listener to be removed.
      */
-	public abstract void removeObjectListener(ICOSObjectListener listener);
+    public abstract void removeObjectListener(ICOSObjectListener listener);
 
     /*
      * (non-Javadoc)
@@ -813,7 +813,7 @@ public abstract class COSObject extends COSDocumentElement implements ISaveState
      * @see de.intarsys.tools.component.ISaveStateSupport#restoreState(java.lang.Object)
      */
     @Override
-	public void restoreState(Object saveState) {
+    public void restoreState(Object saveState) {
         container = container.restoreStateContainer(((COSObject) saveState).container);
     }
 

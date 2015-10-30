@@ -40,7 +40,7 @@ public class PDCSPattern extends PDCSSpecial {
     /**
      * The meta class implementation
      */
-	public static class MetaClass extends PDCSSpecial.MetaClass {
+    public static class MetaClass extends PDCSSpecial.MetaClass {
         protected MetaClass(Class paramInstanceClass) {
             super(paramInstanceClass);
         }
@@ -54,7 +54,7 @@ public class PDCSPattern extends PDCSSpecial {
     /**
      * The meta class instance
      */
-	public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     protected PDCSPattern(COSObject object) {
         super(object);

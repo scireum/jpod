@@ -93,11 +93,11 @@ public abstract class PDFont extends PDObject {
             if (subtype.equals(CN_Subtype_TrueType)) {
                 if (dict.get(DK_FontDescriptor).isNull()) {
                     /*
-					 * treat as if Type1 was specified, because that's probably
-					 * what the creator meant; further processing would yield
-					 * wrong results anyway as FontDescriptor is a required
-					 * entry for TrueType fonts
-					 */
+                     * treat as if Type1 was specified, because that's probably
+                     * what the creator meant; further processing would yield
+                     * wrong results anyway as FontDescriptor is a required
+                     * entry for TrueType fonts
+                     */
                     return PDFontType1.META;
                 }
                 return PDFontTrueType.META;

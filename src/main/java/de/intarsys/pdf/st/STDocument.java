@@ -200,12 +200,12 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     /**
      * Generic attribute support
      */
-	private final AttributeMap attributes = new AttributeMap();
+    private final AttributeMap attributes = new AttributeMap();
 
     /**
      * The collection of changed objects within the document since last save
      */
-	private final Set<COSIndirectObject> changes = new HashSet<COSIndirectObject>();
+    private final Set<COSIndirectObject> changes = new HashSet<COSIndirectObject>();
 
     private boolean closed = false;
 
@@ -512,7 +512,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     }
 
     @Override
-	public final synchronized Object getAttribute(Object key) {
+    public final synchronized Object getAttribute(Object key) {
         return attributes.get(key);
     }
 
@@ -931,7 +931,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     }
 
     @Override
-	public final synchronized Object removeAttribute(Object key) {
+    public final synchronized Object removeAttribute(Object key) {
         Object oldValue = attributes.remove(key);
         triggerChanged(key, oldValue, null);
         return oldValue;
@@ -1079,7 +1079,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
     }
 
     @Override
-	public final synchronized Object setAttribute(Object key, Object value) {
+    public final synchronized Object setAttribute(Object key, Object value) {
         Object oldValue = attributes.put(key, value);
         triggerChanged(key, oldValue, value);
         return oldValue;
@@ -1230,7 +1230,7 @@ public class STDocument implements INotificationSupport, IAttributeSupport, ILoc
             }
             throw e;
         }
-	}
+    }
 
     protected void triggerChanged(Object attribute, Object oldValue, Object newValue) {
         Event event = new AttributeChangedEvent(this, attribute, oldValue, newValue);

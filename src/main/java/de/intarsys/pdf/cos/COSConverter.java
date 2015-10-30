@@ -158,8 +158,7 @@ public class COSConverter {
         } else if (javaObject instanceof COSObject) {
             result = (COSObject) javaObject;
         } else {
-            throw new IllegalArgumentException(javaObject
-                                               + " can not be marshalled to a cos object"); //$NON-NLS-1$
+            throw new IllegalArgumentException(javaObject + " can not be marshalled to a cos object"); //$NON-NLS-1$
         }
         return result;
     }

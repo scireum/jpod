@@ -44,7 +44,7 @@ public abstract class PDPattern extends PDObject {
     /**
      * The meta class implementation
      */
-	public static class MetaClass extends PDObject.MetaClass {
+    public static class MetaClass extends PDObject.MetaClass {
         protected MetaClass(Class<?> paramInstanceClass) {
             super(paramInstanceClass);
         }
@@ -87,7 +87,7 @@ public abstract class PDPattern extends PDObject {
     /**
      * The meta class instance
      */
-	public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
     public static final int PATTERN_TYPE_SHADING = 2;
 

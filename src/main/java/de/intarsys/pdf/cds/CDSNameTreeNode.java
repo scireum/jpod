@@ -58,7 +58,7 @@ public class CDSNameTreeNode extends CDSTreeNode {
      *             instance
      * @return The concrete CDSTreeNode implementation for {@code node}.
      */
-	public static CDSNameTreeNode createFromCos(COSDictionary node) {
+    public static CDSNameTreeNode createFromCos(COSDictionary node) {
         if (node == null) {
             return null;
         }
@@ -378,8 +378,8 @@ public class CDSNameTreeNode extends CDSTreeNode {
         if (name.compareTo(getMin()) < 0) {
             return false;
         }
-		return name.compareTo(getMax()) <= 0;
-	}
+        return name.compareTo(getMax()) <= 0;
+    }
 
     /**
      * Store {@code value} under the key given in {@code name}.
