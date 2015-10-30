@@ -36,121 +36,120 @@ import java.util.Map;
 /**
  * Primitive COS datatypes. These objects are "immutable" in their PDF
  * semantics. The container may change!
- * 
  */
 abstract public class COSPrimitiveObject extends COSObject {
-	protected COSPrimitiveObject() {
-		super();
-	}
+    protected COSPrimitiveObject() {
+        super();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#addObjectListener(de.intarsys.pdf.cos.ICOSObjectListener)
-	 */
-	@Override
-	public void addObjectListener(ICOSObjectListener listener) {
-		// no op for immutable primitives
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#addObjectListener(de.intarsys.pdf.cos.ICOSObjectListener)
+     */
+    @Override
+    public void addObjectListener(ICOSObjectListener listener) {
+        // no op for immutable primitives
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#basicIterator()
-	 */
-	@Override
-	public java.util.Iterator basicIterator() {
-		return Collections.emptyIterator();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#basicIterator()
+     */
+    @Override
+    public java.util.Iterator basicIterator() {
+        return Collections.emptyIterator();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#copyDeep()
-	 */
-	@Override
-	public COSObject copyDeep() {
-		return copyShallow();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#copyDeep()
+     */
+    @Override
+    public COSObject copyDeep() {
+        return copyShallow();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSDocumentElement#copyDeep(java.util.Map)
-	 */
-	@Override
-	public COSObject copyDeep(Map copied) {
-		return copyShallow();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSDocumentElement#copyDeep(java.util.Map)
+     */
+    @Override
+    public COSObject copyDeep(Map copied) {
+        return copyShallow();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#isDangling()
-	 */
-	@Override
-	public boolean isDangling() {
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#isDangling()
+     */
+    @Override
+    public boolean isDangling() {
+        return false;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#isObjectListenerAvailable()
-	 */
-	@Override
-	public boolean isObjectListenerAvailable() {
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#isObjectListenerAvailable()
+     */
+    @Override
+    public boolean isObjectListenerAvailable() {
+        return false;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#isPrimitive()
-	 */
-	@Override
-	public boolean isPrimitive() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#isPrimitive()
+     */
+    @Override
+    public boolean isPrimitive() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#iterator()
-	 */
-	@Override
-	public Iterator<COSObject> iterator() {
-		return Collections.emptyIterator();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#iterator()
+     */
+    @Override
+    public Iterator<COSObject> iterator() {
+        return Collections.emptyIterator();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSDocumentElement#register(de.intarsys.pdf.cos.COSDocument)
-	 */
-	@Override
-	protected void registerWith(COSDocument doc) {
-		// nothing to do
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSDocumentElement#register(de.intarsys.pdf.cos.COSDocument)
+     */
+    @Override
+    protected void registerWith(COSDocument doc) {
+        // nothing to do
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#removeObjectListener(de.intarsys.pdf.cos.ICOSObjectListener)
-	 */
-	@Override
-	public void removeObjectListener(ICOSObjectListener listener) {
-		// no op for immutable primitives
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#removeObjectListener(de.intarsys.pdf.cos.ICOSObjectListener)
+     */
+    @Override
+    public void removeObjectListener(ICOSObjectListener listener) {
+        // no op for immutable primitives
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#triggerChanged(java.lang.Object,
-	 *      de.intarsys.pdf.cos.COSObject, de.intarsys.pdf.cos.COSObject)
-	 */
-	@Override
-	protected void triggerChanged(Object slot, Object oldValue, Object newValue) {
-		// ignore
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#triggerChanged(java.lang.Object,
+     *      de.intarsys.pdf.cos.COSObject, de.intarsys.pdf.cos.COSObject)
+     */
+    @Override
+    protected void triggerChanged(Object slot, Object oldValue, Object newValue) {
+        // ignore
+    }
 }

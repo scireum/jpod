@@ -39,71 +39,68 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * Evaluate a function when filling the shape.
- * 
  */
 public class PDFunctionBasedShading extends PDShading {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDShading.MetaClass {
-		protected MetaClass(Class<?> paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDShading.MetaClass {
+        protected MetaClass(Class<?> paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDFunctionBasedShading(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDFunctionBasedShading(object);
+        }
+    }
 
-	public static final COSName DK_Domain = COSName.constant("Domain"); //$NON-NLS-1$
-	public static final COSName DK_Function = COSName.constant("Function"); //$NON-NLS-1$
-	private static final COSName DK_Matrix = COSName.constant("Matrix"); //$NON-NLS-1$
+    public static final COSName DK_Domain = COSName.constant("Domain"); //$NON-NLS-1$
+    public static final COSName DK_Function = COSName.constant("Function"); //$NON-NLS-1$
+    private static final COSName DK_Matrix = COSName.constant("Matrix"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	private float[] domain;
+    private float[] domain;
 
-	private PDFunction function;
+    private PDFunction function;
 
-	protected PDFunctionBasedShading(COSObject object) {
-		super(object);
+    protected PDFunctionBasedShading(COSObject object) {
+        super(object);
 
-		COSArray cosDomain;
+        COSArray cosDomain;
 
-		cosDomain = (COSArray) ((COSDictionary) object).get(DK_Domain);
-		if (domain == null) {
-			domain = new float[] { 0, 1, 0, 1 };
-		} else {
-			domain = new float[4];
-			for (int index = 0; index < 4; index++) {
-				domain[index] = ((COSNumber) cosDomain.get(index)).floatValue();
-			}
-		}
-	}
+        cosDomain = (COSArray) ((COSDictionary) object).get(DK_Domain);
+        if (domain == null) {
+            domain = new float[]{0, 1, 0, 1};
+        } else {
+            domain = new float[4];
+            for (int index = 0; index < 4; index++) {
+                domain[index] = ((COSNumber) cosDomain.get(index)).floatValue();
+            }
+        }
+    }
 
-	public float[] getDomain() {
-		return domain;
-	}
+    public float[] getDomain() {
+        return domain;
+    }
 
-	public PDFunction getFunction() {
-		if (function == null) {
-			function = (PDFunction) PDFunction.META
-					.createFromCos(((COSDictionary) cosGetObject())
-							.get(DK_Function));
-		}
-		return function;
-	}
+    public PDFunction getFunction() {
+        if (function == null) {
+            function = (PDFunction) PDFunction.META.createFromCos(((COSDictionary) cosGetObject()).get(DK_Function));
+        }
+        return function;
+    }
 
-	public CDSMatrix getMatrix() {
-		return CDSMatrix.createFromCOS(cosGetField(DK_Matrix).asArray());
-	}
+    public CDSMatrix getMatrix() {
+        return CDSMatrix.createFromCOS(cosGetField(DK_Matrix).asArray());
+    }
 
-	@Override
-	public int getShadingType() {
-		return SHADING_TYPE_FUNCTIONBASED;
-	}
-
+    @Override
+    public int getShadingType() {
+        return SHADING_TYPE_FUNCTIONBASED;
+    }
 }

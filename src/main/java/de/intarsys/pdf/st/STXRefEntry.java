@@ -29,11 +29,11 @@
  */
 package de.intarsys.pdf.st;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.crypt.ISystemSecurityHandler;
 import de.intarsys.pdf.parser.COSLoadException;
+
+import java.io.IOException;
 
 /**
  * Abstract superclass for a XRef entry.
@@ -44,51 +44,49 @@ import de.intarsys.pdf.parser.COSLoadException;
  */
 public abstract class STXRefEntry implements Comparable {
 
-	private final int objectNumber;
+    private final int objectNumber;
 
-	private final short generationNumber;
+    private final short generationNumber;
 
-	protected STXRefEntry(int objectNumber, int generationNumber) {
-		this.objectNumber = objectNumber;
-		this.generationNumber = (short) generationNumber;
-	}
+    protected STXRefEntry(int objectNumber, int generationNumber) {
+        this.objectNumber = objectNumber;
+        this.generationNumber = (short) generationNumber;
+    }
 
-	public abstract void accept(IXRefEntryVisitor visitor)
-			throws XRefEntryVisitorException;
+    public abstract void accept(IXRefEntryVisitor visitor) throws XRefEntryVisitorException;
 
-	public int compareTo(Object obj) {
-		if (obj instanceof STXRefEntry) {
-			return (getObjectNumber() - ((STXRefEntry) obj).getObjectNumber());
-		}
-		return -1;
-	}
+    public int compareTo(Object obj) {
+        if (obj instanceof STXRefEntry) {
+            return (getObjectNumber() - ((STXRefEntry) obj).getObjectNumber());
+        }
+        return -1;
+    }
 
-	public abstract STXRefEntry copy();
+    public abstract STXRefEntry copy();
 
-	public abstract STXRefEntryOccupied fill(int pos);
+    public abstract STXRefEntryOccupied fill(int pos);
 
-	public abstract long getColumn1();
+    public abstract long getColumn1();
 
-	public abstract int getColumn2();
+    public abstract int getColumn2();
 
-	public int getGenerationNumber() {
-		return generationNumber & 0xffff;
-	}
+    public int getGenerationNumber() {
+        return generationNumber & 0xffff;
+    }
 
-	public int getObjectNumber() {
-		return objectNumber;
-	}
+    public int getObjectNumber() {
+        return objectNumber;
+    }
 
-	abstract public boolean isFree();
+    abstract public boolean isFree();
 
-	public abstract COSObject load(STDocument doc,
-			ISystemSecurityHandler securityHandler) throws IOException,
-			COSLoadException;
+    public abstract COSObject load(STDocument doc, ISystemSecurityHandler securityHandler)
+            throws IOException, COSLoadException;
 
-	@Override
-	public String toString() {
-		return getObjectNumber() + " " + getGenerationNumber() + " R"; //$NON-NLS-1$ //$NON-NLS-2$
-	}
+    @Override
+    public String toString() {
+        return getObjectNumber() + " " + getGenerationNumber() + " R"; //$NON-NLS-1$ //$NON-NLS-2$
+    }
 
-	abstract protected void unlink();
+    abstract protected void unlink();
 }

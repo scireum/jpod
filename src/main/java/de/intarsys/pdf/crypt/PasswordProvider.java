@@ -29,11 +29,11 @@
  */
 package de.intarsys.pdf.crypt;
 
-import java.util.Map;
-
 import de.intarsys.pdf.st.STDocument;
 import de.intarsys.tools.authenticate.IPasswordProvider;
 import de.intarsys.tools.string.CharacterTools;
+
+import java.util.Map;
 
 /**
  * A VM singleton for the PDF related {@link IPasswordProvider}.
@@ -54,80 +54,80 @@ import de.intarsys.tools.string.CharacterTools;
  */
 public class PasswordProvider {
 
-	static public final String ATTR_PASSWORD = "password";
+    static public final String ATTR_PASSWORD = "password";
 
-	static public final String ATTR_PASSWORDPROVIDER = "passwordProvider";
+    static public final String ATTR_PASSWORDPROVIDER = "passwordProvider";
 
-	private static final ThreadLocal<IPasswordProvider> threadLocal = new ThreadLocal<IPasswordProvider>();
+    private static final ThreadLocal<IPasswordProvider> threadLocal = new ThreadLocal<IPasswordProvider>();
 
-	/** The default factory. */
-	private static IPasswordProvider Unique;
+    /**
+     * The default factory.
+     */
+    private static IPasswordProvider Unique;
 
-	/**
-	 * Return the unique factory.
-	 * 
-	 * @return Return the unique factory.
-	 */
-	static public IPasswordProvider get() {
-		if (getThreadLocal() == null) {
-			return Unique;
-		}
-		return getThreadLocal();
-	}
+    /**
+     * Return the unique factory.
+     *
+     * @return Return the unique factory.
+     */
+    static public IPasswordProvider get() {
+        if (getThreadLocal() == null) {
+            return Unique;
+        }
+        return getThreadLocal();
+    }
 
-	static public char[] getPassword(STDocument doc) {
-		Object password = doc.getAttribute(ATTR_PASSWORD);
-		if (password instanceof String) {
-			return ((String) password).toCharArray();
-		}
-		if (password instanceof char[]) {
-			return (char[]) password;
-		}
-		if (password instanceof byte[]) {
-			return CharacterTools.toCharArray((byte[]) password);
-		}
-		return null;
-	}
+    static public char[] getPassword(STDocument doc) {
+        Object password = doc.getAttribute(ATTR_PASSWORD);
+        if (password instanceof String) {
+            return ((String) password).toCharArray();
+        }
+        if (password instanceof char[]) {
+            return (char[]) password;
+        }
+        if (password instanceof byte[]) {
+            return CharacterTools.toCharArray((byte[]) password);
+        }
+        return null;
+    }
 
-	static public IPasswordProvider getPasswordProvider(STDocument doc) {
-		Object passwordProvider = doc.getAttribute(ATTR_PASSWORDPROVIDER);
-		if (passwordProvider instanceof IPasswordProvider) {
-			return (IPasswordProvider) passwordProvider;
-		}
-		return null;
-	}
+    static public IPasswordProvider getPasswordProvider(STDocument doc) {
+        Object passwordProvider = doc.getAttribute(ATTR_PASSWORDPROVIDER);
+        if (passwordProvider instanceof IPasswordProvider) {
+            return (IPasswordProvider) passwordProvider;
+        }
+        return null;
+    }
 
-	private static IPasswordProvider getThreadLocal() {
-		return threadLocal.get();
-	}
+    private static IPasswordProvider getThreadLocal() {
+        return threadLocal.get();
+    }
 
-	/**
-	 * Set the unique factory.
-	 * 
-	 * @param unique
-	 *            The new unique factory.
-	 */
-	static public void set(IPasswordProvider unique) {
-		Unique = unique;
-	}
+    /**
+     * Set the unique factory.
+     *
+     * @param unique The new unique factory.
+     */
+    static public void set(IPasswordProvider unique) {
+        Unique = unique;
+    }
 
-	public static void setPassword(Map options, char[] password) {
-		options.put(ATTR_PASSWORD, password);
-	}
+    public static void setPassword(Map options, char[] password) {
+        options.put(ATTR_PASSWORD, password);
+    }
 
-	public static void setPasswordProvider(Map options,
-			IPasswordProvider passwordProvider) {
-		options.put(ATTR_PASSWORDPROVIDER, passwordProvider);
-	}
+    public static void setPasswordProvider(Map options, IPasswordProvider passwordProvider) {
+        options.put(ATTR_PASSWORDPROVIDER, passwordProvider);
+    }
 
-	public static void setThreadLocal(IPasswordProvider passwordProvider) {
-		threadLocal.set(passwordProvider);
-	}
+    public static void setThreadLocal(IPasswordProvider passwordProvider) {
+        threadLocal.set(passwordProvider);
+    }
 
-	/**
-	 * Create a Factory
-	 */
-	private PasswordProvider() {
-		super();
-	}
+    /**
+     * Create a Factory
+     */
+    private PasswordProvider() {
+        super();
+    }
 }

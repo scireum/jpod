@@ -30,22 +30,22 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_div implements IOperator {
-	public static Operator_div Instance;
+    public static Operator_div Instance;
 
-	static {
-		Instance = new Operator_div();
-	}
+    static {
+        Instance = new Operator_div();
+    }
 
-	private Operator_div() {
-		super();
-	}
+    private Operator_div() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		double operand1;
-		double operand2;
+    public void execute(Handler handler) {
+        double operand1;
+        double operand2;
 
-		operand2 = ((Number) handler.pop()).doubleValue();
-		operand1 = ((Number) handler.pop()).doubleValue();
-		handler.push(new Double(operand1 / operand2));
-	}
+        operand2 = ((Number) handler.pop()).doubleValue();
+        operand1 = ((Number) handler.pop()).doubleValue();
+        handler.push(new Double(operand1 / operand2));
+    }
 }

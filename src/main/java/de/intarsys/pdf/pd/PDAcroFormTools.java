@@ -31,31 +31,30 @@ package de.intarsys.pdf.pd;
 
 /**
  * {@link PDAcroForm} related tool methods.
- * 
  */
 public class PDAcroFormTools {
 
-	/**
-	 * Adding a field to a form may not be as simple as changing the array of
-	 * kids.
-	 * <p>
-	 * This method handles higher level semantics of adding a field.
-	 * 
-	 * @param form
-	 * @param field
-	 */
-	public void addField(PDAcroForm form, PDAcroFormField field) {
-		if (field.getParent() != null) {
-			return;
-		}
-		PDAcroFormField tempField = form.getField(field.getLocalName());
-		if (tempField == field) {
-			return;
-		}
-		PDAcroFormNode tempTarget = form;
-		if (tempField != null) {
-			// construct hierarchy...
-		}
-		tempTarget.addField(field);
-	}
+    /**
+     * Adding a field to a form may not be as simple as changing the array of
+     * kids.
+     * <p>
+     * This method handles higher level semantics of adding a field.
+     *
+     * @param form
+     * @param field
+     */
+    public void addField(PDAcroForm form, PDAcroFormField field) {
+        if (field.getParent() != null) {
+            return;
+        }
+        PDAcroFormField tempField = form.getField(field.getLocalName());
+        if (tempField == field) {
+            return;
+        }
+        PDAcroFormNode tempTarget = form;
+        if (tempField != null) {
+            // construct hierarchy...
+        }
+        tempTarget.addField(field);
+    }
 }

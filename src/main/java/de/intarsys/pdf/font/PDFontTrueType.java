@@ -36,53 +36,53 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * basic implementation for true type support
- * 
+ * <p>
  * <p>
  * todo 2 review initialization (sequence problems)
  * </p>
  */
 public class PDFontTrueType extends PDSingleByteFont {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDFont.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDFont.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDFontTrueType(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDFontTrueType(object);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/**
-	 * Create the receiver class from an already defined {@link COSDictionary}.
-	 * NEVER use the constructor directly.
-	 * 
-	 * @param object
-	 *            the PDDocument containing the new object
-	 */
-	protected PDFontTrueType(COSObject object) {
-		super(object);
-	}
+    /**
+     * Create the receiver class from an already defined {@link COSDictionary}.
+     * NEVER use the constructor directly.
+     *
+     * @param object the PDDocument containing the new object
+     */
+    protected PDFontTrueType(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
-	 */
-	@Override
-	protected COSName cosGetExpectedSubtype() {
-		return CN_Subtype_TrueType;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
+     */
+    @Override
+    protected COSName cosGetExpectedSubtype() {
+        return CN_Subtype_TrueType;
+    }
 
-	@Override
-	public String getFontType() {
-		return "TrueType";
-	}
+    @Override
+    public String getFontType() {
+        return "TrueType";
+    }
 }

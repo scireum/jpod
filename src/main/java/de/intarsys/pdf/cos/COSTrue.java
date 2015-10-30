@@ -33,69 +33,69 @@ package de.intarsys.pdf.cos;
  * Represents the boolean value "true"
  */
 public class COSTrue extends COSBoolean {
-	static public COSTrue create() {
-		return new COSTrue();
-	}
+    static public COSTrue create() {
+        return new COSTrue();
+    }
 
-	protected COSTrue() {
-		super();
-	}
+    protected COSTrue() {
+        super();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#basicToString()
-	 */
-	@Override
-	protected String basicToString() {
-		return "true"; //$NON-NLS-1$
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#basicToString()
+     */
+    @Override
+    protected String basicToString() {
+        return "true"; //$NON-NLS-1$
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSBoolean#booleanValue()
-	 */
-	@Override
-	public boolean booleanValue() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSBoolean#booleanValue()
+     */
+    @Override
+    public boolean booleanValue() {
+        return true;
+    }
 
-	@Override
-	protected COSObject copyBasic() {
-		return new COSTrue();
-	}
+    @Override
+    protected COSObject copyBasic() {
+        return new COSTrue();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		return o instanceof COSTrue;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof COSTrue;
+    }
 
-	/**
-	 * Returns an arbitrary number to avoid collisions
-	 * 
-	 * @return 19
-	 * @see Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		// arbitrary number to avoid collisions
-		return 19;
-	}
+    /**
+     * Returns an arbitrary number to avoid collisions
+     *
+     * @return 19
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        // arbitrary number to avoid collisions
+        return 19;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
-	 */
-	public Object saveState() {
-		COSObject result = new COSTrue();
-		result.container = this.container.saveStateContainer();
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
+     */
+    public Object saveState() {
+        COSObject result = new COSTrue();
+        result.container = this.container.saveStateContainer();
+        return result;
+    }
 }

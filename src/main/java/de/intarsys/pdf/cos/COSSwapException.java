@@ -33,19 +33,19 @@ package de.intarsys.pdf.cos;
  * An exception while swapping a {@link COSObject}.
  */
 public class COSSwapException extends COSRuntimeException {
-	public COSSwapException() {
-		super();
-	}
+    public COSSwapException() {
+        super();
+    }
 
-	public COSSwapException(String message) {
-		super(message);
-	}
+    public COSSwapException(String message) {
+        super(message);
+    }
 
-	public COSSwapException(Throwable cause) {
-		super(cause);
-	}
+    public COSSwapException(Throwable cause) {
+        super(cause);
+    }
 
-	public COSSwapException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public COSSwapException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

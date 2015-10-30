@@ -29,36 +29,35 @@
  */
 package de.intarsys.pdf.app.acroform;
 
-import java.util.List;
-
 import de.intarsys.pdf.pd.PDDocument;
+
+import java.util.List;
 
 /**
  * A wrapper implementation for the business logic around an AcroForm.
  * <p>
  * The {@link IFormHandler} manages the complex protocols when handling forms.
- * 
  */
 public interface IFormHandler {
-	public void setValidate(boolean validate);
+    public void setValidate(boolean validate);
 
-	public boolean isValidate();
+    public boolean isValidate();
 
-	public void setCalculate(boolean calculate);
+    public void setCalculate(boolean calculate);
 
-	public boolean isCalculate();
+    public boolean isCalculate();
 
-	public abstract String getFieldValue(Object fieldRef);
+    public abstract String getFieldValue(Object fieldRef);
 
-	public void setFieldValue(Object fieldRef, Object value);
+    public void setFieldValue(Object fieldRef, Object value);
 
-	public void resetFields();
+    public void resetFields();
 
-	public void resetFields(List fieldNames, boolean invert);
+    public void resetFields(List fieldNames, boolean invert);
 
-	public void recalculate(Object fieldRef);
+    public void recalculate(Object fieldRef);
 
-	public void recalculate();
+    public void recalculate();
 
-	public PDDocument getDoc();
+    public PDDocument getDoc();
 }

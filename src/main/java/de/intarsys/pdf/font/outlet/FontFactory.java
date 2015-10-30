@@ -29,69 +29,67 @@
  */
 package de.intarsys.pdf.font.outlet;
 
-import java.util.Iterator;
-
 import de.intarsys.tools.provider.ProviderTools;
+
+import java.util.Iterator;
 
 /**
  * A singleton to access the current {@link IFontFactory}.
- * 
  */
 public class FontFactory {
-	static private boolean lookupProviders = true;
-	/**
-	 * The default factory.
-	 */
-	private static IFontFactory Unique;
+    static private boolean lookupProviders = true;
+    /**
+     * The default factory.
+     */
+    private static IFontFactory Unique;
 
-	static protected IFontFactory findProviders() {
-		Iterator<IFontFactory> ps = ProviderTools.providers(IFontFactory.class);
-		while (ps.hasNext()) {
-			try {
-				return ps.next();
-			} catch (Throwable e) {
-				// ignore and try on
-			}
-		}
-		return null;
-	}
+    static protected IFontFactory findProviders() {
+        Iterator<IFontFactory> ps = ProviderTools.providers(IFontFactory.class);
+        while (ps.hasNext()) {
+            try {
+                return ps.next();
+            } catch (Throwable e) {
+                // ignore and try on
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * The {@link IFontFactory} singleton.
-	 * 
-	 * @return The {@link IFontFactory} singleton.
-	 */
-	static public IFontFactory get() {
-		if (Unique == null) {
-			init();
-		}
-		return Unique;
-	}
+    /**
+     * The {@link IFontFactory} singleton.
+     *
+     * @return The {@link IFontFactory} singleton.
+     */
+    static public IFontFactory get() {
+        if (Unique == null) {
+            init();
+        }
+        return Unique;
+    }
 
-	static protected void init() {
-		if (lookupProviders) {
-			Unique = findProviders();
-		}
-		if (Unique == null) {
-			Unique = new NullFontFactory();
-		}
-	}
+    static protected void init() {
+        if (lookupProviders) {
+            Unique = findProviders();
+        }
+        if (Unique == null) {
+            Unique = new NullFontFactory();
+        }
+    }
 
-	public static boolean isLookupProviders() {
-		return lookupProviders;
-	}
+    public static boolean isLookupProviders() {
+        return lookupProviders;
+    }
 
-	/**
-	 * Set the {@link IFontFactory} singleton.
-	 * 
-	 * @param factory
-	 *            The {@link IFontFactory} singleton.
-	 */
-	static public void set(IFontFactory factory) {
-		Unique = factory;
-	}
+    /**
+     * Set the {@link IFontFactory} singleton.
+     *
+     * @param factory The {@link IFontFactory} singleton.
+     */
+    static public void set(IFontFactory factory) {
+        Unique = factory;
+    }
 
-	public static void setLookupProviders(boolean doLookupProviders) {
-		lookupProviders = doLookupProviders;
-	}
+    public static void setLookupProviders(boolean doLookupProviders) {
+        lookupProviders = doLookupProviders;
+    }
 }

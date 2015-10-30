@@ -41,124 +41,124 @@ import java.util.Stack;
  */
 public class Handler {
 
-	private PSArray procedure;
+    private PSArray procedure;
 
-	private Stack stack;
+    private Stack stack;
 
-	public Handler() {
-		super();
-		stack = new Stack();
-	}
+    public Handler() {
+        super();
+        stack = new Stack();
+    }
 
-	public Object get(int index) {
-		return stack.get(index);
-	}
+    public Object get(int index) {
+        return stack.get(index);
+    }
 
-	public Object peek() {
-		return stack.peek();
-	}
+    public Object peek() {
+        return stack.peek();
+    }
 
-	public Object pop() {
-		return stack.pop();
-	}
+    public Object pop() {
+        return stack.pop();
+    }
 
-	public List popResult() {
-		List result;
-		Iterator iterator;
+    public List popResult() {
+        List result;
+        Iterator iterator;
 
-		result = new ArrayList(stack.size());
-		iterator = stack.iterator();
-		while (iterator.hasNext()) {
-			result.add(iterator.next());
-		}
-		stack.removeAllElements();
-		return result;
-	}
+        result = new ArrayList(stack.size());
+        iterator = stack.iterator();
+        while (iterator.hasNext()) {
+            result.add(iterator.next());
+        }
+        stack.removeAllElements();
+        return result;
+    }
 
-	public void processEndArray() {
-		throw new UnsupportedOperationException();
-	}
+    public void processEndArray() {
+        throw new UnsupportedOperationException();
+    }
 
-	public void processEndProcedure() {
-		stack.push(procedure);
-		procedure = null;
-	}
+    public void processEndProcedure() {
+        stack.push(procedure);
+        procedure = null;
+    }
 
-	public void processIdentifier(String string) throws ParseException {
-		if (procedure != null) {
-			procedure.add(new PSName(string));
-			return;
-		}
+    public void processIdentifier(String string) throws ParseException {
+        if (procedure != null) {
+            procedure.add(new PSName(string));
+            return;
+        }
 
-		String name;
-		Class clazz;
-		IOperator operator;
+        String name;
+        Class clazz;
+        IOperator operator;
 
-		name = MessageFormat.format("de.intarsys.pdf.postscript.Operator_{0}", //$NON-NLS-1$
-				new Object[] { string });
-		try {
-			clazz = Class.forName(name);
-		} catch (Exception ex) {
-			throw new ParseException(ex);
-		}
-		// all operator classes should have an "Instance" field by convention
-		try {
-			operator = (IOperator) clazz.getField("Instance").get(null); //$NON-NLS-1$
-		} catch (Exception ex) {
-			throw new ParseException(ex);
-		}
-		operator.execute(this);
-	}
+        name = MessageFormat.format("de.intarsys.pdf.postscript.Operator_{0}", //$NON-NLS-1$
+                                    new Object[]{string});
+        try {
+            clazz = Class.forName(name);
+        } catch (Exception ex) {
+            throw new ParseException(ex);
+        }
+        // all operator classes should have an "Instance" field by convention
+        try {
+            operator = (IOperator) clazz.getField("Instance").get(null); //$NON-NLS-1$
+        } catch (Exception ex) {
+            throw new ParseException(ex);
+        }
+        operator.execute(this);
+    }
 
-	public void processImmediateIdentifier(String string) {
-		throw new UnsupportedOperationException();
-	}
+    public void processImmediateIdentifier(String string) {
+        throw new UnsupportedOperationException();
+    }
 
-	public void processKeyIdentifier(String string) {
-		throw new UnsupportedOperationException();
-	}
+    public void processKeyIdentifier(String string) {
+        throw new UnsupportedOperationException();
+    }
 
-	public void processLiteral(double d) {
-		if (procedure != null) {
-			procedure.add(new PSPrimitiveObject(d));
-			return;
-		}
-		stack.push(d);
-	}
+    public void processLiteral(double d) {
+        if (procedure != null) {
+            procedure.add(new PSPrimitiveObject(d));
+            return;
+        }
+        stack.push(d);
+    }
 
-	public void processLiteral(int i) {
-		if (procedure != null) {
-			procedure.add(new PSPrimitiveObject(i));
-			return;
-		}
-		stack.push(i);
-	}
+    public void processLiteral(int i) {
+        if (procedure != null) {
+            procedure.add(new PSPrimitiveObject(i));
+            return;
+        }
+        stack.push(i);
+    }
 
-	public void processLiteral(Object object) {
-		if (procedure != null) {
-			procedure.add(new PSPrimitiveObject(object));
-			return;
-		}
-		stack.push(object);
-	}
+    public void processLiteral(Object object) {
+        if (procedure != null) {
+            procedure.add(new PSPrimitiveObject(object));
+            return;
+        }
+        stack.push(object);
+    }
 
-	public void processStartArray() {
-		throw new UnsupportedOperationException();
-	}
+    public void processStartArray() {
+        throw new UnsupportedOperationException();
+    }
 
-	public void processStartProcedure() {
-		procedure = new PSArray();
-	}
+    public void processStartProcedure() {
+        procedure = new PSArray();
+    }
 
-	public void push(Object value) {
-		stack.push(value);
-	}
+    public void push(Object value) {
+        stack.push(value);
+    }
 
-	public void pushArgs(List args) {
-		stack.addAll(args);
-	}
+    public void pushArgs(List args) {
+        stack.addAll(args);
+    }
 
-	public int size() {
-		return stack.size();
-	}
+    public int size() {
+        return stack.size();
+    }
 }

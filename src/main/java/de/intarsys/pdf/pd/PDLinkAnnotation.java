@@ -37,96 +37,97 @@ import de.intarsys.pdf.cos.COSObject;
  * An annotation implementing a hyperlink behavior within a document.
  */
 public class PDLinkAnnotation extends PDAnnotation {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDAnnotation.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDAnnotation.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDLinkAnnotation(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDLinkAnnotation(object);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_Subtype_Link = COSName.constant("Link");
+    public static final COSName CN_Subtype_Link = COSName.constant("Link");
 
-	public static final COSName DK_Dest = COSName.constant("Dest");
+    public static final COSName DK_Dest = COSName.constant("Dest");
 
-	public static final COSName DK_H = COSName.constant("H");
+    public static final COSName DK_H = COSName.constant("H");
 
-	public static final COSName DK_PA = COSName.constant("PA");
+    public static final COSName DK_PA = COSName.constant("PA");
 
-	public static final COSName DK_QuadPoints = COSName.constant("QuadPoints");
+    public static final COSName DK_QuadPoints = COSName.constant("QuadPoints");
 
-	public static final COSName CN_H_I = COSName.constant("I");
+    public static final COSName CN_H_I = COSName.constant("I");
 
-	public static final COSName CN_H_N = COSName.constant("N");
+    public static final COSName CN_H_N = COSName.constant("N");
 
-	public static final COSName CN_H_O = COSName.constant("O");
+    public static final COSName CN_H_O = COSName.constant("O");
 
-	public static final COSName CN_H_P = COSName.constant("P");
+    public static final COSName CN_H_P = COSName.constant("P");
 
-	protected PDLinkAnnotation(COSObject object) {
-		super(object);
-	}
+    protected PDLinkAnnotation(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
-	 */
-	@Override
-	protected COSName cosGetExpectedSubtype() {
-		return CN_Subtype_Link;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
+     */
+    @Override
+    protected COSName cosGetExpectedSubtype() {
+        return CN_Subtype_Link;
+    }
 
-	@Override
-	public float getDefaultHeight() {
-		return 30;
-	}
+    @Override
+    public float getDefaultHeight() {
+        return 30;
+    }
 
-	@Override
-	public float getDefaultWidth() {
-		return 120;
-	}
+    @Override
+    public float getDefaultWidth() {
+        return 120;
+    }
 
-	public PDDestination getDestination() {
-		COSObject destObj = cosGetField(DK_Dest);
-		if (destObj.isNull()) {
-			return null;
-		}
-		return (PDDestination) PDDestination.META.createFromCos(destObj);
-	}
+    public PDDestination getDestination() {
+        COSObject destObj = cosGetField(DK_Dest);
+        if (destObj.isNull()) {
+            return null;
+        }
+        return (PDDestination) PDDestination.META.createFromCos(destObj);
+    }
 
-	public COSName getHighlightingMode() {
-		COSName mode = cosGetField(DK_H).asName();
-		if (mode != null) {
-			return mode;
-		}
-		return CN_H_I; // default
-	}
+    public COSName getHighlightingMode() {
+        COSName mode = cosGetField(DK_H).asName();
+        if (mode != null) {
+            return mode;
+        }
+        return CN_H_I; // default
+    }
 
-	@Override
-	public String getSubtypeLabel() {
-		return "Link";
-	}
+    @Override
+    public String getSubtypeLabel() {
+        return "Link";
+    }
 
-	public void setDestination(PDDestination destination) {
-		setFieldObject(DK_Dest, destination);
-	}
+    public void setDestination(PDDestination destination) {
+        setFieldObject(DK_Dest, destination);
+    }
 
-	public void setHighlightingMode(COSName newHighlightingMode) {
-		if ((newHighlightingMode == null) || CN_H_I.equals(newHighlightingMode)) {
-			cosRemoveField(DK_H);
-		} else {
-			cosSetField(DK_H, newHighlightingMode);
-		}
-	}
+    public void setHighlightingMode(COSName newHighlightingMode) {
+        if ((newHighlightingMode == null) || CN_H_I.equals(newHighlightingMode)) {
+            cosRemoveField(DK_H);
+        } else {
+            cosSetField(DK_H, newHighlightingMode);
+        }
+    }
 }

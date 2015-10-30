@@ -39,170 +39,171 @@ import de.intarsys.pdf.pd.IResourcesProvider;
 import de.intarsys.pdf.pd.PDResources;
 
 /**
- * 
+ *
  */
 public class PDFontType3 extends PDSingleByteFont implements IResourcesProvider {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDFont.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDFont.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDFontType3(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDFontType3(object);
+        }
+    }
 
-	// additional entries from a type 3 font dict
-	public static final COSName DK_FontBBox = COSName.constant("FontBBox");
+    // additional entries from a type 3 font dict
+    public static final COSName DK_FontBBox = COSName.constant("FontBBox");
 
-	public static final COSName DK_FontMatrix = COSName.constant("FontMatrix");
+    public static final COSName DK_FontMatrix = COSName.constant("FontMatrix");
 
-	public static final COSName DK_CharProcs = COSName.constant("CharProcs");
+    public static final COSName DK_CharProcs = COSName.constant("CharProcs");
 
-	public static final COSName DK_Resources = COSName.constant("Resources");
+    public static final COSName DK_Resources = COSName.constant("Resources");
 
-	public static final COSName DK_ToUnicode = COSName.constant("ToUnicode");
+    public static final COSName DK_ToUnicode = COSName.constant("ToUnicode");
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/**
-	 * @param object
-	 */
-	public PDFontType3(COSObject object) {
-		super(object);
-	}
+    /**
+     * @param object
+     */
+    public PDFontType3(COSObject object) {
+        super(object);
+    }
 
-	public COSDictionary cosGetCharProcs() {
-		return cosGetField(DK_CharProcs).asDictionary();
-	}
+    public COSDictionary cosGetCharProcs() {
+        return cosGetField(DK_CharProcs).asDictionary();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
-	 */
-	@Override
-	protected COSName cosGetExpectedSubtype() {
-		return CN_Subtype_Type3;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
+     */
+    @Override
+    protected COSName cosGetExpectedSubtype() {
+        return CN_Subtype_Type3;
+    }
 
-	public COSDictionary cosSetCharProcs(COSDictionary newDict) {
-		return cosSetField(DK_CharProcs, newDict).asDictionary();
-	}
+    public COSDictionary cosSetCharProcs(COSDictionary newDict) {
+        return cosSetField(DK_CharProcs, newDict).asDictionary();
+    }
 
-	@Override
-	protected PDFontDescriptor createBuiltinFontDescriptor() {
-		return new PDFontDescriptorType3(this);
-	}
+    @Override
+    protected PDFontDescriptor createBuiltinFontDescriptor() {
+        return new PDFontDescriptorType3(this);
+    }
 
-	public CDSRectangle getFontBB() {
-		return CDSRectangle.createFromCOS(cosGetField(DK_FontBBox).asArray());
-	}
+    public CDSRectangle getFontBB() {
+        return CDSRectangle.createFromCOS(cosGetField(DK_FontBBox).asArray());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.font.IFont#getFontFamilyName()
-	 */
-	@Override
-	public String getFontFamilyName() {
-		return "Helvetica";
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.font.IFont#getFontFamilyName()
+     */
+    @Override
+    public String getFontFamilyName() {
+        return "Helvetica";
+    }
 
-	public CDSMatrix getFontMatrix() {
-		return CDSMatrix.createFromCOS(cosGetField(DK_FontMatrix).asArray());
-	}
+    public CDSMatrix getFontMatrix() {
+        return CDSMatrix.createFromCOS(cosGetField(DK_FontMatrix).asArray());
+    }
 
-	@Override
-	public String getFontName() {
-		return "Helvetica";
-	}
+    @Override
+    public String getFontName() {
+        return "Helvetica";
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.font.IFont#getFontStyle()
-	 */
-	@Override
-	public PDFontStyle getFontStyle() {
-		return PDFontStyle.REGULAR;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.font.IFont#getFontStyle()
+     */
+    @Override
+    public PDFontStyle getFontStyle() {
+        return PDFontStyle.REGULAR;
+    }
 
-	@Override
-	public String getFontType() {
-		return "Type3";
-	}
+    @Override
+    public String getFontType() {
+        return "Type3";
+    }
 
-	@Override
-	public int getGlyphWidthEncoded(int codePoint) {
-		int width = super.getGlyphWidthEncoded(codePoint);
-		float[] vector = new float[] { width, 0 };
-		// convert to text space
-		vector = getFontMatrix().transform(vector);
-		// normalize to thousandths off one text space unit
-		return (int) (vector[0] * 1000f);
-	}
+    @Override
+    public int getGlyphWidthEncoded(int codePoint) {
+        int width = super.getGlyphWidthEncoded(codePoint);
+        float[] vector = new float[]{width, 0};
+        // convert to text space
+        vector = getFontMatrix().transform(vector);
+        // normalize to thousandths off one text space unit
+        return (int) (vector[0] * 1000f);
+    }
 
-	/**
-	 * The {@link PDResources}.
-	 * 
-	 * @return The {@link PDResources}.
-	 */
-	public PDResources getResources() {
-		COSDictionary dict = cosGetField(DK_Resources).asDictionary();
-		return (PDResources) PDResources.META.createFromCos(dict);
-	}
+    /**
+     * The {@link PDResources}.
+     *
+     * @return The {@link PDResources}.
+     */
+    public PDResources getResources() {
+        COSDictionary dict = cosGetField(DK_Resources).asDictionary();
+        return (PDResources) PDResources.META.createFromCos(dict);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFont#isEmbedded()
-	 */
-	@Override
-	public boolean isEmbedded() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFont#isEmbedded()
+     */
+    @Override
+    public boolean isEmbedded() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFont#isSubset()
-	 */
-	@Override
-	public boolean isSubset() {
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFont#isSubset()
+     */
+    @Override
+    public boolean isSubset() {
+        return false;
+    }
 
-	public void setFontBB(CDSRectangle fontBB) {
-		setFieldObject(DK_FontBBox, fontBB);
-	}
+    public void setFontBB(CDSRectangle fontBB) {
+        setFieldObject(DK_FontBBox, fontBB);
+    }
 
-	public void setFontMatrix(CDSMatrix fontMatrix) {
-		setFieldObject(DK_FontMatrix, fontMatrix);
-	}
+    public void setFontMatrix(CDSMatrix fontMatrix) {
+        setFieldObject(DK_FontMatrix, fontMatrix);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.IResourcesProvider#setResources(de.intarsys.pdf.pd.PDResources)
-	 */
-	public void setResources(PDResources resources) {
-		cosSetField(DK_Resources, resources.cosGetDict());
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.IResourcesProvider#setResources(de.intarsys.pdf.pd.PDResources)
+     */
+    public void setResources(PDResources resources) {
+        cosSetField(DK_Resources, resources.cosGetDict());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return cosGetSubtype() + "-Font "; //$NON-NLS-1$
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return cosGetSubtype() + "-Font "; //$NON-NLS-1$
+    }
 }

@@ -30,28 +30,28 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_bitshift implements IOperator {
-	public static Operator_bitshift Instance;
+    public static Operator_bitshift Instance;
 
-	static {
-		Instance = new Operator_bitshift();
-	}
+    static {
+        Instance = new Operator_bitshift();
+    }
 
-	private Operator_bitshift() {
-		super();
-	}
+    private Operator_bitshift() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		int operand1;
-		int operand2;
-		int result;
+    public void execute(Handler handler) {
+        int operand1;
+        int operand2;
+        int result;
 
-		operand2 = ((Integer) handler.pop()).intValue();
-		operand1 = ((Integer) handler.pop()).intValue();
-		if (operand2 > 0) {
-			result = operand1 << operand2;
-		} else {
-			result = operand1 >> -operand2;
-		}
-		handler.push(new Integer(result));
-	}
+        operand2 = ((Integer) handler.pop()).intValue();
+        operand1 = ((Integer) handler.pop()).intValue();
+        if (operand2 > 0) {
+            result = operand1 << operand2;
+        } else {
+            result = operand1 >> -operand2;
+        }
+        handler.push(new Integer(result));
+    }
 }

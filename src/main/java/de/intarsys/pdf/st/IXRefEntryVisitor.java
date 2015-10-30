@@ -30,15 +30,12 @@
 package de.intarsys.pdf.st;
 
 /**
- * 
+ *
  */
 interface IXRefEntryVisitor {
-	public void visitFromFree(STXRefEntryFree entry)
-			throws XRefEntryVisitorException;
+    public void visitFromFree(STXRefEntryFree entry) throws XRefEntryVisitorException;
 
-	public void visitFromOccupied(STXRefEntryOccupied entry)
-			throws XRefEntryVisitorException;
+    public void visitFromOccupied(STXRefEntryOccupied entry) throws XRefEntryVisitorException;
 
-	public void visitFromCompressed(STXRefEntryCompressed entry)
-			throws XRefEntryVisitorException;
+    public void visitFromCompressed(STXRefEntryCompressed entry) throws XRefEntryVisitorException;
 }

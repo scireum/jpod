@@ -30,29 +30,26 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_mul implements IOperator {
-	public static Operator_mul Instance;
+    public static Operator_mul Instance;
 
-	static {
-		Instance = new Operator_mul();
-	}
+    static {
+        Instance = new Operator_mul();
+    }
 
-	private Operator_mul() {
-		super();
-	}
+    private Operator_mul() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Number element1;
-		Number element2;
+    public void execute(Handler handler) {
+        Number element1;
+        Number element2;
 
-		element2 = (Number) handler.pop();
-		element1 = (Number) handler.pop();
-		if (element1 instanceof Integer && element2 instanceof Integer) {
-			handler
-					.push(new Integer(element1.intValue() * element2.intValue()));
-			return;
-		}
-		handler
-				.push(new Double(element1.doubleValue()
-						* element2.doubleValue()));
-	}
+        element2 = (Number) handler.pop();
+        element1 = (Number) handler.pop();
+        if (element1 instanceof Integer && element2 instanceof Integer) {
+            handler.push(new Integer(element1.intValue() * element2.intValue()));
+            return;
+        }
+        handler.push(new Double(element1.doubleValue() * element2.doubleValue()));
+    }
 }

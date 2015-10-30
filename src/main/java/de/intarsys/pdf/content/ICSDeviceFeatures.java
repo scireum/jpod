@@ -23,80 +23,78 @@ import de.intarsys.pdf.pd.PDXObject;
  * {@link CSDeviceBasedInterpreter} where either a PDF object lookup or other
  * complex object construction is involved. Where this tuning is not enough you
  * may be better off subclassing {@link CSInterpreter} directly.
- * 
  */
 public interface ICSDeviceFeatures {
 
-	/**
-	 * <code>true</code> if this device supports (needs) {@link PDColorSpace}
-	 * objects to be reported in its callbacks.
-	 * 
-	 * @return <code>true</code> if this device supports (needs)
-	 *         {@link PDColorSpace} objects to be reported in its callbacks.
-	 */
-	public boolean supportsColorSpace();
+    /**
+     * <code>true</code> if this device supports (needs) {@link PDColorSpace}
+     * objects to be reported in its callbacks.
+     *
+     * @return <code>true</code> if this device supports (needs)
+     * {@link PDColorSpace} objects to be reported in its callbacks.
+     */
+    public boolean supportsColorSpace();
 
-	/**
-	 * <code>true</code> if this device supports (needs) {@link PDExtGState}
-	 * objects to be reported in its callbacks.
-	 * 
-	 * @return <code>true</code> if this device supports (needs)
-	 *         {@link PDExtGState} objects to be reported in its callbacks.
-	 */
-	public boolean supportsExtendedState();
+    /**
+     * <code>true</code> if this device supports (needs) {@link PDExtGState}
+     * objects to be reported in its callbacks.
+     *
+     * @return <code>true</code> if this device supports (needs)
+     * {@link PDExtGState} objects to be reported in its callbacks.
+     */
+    public boolean supportsExtendedState();
 
-	/**
-	 * <code>true</code> if this device supports (needs) {@link PDFont} objects
-	 * to be reported in its callbacks.
-	 * 
-	 * @return <code>true</code> if this device supports (needs) {@link PDFont}
-	 *         objects to be reported in its callbacks.
-	 */
-	public boolean supportsFont();
+    /**
+     * <code>true</code> if this device supports (needs) {@link PDFont} objects
+     * to be reported in its callbacks.
+     *
+     * @return <code>true</code> if this device supports (needs) {@link PDFont}
+     * objects to be reported in its callbacks.
+     */
+    public boolean supportsFont();
 
-	/**
-	 * <code>true</code> if this device supports (needs) {@link PDImage} objects
-	 * to be reported in its "inlineImage" callbacks.
-	 * 
-	 * @return <code>true</code> if this device supports (needs) {@link PDImage}
-	 *         objects to be reported in its callbacks.
-	 */
-	public boolean supportsInlineImage();
+    /**
+     * <code>true</code> if this device supports (needs) {@link PDImage} objects
+     * to be reported in its "inlineImage" callbacks.
+     *
+     * @return <code>true</code> if this device supports (needs) {@link PDImage}
+     * objects to be reported in its callbacks.
+     */
+    public boolean supportsInlineImage();
 
-	/**
-	 * <code>true</code> if this device supports (needs) {@link PDPattern}
-	 * objects to be reported in its callbacks.
-	 * 
-	 * @return <code>true</code> if this device supports (needs)
-	 *         {@link PDPattern} objects to be reported in its callbacks.
-	 */
-	public boolean supportsPattern();
+    /**
+     * <code>true</code> if this device supports (needs) {@link PDPattern}
+     * objects to be reported in its callbacks.
+     *
+     * @return <code>true</code> if this device supports (needs)
+     * {@link PDPattern} objects to be reported in its callbacks.
+     */
+    public boolean supportsPattern();
 
-	/**
-	 * <code>true</code> if this device supports (needs) properties to be
-	 * reported in its callbacks.
-	 * 
-	 * @return <code>true</code> if this device supports (needs) properties to
-	 *         be reported in its callbacks.
-	 */
-	public boolean supportsProperties();
+    /**
+     * <code>true</code> if this device supports (needs) properties to be
+     * reported in its callbacks.
+     *
+     * @return <code>true</code> if this device supports (needs) properties to
+     * be reported in its callbacks.
+     */
+    public boolean supportsProperties();
 
-	/**
-	 * <code>true</code> if this device supports (needs) {@link PDShading}
-	 * objects to be reported in its callbacks.
-	 * 
-	 * @return <code>true</code> if this device supports (needs)
-	 *         {@link PDShading} objects to be reported in its callbacks.
-	 */
-	public boolean supportsShading();
+    /**
+     * <code>true</code> if this device supports (needs) {@link PDShading}
+     * objects to be reported in its callbacks.
+     *
+     * @return <code>true</code> if this device supports (needs)
+     * {@link PDShading} objects to be reported in its callbacks.
+     */
+    public boolean supportsShading();
 
-	/**
-	 * <code>true</code> if this device supports (needs) {@link PDXObject}
-	 * objects to be reported in its callbacks.
-	 * 
-	 * @return <code>true</code> if this device supports (needs)
-	 *         {@link PDXObject} objects to be reported in its callbacks.
-	 */
-	public boolean supportsXObject();
-
+    /**
+     * <code>true</code> if this device supports (needs) {@link PDXObject}
+     * objects to be reported in its callbacks.
+     *
+     * @return <code>true</code> if this device supports (needs)
+     * {@link PDXObject} objects to be reported in its callbacks.
+     */
+    public boolean supportsXObject();
 }

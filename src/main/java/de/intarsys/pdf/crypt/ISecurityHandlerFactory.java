@@ -34,18 +34,14 @@ package de.intarsys.pdf.crypt;
  * <p>
  */
 public interface ISecurityHandlerFactory {
-	/**
-	 * Get a security handler instance compatible to the state defined in the
-	 * /Encrypt entry.
-	 * 
-	 * @param encryption
-	 *            The encryption object defining the state.
-	 * 
-	 * @return Get a security handler instance compatible to the state defined
-	 *         in encryption.
-	 * 
-	 * @throws COSSecurityException
-	 */
-	public ISecurityHandler getSecurityHandler(COSEncryption encryption)
-			throws COSSecurityException;
+    /**
+     * Get a security handler instance compatible to the state defined in the
+     * /Encrypt entry.
+     *
+     * @param encryption The encryption object defining the state.
+     * @return Get a security handler instance compatible to the state defined
+     * in encryption.
+     * @throws COSSecurityException
+     */
+    public ISecurityHandler getSecurityHandler(COSEncryption encryption) throws COSSecurityException;
 }

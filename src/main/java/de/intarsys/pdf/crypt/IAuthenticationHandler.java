@@ -40,14 +40,11 @@ package de.intarsys.pdf.crypt;
  */
 public interface IAuthenticationHandler {
 
-	/**
-	 * Authenticate document usage on behalf of the {@link ISecurityHandler}.
-	 * 
-	 * @param securityHandler
-	 *            The {@link ISecurityHandler} active for the document.
-	 * @throws COSSecurityException
-	 */
-	public void authenticate(ISecurityHandler securityHandler)
-			throws COSSecurityException;
-
+    /**
+     * Authenticate document usage on behalf of the {@link ISecurityHandler}.
+     *
+     * @param securityHandler The {@link ISecurityHandler} active for the document.
+     * @throws COSSecurityException
+     */
+    public void authenticate(ISecurityHandler securityHandler) throws COSSecurityException;
 }

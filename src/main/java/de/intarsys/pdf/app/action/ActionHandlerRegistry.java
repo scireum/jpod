@@ -33,27 +33,26 @@ package de.intarsys.pdf.app.action;
  * A singleton for the {@link IActionHandlerRegistry}.
  */
 public class ActionHandlerRegistry {
-	/**
-	 * The current implementation of the IActionHandlerFactory.
-	 */
-	private static IActionHandlerRegistry Active = new StandardActionHandlerRegistry();
+    /**
+     * The current implementation of the IActionHandlerFactory.
+     */
+    private static IActionHandlerRegistry Active = new StandardActionHandlerRegistry();
 
-	/**
-	 * Set the active {@link IActionHandlerRegistry} for the VM.
-	 * 
-	 * @param active
-	 *            The new active {@link IActionHandlerRegistry}.
-	 */
-	public static void set(IActionHandlerRegistry active) {
-		Active = active;
-	}
+    /**
+     * Set the active {@link IActionHandlerRegistry} for the VM.
+     *
+     * @param active The new active {@link IActionHandlerRegistry}.
+     */
+    public static void set(IActionHandlerRegistry active) {
+        Active = active;
+    }
 
-	/**
-	 * The active {@link IActionHandlerRegistry} for the VM.
-	 * 
-	 * @return The active {@link IActionHandlerRegistry} for the VM.
-	 */
-	public static IActionHandlerRegistry get() {
-		return Active;
-	}
+    /**
+     * The active {@link IActionHandlerRegistry} for the VM.
+     *
+     * @return The active {@link IActionHandlerRegistry} for the VM.
+     */
+    public static IActionHandlerRegistry get() {
+        return Active;
+    }
 }

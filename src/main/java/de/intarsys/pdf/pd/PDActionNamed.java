@@ -38,60 +38,59 @@ import de.intarsys.pdf.cos.COSObject;
  * <p>
  * When executed the action performs one of the defined named actions within the
  * document.
- * 
  */
 public class PDActionNamed extends PDAction {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAction.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDAction.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDActionNamed(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDActionNamed(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	static public final COSName CN_ActionType_Named = COSName.constant("Named"); //$NON-NLS-1$ 
+    static public final COSName CN_ActionType_Named = COSName.constant("Named"); //$NON-NLS-1$
 
-	public static final COSName DK_Name = COSName.constant("N"); //$NON-NLS-1$
+    public static final COSName DK_Name = COSName.constant("N"); //$NON-NLS-1$
 
-	public static final COSName CN_Name_NextPage = COSName.constant("NextPage"); //$NON-NLS-1$
+    public static final COSName CN_Name_NextPage = COSName.constant("NextPage"); //$NON-NLS-1$
 
-	public static final COSName CN_Name_PrevPage = COSName.constant("PrevPage"); //$NON-NLS-1$
+    public static final COSName CN_Name_PrevPage = COSName.constant("PrevPage"); //$NON-NLS-1$
 
-	public static final COSName CN_Name_FirstPage = COSName
-			.constant("FirstPage"); //$NON-NLS-1$
+    public static final COSName CN_Name_FirstPage = COSName.constant("FirstPage"); //$NON-NLS-1$
 
-	public static final COSName CN_Name_LastPage = COSName.constant("LastPage"); //$NON-NLS-1$
+    public static final COSName CN_Name_LastPage = COSName.constant("LastPage"); //$NON-NLS-1$
 
-	static public PDActionNamed createNew(String name) {
-		PDActionNamed result = (PDActionNamed) PDActionNamed.META.createNew();
-		result.cosSetName(COSName.create(name));
-		return result;
-	}
+    static public PDActionNamed createNew(String name) {
+        PDActionNamed result = (PDActionNamed) PDActionNamed.META.createNew();
+        result.cosSetName(COSName.create(name));
+        return result;
+    }
 
-	protected PDActionNamed(COSObject object) {
-		super(object);
-	}
+    protected PDActionNamed(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public COSName cosGetExpectedActionType() {
-		return CN_ActionType_Named;
-	}
+    @Override
+    public COSName cosGetExpectedActionType() {
+        return CN_ActionType_Named;
+    }
 
-	public COSName cosGetName() {
-		return cosGetField(DK_Name).asName();
-	}
+    public COSName cosGetName() {
+        return cosGetField(DK_Name).asName();
+    }
 
-	public COSName cosSetName(COSName name) {
-		return cosSetField(DK_Name, name).asName();
-	}
+    public COSName cosSetName(COSName name) {
+        return cosSetField(DK_Name, name).asName();
+    }
 }

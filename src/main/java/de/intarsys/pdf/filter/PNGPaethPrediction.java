@@ -32,80 +32,75 @@ package de.intarsys.pdf.filter;
 import de.intarsys.pdf.cos.COSDictionary;
 
 /**
- * 
+ *
  */
 public class PNGPaethPrediction extends PNGPrediction {
 
-	public PNGPaethPrediction(COSDictionary options) {
-		super(options);
-	}
+    public PNGPaethPrediction(COSDictionary options) {
+        super(options);
+    }
 
-	@Override
-	public void decodeRow(byte[] source, int sourceOffset, byte[] result,
-			int resultOffset) {
-		int raw;
-		int left;
-		int above;
-		int upperLeft;
-		int colors = getColors();
+    @Override
+    public void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
+        int raw;
+        int left;
+        int above;
+        int upperLeft;
+        int colors = getColors();
 
-		if (getBitsPerComponent() != 8) {
-			// TODO 2 @ehk implement
-			return;
-		}
+        if (getBitsPerComponent() != 8) {
+            // TODO 2 @ehk implement
+            return;
+        }
 
-		sourceOffset = sourceOffset + 1;
+        sourceOffset = sourceOffset + 1;
 
-		if (sourceOffset == 1) {
-			for (int c = 0; c < colors; c++) {
-				result[resultOffset + c] = source[sourceOffset + c];
-			}
+        if (sourceOffset == 1) {
+            for (int c = 0; c < colors; c++) {
+                result[resultOffset + c] = source[sourceOffset + c];
+            }
 
-			for (int x = 1; x < getResultRowSize(); x++) {
-				raw = source[sourceOffset + x] & 0xff;
-				left = result[(resultOffset + x) - colors] & 0xff;
-				above = 0;
-				upperLeft = 0;
-				result[resultOffset + x] = (byte) ((raw + paethPredictor(left,
-						above, upperLeft)) & 0xff);
-			}
-			return;
-		}
+            for (int x = 1; x < getResultRowSize(); x++) {
+                raw = source[sourceOffset + x] & 0xff;
+                left = result[(resultOffset + x) - colors] & 0xff;
+                above = 0;
+                upperLeft = 0;
+                result[resultOffset + x] = (byte) ((raw + paethPredictor(left, above, upperLeft)) & 0xff);
+            }
+            return;
+        }
 
-		for (int c = 0; c < colors; c++) {
-			raw = source[sourceOffset + c] & 0xff;
-			left = 0;
-			above = result[(resultOffset + c) - getResultRowSize()] & 0xff;
-			upperLeft = 0;
-			result[resultOffset + c] = (byte) ((raw + paethPredictor(left,
-					above, upperLeft)) & 0xff);
-		}
+        for (int c = 0; c < colors; c++) {
+            raw = source[sourceOffset + c] & 0xff;
+            left = 0;
+            above = result[(resultOffset + c) - getResultRowSize()] & 0xff;
+            upperLeft = 0;
+            result[resultOffset + c] = (byte) ((raw + paethPredictor(left, above, upperLeft)) & 0xff);
+        }
 
-		for (int x = colors; x < getResultRowSize(); x++) {
-			raw = source[sourceOffset + x] & 0xff;
-			left = result[(resultOffset + x) - colors] & 0xff;
-			above = result[(resultOffset + x) - getResultRowSize()] & 0xff;
-			upperLeft = result[(resultOffset + x) - getResultRowSize() - colors] & 0xff;
-			result[resultOffset + x] = (byte) ((raw + paethPredictor(left,
-					above, upperLeft)) & 0xff);
-		}
-	}
+        for (int x = colors; x < getResultRowSize(); x++) {
+            raw = source[sourceOffset + x] & 0xff;
+            left = result[(resultOffset + x) - colors] & 0xff;
+            above = result[(resultOffset + x) - getResultRowSize()] & 0xff;
+            upperLeft = result[(resultOffset + x) - getResultRowSize() - colors] & 0xff;
+            result[resultOffset + x] = (byte) ((raw + paethPredictor(left, above, upperLeft)) & 0xff);
+        }
+    }
 
-	private int paethPredictor(int left, int above, int upperLeft) {
-		int p = (left + above) - upperLeft; // initial estimate
-		int pa = Math.abs(p - left); // distances to left, above, upper left
-		int pb = Math.abs(p - above);
-		int pc = Math.abs(p - upperLeft);
+    private int paethPredictor(int left, int above, int upperLeft) {
+        int p = (left + above) - upperLeft; // initial estimate
+        int pa = Math.abs(p - left); // distances to left, above, upper left
+        int pb = Math.abs(p - above);
+        int pc = Math.abs(p - upperLeft);
 
-		// return nearest of a,b,c, breaking ties in order left, above, upper
-		// left.
-		if ((pa <= pb) && (pa <= pc)) {
-			return left;
-		}
-		if (pb <= pc) {
-			return above;
-		}
-		return upperLeft;
-	}
-
+        // return nearest of a,b,c, breaking ties in order left, above, upper
+        // left.
+        if ((pa <= pb) && (pa <= pc)) {
+            return left;
+        }
+        if (pb <= pc) {
+            return above;
+        }
+        return upperLeft;
+    }
 }

@@ -36,228 +36,218 @@ import de.intarsys.pdf.font.PDFontStyle;
 /**
  * A query for requesting {@link PDFont} instances from an {@link IFontFactory}
  * with the defined attributes.
- * 
  */
 public class FontQuery implements IFontQuery {
-	/**
-	 * A template font defining defaults for the requested font.
-	 */
-	private PDFont baseFont;
+    /**
+     * A template font defining defaults for the requested font.
+     */
+    private PDFont baseFont;
 
-	/**
-	 * The font style requested
-	 */
-	private PDFontStyle overrideFontStyle = PDFontStyle.UNDEFINED;
-	/**
-	 * The font type requested
-	 */
-	private String overrideFontType = null;
+    /**
+     * The font style requested
+     */
+    private PDFontStyle overrideFontStyle = PDFontStyle.UNDEFINED;
+    /**
+     * The font type requested
+     */
+    private String overrideFontType = null;
 
-	/**
-	 * The font family requested
-	 */
-	private String overrideFontFamilyName;
-	/**
-	 * The font name requested
-	 */
-	private String overrideFontName;
+    /**
+     * The font family requested
+     */
+    private String overrideFontFamilyName;
+    /**
+     * The font name requested
+     */
+    private String overrideFontName;
 
-	/**
-	 * The encoding requested
-	 */
-	private Encoding overrideEncoding;
+    /**
+     * The encoding requested
+     */
+    private Encoding overrideEncoding;
 
-	public FontQuery() {
-		super();
-	}
+    public FontQuery() {
+        super();
+    }
 
-	/**
-	 * Create a new {@link IFontQuery} based on another {@link PDFont}. USe the
-	 * setter methods to overwrite the attributes you want to be different from
-	 * <code>baseFont</code>.
-	 * 
-	 * @param baseFont
-	 *            The font serivng as a template for this query.
-	 */
-	public FontQuery(PDFont baseFont) {
-		super();
-		this.baseFont = baseFont;
-	}
+    /**
+     * Create a new {@link IFontQuery} based on another {@link PDFont}. USe the
+     * setter methods to overwrite the attributes you want to be different from
+     * <code>baseFont</code>.
+     *
+     * @param baseFont The font serivng as a template for this query.
+     */
+    public FontQuery(PDFont baseFont) {
+        super();
+        this.baseFont = baseFont;
+    }
 
-	public FontQuery(String fontName) {
-		super();
-		setOverrideFontName(fontName);
-	}
+    public FontQuery(String fontName) {
+        super();
+        setOverrideFontName(fontName);
+    }
 
-	/**
-	 * Create a new {@link IFontQuery} denoting a font from the
-	 * <code>family</code> in style <code>style</code>.
-	 * 
-	 * @param family
-	 *            The family of the FontQuery.
-	 * @param style
-	 *            The style of the FontQuery.
-	 */
-	public FontQuery(String family, PDFontStyle style) {
-		super();
-		setOverrideFontFamilyName(family);
-		setOverrideFontStyle(style);
-	}
+    /**
+     * Create a new {@link IFontQuery} denoting a font from the
+     * <code>family</code> in style <code>style</code>.
+     *
+     * @param family The family of the FontQuery.
+     * @param style  The style of the FontQuery.
+     */
+    public FontQuery(String family, PDFontStyle style) {
+        super();
+        setOverrideFontFamilyName(family);
+        setOverrideFontStyle(style);
+    }
 
-	/**
-	 * Create a new {@link IFontQuery} denoting a font from the
-	 * <code>family</code> in style <code>style</code>.
-	 * 
-	 * @param family
-	 *            The family of the FontQuery.
-	 * @param style
-	 *            The style of the FontQuery.
-	 */
-	public FontQuery(String family, String style) {
-		super();
-		setOverrideFontFamilyName(family);
-		setOverrideFontStyle(PDFontStyle.getFontStyle(style));
-	}
+    /**
+     * Create a new {@link IFontQuery} denoting a font from the
+     * <code>family</code> in style <code>style</code>.
+     *
+     * @param family The family of the FontQuery.
+     * @param style  The style of the FontQuery.
+     */
+    public FontQuery(String family, String style) {
+        super();
+        setOverrideFontFamilyName(family);
+        setOverrideFontStyle(PDFontStyle.getFontStyle(style));
+    }
 
-	protected boolean checkLastChar() {
-		return getBaseFont() != null;
-	}
+    protected boolean checkLastChar() {
+        return getBaseFont() != null;
+    }
 
-	protected PDFont getBaseFont() {
-		return baseFont;
-	}
+    protected PDFont getBaseFont() {
+        return baseFont;
+    }
 
-	public Encoding getEncoding() {
-		if (getOverrideEncoding() == null) {
-			if (getBaseFont() == null) {
-				return null;
-			} else {
-				return getBaseFont().getEncoding();
-			}
-		} else {
-			return getOverrideEncoding();
-		}
-	}
+    public Encoding getEncoding() {
+        if (getOverrideEncoding() == null) {
+            if (getBaseFont() == null) {
+                return null;
+            } else {
+                return getBaseFont().getEncoding();
+            }
+        } else {
+            return getOverrideEncoding();
+        }
+    }
 
-	public String getFontFamilyName() {
-		if (getOverrideFontFamilyName() == null) {
-			if (getBaseFont() == null) {
-				return null;
-			} else {
-				return getBaseFont().getLookupFontFamilyName();
-			}
-		} else {
-			return getOverrideFontFamilyName();
-		}
-	}
+    public String getFontFamilyName() {
+        if (getOverrideFontFamilyName() == null) {
+            if (getBaseFont() == null) {
+                return null;
+            } else {
+                return getBaseFont().getLookupFontFamilyName();
+            }
+        } else {
+            return getOverrideFontFamilyName();
+        }
+    }
 
-	public String getFontName() {
-		if (getOverrideFontName() == null) {
-			if (getBaseFont() == null || getOverrideFontFamilyName() == null
-					|| getOverrideFontStyle() == null) {
-				return null;
-			} else {
-				return getBaseFont().getFontNameNormalized();
-			}
-		} else {
-			return getOverrideFontName();
-		}
-	}
+    public String getFontName() {
+        if (getOverrideFontName() == null) {
+            if (getBaseFont() == null || getOverrideFontFamilyName() == null || getOverrideFontStyle() == null) {
+                return null;
+            } else {
+                return getBaseFont().getFontNameNormalized();
+            }
+        } else {
+            return getOverrideFontName();
+        }
+    }
 
-	public PDFontStyle getFontStyle() {
-		if (getOverrideFontStyle() == PDFontStyle.UNDEFINED) {
-			if (getBaseFont() == null) {
-				return PDFontStyle.UNDEFINED;
-			} else {
-				return getBaseFont().getLookupFontStyle();
-			}
-		} else {
-			return getOverrideFontStyle();
-		}
-	}
+    public PDFontStyle getFontStyle() {
+        if (getOverrideFontStyle() == PDFontStyle.UNDEFINED) {
+            if (getBaseFont() == null) {
+                return PDFontStyle.UNDEFINED;
+            } else {
+                return getBaseFont().getLookupFontStyle();
+            }
+        } else {
+            return getOverrideFontStyle();
+        }
+    }
 
-	public String getFontType() {
-		if (getOverrideFontType() == null) {
-			if (getBaseFont() == null) {
-				return null;
-			} else {
-				return getBaseFont().getFontType();
-			}
-		} else {
-			return getOverrideFontType();
-		}
-	}
+    public String getFontType() {
+        if (getOverrideFontType() == null) {
+            if (getBaseFont() == null) {
+                return null;
+            } else {
+                return getBaseFont().getFontType();
+            }
+        } else {
+            return getOverrideFontType();
+        }
+    }
 
-	/**
-	 * The required encoding for the result font.
-	 * 
-	 * @return The required encoding for the result font.
-	 */
-	public Encoding getOverrideEncoding() {
-		return overrideEncoding;
-	}
+    /**
+     * The required encoding for the result font.
+     *
+     * @return The required encoding for the result font.
+     */
+    public Encoding getOverrideEncoding() {
+        return overrideEncoding;
+    }
 
-	/**
-	 * The required font family for the result font.
-	 * 
-	 * @return The required font family for the result font.
-	 */
-	public String getOverrideFontFamilyName() {
-		return overrideFontFamilyName;
-	}
+    /**
+     * The required font family for the result font.
+     *
+     * @return The required font family for the result font.
+     */
+    public String getOverrideFontFamilyName() {
+        return overrideFontFamilyName;
+    }
 
-	public String getOverrideFontName() {
-		return overrideFontName;
-	}
+    public String getOverrideFontName() {
+        return overrideFontName;
+    }
 
-	/**
-	 * The required font style for the result font.
-	 * 
-	 * @return The required font style for the result font.
-	 */
-	public PDFontStyle getOverrideFontStyle() {
-		return overrideFontStyle;
-	}
+    /**
+     * The required font style for the result font.
+     *
+     * @return The required font style for the result font.
+     */
+    public PDFontStyle getOverrideFontStyle() {
+        return overrideFontStyle;
+    }
 
-	public String getOverrideFontType() {
-		return overrideFontType;
-	}
+    public String getOverrideFontType() {
+        return overrideFontType;
+    }
 
-	/**
-	 * Set the encoding attribute for the font to be looked up.
-	 * 
-	 * @param overrideEncoding
-	 *            The required encoding for the result font.
-	 */
-	public void setOverrideEncoding(Encoding overrideEncoding) {
-		this.overrideEncoding = overrideEncoding;
-	}
+    /**
+     * Set the encoding attribute for the font to be looked up.
+     *
+     * @param overrideEncoding The required encoding for the result font.
+     */
+    public void setOverrideEncoding(Encoding overrideEncoding) {
+        this.overrideEncoding = overrideEncoding;
+    }
 
-	/**
-	 * Set the font family attribute for the font to be looked up.
-	 * 
-	 * @param overrideFontFamilyName
-	 *            The required font family for the result font.
-	 */
-	public void setOverrideFontFamilyName(String overrideFontFamilyName) {
-		this.overrideFontFamilyName = overrideFontFamilyName;
-	}
+    /**
+     * Set the font family attribute for the font to be looked up.
+     *
+     * @param overrideFontFamilyName The required font family for the result font.
+     */
+    public void setOverrideFontFamilyName(String overrideFontFamilyName) {
+        this.overrideFontFamilyName = overrideFontFamilyName;
+    }
 
-	public void setOverrideFontName(String overrideFontName) {
-		this.overrideFontName = overrideFontName;
-	}
+    public void setOverrideFontName(String overrideFontName) {
+        this.overrideFontName = overrideFontName;
+    }
 
-	/**
-	 * Set the font style attribute for the font to be looked up.
-	 * 
-	 * @param overrideFontStyle
-	 *            The required font style for the result font.
-	 */
-	public void setOverrideFontStyle(PDFontStyle overrideFontStyle) {
-		this.overrideFontStyle = overrideFontStyle;
-	}
+    /**
+     * Set the font style attribute for the font to be looked up.
+     *
+     * @param overrideFontStyle The required font style for the result font.
+     */
+    public void setOverrideFontStyle(PDFontStyle overrideFontStyle) {
+        this.overrideFontStyle = overrideFontStyle;
+    }
 
-	public void setOverrideFontType(String overrideFontType) {
-		this.overrideFontType = overrideFontType;
-	}
+    public void setOverrideFontType(String overrideFontType) {
+        this.overrideFontType = overrideFontType;
+    }
 }

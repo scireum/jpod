@@ -29,68 +29,66 @@
  */
 package de.intarsys.pdf.font.outlet;
 
-import java.util.Iterator;
-
 import de.intarsys.tools.provider.ProviderTools;
+
+import java.util.Iterator;
 
 /**
  * A singleton to access the current {@link IFontOutlet}.
- * 
  */
 public class FontOutlet {
 
-	static private boolean lookupProviders = true;
+    static private boolean lookupProviders = true;
 
-	private static IFontOutlet Unique;
+    private static IFontOutlet Unique;
 
-	static protected IFontOutlet findProviders() {
-		Iterator<IFontOutlet> ps = ProviderTools.providers(IFontOutlet.class);
-		while (ps.hasNext()) {
-			try {
-				return ps.next();
-			} catch (Throwable e) {
-				// ignore and try on
-			}
-		}
-		return null;
-	}
+    static protected IFontOutlet findProviders() {
+        Iterator<IFontOutlet> ps = ProviderTools.providers(IFontOutlet.class);
+        while (ps.hasNext()) {
+            try {
+                return ps.next();
+            } catch (Throwable e) {
+                // ignore and try on
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * The {@link IFontOutlet} singleton.
-	 * 
-	 * @return The {@link IFontOutlet} singleton.
-	 */
-	static public IFontOutlet get() {
-		if (Unique == null) {
-			init();
-		}
-		return Unique;
-	}
+    /**
+     * The {@link IFontOutlet} singleton.
+     *
+     * @return The {@link IFontOutlet} singleton.
+     */
+    static public IFontOutlet get() {
+        if (Unique == null) {
+            init();
+        }
+        return Unique;
+    }
 
-	static protected void init() {
-		if (lookupProviders) {
-			Unique = findProviders();
-		}
-		if (Unique == null) {
-			Unique = new NullFontOutlet();
-		}
-	}
+    static protected void init() {
+        if (lookupProviders) {
+            Unique = findProviders();
+        }
+        if (Unique == null) {
+            Unique = new NullFontOutlet();
+        }
+    }
 
-	public static boolean isLookupProviders() {
-		return lookupProviders;
-	}
+    public static boolean isLookupProviders() {
+        return lookupProviders;
+    }
 
-	/**
-	 * Set the {@link IFontOutlet} singleton.
-	 * 
-	 * @param outlet
-	 *            The {@link IFontOutlet} singleton.
-	 */
-	static public void set(IFontOutlet outlet) {
-		Unique = outlet;
-	}
+    /**
+     * Set the {@link IFontOutlet} singleton.
+     *
+     * @param outlet The {@link IFontOutlet} singleton.
+     */
+    static public void set(IFontOutlet outlet) {
+        Unique = outlet;
+    }
 
-	public static void setLookupProviders(boolean pLookupProviders) {
-		lookupProviders = pLookupProviders;
-	}
+    public static void setLookupProviders(boolean pLookupProviders) {
+        lookupProviders = pLookupProviders;
+    }
 }

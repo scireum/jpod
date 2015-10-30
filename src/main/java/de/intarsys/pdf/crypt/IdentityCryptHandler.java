@@ -33,30 +33,26 @@ import de.intarsys.pdf.cos.COSObjectKey;
 
 /**
  * The /Identity {@link ICryptHandler}, doing nothing a all.
- * 
  */
 public class IdentityCryptHandler extends AbstractCryptHandler {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.crypt.ICryptHandler#decrypt(de.intarsys.pdf.cos.COSObjectKey,
-	 *      byte[])
-	 */
-	public byte[] decrypt(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException {
-		return bytes;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.crypt.ICryptHandler#decrypt(de.intarsys.pdf.cos.COSObjectKey,
+     *      byte[])
+     */
+    public byte[] decrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException {
+        return bytes;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.crypt.ICryptHandler#encrypt(de.intarsys.pdf.cos.COSObjectKey,
-	 *      byte[])
-	 */
-	public byte[] encrypt(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException {
-		return bytes;
-	}
-
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.crypt.ICryptHandler#encrypt(de.intarsys.pdf.cos.COSObjectKey,
+     *      byte[])
+     */
+    public byte[] encrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException {
+        return bytes;
+    }
 }

@@ -36,109 +36,107 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * The definition of the document encryption.
- * 
+ * <p>
  * <p>
  * This object contains the state information defining the context for the
  * document encryption.
  * </p>
  */
 public class COSEncryption extends COSBasedObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends COSBasedObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends COSBasedObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new COSEncryption(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new COSEncryption(object);
+        }
+    }
 
-	public static final COSName DK_EncryptMetadata = COSName
-			.constant("EncryptMetadata"); //$NON-NLS-1$
+    public static final COSName DK_EncryptMetadata = COSName.constant("EncryptMetadata"); //$NON-NLS-1$
 
-	public static final COSName DK_Filter = COSName.constant("Filter"); //$NON-NLS-1$
+    public static final COSName DK_Filter = COSName.constant("Filter"); //$NON-NLS-1$
 
-	public static final COSName DK_SubFilter = COSName.constant("SubFilter"); //$NON-NLS-1$
+    public static final COSName DK_SubFilter = COSName.constant("SubFilter"); //$NON-NLS-1$
 
-	public static final COSName DK_V = COSName.constant("V"); //$NON-NLS-1$
+    public static final COSName DK_V = COSName.constant("V"); //$NON-NLS-1$
 
-	public static final COSName DK_Length = COSName.constant("Length"); //$NON-NLS-1$
+    public static final COSName DK_Length = COSName.constant("Length"); //$NON-NLS-1$
 
-	public static final COSName DK_CF = COSName.constant("CF"); //$NON-NLS-1$
+    public static final COSName DK_CF = COSName.constant("CF"); //$NON-NLS-1$
 
-	public static final COSName CN_IDENTITY = COSName.constant("Identity"); //$NON-NLS-1$
+    public static final COSName CN_IDENTITY = COSName.constant("Identity"); //$NON-NLS-1$
 
-	public static final COSName DK_StmF = COSName.constant("StmF"); //$NON-NLS-1$
+    public static final COSName DK_StmF = COSName.constant("StmF"); //$NON-NLS-1$
 
-	public static final COSName DK_EFF = COSName.constant("EEF"); //$NON-NLS-1$
+    public static final COSName DK_EFF = COSName.constant("EEF"); //$NON-NLS-1$
 
-	public static final COSName DK_StrF = COSName.constant("StrF"); //$NON-NLS-1$
+    public static final COSName DK_StrF = COSName.constant("StrF"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected COSEncryption(COSObject object) {
-		super(object);
-	}
+    protected COSEncryption(COSObject object) {
+        super(object);
+    }
 
-	public COSDictionary getCryptFilterDict(COSName name) {
-		if (CN_IDENTITY.equals(name)) {
-			// can't redefine...
-			return null;
-		}
-		COSDictionary cryptFilters = cosGetField(COSEncryption.DK_CF)
-				.asDictionary();
-		if (cryptFilters == null) {
-			return null;
-		}
-		return cryptFilters.get(name).asDictionary();
-	}
+    public COSDictionary getCryptFilterDict(COSName name) {
+        if (CN_IDENTITY.equals(name)) {
+            // can't redefine...
+            return null;
+        }
+        COSDictionary cryptFilters = cosGetField(COSEncryption.DK_CF).asDictionary();
+        if (cryptFilters == null) {
+            return null;
+        }
+        return cryptFilters.get(name).asDictionary();
+    }
 
-	public COSName getCryptFilterNameFile() {
-		COSName name = cosGetField(DK_EFF).asName();
-		if (name == null) {
-			return CN_IDENTITY;
-		}
-		return name;
-	}
+    public COSName getCryptFilterNameFile() {
+        COSName name = cosGetField(DK_EFF).asName();
+        if (name == null) {
+            return CN_IDENTITY;
+        }
+        return name;
+    }
 
-	public COSName getCryptFilterNameStream() {
-		COSName name = cosGetField(DK_StmF).asName();
-		if (name == null) {
-			return CN_IDENTITY;
-		}
-		return name;
-	}
+    public COSName getCryptFilterNameStream() {
+        COSName name = cosGetField(DK_StmF).asName();
+        if (name == null) {
+            return CN_IDENTITY;
+        }
+        return name;
+    }
 
-	public COSName getCryptFilterNameString() {
-		COSName name = cosGetField(DK_StrF).asName();
-		if (name == null) {
-			return CN_IDENTITY;
-		}
-		return name;
-	}
+    public COSName getCryptFilterNameString() {
+        COSName name = cosGetField(DK_StrF).asName();
+        if (name == null) {
+            return CN_IDENTITY;
+        }
+        return name;
+    }
 
-	public COSName getFilter() {
-		return cosGetField(DK_Filter).asName();
-	}
+    public COSName getFilter() {
+        return cosGetField(DK_Filter).asName();
+    }
 
-	/**
-	 * The length of the encryption key, in bits. The value must be a multiple
-	 * of 8, in the range 40 to 128. Default value: 40.
-	 * 
-	 * @return length of the encryption key, in bits
-	 */
-	public int getLength() {
-		return getFieldInt(DK_Length, 40);
-	}
+    /**
+     * The length of the encryption key, in bits. The value must be a multiple
+     * of 8, in the range 40 to 128. Default value: 40.
+     *
+     * @return length of the encryption key, in bits
+     */
+    public int getLength() {
+        return getFieldInt(DK_Length, 40);
+    }
 
-	public int getVersion() {
-		return getFieldInt(DK_V, 0);
-	}
-
+    public int getVersion() {
+        return getFieldInt(DK_V, 0);
+    }
 }

@@ -37,8 +37,7 @@ package de.intarsys.pdf.content;
  */
 abstract public class CSVirtualDevice extends CSDeviceAdapter {
 
-	public CSVirtualDevice() {
-		super();
-	}
-
+    public CSVirtualDevice() {
+        super();
+    }
 }

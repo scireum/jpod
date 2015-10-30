@@ -37,42 +37,42 @@ import de.intarsys.pdf.cos.COSObject;
  * Support for pattern based color spaces.
  */
 public class PDCSPattern extends PDCSSpecial {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDCSSpecial.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDCSSpecial.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return new PDCSPattern(object);
-		}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return new PDCSPattern(object);
+        }
+    }
 
-	}
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    protected PDCSPattern(COSObject object) {
+        super(object);
+    }
 
-	protected PDCSPattern(COSObject object) {
-		super(object);
-	}
-	
-	/**
-	 * Returns the underlying color space in which the actual color of the
-	 * pattern shall be specified, if this color space represents and uncolored
-	 * tiling pattern and null otherwise.
-	 * 
-	 * @see "ISO 32000-1:2008, 8.7.3.3 Uncoloured Tiling Patterns"
-	 */
-	public PDColorSpace getUnderlyingColorSpace() {
-		COSArray array = cosGetObject().asArray();
-		if (array == null || array.size() < 2) {
-			return null;
-		}
-		
-		return (PDColorSpace) PDColorSpace.META.createFromCos(array.get(1));
-	}
+    /**
+     * Returns the underlying color space in which the actual color of the
+     * pattern shall be specified, if this color space represents and uncolored
+     * tiling pattern and null otherwise.
+     *
+     * @see "ISO 32000-1:2008, 8.7.3.3 Uncoloured Tiling Patterns"
+     */
+    public PDColorSpace getUnderlyingColorSpace() {
+        COSArray array = cosGetObject().asArray();
+        if (array == null || array.size() < 2) {
+            return null;
+        }
+
+        return (PDColorSpace) PDColorSpace.META.createFromCos(array.get(1));
+    }
 }

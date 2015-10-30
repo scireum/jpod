@@ -36,33 +36,33 @@ import de.intarsys.pdf.cos.COSObject;
  * Device color space gray support.
  */
 public class PDCSDeviceGray extends PDCSDevice {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDCSDevice.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDCSDevice.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return SINGLETON;
-		}
-	}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return SINGLETON;
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static PDCSDeviceGray SINGLETON = new PDCSDeviceGray();
+    public static PDCSDeviceGray SINGLETON = new PDCSDeviceGray();
 
-	protected PDCSDeviceGray() {
-		super();
-	}
+    protected PDCSDeviceGray() {
+        super();
+    }
 
-	@Override
-	public String toString() {
-		return CN_CS_DeviceGray.toString();
-	}
-
+    @Override
+    public String toString() {
+        return CN_CS_DeviceGray.toString();
+    }
 }

@@ -40,134 +40,134 @@ import de.intarsys.pdf.cos.COSObject;
  * comments and replies.
  */
 public class PDPopupAnnotation extends PDAnnotation {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAnnotation.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDAnnotation.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDPopupAnnotation(object);
-		}
-	}
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDPopupAnnotation(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_Subtype_Popup = COSName.constant("Popup");
+    public static final COSName CN_Subtype_Popup = COSName.constant("Popup");
 
-	public static final COSName DK_T = COSName.constant("T");
+    public static final COSName DK_T = COSName.constant("T");
 
-	public static final COSName DK_Parent = COSName.constant("Parent");
+    public static final COSName DK_Parent = COSName.constant("Parent");
 
-	public static final COSName DK_Open = COSName.constant("Open");
+    public static final COSName DK_Open = COSName.constant("Open");
 
-	protected PDPopupAnnotation(COSObject object) {
-		super(object);
-	}
+    protected PDPopupAnnotation(COSObject object) {
+        super(object);
+    }
 
-	public String getText() {
-		PDAnnotation parent = getParent();
-		if (parent == null) {
-			return getFieldString(DK_T, "");
-		} else {
-			return parent.getFieldString(DK_T, "");
-		}
-	}
+    public String getText() {
+        PDAnnotation parent = getParent();
+        if (parent == null) {
+            return getFieldString(DK_T, "");
+        } else {
+            return parent.getFieldString(DK_T, "");
+        }
+    }
 
-	public PDAnnotation getParent() {
-		return (PDAnnotation) PDAnnotation.META
-				.createFromCos(cosGetField(DK_Parent));
-	}
+    public PDAnnotation getParent() {
+        return (PDAnnotation) PDAnnotation.META.createFromCos(cosGetField(DK_Parent));
+    }
 
-	public void setParent(PDAnnotation parent) {
-		setFieldObject(DK_Parent, parent);
-	}
+    public void setParent(PDAnnotation parent) {
+        setFieldObject(DK_Parent, parent);
+    }
 
-	public String getContents() {
-		PDAnnotation parent = getParent();
-		if (parent == null) {
-			return super.getContents();
-		} else {
-			return parent.getContents();
-		}
-	}
+    public String getContents() {
+        PDAnnotation parent = getParent();
+        if (parent == null) {
+            return super.getContents();
+        } else {
+            return parent.getContents();
+        }
+    }
 
-	public void setContents(String contents) {
-		PDAnnotation parent = getParent();
-		if (parent == null) {
-			setFieldMLString(DK_Contents, contents);
-		} else {
-			parent.setFieldMLString(DK_Contents, contents);
-		}
-	}
+    public void setContents(String contents) {
+        PDAnnotation parent = getParent();
+        if (parent == null) {
+            setFieldMLString(DK_Contents, contents);
+        } else {
+            parent.setFieldMLString(DK_Contents, contents);
+        }
+    }
 
-	public String getSubject() {
-		PDAnnotation parent = getParent();
-		if (parent == null) {
-			return getFieldString(PDMarkupAnnotation.DK_Subj, "");
-		} else {
-			return parent.getFieldString(PDMarkupAnnotation.DK_Subj, "");
-		}
-	}
+    public String getSubject() {
+        PDAnnotation parent = getParent();
+        if (parent == null) {
+            return getFieldString(PDMarkupAnnotation.DK_Subj, "");
+        } else {
+            return parent.getFieldString(PDMarkupAnnotation.DK_Subj, "");
+        }
+    }
 
-	public PDPage getPage() {
-		PDAnnotation parent = getParent();
-		if (parent == null) {
-			return super.getPage();
-		} else {
-			return parent.getPage();
-		}
-	}
+    public PDPage getPage() {
+        PDAnnotation parent = getParent();
+        if (parent == null) {
+            return super.getPage();
+        } else {
+            return parent.getPage();
+        }
+    }
 
-	public void setSubject(String subject) {
-		PDAnnotation parent = getParent();
-		if (parent == null) {
-			setFieldString(PDMarkupAnnotation.DK_Subj, subject);
-		} else {
-			parent.setFieldString(PDMarkupAnnotation.DK_Subj, subject);
-		}
-	}
+    public void setSubject(String subject) {
+        PDAnnotation parent = getParent();
+        if (parent == null) {
+            setFieldString(PDMarkupAnnotation.DK_Subj, subject);
+        } else {
+            parent.setFieldString(PDMarkupAnnotation.DK_Subj, subject);
+        }
+    }
 
-	public CDSDate getModified() {
-		PDAnnotation parent = getParent();
-		if (parent == null) {
-			return super.getModified();
-		} else {
-			return parent.getModified();
-		}
-	}
+    public CDSDate getModified() {
+        PDAnnotation parent = getParent();
+        if (parent == null) {
+            return super.getModified();
+        } else {
+            return parent.getModified();
+        }
+    }
 
-	public float[] getColor() {
-		PDAnnotation parent = getParent();
-		if (parent == null) {
-			return super.getColor();
-		} else {
-			return parent.getColor();
-		}
-	}
+    public float[] getColor() {
+        PDAnnotation parent = getParent();
+        if (parent == null) {
+            return super.getColor();
+        } else {
+            return parent.getColor();
+        }
+    }
 
-	public boolean isOpen() {
-		return getFieldBoolean(DK_Open, false);
-	}
+    public boolean isOpen() {
+        return getFieldBoolean(DK_Open, false);
+    }
 
-	public void setOpen(boolean open) {
-		setFieldBoolean(DK_Open, open);
-	}
+    public void setOpen(boolean open) {
+        setFieldBoolean(DK_Open, open);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
-	 */
-	protected COSName cosGetExpectedSubtype() {
-		return CN_Subtype_Popup;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
+     */
+    protected COSName cosGetExpectedSubtype() {
+        return CN_Subtype_Popup;
+    }
 
-	public String getSubtypeLabel() {
-		return "Popup";
-	}
+    public String getSubtypeLabel() {
+        return "Popup";
+    }
 }

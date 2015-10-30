@@ -49,120 +49,120 @@ import de.intarsys.pdf.pd.AbstractBitFlags;
  * </ul>
  */
 public class FontDescriptorFlags extends AbstractBitFlags {
-	public static final int Bit_FixedPitch = 1;
+    public static final int Bit_FixedPitch = 1;
 
-	public static final int Bit_Serif = 1 << 1;
+    public static final int Bit_Serif = 1 << 1;
 
-	public static final int Bit_Symbolic = 1 << 2;
+    public static final int Bit_Symbolic = 1 << 2;
 
-	public static final int Bit_Script = 1 << 3;
+    public static final int Bit_Script = 1 << 3;
 
-	public static final int Bit_Nonsymbolic = 1 << 5;
+    public static final int Bit_Nonsymbolic = 1 << 5;
 
-	public static final int Bit_Italic = 1 << 6;
+    public static final int Bit_Italic = 1 << 6;
 
-	public static final int Bit_AllCap = 1 << 16;
+    public static final int Bit_AllCap = 1 << 16;
 
-	public static final int Bit_SmallCap = 1 << 17;
+    public static final int Bit_SmallCap = 1 << 17;
 
-	public static final int Bit_ForceBold = 1 << 18;
+    public static final int Bit_ForceBold = 1 << 18;
 
-	private PDFontDescriptor fontDescriptor;
+    private PDFontDescriptor fontDescriptor;
 
-	public FontDescriptorFlags(int value) {
-		super(value);
-	}
+    public FontDescriptorFlags(int value) {
+        super(value);
+    }
 
-	public FontDescriptorFlags(PDFontDescriptor fontDescriptor) {
-		super(fontDescriptor, null);
-		this.fontDescriptor = fontDescriptor;
-	}
+    public FontDescriptorFlags(PDFontDescriptor fontDescriptor) {
+        super(fontDescriptor, null);
+        this.fontDescriptor = fontDescriptor;
+    }
 
-	protected PDFontDescriptor getFontDescriptor() {
-		return fontDescriptor;
-	}
+    protected PDFontDescriptor getFontDescriptor() {
+        return fontDescriptor;
+    }
 
-	@Override
-	protected int getValueInObject() {
-		return getFontDescriptor().getFlagsValue();
-	}
+    @Override
+    protected int getValueInObject() {
+        return getFontDescriptor().getFlagsValue();
+    }
 
-	public boolean isAllCap() {
-		return isSetAnd(Bit_AllCap);
-	}
+    public boolean isAllCap() {
+        return isSetAnd(Bit_AllCap);
+    }
 
-	public boolean isFixedPitch() {
-		return isSetAnd(Bit_FixedPitch);
-	}
+    public boolean isFixedPitch() {
+        return isSetAnd(Bit_FixedPitch);
+    }
 
-	public boolean isForceBold() {
-		return isSetAnd(Bit_ForceBold);
-	}
+    public boolean isForceBold() {
+        return isSetAnd(Bit_ForceBold);
+    }
 
-	public boolean isItalic() {
-		return isSetAnd(Bit_Italic);
-	}
+    public boolean isItalic() {
+        return isSetAnd(Bit_Italic);
+    }
 
-	public boolean isNonsymbolic() {
-		return isSetAnd(Bit_Nonsymbolic);
-	}
+    public boolean isNonsymbolic() {
+        return isSetAnd(Bit_Nonsymbolic);
+    }
 
-	public boolean isScript() {
-		return isSetAnd(Bit_Script);
-	}
+    public boolean isScript() {
+        return isSetAnd(Bit_Script);
+    }
 
-	public boolean isSerif() {
-		return isSetAnd(Bit_Serif);
-	}
+    public boolean isSerif() {
+        return isSetAnd(Bit_Serif);
+    }
 
-	public boolean isSmallCap() {
-		return isSetAnd(Bit_SmallCap);
-	}
+    public boolean isSmallCap() {
+        return isSetAnd(Bit_SmallCap);
+    }
 
-	public boolean isSymbolic() {
-		return isSetAnd(Bit_Symbolic);
-	}
+    public boolean isSymbolic() {
+        return isSetAnd(Bit_Symbolic);
+    }
 
-	public void setAllCap(boolean flag) {
-		set(Bit_AllCap, flag);
-	}
+    public void setAllCap(boolean flag) {
+        set(Bit_AllCap, flag);
+    }
 
-	public void setFixedPitch(boolean flag) {
-		set(Bit_FixedPitch, flag);
-	}
+    public void setFixedPitch(boolean flag) {
+        set(Bit_FixedPitch, flag);
+    }
 
-	public void setForceBold(boolean flag) {
-		set(Bit_ForceBold, flag);
-	}
+    public void setForceBold(boolean flag) {
+        set(Bit_ForceBold, flag);
+    }
 
-	public void setItalic(boolean flag) {
-		set(Bit_Italic, flag);
-	}
+    public void setItalic(boolean flag) {
+        set(Bit_Italic, flag);
+    }
 
-	public void setNonsymbolic(boolean flag) {
-		set(Bit_Nonsymbolic, flag);
-		set(Bit_Symbolic, !flag);
-	}
+    public void setNonsymbolic(boolean flag) {
+        set(Bit_Nonsymbolic, flag);
+        set(Bit_Symbolic, !flag);
+    }
 
-	public void setScript(boolean flag) {
-		set(Bit_Script, flag);
-	}
+    public void setScript(boolean flag) {
+        set(Bit_Script, flag);
+    }
 
-	public void setSerif(boolean flag) {
-		set(Bit_Serif, flag);
-	}
+    public void setSerif(boolean flag) {
+        set(Bit_Serif, flag);
+    }
 
-	public void setSmallCap(boolean flag) {
-		set(Bit_SmallCap, flag);
-	}
+    public void setSmallCap(boolean flag) {
+        set(Bit_SmallCap, flag);
+    }
 
-	public void setSymbolic(boolean flag) {
-		set(Bit_Symbolic, flag);
-		set(Bit_Nonsymbolic, !flag);
-	}
+    public void setSymbolic(boolean flag) {
+        set(Bit_Symbolic, flag);
+        set(Bit_Nonsymbolic, !flag);
+    }
 
-	@Override
-	protected void setValueInObject(int newValue) {
-		getFontDescriptor().setFlagsValue(newValue);
-	}
+    @Override
+    protected void setValueInObject(int newValue) {
+        getFontDescriptor().setFlagsValue(newValue);
+    }
 }

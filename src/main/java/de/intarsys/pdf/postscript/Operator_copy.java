@@ -29,20 +29,19 @@
  */
 package de.intarsys.pdf.postscript;
 
-
 public class Operator_copy implements IOperator {
-	public static Operator_copy Instance;
+    public static Operator_copy Instance;
 
-	static {
-		Instance = new Operator_copy();
-	}
+    static {
+        Instance = new Operator_copy();
+    }
 
-	private Operator_copy() {
-		super();
-	}
+    private Operator_copy() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		// don't feel like implementing this at the moment
-		throw new UnsupportedOperationException();
-	}
+    public void execute(Handler handler) {
+        // don't feel like implementing this at the moment
+        throw new UnsupportedOperationException();
+    }
 }

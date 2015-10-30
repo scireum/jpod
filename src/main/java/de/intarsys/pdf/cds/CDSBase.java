@@ -34,7 +34,7 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * An abstract base class for all common data structures.
- * 
+ * <p>
  * <p>
  * A common data structure implements some "simple" semantics based upon a
  * {@link de.intarsys.pdf.cos.COSObject}, for example a rectangle based on a
@@ -42,7 +42,7 @@ import de.intarsys.pdf.cos.COSObject;
  * </p>
  */
 abstract public class CDSBase extends COSBasedObject {
-	protected CDSBase(COSObject object) {
-		super(object);
-	}
+    protected CDSBase(COSObject object) {
+        super(object);
+    }
 }

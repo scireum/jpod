@@ -29,44 +29,44 @@
  */
 package de.intarsys.pdf.filter;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSDictionary;
 
+import java.io.IOException;
+
 /**
- * 
+ *
  */
 public class CryptFilter extends Filter {
-	/**
-	 * 
-	 */
-	public CryptFilter(COSDictionary options) {
-		super(options);
-	}
+    /**
+     *
+     */
+    public CryptFilter(COSDictionary options) {
+        super(options);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
-	 */
-	@Override
-	protected byte[] decode(byte[] source) throws IOException {
-		// decryption is done in the parser
-		// this might produce problems when encryption is not the first
-		// filter to apply!
-		return source;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
+     */
+    @Override
+    protected byte[] decode(byte[] source) throws IOException {
+        // decryption is done in the parser
+        // this might produce problems when encryption is not the first
+        // filter to apply!
+        return source;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
-	 */
-	@Override
-	protected byte[] encode(byte[] source) throws IOException {
-		// encryption is done in the writer
-		// this might produce problems when encryption is not the last
-		// filter to apply!
-		return source;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
+     */
+    @Override
+    protected byte[] encode(byte[] source) throws IOException {
+        // encryption is done in the writer
+        // this might produce problems when encryption is not the last
+        // filter to apply!
+        return source;
+    }
 }

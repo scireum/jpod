@@ -33,50 +33,44 @@ import de.intarsys.pdf.content.ICSDevice;
 
 /**
  * A tool class for handling with {@link ICSDevice}.
- * 
  */
 public class CSDeviceTools {
 
-	public static void setNonStrokeColor(ICSDevice device,
-			float[] color) {
-		if (color != null) {
-			switch (color.length) {
-			case 1: {
-				device.setNonStrokeColorGray(color[0]);
-				break;
-			}
-			case 3: {
-				device.setNonStrokeColorRGB(color[0], color[1], color[2]);
-				break;
-			}
-			case 4: {
-				device.setNonStrokeColorCMYK(color[0], color[1], color[2],
-						color[3]);
-				break;
-			}
-			}
-		}
-	}
+    public static void setNonStrokeColor(ICSDevice device, float[] color) {
+        if (color != null) {
+            switch (color.length) {
+                case 1: {
+                    device.setNonStrokeColorGray(color[0]);
+                    break;
+                }
+                case 3: {
+                    device.setNonStrokeColorRGB(color[0], color[1], color[2]);
+                    break;
+                }
+                case 4: {
+                    device.setNonStrokeColorCMYK(color[0], color[1], color[2], color[3]);
+                    break;
+                }
+            }
+        }
+    }
 
-	public static void setStrokeColor(ICSDevice device,
-			float[] color) {
-		if (color != null) {
-			switch (color.length) {
-			case 1: {
-				device.setStrokeColorGray(color[0]);
-				break;
-			}
-			case 3: {
-				device.setStrokeColorRGB(color[0], color[1], color[2]);
-				break;
-			}
-			case 4: {
-				device.setStrokeColorCMYK(color[0], color[1], color[2],
-						color[3]);
-				break;
-			}
-			}
-		}
-	}
-
+    public static void setStrokeColor(ICSDevice device, float[] color) {
+        if (color != null) {
+            switch (color.length) {
+                case 1: {
+                    device.setStrokeColorGray(color[0]);
+                    break;
+                }
+                case 3: {
+                    device.setStrokeColorRGB(color[0], color[1], color[2]);
+                    break;
+                }
+                case 4: {
+                    device.setStrokeColorCMYK(color[0], color[1], color[2], color[3]);
+                    break;
+                }
+            }
+        }
+    }
 }

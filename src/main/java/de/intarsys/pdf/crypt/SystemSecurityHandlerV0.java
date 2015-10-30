@@ -34,47 +34,39 @@ import de.intarsys.pdf.cos.COSObjectKey;
 
 /**
  * The {@link ISystemSecurityHandler} implementing /V 0 of the PDF spec.
- * 
  */
 public class SystemSecurityHandlerV0 extends SystemSecurityHandler {
 
-	protected SystemSecurityHandlerV0(COSDictionary dict) {
-		super(dict);
-	}
+    protected SystemSecurityHandlerV0(COSDictionary dict) {
+        super(dict);
+    }
 
-	public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes)
-			throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 0");
-	}
+    public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 0");
+    }
 
-	public byte[] decryptStream(COSObjectKey key, COSDictionary dict,
-			byte[] bytes) throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 0");
-	}
+    public byte[] decryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 0");
+    }
 
-	public byte[] decryptString(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 0");
-	}
+    public byte[] decryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 0");
+    }
 
-	public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes)
-			throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 0");
-	}
+    public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 0");
+    }
 
-	public byte[] encryptStream(COSObjectKey key, COSDictionary dict,
-			byte[] bytes) throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 0");
-	}
+    public byte[] encryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 0");
+    }
 
-	public byte[] encryptString(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException {
-		throw new COSSecurityException("unsupported security version 0");
-	}
+    public byte[] encryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
+        throw new COSSecurityException("unsupported security version 0");
+    }
 
-	@Override
-	public int getVersion() {
-		return 0;
-	}
-
+    @Override
+    public int getVersion() {
+        return 0;
+    }
 }

@@ -36,32 +36,32 @@ import de.intarsys.pdf.cos.COSObject;
  * Calibrated gray color space.
  */
 public class PDCSCalGray extends PDCSCIEBased {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDCSCIEBased.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDCSCIEBased.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return new PDCSCalGray(object);
-		}
-	}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return new PDCSCalGray(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	private PDColorSpace alternate = PDCSDeviceGray.SINGLETON;
+    private PDColorSpace alternate = PDCSDeviceGray.SINGLETON;
 
-	protected PDCSCalGray(COSObject object) {
-		super(object);
-	}
+    protected PDCSCalGray(COSObject object) {
+        super(object);
+    }
 
-	public PDColorSpace getAlternate() {
-		return alternate;
-	}
-
+    public PDColorSpace getAlternate() {
+        return alternate;
+    }
 }

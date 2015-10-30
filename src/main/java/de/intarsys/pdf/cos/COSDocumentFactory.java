@@ -31,16 +31,15 @@ package de.intarsys.pdf.cos;
 
 /**
  * The VM singleton for accessing a {@link ICOSDocumentFactory}.
- * 
  */
 public class COSDocumentFactory {
-	private static ICOSDocumentFactory ACTIVE = new StandardDocumentFactory();
+    private static ICOSDocumentFactory ACTIVE = new StandardDocumentFactory();
 
-	public static ICOSDocumentFactory get() {
-		return ACTIVE;
-	}
+    public static ICOSDocumentFactory get() {
+        return ACTIVE;
+    }
 
-	public static void set(ICOSDocumentFactory factory) {
-		ACTIVE = factory;
-	}
+    public static void set(ICOSDocumentFactory factory) {
+        ACTIVE = factory;
+    }
 }

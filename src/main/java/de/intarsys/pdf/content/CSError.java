@@ -33,19 +33,19 @@ package de.intarsys.pdf.content;
  * An error while procssing a content stream.
  */
 public class CSError extends CSException {
-	public CSError(String message) {
-		super(message);
-	}
+    public CSError(String message) {
+        super(message);
+    }
 
-	public CSError(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public CSError(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public CSError() {
-		super();
-	}
+    public CSError() {
+        super();
+    }
 
-	public CSError(Throwable cause) {
-		super(cause);
-	}
+    public CSError(Throwable cause) {
+        super(cause);
+    }
 }

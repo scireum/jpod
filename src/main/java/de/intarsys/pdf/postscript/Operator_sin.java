@@ -30,20 +30,20 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_sin implements IOperator {
-	public static Operator_sin Instance;
+    public static Operator_sin Instance;
 
-	static {
-		Instance = new Operator_sin();
-	}
+    static {
+        Instance = new Operator_sin();
+    }
 
-	private Operator_sin() {
-		super();
-	}
+    private Operator_sin() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		double operand;
+    public void execute(Handler handler) {
+        double operand;
 
-		operand = ((Number) handler.pop()).doubleValue();
-		handler.push(new Double(Math.sin(operand)));
-	}
+        operand = ((Number) handler.pop()).doubleValue();
+        handler.push(new Double(Math.sin(operand)));
+    }
 }

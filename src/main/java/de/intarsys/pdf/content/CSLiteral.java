@@ -33,7 +33,7 @@ package de.intarsys.pdf.content;
  * An "operation" that is not parsed but completely given in a byte sequence.
  */
 public class CSLiteral extends CSOperation {
-	public CSLiteral(byte[] literal) {
-		super(new CSOperator(literal));
-	}
+    public CSLiteral(byte[] literal) {
+        super(new CSOperator(literal));
+    }
 }

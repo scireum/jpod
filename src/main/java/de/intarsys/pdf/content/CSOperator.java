@@ -33,7 +33,7 @@ import java.util.Arrays;
 
 /**
  * A class representing an operator of a content stream.
- * 
+ * <p>
  * <p>
  * The content stream is a sequence of operations, with any operation being a
  * list of operands followed by the operator.
@@ -41,58 +41,58 @@ import java.util.Arrays;
  */
 public class CSOperator {
 
-	static public CSOperator create(String name) {
-		char[] chars = name.toCharArray();
-		byte[] bytes = new byte[chars.length];
-		for (int i = 0; i < chars.length; i++) {
-			bytes[i] = (byte) chars[i];
-		}
-		return new CSOperator(bytes);
-	}
+    static public CSOperator create(String name) {
+        char[] chars = name.toCharArray();
+        byte[] bytes = new byte[chars.length];
+        for (int i = 0; i < chars.length; i++) {
+            bytes[i] = (byte) chars[i];
+        }
+        return new CSOperator(bytes);
+    }
 
-	/**
-	 * The bytes that name the operator
-	 */
-	private final byte[] token;
+    /**
+     * The bytes that name the operator
+     */
+    private final byte[] token;
 
-	/**
-	 * A cache for the hash code
-	 */
-	private int hash;
+    /**
+     * A cache for the hash code
+     */
+    private int hash;
 
-	public CSOperator(byte[] token) {
-		this.token = token;
-	}
+    public CSOperator(byte[] token) {
+        this.token = token;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof CSOperator)) {
-			return false;
-		}
-		return Arrays.equals(token, ((CSOperator) o).getToken());
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CSOperator)) {
+            return false;
+        }
+        return Arrays.equals(token, ((CSOperator) o).getToken());
+    }
 
-	public byte[] getToken() {
-		return token;
-	}
+    public byte[] getToken() {
+        return token;
+    }
 
-	@Override
-	public int hashCode() {
-		int h = hash;
-		if (hash == 0) {
-			for (int i = 0; i < token.length; i++) {
-				h = (31 * h) + token[i];
-			}
-			hash = h;
-		}
-		return h;
-	}
+    @Override
+    public int hashCode() {
+        int h = hash;
+        if (hash == 0) {
+            for (int i = 0; i < token.length; i++) {
+                h = (31 * h) + token[i];
+            }
+            hash = h;
+        }
+        return h;
+    }
 
-	@Override
-	public String toString() {
-		return new String(token);
-	}
+    @Override
+    public String toString() {
+        return new String(token);
+    }
 }

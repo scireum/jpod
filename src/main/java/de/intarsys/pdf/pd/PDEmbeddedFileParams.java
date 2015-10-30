@@ -30,103 +30,102 @@
 
 package de.intarsys.pdf.pd;
 
-import java.util.Date;
-
 import de.intarsys.pdf.cds.CDSDate;
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 
+import java.util.Date;
+
 public class PDEmbeddedFileParams extends PDObject {
 
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDEmbeddedFileParams(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDEmbeddedFileParams(object);
+        }
 
-		@Override
-		protected boolean isIndirect() {
-			return false;
-		}
-	}
+        @Override
+        protected boolean isIndirect() {
+            return false;
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(
-			MetaClass.class.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName DK_Size = COSName.constant("Size"); //$NON-NLS-1$
-	public static final COSName DK_CreationDate = COSName
-			.constant("CreationDate"); //$NON-NLS-1$
-	public static final COSName DK_ModDate = COSName.constant("ModDate"); //$NON-NLS-1$
-	public static final COSName DK_Mac = COSName.constant("Mac"); //$NON-NLS-1$
-	public static final COSName DK_CheckSum = COSName.constant("CheckSum"); //$NON-NLS-1$
+    public static final COSName DK_Size = COSName.constant("Size"); //$NON-NLS-1$
+    public static final COSName DK_CreationDate = COSName.constant("CreationDate"); //$NON-NLS-1$
+    public static final COSName DK_ModDate = COSName.constant("ModDate"); //$NON-NLS-1$
+    public static final COSName DK_Mac = COSName.constant("Mac"); //$NON-NLS-1$
+    public static final COSName DK_CheckSum = COSName.constant("CheckSum"); //$NON-NLS-1$
 
-	protected PDEmbeddedFileParams(COSObject object) {
-		super(object);
-	}
+    protected PDEmbeddedFileParams(COSObject object) {
+        super(object);
+    }
 
-	public CDSDate getCreationDate() {
-		return getFieldDate(DK_CreationDate, null);
-	}
+    public CDSDate getCreationDate() {
+        return getFieldDate(DK_CreationDate, null);
+    }
 
-	public CDSDate getModDate() {
-		return getFieldDate(DK_ModDate, null);
-	}
+    public CDSDate getModDate() {
+        return getFieldDate(DK_ModDate, null);
+    }
 
-	public Integer getSize() {
-		int size = getFieldInt(DK_Size, -1);
-		if (size == -1) {
-			return null;
-		}
-		return size;
-	}
+    public Integer getSize() {
+        int size = getFieldInt(DK_Size, -1);
+        if (size == -1) {
+            return null;
+        }
+        return size;
+    }
 
-	public void setCreationDate(CDSDate creationDate) {
-		setFieldObject(DK_CreationDate, creationDate);
-	}
+    public void setCreationDate(CDSDate creationDate) {
+        setFieldObject(DK_CreationDate, creationDate);
+    }
 
-	public void setCreationDate(Date date) {
-		String stringValue = null;
-		if (date != null) {
-			stringValue = CDSDate.toStringWithZone(date);
-		}
-		setCreationDate(stringValue);
-	}
+    public void setCreationDate(Date date) {
+        String stringValue = null;
+        if (date != null) {
+            stringValue = CDSDate.toStringWithZone(date);
+        }
+        setCreationDate(stringValue);
+    }
 
-	public void setCreationDate(String creationDate) {
-		setFieldString(DK_CreationDate, creationDate);
-	}
+    public void setCreationDate(String creationDate) {
+        setFieldString(DK_CreationDate, creationDate);
+    }
 
-	public void setModDate(CDSDate modDate) {
-		setFieldObject(DK_ModDate, modDate);
-	}
+    public void setModDate(CDSDate modDate) {
+        setFieldObject(DK_ModDate, modDate);
+    }
 
-	public void setModDate(Date date) {
-		String stringValue = null;
-		if (date != null) {
-			stringValue = CDSDate.toStringWithZone(date);
-		}
-		setModDate(stringValue);
-	}
+    public void setModDate(Date date) {
+        String stringValue = null;
+        if (date != null) {
+            stringValue = CDSDate.toStringWithZone(date);
+        }
+        setModDate(stringValue);
+    }
 
-	public void setModDate(String modDate) {
-		setFieldString(DK_ModDate, modDate);
-	}
+    public void setModDate(String modDate) {
+        setFieldString(DK_ModDate, modDate);
+    }
 
-	public void setSize(Integer size) {
-		if (size == null) {
-			cosRemoveField(DK_Size);
-		} else {
-			setFieldInt(DK_Size, size);
-		}
-	}
-
+    public void setSize(Integer size) {
+        if (size == null) {
+            cosRemoveField(DK_Size);
+        } else {
+            setFieldInt(DK_Size, size);
+        }
+    }
 }

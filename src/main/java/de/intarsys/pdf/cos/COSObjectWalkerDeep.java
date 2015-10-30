@@ -37,58 +37,55 @@ import java.util.Set;
  * indirect references.
  * <p>
  * Every object in the potential cyclic data structure is visited exactly once.
- * 
  */
 public class COSObjectWalkerDeep extends COSObjectWalkerShallow {
-	private Set visited;
+    private Set visited;
 
-	final private boolean forceSwap;
+    final private boolean forceSwap;
 
-	final private boolean swapAlways;
+    final private boolean swapAlways;
 
-	public COSObjectWalkerDeep() {
-		this(true);
-	}
+    public COSObjectWalkerDeep() {
+        this(true);
+    }
 
-	public COSObjectWalkerDeep(boolean forceSwap) {
-		visited = new HashSet();
-		this.forceSwap = forceSwap;
-		this.swapAlways = forceSwap;
-	}
+    public COSObjectWalkerDeep(boolean forceSwap) {
+        visited = new HashSet();
+        this.forceSwap = forceSwap;
+        this.swapAlways = forceSwap;
+    }
 
-	public COSObjectWalkerDeep(boolean forceSwap, boolean swapAlways) {
-		visited = new HashSet();
-		this.forceSwap = forceSwap;
-		this.swapAlways = swapAlways;
-	}
+    public COSObjectWalkerDeep(boolean forceSwap, boolean swapAlways) {
+        visited = new HashSet();
+        this.forceSwap = forceSwap;
+        this.swapAlways = swapAlways;
+    }
 
-	public Set getVisited() {
-		return visited;
-	}
+    public Set getVisited() {
+        return visited;
+    }
 
-	protected void handleException(RuntimeException e)
-			throws COSVisitorException {
-		throw new COSVisitorException(e);
-	}
+    protected void handleException(RuntimeException e) throws COSVisitorException {
+        throw new COSVisitorException(e);
+    }
 
-	@Override
-	public Object visitFromIndirectObject(COSIndirectObject io)
-			throws COSVisitorException {
-		if (getVisited().contains(io)) {
-			return null;
-		}
-		getVisited().add(io);
-		// descend if
-		// - we should always swap
-		// - we should swap and object was previously read
-		// - object is swapped in
-		if (swapAlways || forceSwap && !io.isInitialState() || !io.isSwapped()) {
-			try {
-				io.dereference().accept(this);
-			} catch (RuntimeException e) {
-				handleException(e);
-			}
-		}
-		return null;
-	}
+    @Override
+    public Object visitFromIndirectObject(COSIndirectObject io) throws COSVisitorException {
+        if (getVisited().contains(io)) {
+            return null;
+        }
+        getVisited().add(io);
+        // descend if
+        // - we should always swap
+        // - we should swap and object was previously read
+        // - object is swapped in
+        if (swapAlways || forceSwap && !io.isInitialState() || !io.isSwapped()) {
+            try {
+                io.dereference().accept(this);
+            } catch (RuntimeException e) {
+                handleException(e);
+            }
+        }
+        return null;
+    }
 }

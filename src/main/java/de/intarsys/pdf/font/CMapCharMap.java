@@ -31,29 +31,28 @@ package de.intarsys.pdf.font;
 
 /**
  * An abstract implementation for maps from character codes to CID's.
- * 
  */
 public abstract class CMapCharMap extends CMapMap {
 
-	/**
-	 * The codepoint to be mapped
-	 */
-	protected final int source;
+    /**
+     * The codepoint to be mapped
+     */
+    protected final int source;
 
-	/**
-	 * 
-	 */
-	protected CMapCharMap(byte[] source) {
-		super();
-		this.source = CMap.toInt(source);
-	}
+    /**
+     *
+     */
+    protected CMapCharMap(byte[] source) {
+        super();
+        this.source = CMap.toInt(source);
+    }
 
-	/**
-	 * The codepoint (encoded value) to be mapped to a CID.
-	 * 
-	 * @return The codepoint to be mapped to a CID.
-	 */
-	public int getSource() {
-		return source;
-	}
+    /**
+     * The codepoint (encoded value) to be mapped to a CID.
+     *
+     * @return The codepoint to be mapped to a CID.
+     */
+    public int getSource() {
+        return source;
+    }
 }

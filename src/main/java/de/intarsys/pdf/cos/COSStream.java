@@ -29,16 +29,16 @@
  */
 package de.intarsys.pdf.cos;
 
+import de.intarsys.pdf.filter.FilterFactory;
+import de.intarsys.pdf.filter.IFilter;
+import de.intarsys.tools.collection.SingleObjectIterator;
+import de.intarsys.tools.file.FileTools;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
-
-import de.intarsys.pdf.filter.FilterFactory;
-import de.intarsys.pdf.filter.IFilter;
-import de.intarsys.tools.collection.SingleObjectIterator;
-import de.intarsys.tools.file.FileTools;
 
 /**
  * An object representing stream data in a PDF document. Unlike a string, stream
@@ -61,8 +61,7 @@ public class COSStream extends COSCompositeObject {
     /**
      * Create a new {@link COSStream}.
      *
-     * @param dict
-     *            An optional dictionary to be used as the streams dictionary.
+     * @param dict An optional dictionary to be used as the streams dictionary.
      * @return Create a new {@link COSStream}.
      */
     public static COSStream create(COSDictionary dict) {
@@ -92,7 +91,7 @@ public class COSStream extends COSCompositeObject {
      * <code>name</code>.
      *
      * @return The options corresponding to the first occurence of the filter
-     *         <code>name</code>.
+     * <code>name</code>.
      */
     static public COSDictionary getDecodeParams(COSDictionary dict, COSName name) {
         COSObject basicFilters = getFilters(dict);
@@ -142,7 +141,7 @@ public class COSStream extends COSCompositeObject {
      * @param dict a stream dictionary
      * @param name a filter name
      * @return <code>true</code> if the given stream dictionary has declared a
-     *         filter <code>name</code>.
+     * filter <code>name</code>.
      */
     static public boolean hasFilter(COSDictionary dict, COSName name) {
         COSObject filters = getFilters(dict);
@@ -153,7 +152,7 @@ public class COSStream extends COSCompositeObject {
             return filters.equals(name);
         }
         if (filters instanceof COSArray) {
-            for (Iterator i = ((COSArray) filters).iterator(); i.hasNext();) {
+            for (Iterator i = ((COSArray) filters).iterator(); i.hasNext(); ) {
                 COSName filterName = ((COSObject) i.next()).asName();
                 if (filterName != null && filterName.equals(name)) {
                     return true;
@@ -181,13 +180,19 @@ public class COSStream extends COSCompositeObject {
         return false;
     }
 
-    /** The logical byte stream */
+    /**
+     * The logical byte stream
+     */
     private byte[] decodedBytes;
 
-    /** the dictionary describing the stream */
+    /**
+     * the dictionary describing the stream
+     */
     private COSDictionary dict;
 
-    /** The physical byte stream */
+    /**
+     * The physical byte stream
+     */
     private byte[] encodedBytes;
 
     protected COSStream() {
@@ -197,9 +202,8 @@ public class COSStream extends COSCompositeObject {
     /**
      * COSStream constructor.
      *
-     * @param newDict
-     *            The stream dictionary for the new stream. Can be null, a new
-     *            dictionary will be created.
+     * @param newDict The stream dictionary for the new stream. Can be null, a new
+     *                dictionary will be created.
      */
     protected COSStream(COSDictionary newDict) {
         super();
@@ -225,8 +229,7 @@ public class COSStream extends COSCompositeObject {
      * Add a new filter declaration to the filters collection. If necessary
      * convert the Filter entry to a collection first.
      *
-     * @param name
-     *            The logical name of the filter.
+     * @param name The logical name of the filter.
      */
     public void addFilter(COSName name) {
         addFilter(getFilterSize(), name, null);
@@ -236,10 +239,8 @@ public class COSStream extends COSCompositeObject {
      * Add a new filter declaration to the filters collection. If necessary
      * convert the Filter entry to a collection first.
      *
-     * @param name
-     *            The logical name of the filter.
-     * @param dictionary
-     *            The corresponding decode parameters
+     * @param name       The logical name of the filter.
+     * @param dictionary The corresponding decode parameters
      */
     public void addFilter(COSName name, COSDictionary dictionary) {
         addFilter(getFilterSize(), name, dictionary);
@@ -249,10 +250,8 @@ public class COSStream extends COSCompositeObject {
      * Add a new filter declaration to the filters collection at the specified
      * index. If necessary convert the Filter entry to a collection first.
      *
-     * @param index
-     *            The index to add the filter at.
-     * @param name
-     *            The logical name of the filter.
+     * @param index The index to add the filter at.
+     * @param name  The logical name of the filter.
      */
     public void addFilter(int index, COSName name) {
         addFilter(index, name, null);
@@ -262,12 +261,9 @@ public class COSStream extends COSCompositeObject {
      * Add a new filter declaration to the filters collection at the specified
      * index. If necessary convert the Filter entry to a collection first.
      *
-     * @param index
-     *            The index to add the filter at.
-     * @param name
-     *            The logical name of the filter.
-     * @param dictionary
-     *            The corresponding decode parameters
+     * @param index      The index to add the filter at.
+     * @param name       The logical name of the filter.
+     * @param dictionary The corresponding decode parameters
      */
     public void addFilter(int index, COSName name, COSDictionary dictionary) {
         // be sure decoded stream is available
@@ -308,8 +304,7 @@ public class COSStream extends COSCompositeObject {
                 decodeParmsDictionary = decodeParms.asDictionary();
                 if (decodeParmsDictionary != null) {
                     getDict().remove(DK_DecodeParms);
-                    newDecodeParmsArray = COSArray
-                            .create(newFilterArray.size());
+                    newDecodeParmsArray = COSArray.create(newFilterArray.size());
                     newDecodeParmsArray.add(decodeParmsDictionary);
                 } else {
                     newDecodeParmsArray = decodeParms.asArray();
@@ -364,8 +359,7 @@ public class COSStream extends COSCompositeObject {
     /**
      * Set the streams logical content.
      *
-     * @param newBytes
-     *            the logical content for the stream
+     * @param newBytes the logical content for the stream
      */
     public void basicSetDecodedBytes(byte[] newBytes) {
         decodedBytes = newBytes;
@@ -375,8 +369,7 @@ public class COSStream extends COSCompositeObject {
     /**
      * Set the streams physical content.
      *
-     * @param newBytes
-     *            the physical content for the stream
+     * @param newBytes the physical content for the stream
      */
     public void basicSetEncodedBytes(byte[] newBytes) {
         encodedBytes = newBytes;
@@ -440,8 +433,7 @@ public class COSStream extends COSCompositeObject {
         // prepare content
         bytes = getEncodedBytes();
         if ((filter = getFirstFilter()) != null) {
-            bytes = doDecode(filter, getFirstDecodeParam(), bytes, 0,
-                    getAnyLength());
+            bytes = doDecode(filter, getFirstDecodeParam(), bytes, 0, getAnyLength());
         }
         filters = getFilters().asArray();
         if (filters != null) {
@@ -454,12 +446,9 @@ public class COSStream extends COSCompositeObject {
                     if (dictionary != null) {
                         dictionary = (COSDictionary) dictionary.copyShallow();
                     }
-                    newStream.filter(
-                            (COSName) filters.get(index).copyShallow(),
-                            dictionary);
+                    newStream.filter((COSName) filters.get(index).copyShallow(), dictionary);
                 } else {
-                    newStream
-                            .filter((COSName) filters.get(index).copyShallow());
+                    newStream.filter((COSName) filters.get(index).copyShallow());
                 }
             }
         }
@@ -555,8 +544,7 @@ public class COSStream extends COSCompositeObject {
 
         // decode
         if (filters instanceof COSName) {
-            newBytes = doDecode((COSName) filters, options.asDictionary(),
-                    encodedBytes, 0, getAnyLength());
+            newBytes = doDecode((COSName) filters, options.asDictionary(), encodedBytes, 0, getAnyLength());
         } else {
             byte[] temp = encodedBytes;
             int length = getAnyLength();
@@ -579,23 +567,16 @@ public class COSStream extends COSCompositeObject {
     /**
      * Perform the decoding process of the underlying byte stream.
      *
-     * @param filterName
-     *            The name of a filter to use for this step.
-     * @param options
-     *            The options to use for the filter.
-     * @param bytes
-     *            The bytes to decode.
-     * @param offset
-     *            The offset to start.
-     * @param length
-     *            The length to be decoded.
-     *
+     * @param filterName The name of a filter to use for this step.
+     * @param options    The options to use for the filter.
+     * @param bytes      The bytes to decode.
+     * @param offset     The offset to start.
+     * @param length     The length to be decoded.
      * @return The decoded bytes.
-     *
      * @throws IOException
      */
-    protected byte[] doDecode(COSName filterName, COSDictionary options,
-            byte[] bytes, int offset, int length) throws IOException {
+    protected byte[] doDecode(COSName filterName, COSDictionary options, byte[] bytes, int offset, int length)
+            throws IOException {
         if (bytes == null) {
             return new byte[0];
         }
@@ -627,8 +608,7 @@ public class COSStream extends COSCompositeObject {
 
         // encode
         if (filters instanceof COSName) {
-            encodedBytes = doEncode((COSName) filters, options.asDictionary(),
-                    decodedBytes, 0, decodedBytes.length);
+            encodedBytes = doEncode((COSName) filters, options.asDictionary(), decodedBytes, 0, decodedBytes.length);
         } else {
             byte[] temp = decodedBytes;
             int length = decodedBytes.length;
@@ -649,23 +629,16 @@ public class COSStream extends COSCompositeObject {
     /**
      * Perform the encoding process of the underlying byte stream.
      *
-     * @param filterName
-     *            The name of a filter to use for this step.
-     * @param options
-     *            The options to use for the filter.
-     * @param bytes
-     *            The bytes to encode .
-     * @param offset
-     *            The offset to start.
-     * @param length
-     *            The length to be encoded.
-     *
+     * @param filterName The name of a filter to use for this step.
+     * @param options    The options to use for the filter.
+     * @param bytes      The bytes to encode .
+     * @param offset     The offset to start.
+     * @param length     The length to be encoded.
      * @return The encoded bytes.
-     *
      * @throws IOException
      */
-    protected byte[] doEncode(COSName filterName, COSDictionary options,
-            byte[] bytes, int offset, int length) throws IOException {
+    protected byte[] doEncode(COSName filterName, COSDictionary options, byte[] bytes, int offset, int length)
+            throws IOException {
         if (bytes == null) {
             return new byte[0];
         }
@@ -695,16 +668,15 @@ public class COSStream extends COSCompositeObject {
             return true;
         }
 
-        return this.getDict().equals(other.getDict(), visited)
-                && Arrays.equals(this.getEncodedBytes(), other.getEncodedBytes());
+        return this.getDict().equals(other.getDict(), visited) && Arrays.equals(this.getEncodedBytes(),
+                                                                                other.getEncodedBytes());
     }
 
     /**
      * Add a new filter. If the stream is already filtered, the new filter will
      * be applied to the current encoded bytes.
      *
-     * @param name
-     *            The logical name of the filter.
+     * @param name The logical name of the filter.
      */
     public void filter(COSName name) {
         addFilter(0, name, null);
@@ -714,10 +686,8 @@ public class COSStream extends COSCompositeObject {
      * Add a new filter. If the stream is already filtered, the new filter will
      * be applied to the current encoded bytes.
      *
-     * @param name
-     *            The logical name of the filter.
-     * @param dictionary
-     *            The corresponding decode parameters
+     * @param name       The logical name of the filter.
+     * @param dictionary The corresponding decode parameters
      */
     public void filter(COSName name, COSDictionary dictionary) {
         addFilter(0, name, dictionary);
@@ -741,7 +711,6 @@ public class COSStream extends COSCompositeObject {
      * the byte array directly.
      *
      * @return The unfiltered (logical) stream content
-     *
      * @throws IOException
      */
     public byte[] getDecodedBytes() {
@@ -794,7 +763,7 @@ public class COSStream extends COSCompositeObject {
      * <code>name</code>.
      *
      * @return The options corresponding to the first occurrence of the filter
-     *         <code>name</code>.
+     * <code>name</code>.
      */
     public COSDictionary getDecodeParams(COSName name) {
         return getDecodeParams(getDict(), name);
@@ -861,7 +830,7 @@ public class COSStream extends COSCompositeObject {
      * dictionaries for each filter.
      *
      * @return A dictionary with filter options or the first element of an array
-     *         of such dictionaries for each filter.
+     * of such dictionaries for each filter.
      */
     public COSDictionary getFirstDecodeParam() {
         COSObject dictionaryOrArray;
@@ -884,7 +853,7 @@ public class COSStream extends COSCompositeObject {
      * stream.
      *
      * @return The filter or the first element of the collection of filters for
-     *         the stream.
+     * the stream.
      */
     public COSName getFirstFilter() {
         COSObject nameOrArray;
@@ -922,7 +891,7 @@ public class COSStream extends COSCompositeObject {
      *
      * @param name a filter name
      * @return <code>true</code> if the stream has declared a filter
-     *         <code>name</code>.
+     * <code>name</code>.
      */
     public boolean hasFilter(COSName name) {
         return hasFilter(getDict(), name);
@@ -1047,13 +1016,12 @@ public class COSStream extends COSCompositeObject {
     /**
      * Set the streams logical content
      *
-     * @param newBytes
-     *            The logical content for the stream
+     * @param newBytes The logical content for the stream
      */
     public void setDecodedBytes(byte[] newBytes) {
         willChange(this);
         basicSetDecodedBytes(newBytes);
-		getDict().remove(DK_Length);
+        getDict().remove(DK_Length);
         if (objectListeners != null) {
             triggerChanged(SLOT_BYTES, null, null);
         }
@@ -1062,11 +1030,8 @@ public class COSStream extends COSCompositeObject {
     /**
      * Give private access to dictionary to ease copying.
      *
-     * @param dictionary
-     *            dictionary part of the stream
-     *
-     * @throws IllegalArgumentException
-     *             if the stream is indirect
+     * @param dictionary dictionary part of the stream
+     * @throws IllegalArgumentException if the stream is indirect
      */
     private void setDict(COSDictionary dictionary) {
         if (dictionary.isIndirect()) {
@@ -1079,8 +1044,7 @@ public class COSStream extends COSCompositeObject {
     /**
      * Set the stream physical content.
      *
-     * @param newBytes
-     *            the physical content for the stream
+     * @param newBytes the physical content for the stream
      */
     public void setEncodedBytes(byte[] newBytes) {
         willChange(this);
@@ -1089,5 +1053,4 @@ public class COSStream extends COSCompositeObject {
             triggerChanged(SLOT_BYTES, null, null);
         }
     }
-
 }

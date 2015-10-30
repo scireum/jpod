@@ -31,280 +31,282 @@
 package de.intarsys.pdf.postscript;
 
 public class Parser implements ParserConstants {
-	static private int[] jj_la1_0;
+    static private int[] jj_la1_0;
 
-	static {
-		jj_la1_0();
-	}
+    static {
+        jj_la1_0();
+    }
 
-	private static void jj_la1_0() {
-		jj_la1_0 = new int[] { 0x3cf48, 0x3cf48, };
-	}
+    private static void jj_la1_0() {
+        jj_la1_0 = new int[]{0x3cf48, 0x3cf48,};
+    }
 
-	private java.util.Vector jj_expentries = new java.util.Vector();
+    private java.util.Vector jj_expentries = new java.util.Vector();
 
-	private int[] jj_expentry;
+    private int[] jj_expentry;
 
-	private int jj_gen;
+    private int jj_gen;
 
-	JavaCharStream jj_input_stream;
+    JavaCharStream jj_input_stream;
 
-	private int jj_kind = -1;
+    private int jj_kind = -1;
 
-	final private int[] jj_la1 = new int[2];
+    final private int[] jj_la1 = new int[2];
 
-	public Token jj_nt;
+    public Token jj_nt;
 
-	private int jj_ntk;
+    private int jj_ntk;
 
-	public Token token;
+    public Token token;
 
-	public ParserTokenManager token_source;
+    public ParserTokenManager token_source;
 
-	public Parser(java.io.InputStream stream) {
-		this(stream, null);
-	}
+    public Parser(java.io.InputStream stream) {
+        this(stream, null);
+    }
 
-	public Parser(java.io.InputStream stream, String encoding) {
-		try {
-			jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
-		} catch (java.io.UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-		token_source = new ParserTokenManager(jj_input_stream);
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
+    public Parser(java.io.InputStream stream, String encoding) {
+        try {
+            jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        token_source = new ParserTokenManager(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 2; i++) {
+            jj_la1[i] = -1;
+        }
+    }
 
-	public Parser(java.io.Reader stream) {
-		jj_input_stream = new JavaCharStream(stream, 1, 1);
-		token_source = new ParserTokenManager(jj_input_stream);
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
+    public Parser(java.io.Reader stream) {
+        jj_input_stream = new JavaCharStream(stream, 1, 1);
+        token_source = new ParserTokenManager(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 2; i++) {
+            jj_la1[i] = -1;
+        }
+    }
 
-	public Parser(ParserTokenManager tm) {
-		token_source = tm;
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
+    public Parser(ParserTokenManager tm) {
+        token_source = tm;
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 2; i++) {
+            jj_la1[i] = -1;
+        }
+    }
 
-	final public void disable_tracing() {
-	}
+    final public void disable_tracing() {
+    }
 
-	final public void enable_tracing() {
-	}
+    final public void enable_tracing() {
+    }
 
-	public ParseException generateParseException() {
-		jj_expentries.removeAllElements();
-		boolean[] la1tokens = new boolean[18];
-		for (int i = 0; i < 18; i++) {
-			la1tokens[i] = false;
-		}
-		if (jj_kind >= 0) {
-			la1tokens[jj_kind] = true;
-			jj_kind = -1;
-		}
-		for (int i = 0; i < 2; i++) {
-			if (jj_la1[i] == jj_gen) {
-				for (int j = 0; j < 32; j++) {
-					if ((jj_la1_0[i] & (1 << j)) != 0) {
-						la1tokens[j] = true;
-					}
-				}
-			}
-		}
-		for (int i = 0; i < 18; i++) {
-			if (la1tokens[i]) {
-				jj_expentry = new int[1];
-				jj_expentry[0] = i;
-				jj_expentries.addElement(jj_expentry);
-			}
-		}
-		int[][] exptokseq = new int[jj_expentries.size()][];
-		for (int i = 0; i < jj_expentries.size(); i++) {
-			exptokseq[i] = (int[]) jj_expentries.elementAt(i);
-		}
-		return new ParseException(token, exptokseq, tokenImage);
-	}
+    public ParseException generateParseException() {
+        jj_expentries.removeAllElements();
+        boolean[] la1tokens = new boolean[18];
+        for (int i = 0; i < 18; i++) {
+            la1tokens[i] = false;
+        }
+        if (jj_kind >= 0) {
+            la1tokens[jj_kind] = true;
+            jj_kind = -1;
+        }
+        for (int i = 0; i < 2; i++) {
+            if (jj_la1[i] == jj_gen) {
+                for (int j = 0; j < 32; j++) {
+                    if ((jj_la1_0[i] & (1 << j)) != 0) {
+                        la1tokens[j] = true;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < 18; i++) {
+            if (la1tokens[i]) {
+                jj_expentry = new int[1];
+                jj_expentry[0] = i;
+                jj_expentries.addElement(jj_expentry);
+            }
+        }
+        int[][] exptokseq = new int[jj_expentries.size()][];
+        for (int i = 0; i < jj_expentries.size(); i++) {
+            exptokseq[i] = (int[]) jj_expentries.elementAt(i);
+        }
+        return new ParseException(token, exptokseq, tokenImage);
+    }
 
-	final public Token getNextToken() {
-		if (token.next != null) {
-			token = token.next;
-		} else {
-			token = token.next = token_source.getNextToken();
-		}
-		jj_ntk = -1;
-		jj_gen++;
-		return token;
-	}
+    final public Token getNextToken() {
+        if (token.next != null) {
+            token = token.next;
+        } else {
+            token = token.next = token_source.getNextToken();
+        }
+        jj_ntk = -1;
+        jj_gen++;
+        return token;
+    }
 
-	final public Token getToken(int index) {
-		Token t = token;
-		for (int i = 0; i < index; i++) {
-			if (t.next != null) {
-				t = t.next;
-			} else {
-				t = t.next = token_source.getNextToken();
-			}
-		}
-		return t;
-	}
+    final public Token getToken(int index) {
+        Token t = token;
+        for (int i = 0; i < index; i++) {
+            if (t.next != null) {
+                t = t.next;
+            } else {
+                t = t.next = token_source.getNextToken();
+            }
+        }
+        return t;
+    }
 
-	final private Token jj_consume_token(int kind) throws ParseException {
-		Token oldToken;
-		if ((oldToken = token).next != null) {
-			token = token.next;
-		} else {
-			token = token.next = token_source.getNextToken();
-		}
-		jj_ntk = -1;
-		if (token.kind == kind) {
-			jj_gen++;
-			return token;
-		}
-		token = oldToken;
-		jj_kind = kind;
-		throw generateParseException();
-	}
+    final private Token jj_consume_token(int kind) throws ParseException {
+        Token oldToken;
+        if ((oldToken = token).next != null) {
+            token = token.next;
+        } else {
+            token = token.next = token_source.getNextToken();
+        }
+        jj_ntk = -1;
+        if (token.kind == kind) {
+            jj_gen++;
+            return token;
+        }
+        token = oldToken;
+        jj_kind = kind;
+        throw generateParseException();
+    }
 
-	final private int jj_ntk() {
-		if ((jj_nt = token.next) == null) {
-			return (jj_ntk = (token.next = token_source.getNextToken()).kind);
-		} else {
-			return (jj_ntk = jj_nt.kind);
-		}
-	}
+    final private int jj_ntk() {
+        if ((jj_nt = token.next) == null) {
+            return (jj_ntk = (token.next = token_source.getNextToken()).kind);
+        } else {
+            return (jj_ntk = jj_nt.kind);
+        }
+    }
 
-	final public void parse(Handler handler) throws ParseException {
-		Token localToken;
-		label_1: while (true) {
-			switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
-			case INTEGER_LITERAL:
-			case FLOATING_POINT_LITERAL:
-			case STRING_LITERAL:
-			case IDENTIFIER:
-			case KEY_IDENTIFIER:
-			case IMMEDIATE_IDENTIFIER:
-			case LBRACE:
-			case RBRACE:
-			case LBRACKET:
-			case RBRACKET:
-				;
-				break;
-			default:
-				jj_la1[0] = jj_gen;
-				break label_1;
-			}
-			switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
-			case INTEGER_LITERAL:
-				localToken = jj_consume_token(INTEGER_LITERAL);
-				try {
-					handler.processLiteral(Integer.parseInt(localToken.image));
-				} catch (NumberFormatException e) {
-					if (true) {
-						throw new ParseException(e.toString());
-					}
-				}
-				break;
-			case FLOATING_POINT_LITERAL:
-				localToken = jj_consume_token(FLOATING_POINT_LITERAL);
-				try {
-					handler
-							.processLiteral(Double
-									.parseDouble(localToken.image));
-				} catch (NumberFormatException e) {
-					if (true) {
-						throw new ParseException(e.toString());
-					}
-				}
-				break;
-			case STRING_LITERAL:
-				localToken = jj_consume_token(STRING_LITERAL);
-				handler.processLiteral(localToken.image.substring(1,
-						localToken.image.length() - 1));
-				break;
-			case IDENTIFIER:
-				localToken = jj_consume_token(IDENTIFIER);
-				handler.processIdentifier(localToken.image);
-				break;
-			case KEY_IDENTIFIER:
-				localToken = jj_consume_token(KEY_IDENTIFIER);
-				handler.processKeyIdentifier(localToken.image.substring(1,
-						localToken.image.length()));
-				break;
-			case IMMEDIATE_IDENTIFIER:
-				localToken = jj_consume_token(IMMEDIATE_IDENTIFIER);
-				handler.processImmediateIdentifier(localToken.image.substring(
-						2, localToken.image.length()));
-				break;
-			case LBRACE:
-				jj_consume_token(LBRACE);
-				handler.processStartProcedure();
-				break;
-			case RBRACE:
-				jj_consume_token(RBRACE);
-				handler.processEndProcedure();
-				break;
-			case LBRACKET:
-				jj_consume_token(LBRACKET);
-				handler.processStartArray();
-				break;
-			case RBRACKET:
-				jj_consume_token(RBRACKET);
-				handler.processEndArray();
-				break;
-			default:
-				jj_la1[1] = jj_gen;
-				jj_consume_token(-1);
-				throw new ParseException();
-			}
-		}
-	}
+    final public void parse(Handler handler) throws ParseException {
+        Token localToken;
+        label_1:
+        while (true) {
+            switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+                case INTEGER_LITERAL:
+                case FLOATING_POINT_LITERAL:
+                case STRING_LITERAL:
+                case IDENTIFIER:
+                case KEY_IDENTIFIER:
+                case IMMEDIATE_IDENTIFIER:
+                case LBRACE:
+                case RBRACE:
+                case LBRACKET:
+                case RBRACKET:
+                    ;
+                    break;
+                default:
+                    jj_la1[0] = jj_gen;
+                    break label_1;
+            }
+            switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+                case INTEGER_LITERAL:
+                    localToken = jj_consume_token(INTEGER_LITERAL);
+                    try {
+                        handler.processLiteral(Integer.parseInt(localToken.image));
+                    } catch (NumberFormatException e) {
+                        if (true) {
+                            throw new ParseException(e.toString());
+                        }
+                    }
+                    break;
+                case FLOATING_POINT_LITERAL:
+                    localToken = jj_consume_token(FLOATING_POINT_LITERAL);
+                    try {
+                        handler.processLiteral(Double.parseDouble(localToken.image));
+                    } catch (NumberFormatException e) {
+                        if (true) {
+                            throw new ParseException(e.toString());
+                        }
+                    }
+                    break;
+                case STRING_LITERAL:
+                    localToken = jj_consume_token(STRING_LITERAL);
+                    handler.processLiteral(localToken.image.substring(1, localToken.image.length() - 1));
+                    break;
+                case IDENTIFIER:
+                    localToken = jj_consume_token(IDENTIFIER);
+                    handler.processIdentifier(localToken.image);
+                    break;
+                case KEY_IDENTIFIER:
+                    localToken = jj_consume_token(KEY_IDENTIFIER);
+                    handler.processKeyIdentifier(localToken.image.substring(1, localToken.image.length()));
+                    break;
+                case IMMEDIATE_IDENTIFIER:
+                    localToken = jj_consume_token(IMMEDIATE_IDENTIFIER);
+                    handler.processImmediateIdentifier(localToken.image.substring(2, localToken.image.length()));
+                    break;
+                case LBRACE:
+                    jj_consume_token(LBRACE);
+                    handler.processStartProcedure();
+                    break;
+                case RBRACE:
+                    jj_consume_token(RBRACE);
+                    handler.processEndProcedure();
+                    break;
+                case LBRACKET:
+                    jj_consume_token(LBRACKET);
+                    handler.processStartArray();
+                    break;
+                case RBRACKET:
+                    jj_consume_token(RBRACKET);
+                    handler.processEndArray();
+                    break;
+                default:
+                    jj_la1[1] = jj_gen;
+                    jj_consume_token(-1);
+                    throw new ParseException();
+            }
+        }
+    }
 
-	public void ReInit(java.io.InputStream stream) {
-		ReInit(stream, null);
-	}
+    public void ReInit(java.io.InputStream stream) {
+        ReInit(stream, null);
+    }
 
-	public void ReInit(java.io.InputStream stream, String encoding) {
-		try {
-			jj_input_stream.ReInit(stream, encoding, 1, 1);
-		} catch (java.io.UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-		token_source.ReInit(jj_input_stream);
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
+    public void ReInit(java.io.InputStream stream, String encoding) {
+        try {
+            jj_input_stream.ReInit(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        token_source.ReInit(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 2; i++) {
+            jj_la1[i] = -1;
+        }
+    }
 
-	public void ReInit(java.io.Reader stream) {
-		jj_input_stream.ReInit(stream, 1, 1);
-		token_source.ReInit(jj_input_stream);
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
+    public void ReInit(java.io.Reader stream) {
+        jj_input_stream.ReInit(stream, 1, 1);
+        token_source.ReInit(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 2; i++) {
+            jj_la1[i] = -1;
+        }
+    }
 
-	public void ReInit(ParserTokenManager tm) {
-		token_source = tm;
-		token = new Token();
-		jj_ntk = -1;
-		jj_gen = 0;
-		for (int i = 0; i < 2; i++)
-			jj_la1[i] = -1;
-	}
+    public void ReInit(ParserTokenManager tm) {
+        token_source = tm;
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 2; i++) {
+            jj_la1[i] = -1;
+        }
+    }
 }

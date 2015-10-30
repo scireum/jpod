@@ -33,136 +33,93 @@ package de.intarsys.pdf.cos;
  * An interface for visiting a COS object structure.
  */
 public interface ICOSObjectVisitor {
-	/**
-	 * Notification of visit to {@link COSArray} object.
-	 * 
-	 * @param array
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromArray(COSArray array) throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSArray} object.
+     *
+     * @param array The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromArray(COSArray array) throws COSVisitorException;
 
-	/**
-	 * Notification of visit to {@link COSBoolean} object.
-	 * 
-	 * @param bool
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromBoolean(COSBoolean bool) throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSBoolean} object.
+     *
+     * @param bool The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromBoolean(COSBoolean bool) throws COSVisitorException;
 
-	/**
-	 * Notification of visit to {@link COSDictionary} object.
-	 * 
-	 * @param dict
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromDictionary(COSDictionary dict)
-			throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSDictionary} object.
+     *
+     * @param dict The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromDictionary(COSDictionary dict) throws COSVisitorException;
 
-	/**
-	 * Notification of visit to {@link COSFixed} object.
-	 * 
-	 * @param fixed
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromFixed(COSFixed fixed) throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSFixed} object.
+     *
+     * @param fixed The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromFixed(COSFixed fixed) throws COSVisitorException;
 
-	/**
-	 * Notification of visit to {@link COSInteger} object.
-	 * 
-	 * @param integer
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromInteger(COSInteger integer)
-			throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSInteger} object.
+     *
+     * @param integer The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromInteger(COSInteger integer) throws COSVisitorException;
 
-	/**
-	 * Notification of visit to {@link COSName} object.
-	 * 
-	 * @param name
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromName(COSName name) throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSName} object.
+     *
+     * @param name The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromName(COSName name) throws COSVisitorException;
 
-	/**
-	 * Notification of visit to {@link COSNull} object.
-	 * 
-	 * @param nullObj
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromNull(COSNull nullObj) throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSNull} object.
+     *
+     * @param nullObj The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromNull(COSNull nullObj) throws COSVisitorException;
 
-	/**
-	 * Notification of visit to {@link COSStream} object.
-	 * 
-	 * @param stream
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromStream(COSStream stream) throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSStream} object.
+     *
+     * @param stream The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromStream(COSStream stream) throws COSVisitorException;
 
-	/**
-	 * Notification of visit to {@link COSString} object.
-	 * 
-	 * @param string
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromString(COSString string) throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSString} object.
+     *
+     * @param string The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromString(COSString string) throws COSVisitorException;
 
-	/**
-	 * Notification of visit to {@link COSIndirectObject} object.
-	 * 
-	 * @param indirect
-	 *            The Object that is being visited.
-	 * 
-	 * @return any Object depending on the visitor implementation, or null
-	 * 
-	 * @throws COSVisitorException
-	 *             If there is an error while visiting this object.
-	 */
-	public Object visitFromIndirectObject(COSIndirectObject indirect)
-			throws COSVisitorException;
+    /**
+     * Notification of visit to {@link COSIndirectObject} object.
+     *
+     * @param indirect The Object that is being visited.
+     * @return any Object depending on the visitor implementation, or null
+     * @throws COSVisitorException If there is an error while visiting this object.
+     */
+    public Object visitFromIndirectObject(COSIndirectObject indirect) throws COSVisitorException;
 }

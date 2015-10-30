@@ -33,86 +33,85 @@ package de.intarsys.pdf.cos;
  * The null object
  */
 public class COSNull extends COSPrimitiveObject {
-	public static final COSNull NULL = (COSNull) COSNull.create().beConstant();
+    public static final COSNull NULL = (COSNull) COSNull.create().beConstant();
 
-	static public COSNull create() {
-		return new COSNull();
-	}
+    static public COSNull create() {
+        return new COSNull();
+    }
 
-	protected COSNull() {
-		super();
-	}
+    protected COSNull() {
+        super();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
-	 */
-	@Override
-	public java.lang.Object accept(ICOSObjectVisitor visitor)
-			throws COSVisitorException {
-		return visitor.visitFromNull(this);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
+     */
+    @Override
+    public java.lang.Object accept(ICOSObjectVisitor visitor) throws COSVisitorException {
+        return visitor.visitFromNull(this);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#basicToString()
-	 */
-	@Override
-	protected String basicToString() {
-		return "null"; //$NON-NLS-1$
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#basicToString()
+     */
+    @Override
+    protected String basicToString() {
+        return "null"; //$NON-NLS-1$
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#copyBasic(de.intarsys.pdf.cos.COSDocument)
-	 */
-	@Override
-	protected COSObject copyBasic() {
-		return new COSNull();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#copyBasic(de.intarsys.pdf.cos.COSDocument)
+     */
+    @Override
+    protected COSObject copyBasic() {
+        return new COSNull();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		return o instanceof COSNull;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof COSNull;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		// arbitrary number to avoid collisions
-		return 27;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        // arbitrary number to avoid collisions
+        return 27;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#isNull()
-	 */
-	@Override
-	public boolean isNull() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#isNull()
+     */
+    @Override
+    public boolean isNull() {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
-	 */
-	public Object saveState() {
-		COSObject result = new COSNull();
-		result.container = this.container.saveStateContainer();
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
+     */
+    public Object saveState() {
+        COSObject result = new COSNull();
+        result.container = this.container.saveStateContainer();
+        return result;
+    }
 }

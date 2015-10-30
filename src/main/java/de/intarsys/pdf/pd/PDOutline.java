@@ -37,44 +37,45 @@ import de.intarsys.pdf.cos.COSObject;
  * The root of the document outline tree ("bookmarks").
  */
 public class PDOutline extends PDOutlineNode {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDOutlineNode.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDOutlineNode.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDOutline(object);
-		}
-	}
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDOutline(object);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_Type_Outlines = COSName.constant("Outlines"); // 
+    public static final COSName CN_Type_Outlines = COSName.constant("Outlines"); //
 
-	protected PDOutline(COSObject object) {
-		super(object);
-	}
+    protected PDOutline(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
-	 */
-	protected COSName cosGetExpectedType() {
-		return CN_Type_Outlines;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
+     */
+    protected COSName cosGetExpectedType() {
+        return CN_Type_Outlines;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDOutlineNode#isOutline()
-	 */
-	public boolean isOutline() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDOutlineNode#isOutline()
+     */
+    public boolean isOutline() {
+        return true;
+    }
 }

@@ -29,69 +29,69 @@
  */
 package de.intarsys.pdf.font;
 
-import java.util.Iterator;
-
 import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.cos.COSString;
 
+import java.util.Iterator;
+
 /**
  * A special map from a character code range to a character name range.
- * 
  */
 public class CMapBFRangeStringArrayMap extends CMapRangeMap {
 
-	final private char[][] destinations;
+    final private char[][] destinations;
 
-	final private COSArray strings;
+    final private COSArray strings;
 
-	public CMapBFRangeStringArrayMap(byte[] start, byte[] end, COSArray strings) {
-		super(start, end);
-		this.strings = strings;
-		destinations = new char[strings.size()][];
-		int i = 0;
-		for (Iterator it = strings.iterator(); it.hasNext();) {
-			COSString destination = ((COSObject) it.next()).asString();
-			if (destination == null) {
-				destinations[i] = new char[] { '?' };
-			} else {
-				byte[] destinationBytes = destination.byteValue();
-				destinations[i] = new char[destinationBytes.length >> 1];
-				int byteIndex = 0;
-				int charIndex = 0;
-				while (byteIndex < destinationBytes.length) {
-					destinations[i][charIndex++] = (char) ((destinationBytes[byteIndex++] << 8) + destinationBytes[byteIndex++]);
-				}
-			}
-			i++;
-		}
-	}
+    public CMapBFRangeStringArrayMap(byte[] start, byte[] end, COSArray strings) {
+        super(start, end);
+        this.strings = strings;
+        destinations = new char[strings.size()][];
+        int i = 0;
+        for (Iterator it = strings.iterator(); it.hasNext(); ) {
+            COSString destination = ((COSObject) it.next()).asString();
+            if (destination == null) {
+                destinations[i] = new char[]{'?'};
+            } else {
+                byte[] destinationBytes = destination.byteValue();
+                destinations[i] = new char[destinationBytes.length >> 1];
+                int byteIndex = 0;
+                int charIndex = 0;
+                while (byteIndex < destinationBytes.length) {
+                    destinations[i][charIndex++] =
+                            (char) ((destinationBytes[byteIndex++] << 8) + destinationBytes[byteIndex++]);
+                }
+            }
+            i++;
+        }
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		int index = codepoint - start;
-		if (index < 0 || index >= destinations.length) {
-			return null;
-		}
-		return destinations[index];
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        int index = codepoint - start;
+        if (index < 0 || index >= destinations.length) {
+            return null;
+        }
+        return destinations[index];
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		int index = codepoint - start;
-		if (index < 0 || index >= strings.size()) {
-			return 0;
-		}
-		return destinations[index][destinations[index].length - 1];
-	}
+    @Override
+    public int toCID(int codepoint) {
+        int index = codepoint - start;
+        if (index < 0 || index >= strings.size()) {
+            return 0;
+        }
+        return destinations[index][destinations[index].length - 1];
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		for (int i = 0; i < destinations.length; i++) {
-			if (cid == destinations[i][destinations[i].length - 1]) {
-				return start + i;
-			}
-		}
-		return 0;
-	}
+    @Override
+    public int toCodepoint(int cid) {
+        for (int i = 0; i < destinations.length; i++) {
+            if (cid == destinations[i][destinations[i].length - 1]) {
+                return start + i;
+            }
+        }
+        return 0;
+    }
 }

@@ -36,72 +36,68 @@ import de.intarsys.pdf.cos.COSStream;
 
 /**
  * The output intent for the associated object.
- * 
  */
 public class PDOutputIntent extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDOutputIntent(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDOutputIntent(object);
+        }
 
-		@Override
-		protected boolean isIndirect() {
-			return false;
-		}
-	}
+        @Override
+        protected boolean isIndirect() {
+            return false;
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** who am i */
-	public static final COSName DK_OutputIntent = COSName
-			.constant("OutputIntent");
+    /**
+     * who am i
+     */
+    public static final COSName DK_OutputIntent = COSName.constant("OutputIntent");
 
-	public static final COSName DK_S = COSName.constant("S");
+    public static final COSName DK_S = COSName.constant("S");
 
-	public static final COSName DK_OutputCondition = COSName
-			.constant("OutputCondition");
+    public static final COSName DK_OutputCondition = COSName.constant("OutputCondition");
 
-	public static final COSName DK_OutputConditionIdentifier = COSName
-			.constant("OutputConditionIdentifier");
+    public static final COSName DK_OutputConditionIdentifier = COSName.constant("OutputConditionIdentifier");
 
-	public static final COSName DK_RegistryName = COSName
-			.constant("RegistryName");
+    public static final COSName DK_RegistryName = COSName.constant("RegistryName");
 
-	public static final COSName DK_Info = COSName.constant("Info");
+    public static final COSName DK_Info = COSName.constant("Info");
 
-	public static final COSName DK_DestOutputProfile = COSName
-			.constant("DestOutputProfile");
+    public static final COSName DK_DestOutputProfile = COSName.constant("DestOutputProfile");
 
-	protected PDOutputIntent(COSObject object) {
-		super(object);
-	}
+    protected PDOutputIntent(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
-	 */
-	@Override
-	protected COSName cosGetExpectedType() {
-		return DK_OutputIntent;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
+     */
+    @Override
+    protected COSName cosGetExpectedType() {
+        return DK_OutputIntent;
+    }
 
-	public COSStream cosGetOutputProfile() {
-		return cosGetField(DK_DestOutputProfile).asStream();
-	}
+    public COSStream cosGetOutputProfile() {
+        return cosGetField(DK_DestOutputProfile).asStream();
+    }
 
-	public void cosSetOutputProfile(COSStream stream) {
-		cosSetField(DK_DestOutputProfile, stream);
-	}
-
+    public void cosSetOutputProfile(COSStream stream) {
+        cosSetField(DK_DestOutputProfile, stream);
+    }
 }

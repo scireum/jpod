@@ -40,62 +40,59 @@ import de.intarsys.pdf.cos.COSObject;
  * This class is not abstract for historical reasons.
  */
 public class PDTextMarkupAnnotation extends PDMarkupAnnotation {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDMarkupAnnotation.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDMarkupAnnotation.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDTextMarkupAnnotation(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDTextMarkupAnnotation(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName DK_QuadPoints = COSName.constant("QuadPoints");
+    public static final COSName DK_QuadPoints = COSName.constant("QuadPoints");
 
-	public static final COSName CN_Subtype_Highlight = COSName
-			.constant("Highlight");
+    public static final COSName CN_Subtype_Highlight = COSName.constant("Highlight");
 
-	public static final COSName CN_Subtype_Underline = COSName
-			.constant("Underline");
+    public static final COSName CN_Subtype_Underline = COSName.constant("Underline");
 
-	public static final COSName CN_Subtype_Squiggly = COSName
-			.constant("Squiggly");
+    public static final COSName CN_Subtype_Squiggly = COSName.constant("Squiggly");
 
-	public static final COSName CN_Subtype_StrikeOut = COSName
-			.constant("StrikeOut");
+    public static final COSName CN_Subtype_StrikeOut = COSName.constant("StrikeOut");
 
-	protected PDTextMarkupAnnotation(COSObject object) {
-		super(object);
-	}
+    protected PDTextMarkupAnnotation(COSObject object) {
+        super(object);
+    }
 
-	public float[] getQuadPoints() {
-		return getFieldFixedArray(DK_QuadPoints, null);
-	}
+    public float[] getQuadPoints() {
+        return getFieldFixedArray(DK_QuadPoints, null);
+    }
 
-	@Override
-	public String getSubtypeLabel() {
-		if (CN_Subtype_Highlight.equals(cosGetSubtype())) {
-			return "Highlight";
-		} else if (CN_Subtype_Underline.equals(cosGetSubtype())) {
-			return "Underline";
-		} else if (CN_Subtype_Squiggly.equals(cosGetSubtype())) {
-			return "Squiggly";
-		} else if (CN_Subtype_StrikeOut.equals(cosGetSubtype())) {
-			return "StrikeOut";
-		} else {
-			return super.getSubtypeLabel();
-		}
-	}
+    @Override
+    public String getSubtypeLabel() {
+        if (CN_Subtype_Highlight.equals(cosGetSubtype())) {
+            return "Highlight";
+        } else if (CN_Subtype_Underline.equals(cosGetSubtype())) {
+            return "Underline";
+        } else if (CN_Subtype_Squiggly.equals(cosGetSubtype())) {
+            return "Squiggly";
+        } else if (CN_Subtype_StrikeOut.equals(cosGetSubtype())) {
+            return "StrikeOut";
+        } else {
+            return super.getSubtypeLabel();
+        }
+    }
 
-	public void setQuadPoints(float[] color) {
-		setFieldFixedArray(DK_QuadPoints, color);
-	}
+    public void setQuadPoints(float[] color) {
+        setFieldFixedArray(DK_QuadPoints, color);
+    }
 }

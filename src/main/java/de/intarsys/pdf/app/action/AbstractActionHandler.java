@@ -33,7 +33,7 @@ package de.intarsys.pdf.app.action;
  * A common convenience superclass for implementing IActionHandler objects.
  */
 public abstract class AbstractActionHandler implements IActionHandler {
-	public AbstractActionHandler() {
-		super();
-	}
+    public AbstractActionHandler() {
+        super();
+    }
 }

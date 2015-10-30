@@ -31,31 +31,30 @@ package de.intarsys.pdf.font;
 
 /**
  * A selector based on a character code. Not used in PDF
- * 
  */
 public class CharacterSelectorCode extends CharacterSelector {
-	private int value;
+    private int value;
 
-	/**
-	 * @param value
-	 */
-	public CharacterSelectorCode(int value) {
-		super();
-		this.value = value;
-	}
+    /**
+     * @param value
+     */
+    public CharacterSelectorCode(int value) {
+        super();
+        this.value = value;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.CID#getLength()
-	 */
-	@Override
-	public int getLength() {
-		return 1;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.CID#getLength()
+     */
+    @Override
+    public int getLength() {
+        return 1;
+    }
 
-	@Override
-	public int getValue() {
-		return value;
-	}
+    @Override
+    public int getValue() {
+        return value;
+    }
 }

@@ -29,28 +29,26 @@
  */
 package de.intarsys.pdf.filter;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSStream;
 
+import java.io.IOException;
+
 /**
  * A factory for {@link IFilter} objects. An {@link IFilter} is an algorithm
  * that is referenced by name in a {@link COSStream}.
- * 
  */
 public interface IFilterFactory {
-	/**
-	 * Create an implementation for the filter implementing the algorithm
-	 * denoted by <code>filterName</code> using the optional options in
-	 * <code>options</code>.
-	 * 
-	 * @param filterName
-	 * @param options
-	 * @return The filter implementation.
-	 * @throws IOException
-	 */
-	public IFilter createFilter(COSName filterName, COSDictionary options)
-			throws IOException;
+    /**
+     * Create an implementation for the filter implementing the algorithm
+     * denoted by <code>filterName</code> using the optional options in
+     * <code>options</code>.
+     *
+     * @param filterName
+     * @param options
+     * @return The filter implementation.
+     * @throws IOException
+     */
+    public IFilter createFilter(COSName filterName, COSDictionary options) throws IOException;
 }

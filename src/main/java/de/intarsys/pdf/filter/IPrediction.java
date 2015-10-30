@@ -32,8 +32,8 @@ package de.intarsys.pdf.filter;
 import java.io.IOException;
 
 /**
- * 
+ *
  */
 public interface IPrediction {
-	public byte[] decode(byte[] source) throws IOException;
+    public byte[] decode(byte[] source) throws IOException;
 }

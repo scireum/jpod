@@ -32,71 +32,70 @@ package de.intarsys.pdf.crypt;
 /**
  * A document permissions set based on the "user access permissions" defined in
  * a /Standard encryption dictionary.
- * 
  */
 public interface IAccessPermissions {
-	/**
-	 * Assemble the document: insert, rotate or delete pages and create
-	 * bookmarks or thumbnail images.
-	 * 
-	 * @return if the document may be assembled
-	 */
-	public abstract boolean mayAssemble();
+    /**
+     * Assemble the document: insert, rotate or delete pages and create
+     * bookmarks or thumbnail images.
+     *
+     * @return if the document may be assembled
+     */
+    public abstract boolean mayAssemble();
 
-	/**
-	 * Copy or otherwise extract text and graphics from the document in support
-	 * of accessibility to disabled users or for other purposes.
-	 * 
-	 * @return if parts of the document may be copied
-	 */
-	public abstract boolean mayCopy();
+    /**
+     * Copy or otherwise extract text and graphics from the document in support
+     * of accessibility to disabled users or for other purposes.
+     *
+     * @return if parts of the document may be copied
+     */
+    public abstract boolean mayCopy();
 
-	/**
-	 * Extract text and graphics (in support of accessibility to disabled users
-	 * or for other purposes)
-	 * 
-	 * @return if parts of the document may be extracted
-	 */
-	public abstract boolean mayExtract();
+    /**
+     * Extract text and graphics (in support of accessibility to disabled users
+     * or for other purposes)
+     *
+     * @return if parts of the document may be extracted
+     */
+    public abstract boolean mayExtract();
 
-	/**
-	 * Fill in existing interactive form fields (including signature fields)
-	 * 
-	 * @return if form fields may be filled
-	 */
-	public abstract boolean mayFillForm();
+    /**
+     * Fill in existing interactive form fields (including signature fields)
+     *
+     * @return if form fields may be filled
+     */
+    public abstract boolean mayFillForm();
 
-	/**
-	 * Modify the contents of the document by operations other than those
-	 * controlled by mayModifyAnnotation and mayFillForm
-	 * 
-	 * @return if document may be modified
-	 */
-	public abstract boolean mayModify();
+    /**
+     * Modify the contents of the document by operations other than those
+     * controlled by mayModifyAnnotation and mayFillForm
+     *
+     * @return if document may be modified
+     */
+    public abstract boolean mayModify();
 
-	/**
-	 * Add or modify text annotations, fill in interactice form fields, and if
-	 * mayModify is set, create or modify interactive form fields (including
-	 * signature fields)
-	 * 
-	 * @return if annotations may be modified
-	 */
-	public abstract boolean mayModifyAnnotation();
+    /**
+     * Add or modify text annotations, fill in interactice form fields, and if
+     * mayModify is set, create or modify interactive form fields (including
+     * signature fields)
+     *
+     * @return if annotations may be modified
+     */
+    public abstract boolean mayModifyAnnotation();
 
-	/**
-	 * Print the document
-	 * 
-	 * @return if the document may be printed
-	 */
-	public abstract boolean mayPrint();
+    /**
+     * Print the document
+     *
+     * @return if the document may be printed
+     */
+    public abstract boolean mayPrint();
 
-	/**
-	 * Print the document to a representation from which a faithful digital copy
-	 * of the PDF content could be generated. When this premission is not set
-	 * and mayPrint is set, printing is limited to a low-level representation of
-	 * the appearance, possibly of degraded quality.
-	 * 
-	 * @return if the document may be high quality printed
-	 */
-	public abstract boolean mayPrintHighQuality();
+    /**
+     * Print the document to a representation from which a faithful digital copy
+     * of the PDF content could be generated. When this premission is not set
+     * and mayPrint is set, printing is limited to a low-level representation of
+     * the appearance, possibly of degraded quality.
+     *
+     * @return if the document may be high quality printed
+     */
+    public abstract boolean mayPrintHighQuality();
 }

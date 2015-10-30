@@ -40,73 +40,73 @@ import java.io.OutputStream;
  */
 public class RunLengthOutputStream extends FilterOutputStream {
 
-	private byte[] buffer = new byte[128];
+    private byte[] buffer = new byte[128];
 
-	private int pos = 0;
+    private int pos = 0;
 
-	private int count = 0;
+    private int count = 0;
 
-	private int last = -1;
+    private int last = -1;
 
-	public RunLengthOutputStream(OutputStream out) {
-		super(out);
-	}
+    public RunLengthOutputStream(OutputStream out) {
+        super(out);
+    }
 
-	@Override
-	public void close() throws IOException {
-		if (last != -1) {
-			push(-1);
-		}
-		// write out buffers
-		flushBuffer();
-		flushCopies();
-		out.write((byte) 128);
-		super.close();
-	}
+    @Override
+    public void close() throws IOException {
+        if (last != -1) {
+            push(-1);
+        }
+        // write out buffers
+        flushBuffer();
+        flushCopies();
+        out.write((byte) 128);
+        super.close();
+    }
 
-	protected void flushBuffer() throws IOException {
-		if (pos > 0) {
-			out.write((byte) (257 - pos));
-			out.write(buffer, 0, pos);
-			pos = 0;
-		}
-	}
+    protected void flushBuffer() throws IOException {
+        if (pos > 0) {
+            out.write((byte) (257 - pos));
+            out.write(buffer, 0, pos);
+            pos = 0;
+        }
+    }
 
-	protected void flushCopies() throws IOException {
-		if (count > 1) {
-			out.write((byte) count - 1);
-			out.write((byte) last);
-			count = 0;
-			last = -1;
-		}
-	}
+    protected void flushCopies() throws IOException {
+        if (count > 1) {
+            out.write((byte) count - 1);
+            out.write((byte) last);
+            count = 0;
+            last = -1;
+        }
+    }
 
-	protected void push(int b) throws IOException {
-		if (b == last) {
-			flushBuffer();
-			count++;
-			if (count == 128) {
-				flushCopies();
-			}
-		} else {
-			flushCopies();
-			buffer[pos++] = (byte) last;
-			if (pos == 128) {
-				flushBuffer();
-			}
-			count = 1;
-			last = b;
-		}
-	}
+    protected void push(int b) throws IOException {
+        if (b == last) {
+            flushBuffer();
+            count++;
+            if (count == 128) {
+                flushCopies();
+            }
+        } else {
+            flushCopies();
+            buffer[pos++] = (byte) last;
+            if (pos == 128) {
+                flushBuffer();
+            }
+            count = 1;
+            last = b;
+        }
+    }
 
-	@Override
-	public void write(int b) throws IOException {
-		// one byte readahead
-		if (last != -1) {
-			push(b);
-		} else {
-			count = 1;
-			last = b;
-		}
-	}
+    @Override
+    public void write(int b) throws IOException {
+        // one byte readahead
+        if (last != -1) {
+            push(b);
+        } else {
+            count = 1;
+            last = b;
+        }
+    }
 }

@@ -37,83 +37,81 @@ import de.intarsys.pdf.cos.COSObject;
  * The file attachment annotation
  */
 public class PDFileAttachmentAnnotation extends PDMarkupAnnotation {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDMarkupAnnotation.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDMarkupAnnotation.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDFileAttachmentAnnotation(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDFileAttachmentAnnotation(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName DK_FS = COSName.constant("FS");
+    public static final COSName DK_FS = COSName.constant("FS");
 
-	public static final COSName DK_Name = COSName.constant("Name");
+    public static final COSName DK_Name = COSName.constant("Name");
 
-	public static final COSName CN_Name_Graph = COSName.constant("Graph");
+    public static final COSName CN_Name_Graph = COSName.constant("Graph");
 
-	public static final COSName CN_Name_PushPin = COSName.constant("PushPin");
+    public static final COSName CN_Name_PushPin = COSName.constant("PushPin");
 
-	public static final COSName CN_Name_Paperclip = COSName
-			.constant("Paperclip");
+    public static final COSName CN_Name_Paperclip = COSName.constant("Paperclip");
 
-	public static final COSName CN_Name_Tag = COSName.constant("Tag");
+    public static final COSName CN_Name_Tag = COSName.constant("Tag");
 
-	public static final COSName CN_Subtype_FileAttachment = COSName
-			.constant("FileAttachment");
+    public static final COSName CN_Subtype_FileAttachment = COSName.constant("FileAttachment");
 
-	public PDFileAttachmentAnnotation(COSObject object) {
-		super(object);
-	}
+    public PDFileAttachmentAnnotation(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	protected COSName cosGetExpectedSubtype() {
-		return PDFileAttachmentAnnotation.CN_Subtype_FileAttachment;
-	}
+    @Override
+    protected COSName cosGetExpectedSubtype() {
+        return PDFileAttachmentAnnotation.CN_Subtype_FileAttachment;
+    }
 
-	@Override
-	public float getDefaultHeight() {
-		return 30;
-	}
+    @Override
+    public float getDefaultHeight() {
+        return 30;
+    }
 
-	@Override
-	public float getDefaultWidth() {
-		return 30;
-	}
+    @Override
+    public float getDefaultWidth() {
+        return 30;
+    }
 
-	public PDFileSpecification getFileSpecification() {
-		return (PDFileSpecification) PDFileSpecification.META
-				.createFromCos(cosGetField(DK_FS));
-	}
+    public PDFileSpecification getFileSpecification() {
+        return (PDFileSpecification) PDFileSpecification.META.createFromCos(cosGetField(DK_FS));
+    }
 
-	public COSName getIconName() {
-		return cosGetField(DK_Name).asName();
-	}
+    public COSName getIconName() {
+        return cosGetField(DK_Name).asName();
+    }
 
-	@Override
-	public float getMinHeight() {
-		return 30;
-	}
+    @Override
+    public float getMinHeight() {
+        return 30;
+    }
 
-	@Override
-	public float getMinWidth() {
-		return 30;
-	}
+    @Override
+    public float getMinWidth() {
+        return 30;
+    }
 
-	public void setFileSpecification(PDFileSpecification fileSpec) {
-		setFieldObject(DK_FS, fileSpec);
-	}
+    public void setFileSpecification(PDFileSpecification fileSpec) {
+        setFieldObject(DK_FS, fileSpec);
+    }
 
-	public void setIconName(COSName name) {
-		cosSetField(DK_Name, name);
-	}
+    public void setIconName(COSName name) {
+        cosSetField(DK_Name, name);
+    }
 }

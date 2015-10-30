@@ -34,7 +34,7 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * An object that can process an action definition in a defined event context.
- * 
+ * <p>
  * <p>
  * An action handler is registered with the action handler factory in the action
  * framework and exists ONCE in the system. The handler should be prepared to
@@ -42,26 +42,23 @@ import de.intarsys.pdf.cos.COSObject;
  * </p>
  */
 public interface IActionHandler {
-	/**
-	 * The type of actions this handler can process.
-	 * <p>
-	 * This is for example /JavaScript for JavaScript or /GoTo for a jump to
-	 * another destination in the document.
-	 * 
-	 * @return The type of actions this handler can process.
-	 */
-	public COSName getActionType();
+    /**
+     * The type of actions this handler can process.
+     * <p>
+     * This is for example /JavaScript for JavaScript or /GoTo for a jump to
+     * another destination in the document.
+     *
+     * @return The type of actions this handler can process.
+     */
+    public COSName getActionType();
 
-	/**
-	 * Perform the <code>actionDefinition</code> in the context of
-	 * <code>event</code>.
-	 * 
-	 * @param event
-	 *            The cause of the processing.
-	 * @param actionDefinition
-	 *            The processing definition.
-	 * @throws ActionException
-	 */
-	public void process(TriggerEvent event, COSObject actionDefinition)
-			throws ActionException;
+    /**
+     * Perform the <code>actionDefinition</code> in the context of
+     * <code>event</code>.
+     *
+     * @param event            The cause of the processing.
+     * @param actionDefinition The processing definition.
+     * @throws ActionException
+     */
+    public void process(TriggerEvent event, COSObject actionDefinition) throws ActionException;
 }

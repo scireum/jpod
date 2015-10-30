@@ -36,76 +36,75 @@ import de.intarsys.pdf.cos.COSStream;
 
 /**
  * A TrueType based CID font.
- * 
  */
 public class CIDFontType2 extends CIDFont {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends CIDFont.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends CIDFont.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new CIDFontType2(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new CIDFontType2(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName DK_CIDToGIDMap = COSName
-			.constant("CIDToGIDMap");
+    public static final COSName DK_CIDToGIDMap = COSName.constant("CIDToGIDMap");
 
-	private byte[] mappingTable;
+    private byte[] mappingTable;
 
-	public CIDFontType2(COSObject object) {
-		super(object);
-	}
+    public CIDFontType2(COSObject object) {
+        super(object);
+    }
 
-	public COSObject cosGetCIDToGIDMap() {
-		return cosGetField(DK_CIDToGIDMap);
-	}
+    public COSObject cosGetCIDToGIDMap() {
+        return cosGetField(DK_CIDToGIDMap);
+    }
 
-	@Override
-	protected COSName cosGetExpectedSubtype() {
-		return CN_Subtype_CIDFontType2;
-	}
+    @Override
+    protected COSName cosGetExpectedSubtype() {
+        return CN_Subtype_CIDFontType2;
+    }
 
-	@Override
-	public String getFontType() {
-		return "TrueType";
-	}
+    @Override
+    public String getFontType() {
+        return "TrueType";
+    }
 
-	@Override
-	public int getGlyphIndex(int cid) {
-		if (mappingTable == null) {
-			COSObject map = cosGetCIDToGIDMap();
-			if (map.isNull() || map instanceof COSName) {
-				// identity
-				// todo 2 speed up
-				return cid;
-			}
-			mappingTable = ((COSStream) map).getDecodedBytes();
-		}
-		int index = cid << 1;
-		int result;
-		try {
-			result = (mappingTable[index] & 0xff);
-			result = (result << 8) + (mappingTable[index + 1] & 0xff);
-		} catch (RuntimeException e) {
-			// indexing error
-			return 0;
-		}
-		return result;
-	}
+    @Override
+    public int getGlyphIndex(int cid) {
+        if (mappingTable == null) {
+            COSObject map = cosGetCIDToGIDMap();
+            if (map.isNull() || map instanceof COSName) {
+                // identity
+                // todo 2 speed up
+                return cid;
+            }
+            mappingTable = ((COSStream) map).getDecodedBytes();
+        }
+        int index = cid << 1;
+        int result;
+        try {
+            result = (mappingTable[index] & 0xff);
+            result = (result << 8) + (mappingTable[index + 1] & 0xff);
+        } catch (RuntimeException e) {
+            // indexing error
+            return 0;
+        }
+        return result;
+    }
 
-	@Override
-	protected void initializeFromScratch() {
-		super.initializeFromScratch();
-		cosSetField(DK_CIDToGIDMap, CIDToGIDMap.CN_Identity);
-	}
+    @Override
+    protected void initializeFromScratch() {
+        super.initializeFromScratch();
+        cosSetField(DK_CIDToGIDMap, CIDToGIDMap.CN_Identity);
+    }
 }

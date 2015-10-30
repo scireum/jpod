@@ -39,68 +39,66 @@ import de.intarsys.pdf.cos.COSString;
  * The JavaScript action.
  * <p>
  * When executed the action executes a user defined JavaScript.
- * 
  */
 public class PDActionJavaScript extends PDAction {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAction.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDAction.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDActionJavaScript(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDActionJavaScript(object);
+        }
+    }
 
-	static public final COSName CN_ActionType_JavaScript = COSName
-			.constant("JavaScript"); //$NON-NLS-1$
+    static public final COSName CN_ActionType_JavaScript = COSName.constant("JavaScript"); //$NON-NLS-1$
 
-	static public final COSName DK_JS = COSName.constant("JS"); //$NON-NLS-1$
+    static public final COSName DK_JS = COSName.constant("JS"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	static public PDActionJavaScript createNew(String script) {
-		PDActionJavaScript result = (PDActionJavaScript) PDActionJavaScript.META
-				.createNew();
-		result.setJavaScript(script);
-		return result;
-	}
+    static public PDActionJavaScript createNew(String script) {
+        PDActionJavaScript result = (PDActionJavaScript) PDActionJavaScript.META.createNew();
+        result.setJavaScript(script);
+        return result;
+    }
 
-	public static String decodeSource(COSObject cosSource) {
-		if (cosSource.isNull()) {
-			return null;
-		}
-		if (cosSource instanceof COSString) {
-			return (cosSource.stringValue());
-		}
-		if (cosSource instanceof COSStream) {
-			byte[] bytes = ((COSStream) cosSource).getDecodedBytes();
-			return COSString.create(bytes).stringValue();
-		}
-		return null;
-	}
+    public static String decodeSource(COSObject cosSource) {
+        if (cosSource.isNull()) {
+            return null;
+        }
+        if (cosSource instanceof COSString) {
+            return (cosSource.stringValue());
+        }
+        if (cosSource instanceof COSStream) {
+            byte[] bytes = ((COSStream) cosSource).getDecodedBytes();
+            return COSString.create(bytes).stringValue();
+        }
+        return null;
+    }
 
-	protected PDActionJavaScript(COSObject object) {
-		super(object);
-	}
+    protected PDActionJavaScript(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public COSName cosGetExpectedActionType() {
-		return CN_ActionType_JavaScript;
-	}
+    @Override
+    public COSName cosGetExpectedActionType() {
+        return CN_ActionType_JavaScript;
+    }
 
-	public String getJavaScript() {
-		COSObject cosObject = cosGetField(DK_JS);
-		return decodeSource(cosObject);
-	}
+    public String getJavaScript() {
+        COSObject cosObject = cosGetField(DK_JS);
+        return decodeSource(cosObject);
+    }
 
-	public void setJavaScript(String newJavaScript) {
-		setFieldString(DK_JS, newJavaScript);
-	}
+    public void setJavaScript(String newJavaScript) {
+        setFieldString(DK_JS, newJavaScript);
+    }
 }

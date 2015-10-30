@@ -29,40 +29,41 @@
  */
 package de.intarsys.pdf.cds;
 
-import java.util.List;
-
 import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
+
+import java.util.List;
 
 /**
  * Abstract superclass for implementing name and number trees.
  */
 abstract public class CDSTreeNode extends CDSBase {
 
-	/** common names */
-	public static final COSName DK_Kids = COSName.constant("Kids"); //$NON-NLS-1$
+    /**
+     * common names
+     */
+    public static final COSName DK_Kids = COSName.constant("Kids"); //$NON-NLS-1$
 
-	public static final COSName DK_Limits = COSName.constant("Limits"); //$NON-NLS-1$
+    public static final COSName DK_Limits = COSName.constant("Limits"); //$NON-NLS-1$
 
-	protected List kids;
+    protected List kids;
 
-	protected List entries;
+    protected List entries;
 
-	/**
-	 * a two element array defining the smallest and the largest key contained
-	 * in the receiver (recursively)
-	 */
-	protected COSArray limits;
+    /**
+     * a two element array defining the smallest and the largest key contained
+     * in the receiver (recursively)
+     */
+    protected COSArray limits;
 
-	public CDSTreeNode(COSObject object) {
-		super(object);
-	}
+    public CDSTreeNode(COSObject object) {
+        super(object);
+    }
 
-	public boolean isIntermediate() {
-		return cosGetDict().containsKey(DK_Kids);
-	}
+    public boolean isIntermediate() {
+        return cosGetDict().containsKey(DK_Kids);
+    }
 
-	abstract public boolean isLeaf();
-
+    abstract public boolean isLeaf();
 }

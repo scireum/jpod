@@ -29,12 +29,6 @@
  */
 package de.intarsys.pdf.cos;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import de.intarsys.pdf.parser.COSLoadException;
 import de.intarsys.pdf.parser.PDFParser;
 import de.intarsys.pdf.st.STDocument;
@@ -43,207 +37,206 @@ import de.intarsys.tools.locator.ILocator;
 import de.intarsys.tools.locator.LocatorViewport;
 import de.intarsys.tools.randomaccess.IRandomAccess;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Some tools to ease life with COS.
  */
 public class COSTools {
 
-	public static class Revision {
-		private STXRefSection xRefSection;
-		private long length;
+    public static class Revision {
+        private STXRefSection xRefSection;
+        private long length;
 
-		public ILocator createLocator() {
-			LocatorViewport locator = new LocatorViewport(getXRefSection()
-					.getDoc().getLocator());
-			locator.setName(getXRefSection().getDoc().getLocator()
-					.getLocalName()
-					+ "_v" + getXRefSection().getIncrementalCount() + ".pdf"); //$NON-NLS-1$ //$NON-NLS-2$
-			locator.setStart(0);
-			locator.setEnd(getLength());
-			locator.setReadOnly();
-			return locator;
-		}
+        public ILocator createLocator() {
+            LocatorViewport locator = new LocatorViewport(getXRefSection().getDoc().getLocator());
+            locator.setName(getXRefSection().getDoc().getLocator().getLocalName()
+                            + "_v"
+                            + getXRefSection().getIncrementalCount()
+                            + ".pdf"); //$NON-NLS-1$ //$NON-NLS-2$
+            locator.setStart(0);
+            locator.setEnd(getLength());
+            locator.setReadOnly();
+            return locator;
+        }
 
-		public long getLength() {
-			return length;
-		}
+        public long getLength() {
+            return length;
+        }
 
-		public STXRefSection getXRefSection() {
-			return xRefSection;
-		}
+        public STXRefSection getXRefSection() {
+            return xRefSection;
+        }
 
-		public void setLength(long length) {
-			this.length = length;
-		}
+        public void setLength(long length) {
+            this.length = length;
+        }
 
-		public void setXRefSection(STXRefSection refSection) {
-			xRefSection = refSection;
-		}
-	}
+        public void setXRefSection(STXRefSection refSection) {
+            xRefSection = refSection;
+        }
+    }
 
-	/**
-	 * Try the best in marshalling java objects directly to {@link COSObject}.
-	 * Collections will be marshalled recursively.
-	 * 
-	 * @param javaObject
-	 *            the java object to be marshalled
-	 * @deprecated use {@link COSConverter}
-	 * @return The resulting {@link COSObject}
-	 */
-	@Deprecated
-	static public COSObject createObject(Object javaObject) {
-		return COSConverter.toCos(javaObject);
-	}
+    /**
+     * Try the best in marshalling java objects directly to {@link COSObject}.
+     * Collections will be marshalled recursively.
+     *
+     * @param javaObject the java object to be marshalled
+     * @return The resulting {@link COSObject}
+     * @deprecated use {@link COSConverter}
+     */
+    @Deprecated
+    static public COSObject createObject(Object javaObject) {
+        return COSConverter.toCos(javaObject);
+    }
 
-	public static List<Revision> getRevisions(COSDocument doc)
-			throws IOException, COSLoadException {
-		List<Revision> result = new ArrayList<Revision>();
-		STDocument stDoc = doc.stGetDoc();
-		STXRefSection xRef = stDoc.getXRefSection();
-		IRandomAccess randomAccess = stDoc.getLocator().getRandomAccess();
-		if (randomAccess == null) {
-			return result;
-		}
-		try {
-			List<STXRefSection> offsetSortedXRefs = new ArrayList<STXRefSection>();
-			while (xRef != null) {
-				offsetSortedXRefs.add(xRef);
-				xRef = xRef.getPrevious();
-			}
-			Collections.sort(offsetSortedXRefs, new Comparator<STXRefSection>() {
-						@Override
-						public int compare(STXRefSection o1, STXRefSection o2) {
-							if (o1.getOffset() < o2.getOffset()) {
-								return 1;
-							} else if (o1.getOffset() > o2.getOffset()) {
-								return -1;
-							}
-							return 0;
-						}
-					});
+    public static List<Revision> getRevisions(COSDocument doc) throws IOException, COSLoadException {
+        List<Revision> result = new ArrayList<Revision>();
+        STDocument stDoc = doc.stGetDoc();
+        STXRefSection xRef = stDoc.getXRefSection();
+        IRandomAccess randomAccess = stDoc.getLocator().getRandomAccess();
+        if (randomAccess == null) {
+            return result;
+        }
+        try {
+            List<STXRefSection> offsetSortedXRefs = new ArrayList<STXRefSection>();
+            while (xRef != null) {
+                offsetSortedXRefs.add(xRef);
+                xRef = xRef.getPrevious();
+            }
+            Collections.sort(offsetSortedXRefs, new Comparator<STXRefSection>() {
+                @Override
+                public int compare(STXRefSection o1, STXRefSection o2) {
+                    if (o1.getOffset() < o2.getOffset()) {
+                        return 1;
+                    } else if (o1.getOffset() > o2.getOffset()) {
+                        return -1;
+                    }
+                    return 0;
+                }
+            });
 
-			long lastEnd = -1;
-			for (STXRefSection section : offsetSortedXRefs) {
-				COSDictionary cosDict = section.cosGetDict();
-				if (!cosDict.get(COSTrailer.DK_Root).isNull()) {
-					// the dummy trailer in a linearized pdf does not need /Root
-					long limit = lastEnd;
-					if (limit == -1) {
-						limit = randomAccess.getLength();
-					}
-					long end = searchNextEOF(randomAccess, section.getOffset(), limit);
-					// if (end != -1 && lastEnd != end) {
-					if (end != -1) {
-						Revision revision = new Revision();
-						revision.setXRefSection(section);
-						revision.setLength(end);
-						result.add(revision);
-						lastEnd = end;
-					}
-				}
-			}
-		} finally {
-			randomAccess.close();
-		}
-		Collections.reverse(result);
-		return result;
-	}
+            long lastEnd = -1;
+            for (STXRefSection section : offsetSortedXRefs) {
+                COSDictionary cosDict = section.cosGetDict();
+                if (!cosDict.get(COSTrailer.DK_Root).isNull()) {
+                    // the dummy trailer in a linearized pdf does not need /Root
+                    long limit = lastEnd;
+                    if (limit == -1) {
+                        limit = randomAccess.getLength();
+                    }
+                    long end = searchNextEOF(randomAccess, section.getOffset(), limit);
+                    // if (end != -1 && lastEnd != end) {
+                    if (end != -1) {
+                        Revision revision = new Revision();
+                        revision.setXRefSection(section);
+                        revision.setLength(end);
+                        result.add(revision);
+                        lastEnd = end;
+                    }
+                }
+            }
+        } finally {
+            randomAccess.close();
+        }
+        Collections.reverse(result);
+        return result;
+    }
 
-	public static List<Revision> getSubsequentRevisions(COSDocument doc,
-			STXRefSection base) throws IOException, COSLoadException {
-		List<Revision> revisions = getRevisions(doc);
-		List<Revision> result = new ArrayList<Revision>();
-		boolean include = false;
-		for (Revision revision : revisions) {
-			if (include) {
-				result.add(revision);
-			} else {
-				if (revision.getXRefSection() == base) {
-					include = true;
-				}
-			}
-		}
-		return result;
-	}
+    public static List<Revision> getSubsequentRevisions(COSDocument doc, STXRefSection base)
+            throws IOException, COSLoadException {
+        List<Revision> revisions = getRevisions(doc);
+        List<Revision> result = new ArrayList<Revision>();
+        boolean include = false;
+        for (Revision revision : revisions) {
+            if (include) {
+                result.add(revision);
+            } else {
+                if (revision.getXRefSection() == base) {
+                    include = true;
+                }
+            }
+        }
+        return result;
+    }
 
-	/**
-	 * A collection of {@link ILocator} instances, representing the versions
-	 * created when writing incrementally.
-	 * 
-	 * @param doc
-	 *            The original document.
-	 * @return A collection of {@link ILocator} instances, representing the
-	 *         versions created when writing incrementally.
-	 * @throws IOException
-	 * @throws COSLoadException
-	 */
-	static public List<ILocator> getVersions(COSDocument doc)
-			throws IOException, COSLoadException {
-		List<Revision> revisions = getRevisions(doc);
-		List<ILocator> result = new ArrayList<ILocator>();
-		for (Revision revision : revisions) {
-			result.add(revision.createLocator());
-		}
-		return result;
-	}
+    /**
+     * A collection of {@link ILocator} instances, representing the versions
+     * created when writing incrementally.
+     *
+     * @param doc The original document.
+     * @return A collection of {@link ILocator} instances, representing the
+     * versions created when writing incrementally.
+     * @throws IOException
+     * @throws COSLoadException
+     */
+    static public List<ILocator> getVersions(COSDocument doc) throws IOException, COSLoadException {
+        List<Revision> revisions = getRevisions(doc);
+        List<ILocator> result = new ArrayList<ILocator>();
+        for (Revision revision : revisions) {
+            result.add(revision.createLocator());
+        }
+        return result;
+    }
 
-	static protected boolean readUptoNewLine(IRandomAccess input)
-			throws IOException {
-		int i;
-		while (true) {
-			i = input.read();
-			if (i == -1) {
-				return false;
-			}
-			if (PDFParser.isEOL(i)) {
-				if (i == PDFParser.CHAR_CR) {
-					i = input.read();
-					if (i != PDFParser.CHAR_LF) {
-						input.seekBy(-1);
-					}
-				}
-				return true;
-			}
-		}
-	}
+    static protected boolean readUptoNewLine(IRandomAccess input) throws IOException {
+        int i;
+        while (true) {
+            i = input.read();
+            if (i == -1) {
+                return false;
+            }
+            if (PDFParser.isEOL(i)) {
+                if (i == PDFParser.CHAR_CR) {
+                    i = input.read();
+                    if (i != PDFParser.CHAR_LF) {
+                        input.seekBy(-1);
+                    }
+                }
+                return true;
+            }
+        }
+    }
 
-	static protected long searchNextEOF(IRandomAccess input, long start,
-			long end) throws IOException, COSLoadException {
-		input.seek(start);
-		int comparisonIndex = 0;
-		for (int i = input.read(); (i != -1) && (input.getOffset() < end); i = input
-				.read()) {
-			if (i == PDFParser.TOKEN_EOF[comparisonIndex]) {
-				comparisonIndex++;
-				if (comparisonIndex == PDFParser.TOKEN_EOF.length) {
-					readUptoNewLine(input);
-					return input.getOffset();
-				}
-			} else {
-				comparisonIndex = 0;
-			}
-		}
-		return -1;
-	}
+    static protected long searchNextEOF(IRandomAccess input, long start, long end)
+            throws IOException, COSLoadException {
+        input.seek(start);
+        int comparisonIndex = 0;
+        for (int i = input.read(); (i != -1) && (input.getOffset() < end); i = input.read()) {
+            if (i == PDFParser.TOKEN_EOF[comparisonIndex]) {
+                comparisonIndex++;
+                if (comparisonIndex == PDFParser.TOKEN_EOF.length) {
+                    readUptoNewLine(input);
+                    return input.getOffset();
+                }
+            } else {
+                comparisonIndex = 0;
+            }
+        }
+        return -1;
+    }
 
-	/**
-	 * Tries to force a dictionary out of the COSObject.
-	 * 
-	 * @param object
-	 *            The object to be cast to a {@link COSDictionary}
-	 * @return {@link COSDictionary} or null
-	 */
-	public static COSDictionary toDictionary(COSObject object) {
-		COSDictionary dict = null;
-		if (object instanceof COSDictionary) {
-			dict = (COSDictionary) object;
-		} else if (object instanceof COSStream) {
-			dict = ((COSStream) object).getDict();
-		}
-		return dict;
-	}
+    /**
+     * Tries to force a dictionary out of the COSObject.
+     *
+     * @param object The object to be cast to a {@link COSDictionary}
+     * @return {@link COSDictionary} or null
+     */
+    public static COSDictionary toDictionary(COSObject object) {
+        COSDictionary dict = null;
+        if (object instanceof COSDictionary) {
+            dict = (COSDictionary) object;
+        } else if (object instanceof COSStream) {
+            dict = ((COSStream) object).getDict();
+        }
+        return dict;
+    }
 
-	private COSTools() {
-		super();
-	}
+    private COSTools() {
+        super();
+    }
 }

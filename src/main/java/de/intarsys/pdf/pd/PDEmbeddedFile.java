@@ -38,117 +38,114 @@ import de.intarsys.pdf.filter.Filter;
 
 /**
  * An embedding of another file (and optional content) within the PDF.
- * 
  */
 public class PDEmbeddedFile extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDEmbeddedFile(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDEmbeddedFile(object);
+        }
 
-		@Override
-		protected COSObject doCreateCOSObject() {
-			return COSStream.create(null);
-		}
-	}
+        @Override
+        protected COSObject doCreateCOSObject() {
+            return COSStream.create(null);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(
-			MetaClass.class.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	static public final COSName DK_Params = COSName.constant("Params"); //
+    static public final COSName DK_Params = COSName.constant("Params"); //
 
-	static public final COSName DK_Subtype = COSName.constant("Subtype"); //
+    static public final COSName DK_Subtype = COSName.constant("Subtype"); //
 
-	static public final COSName CN_ModDate = COSName.constant("ModDate"); //
+    static public final COSName CN_ModDate = COSName.constant("ModDate"); //
 
-	static public final COSName CN_Type_EmbeddedFile = COSName
-			.constant("EmbeddedFile"); //
+    static public final COSName CN_Type_EmbeddedFile = COSName.constant("EmbeddedFile"); //
 
-	protected PDEmbeddedFile(COSObject object) {
-		super(object);
-	}
+    protected PDEmbeddedFile(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSBasedObject#cosGetDict()
-	 */
-	@Override
-	public COSDictionary cosGetDict() {
-		return cosGetStream().getDict();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSBasedObject#cosGetDict()
+     */
+    @Override
+    public COSDictionary cosGetDict() {
+        return cosGetStream().getDict();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
-	 */
-	@Override
-	protected COSName cosGetExpectedType() {
-		return CN_Type_EmbeddedFile;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
+     */
+    @Override
+    protected COSName cosGetExpectedType() {
+        return CN_Type_EmbeddedFile;
+    }
 
-	/**
-	 * get the data representing the XObject
-	 * 
-	 * @return get the data representing the XObject
-	 */
-	public byte[] getBytes() {
-		return cosGetStream().getDecodedBytes();
-	}
+    /**
+     * get the data representing the XObject
+     *
+     * @return get the data representing the XObject
+     */
+    public byte[] getBytes() {
+        return cosGetStream().getDecodedBytes();
+    }
 
-	public PDEmbeddedFileParams getParams() {
-		COSDictionary cosParams = cosGetField(DK_Params).asDictionary();
-		if (cosParams == null) {
-			return null;
-		}
-		return (PDEmbeddedFileParams) PDEmbeddedFileParams.META
-				.createFromCos(cosParams);
-	}
+    public PDEmbeddedFileParams getParams() {
+        COSDictionary cosParams = cosGetField(DK_Params).asDictionary();
+        if (cosParams == null) {
+            return null;
+        }
+        return (PDEmbeddedFileParams) PDEmbeddedFileParams.META.createFromCos(cosParams);
+    }
 
-	public String getSubtype() {
-		COSName value = cosGetField(DK_Subtype).asName();
-		if (value == null) {
-			return null;
-		}
-		return value.stringValue();
-	}
+    public String getSubtype() {
+        COSName value = cosGetField(DK_Subtype).asName();
+        if (value == null) {
+            return null;
+        }
+        return value.stringValue();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDSubtypedObject#initializeFromScratch()
-	 */
-	@Override
-	protected void initializeFromScratch() {
-		super.initializeFromScratch();
-		cosGetStream().addFilter(Filter.CN_Filter_FlateDecode);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDSubtypedObject#initializeFromScratch()
+     */
+    @Override
+    protected void initializeFromScratch() {
+        super.initializeFromScratch();
+        cosGetStream().addFilter(Filter.CN_Filter_FlateDecode);
+    }
 
-	/**
-	 * set the data representing the XObject
-	 * 
-	 * @param bytes
-	 *            the data representing the XObject
-	 */
-	public void setBytes(byte[] bytes) {
-		cosGetStream().setDecodedBytes(bytes);
-	}
+    /**
+     * set the data representing the XObject
+     *
+     * @param bytes the data representing the XObject
+     */
+    public void setBytes(byte[] bytes) {
+        cosGetStream().setDecodedBytes(bytes);
+    }
 
-	public void setParams(PDEmbeddedFileParams params) {
-		setFieldObject(DK_Params, params);
-	}
+    public void setParams(PDEmbeddedFileParams params) {
+        setFieldObject(DK_Params, params);
+    }
 
-	public void setSubtype(String subtype) {
-		setFieldName(DK_Subtype, subtype);
-	}
+    public void setSubtype(String subtype) {
+        setFieldName(DK_Subtype, subtype);
+    }
 }

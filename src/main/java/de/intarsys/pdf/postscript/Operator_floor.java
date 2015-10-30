@@ -30,31 +30,31 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_floor implements IOperator {
-	public static Operator_floor Instance;
+    public static Operator_floor Instance;
 
-	static {
-		Instance = new Operator_floor();
-	}
+    static {
+        Instance = new Operator_floor();
+    }
 
-	private Operator_floor() {
-		super();
-	}
+    private Operator_floor() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Number element;
-		double operand;
-		double result;
+    public void execute(Handler handler) {
+        Number element;
+        double operand;
+        double result;
 
-		element = (Number) handler.peek();
-		if (element instanceof Integer) {
-			return;
-		}
-		operand = element.doubleValue();
-		result = Math.floor(operand);
-		if (result == operand) {
-			return;
-		}
-		handler.pop();
-		handler.push(new Double(result));
-	}
+        element = (Number) handler.peek();
+        if (element instanceof Integer) {
+            return;
+        }
+        operand = element.doubleValue();
+        result = Math.floor(operand);
+        if (result == operand) {
+            return;
+        }
+        handler.pop();
+        handler.push(new Double(result));
+    }
 }

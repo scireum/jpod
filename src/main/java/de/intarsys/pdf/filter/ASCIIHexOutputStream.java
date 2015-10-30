@@ -29,40 +29,40 @@
  */
 package de.intarsys.pdf.filter;
 
+import de.intarsys.tools.hex.HexTools;
+
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import de.intarsys.tools.hex.HexTools;
 
 /**
  * Output stream to encode binary data with ASCII representable byte codes. The
  * algorithm produces the hex representation of the data.
  */
 public class ASCIIHexOutputStream extends FilterOutputStream {
-	/**
-	 * Constructor for ASCIIHexOutputStream.
-	 *
-	 * @param out
-	 */
-	public ASCIIHexOutputStream(OutputStream out) {
-		super(out);
-	}
+    /**
+     * Constructor for ASCIIHexOutputStream.
+     *
+     * @param out
+     */
+    public ASCIIHexOutputStream(OutputStream out) {
+        super(out);
+    }
 
-	/**
-	 * @see java.io.OutputStream#close()
-	 */
-	@Override
+    /**
+     * @see java.io.OutputStream#close()
+     */
+    @Override
     public void close() throws IOException {
-		super.write('>');
-		super.close();
-	}
+        super.write('>');
+        super.close();
+    }
 
-	/**
-	 * @see java.io.OutputStream#write(int)
-	 */
-	@Override
+    /**
+     * @see java.io.OutputStream#write(int)
+     */
+    @Override
     public void write(int b) throws IOException {
-		out.write(HexTools.ByteToHex[b]);
-	}
+        out.write(HexTools.ByteToHex[b]);
+    }
 }

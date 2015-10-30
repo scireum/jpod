@@ -34,23 +34,23 @@ import de.intarsys.pdf.font.PDFontType1;
 
 public class NullFontFactory implements IFontFactory {
 
-	public PDFont getBoldFlavor(PDFont font) {
-		return font;
-	}
+    public PDFont getBoldFlavor(PDFont font) {
+        return font;
+    }
 
-	public PDFont getFont(IFontQuery query) {
-		return PDFontType1.createNew(PDFontType1.FONT_Helvetica);
-	}
+    public PDFont getFont(IFontQuery query) {
+        return PDFontType1.createNew(PDFontType1.FONT_Helvetica);
+    }
 
-	public PDFont getItalicFlavor(PDFont font) {
-		return font;
-	}
+    public PDFont getItalicFlavor(PDFont font) {
+        return font;
+    }
 
-	public PDFont getRegularFlavor(PDFont font) {
-		return font;
-	}
+    public PDFont getRegularFlavor(PDFont font) {
+        return font;
+    }
 
-	public void registerFont(PDFont font) {
-		//
-	}
+    public void registerFont(PDFont font) {
+        //
+    }
 }

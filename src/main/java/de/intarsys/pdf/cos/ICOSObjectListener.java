@@ -31,33 +31,27 @@ package de.intarsys.pdf.cos;
 
 /**
  * A listener for changes in a {@link COSObject}.
- * 
  */
 public interface ICOSObjectListener {
-	/**
-	 * A COSObject has changed its internal state. For any {@link COSObject}
-	 * this may be a change in containment (slot == COSObject.SLOT_CONTAINER).
-	 * <p>
-	 * For containers itself, this may be a change in the collection of
-	 * contained objects. For dictionaries, slot will be the {@link COSName} of
-	 * the changed entry, for arrays slot will be the {@link Integer} key. A
-	 * stream may indicate a change in its byte content using (slot ==
-	 * COSStream.SLOT_BYTES).
-	 * <p>
-	 * A slot value of <code> null</code> may indicate a "changed all" event.
-	 * For example you can expect for a <code>clear</code> operation on an
-	 * array only a single "changed all" event.
-	 * 
-	 * @param object
-	 *            The object that has changed
-	 * @param slot
-	 *            The slot in the object that has changed (or null for
-	 *            unspecified change).
-	 * @param oldValue
-	 *            The old value of the slot if known.
-	 * @param newValue
-	 *            The new value of the slot if known.
-	 */
-	public void changed(COSObject object, Object slot, Object oldValue,
-			Object newValue);
+    /**
+     * A COSObject has changed its internal state. For any {@link COSObject}
+     * this may be a change in containment (slot == COSObject.SLOT_CONTAINER).
+     * <p>
+     * For containers itself, this may be a change in the collection of
+     * contained objects. For dictionaries, slot will be the {@link COSName} of
+     * the changed entry, for arrays slot will be the {@link Integer} key. A
+     * stream may indicate a change in its byte content using (slot ==
+     * COSStream.SLOT_BYTES).
+     * <p>
+     * A slot value of <code> null</code> may indicate a "changed all" event.
+     * For example you can expect for a <code>clear</code> operation on an
+     * array only a single "changed all" event.
+     *
+     * @param object   The object that has changed
+     * @param slot     The slot in the object that has changed (or null for
+     *                 unspecified change).
+     * @param oldValue The old value of the slot if known.
+     * @param newValue The new value of the slot if known.
+     */
+    public void changed(COSObject object, Object slot, Object oldValue, Object newValue);
 }

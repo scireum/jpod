@@ -29,10 +29,6 @@
  */
 package de.intarsys.pdf.app.acroform;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSNull;
 import de.intarsys.pdf.cos.COSString;
@@ -42,145 +38,144 @@ import de.intarsys.pdf.pd.PDDocument;
 import de.intarsys.pdf.pd.PDSignature;
 import de.intarsys.pdf.pd.PDWidgetAnnotation;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * A common superclass for implementing {@link IFormHandler}.
- * 
  */
 public abstract class CommonFormHandler implements IFormHandler {
-	private PDDocument doc;
+    private PDDocument doc;
 
-	private PDAcroForm acroForm;
+    private PDAcroForm acroForm;
 
-	private boolean validate = true;
+    private boolean validate = true;
 
-	private boolean calculate = true;
+    private boolean calculate = true;
 
-	protected CommonFormHandler(PDDocument doc) {
-		super();
-		this.doc = doc;
-		if (doc.getAcroForm() == null) {
-			throw new IllegalArgumentException("doc has no form"); //$NON-NLS-1$
-		}
-		acroForm = getDoc().getAcroForm();
-	}
+    protected CommonFormHandler(PDDocument doc) {
+        super();
+        this.doc = doc;
+        if (doc.getAcroForm() == null) {
+            throw new IllegalArgumentException("doc has no form"); //$NON-NLS-1$
+        }
+        acroForm = getDoc().getAcroForm();
+    }
 
-	abstract protected void basicRecalculate(PDAcroFormField field);
+    abstract protected void basicRecalculate(PDAcroFormField field);
 
-	abstract protected void basicSetFieldValue(PDAcroFormField field, List value);
+    abstract protected void basicSetFieldValue(PDAcroFormField field, List value);
 
-	abstract protected void basicSetFieldValue(PDAcroFormField field,
-			PDSignature value);
+    abstract protected void basicSetFieldValue(PDAcroFormField field, PDSignature value);
 
-	abstract protected void basicSetFieldValue(PDAcroFormField field,
-			String value);
+    abstract protected void basicSetFieldValue(PDAcroFormField field, String value);
 
-	protected abstract void doResetFields(List fields);
+    protected abstract void doResetFields(List fields);
 
-	protected PDAcroForm getAcroForm() {
-		return acroForm;
-	}
+    protected PDAcroForm getAcroForm() {
+        return acroForm;
+    }
 
-	public PDDocument getDoc() {
-		return doc;
-	}
+    public PDDocument getDoc() {
+        return doc;
+    }
 
-	public String getFieldValue(Object fieldref) {
-		PDAcroFormField field = marshalField(fieldref);
-		return field.getValueString();
-	}
+    public String getFieldValue(Object fieldref) {
+        PDAcroFormField field = marshalField(fieldref);
+        return field.getValueString();
+    }
 
-	public boolean isCalculate() {
-		return calculate;
-	}
+    public boolean isCalculate() {
+        return calculate;
+    }
 
-	public boolean isValidate() {
-		return validate;
-	}
+    public boolean isValidate() {
+        return validate;
+    }
 
-	protected PDAcroFormField marshalField(Object fieldRef) {
-		if (fieldRef instanceof PDWidgetAnnotation) {
-			return ((PDWidgetAnnotation) fieldRef).getAcroFormField();
-		}
-		if (fieldRef instanceof PDAcroFormField) {
-			return (PDAcroFormField) fieldRef;
-		}
-		if (fieldRef instanceof COSString) {
-			fieldRef = ((COSString) fieldRef).stringValue();
-		}
-		if (fieldRef instanceof COSName) {
-			fieldRef = ((COSName) fieldRef).stringValue();
-		}
-		if (fieldRef instanceof String) {
-			return getAcroForm().getField((String) fieldRef);
-		}
-		throw new IllegalArgumentException("fieldRef of unknown type '" //$NON-NLS-1$
-				+ fieldRef.getClass().getName() + "'"); //$NON-NLS-1$
-	}
+    protected PDAcroFormField marshalField(Object fieldRef) {
+        if (fieldRef instanceof PDWidgetAnnotation) {
+            return ((PDWidgetAnnotation) fieldRef).getAcroFormField();
+        }
+        if (fieldRef instanceof PDAcroFormField) {
+            return (PDAcroFormField) fieldRef;
+        }
+        if (fieldRef instanceof COSString) {
+            fieldRef = ((COSString) fieldRef).stringValue();
+        }
+        if (fieldRef instanceof COSName) {
+            fieldRef = ((COSName) fieldRef).stringValue();
+        }
+        if (fieldRef instanceof String) {
+            return getAcroForm().getField((String) fieldRef);
+        }
+        throw new IllegalArgumentException("fieldRef of unknown type '" //$NON-NLS-1$
+                                           + fieldRef.getClass().getName() + "'"); //$NON-NLS-1$
+    }
 
-	public void recalculate() {
-		basicRecalculate(null);
-	}
+    public void recalculate() {
+        basicRecalculate(null);
+    }
 
-	public void recalculate(Object fieldRef) {
-		basicRecalculate(marshalField(fieldRef));
-	}
+    public void recalculate(Object fieldRef) {
+        basicRecalculate(marshalField(fieldRef));
+    }
 
-	public void resetFields() {
-		doResetFields(getAcroForm().collectLeafFields());
-	}
+    public void resetFields() {
+        doResetFields(getAcroForm().collectLeafFields());
+    }
 
-	public void resetFields(List fieldNames, boolean invert) {
-		List fields = null;
-		if (invert) {
-			fields = getAcroForm().collectLeafFields();
-			for (Iterator i = fieldNames.iterator(); i.hasNext();) {
-				String fieldName = (String) i.next();
-				PDAcroFormField field = getAcroForm().getField(fieldName);
-				if (field != null) {
-					fields.removeAll(field.collectLeafFields());
-				}
-			}
-		} else {
-			fields = new ArrayList();
-			for (Iterator i = fieldNames.iterator(); i.hasNext();) {
-				String fieldName = (String) i.next();
-				PDAcroFormField field = getAcroForm().getField(fieldName);
-				if (field != null) {
-					fields.addAll(field.collectLeafFields());
-				}
-			}
-		}
-		doResetFields(fields);
-	}
+    public void resetFields(List fieldNames, boolean invert) {
+        List fields = null;
+        if (invert) {
+            fields = getAcroForm().collectLeafFields();
+            for (Iterator i = fieldNames.iterator(); i.hasNext(); ) {
+                String fieldName = (String) i.next();
+                PDAcroFormField field = getAcroForm().getField(fieldName);
+                if (field != null) {
+                    fields.removeAll(field.collectLeafFields());
+                }
+            }
+        } else {
+            fields = new ArrayList();
+            for (Iterator i = fieldNames.iterator(); i.hasNext(); ) {
+                String fieldName = (String) i.next();
+                PDAcroFormField field = getAcroForm().getField(fieldName);
+                if (field != null) {
+                    fields.addAll(field.collectLeafFields());
+                }
+            }
+        }
+        doResetFields(fields);
+    }
 
-	public void setCalculate(boolean calculate) {
-		this.calculate = calculate;
-	}
+    public void setCalculate(boolean calculate) {
+        this.calculate = calculate;
+    }
 
-	public void setFieldValue(Object fieldRef, Object value) {
-		if (value instanceof List) {
-			basicSetFieldValue(marshalField(fieldRef), (List) value);
-		} else if (value instanceof String) {
-			basicSetFieldValue(marshalField(fieldRef), (String) value);
-		} else if (value instanceof COSName) {
-			basicSetFieldValue(marshalField(fieldRef),
-					((COSName) value).stringValue());
-		} else if (value instanceof COSString) {
-			basicSetFieldValue(marshalField(fieldRef),
-					((COSString) value).stringValue());
-		} else if (value instanceof PDSignature) {
-			basicSetFieldValue(marshalField(fieldRef), (PDSignature) value);
-		} else if (value instanceof COSNull) {
-			basicSetFieldValue(marshalField(fieldRef), (String) null);
-		} else if (value == null) {
-			basicSetFieldValue(marshalField(fieldRef), (String) null);
-		} else {
-			value = String.valueOf(value);
-			basicSetFieldValue(marshalField(fieldRef), (String) value);
-		}
-	}
+    public void setFieldValue(Object fieldRef, Object value) {
+        if (value instanceof List) {
+            basicSetFieldValue(marshalField(fieldRef), (List) value);
+        } else if (value instanceof String) {
+            basicSetFieldValue(marshalField(fieldRef), (String) value);
+        } else if (value instanceof COSName) {
+            basicSetFieldValue(marshalField(fieldRef), ((COSName) value).stringValue());
+        } else if (value instanceof COSString) {
+            basicSetFieldValue(marshalField(fieldRef), ((COSString) value).stringValue());
+        } else if (value instanceof PDSignature) {
+            basicSetFieldValue(marshalField(fieldRef), (PDSignature) value);
+        } else if (value instanceof COSNull) {
+            basicSetFieldValue(marshalField(fieldRef), (String) null);
+        } else if (value == null) {
+            basicSetFieldValue(marshalField(fieldRef), (String) null);
+        } else {
+            value = String.valueOf(value);
+            basicSetFieldValue(marshalField(fieldRef), (String) value);
+        }
+    }
 
-	public void setValidate(boolean validate) {
-		this.validate = validate;
-	}
+    public void setValidate(boolean validate) {
+        this.validate = validate;
+    }
 }

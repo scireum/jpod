@@ -37,56 +37,54 @@ import de.intarsys.pdf.cos.COSStream;
  * Support for indexed color spaces.
  */
 public class PDCSIndexed extends PDCSSpecial {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDCSSpecial.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDCSSpecial.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
-			return new PDCSIndexed(object);
-		}
+        @Override
+        public COSBasedObject doCreateCOSBasedObjectBasic(COSObject object) {
+            return new PDCSIndexed(object);
+        }
+    }
 
-	}
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    private PDColorSpace baseColorSpace;
 
-	private PDColorSpace baseColorSpace;
+    private byte[] colorBytes;
 
-	private byte[] colorBytes;
+    private int colorCount;
 
-	private int colorCount;
+    protected PDCSIndexed(COSObject object) {
+        super(object);
 
-	protected PDCSIndexed(COSObject object) {
-		super(object);
+        COSObject byteObject;
+        baseColorSpace = (PDColorSpace) PDColorSpace.META.createFromCos(object.asArray().get(1));
+        colorCount = object.asArray().get(2).asInteger().intValue() + 1;
+        byteObject = object.asArray().get(3);
+        if (byteObject instanceof COSStream) {
+            colorBytes = ((COSStream) byteObject).getDecodedBytes();
+        } else {
+            colorBytes = byteObject.asString().byteValue();
+        }
+    }
 
-		COSObject byteObject;
-		baseColorSpace = (PDColorSpace) PDColorSpace.META.createFromCos(object
-				.asArray().get(1));
-		colorCount = object.asArray().get(2).asInteger().intValue() + 1;
-		byteObject = object.asArray().get(3);
-		if (byteObject instanceof COSStream) {
-			colorBytes = ((COSStream) byteObject).getDecodedBytes();
-		} else {
-			colorBytes = byteObject.asString().byteValue();
-		}
-	}
+    public PDColorSpace getBaseColorSpace() {
+        return baseColorSpace;
+    }
 
-	public PDColorSpace getBaseColorSpace() {
-		return baseColorSpace;
-	}
+    public byte[] getColorBytes() {
+        return colorBytes;
+    }
 
-	public byte[] getColorBytes() {
-		return colorBytes;
-	}
-
-	public int getColorCount() {
-		return colorCount;
-	}
-
+    public int getColorCount() {
+        return colorCount;
+    }
 }

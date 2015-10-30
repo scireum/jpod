@@ -37,55 +37,53 @@ import de.intarsys.pdf.cos.COSObject;
  * The GoTo action.
  * <p>
  * When executed the action focuses a viewer to a new destination.
- * 
  */
 public class PDActionRendition extends PDAction {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAction.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDAction.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDActionRendition(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDActionRendition(object);
+        }
 
-		@Override
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			return PDActionRendition.META;
-		}
-	}
+        @Override
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            return PDActionRendition.META;
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_ActionType_Rendition = COSName
-			.constant("Rendition"); //$NON-NLS-1$
+    public static final COSName CN_ActionType_Rendition = COSName.constant("Rendition"); //$NON-NLS-1$
 
-	static public final COSName DK_R = COSName.constant("R");
+    static public final COSName DK_R = COSName.constant("R");
 
-	static public final COSName DK_AN = COSName.constant("AN");
+    static public final COSName DK_AN = COSName.constant("AN");
 
-	static public final COSName DK_OP = COSName.constant("OP");
+    static public final COSName DK_OP = COSName.constant("OP");
 
-	static public final COSName DK_JS = COSName.constant("JS");
+    static public final COSName DK_JS = COSName.constant("JS");
 
-	protected PDActionRendition(COSObject object) {
-		super(object);
-	}
+    protected PDActionRendition(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public COSName cosGetExpectedActionType() {
-		return CN_ActionType_Rendition;
-	}
+    @Override
+    public COSName cosGetExpectedActionType() {
+        return CN_ActionType_Rendition;
+    }
 
-	@Override
-	protected void initializeFromCos() {
-		super.initializeFromCos();
-	}
-
+    @Override
+    protected void initializeFromCos() {
+        super.initializeFromCos();
+    }
 }

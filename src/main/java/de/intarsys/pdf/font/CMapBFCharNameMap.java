@@ -34,49 +34,47 @@ import de.intarsys.pdf.encoding.GlyphNameMap;
 
 /**
  * A special map from a character code to a character name.
- * 
  */
 public class CMapBFCharNameMap extends CMapCharMap {
 
-	private final COSName destination;
+    private final COSName destination;
 
-	private final int destinationCode;
+    private final int destinationCode;
 
-	public CMapBFCharNameMap(byte[] source, COSName destination) {
-		super(source);
-		this.destination = destination;
-		this.destinationCode = GlyphNameMap.Standard.getUnicode(destination
-				.stringValue());
-	}
+    public CMapBFCharNameMap(byte[] source, COSName destination) {
+        super(source);
+        this.destination = destination;
+        this.destinationCode = GlyphNameMap.Standard.getUnicode(destination.stringValue());
+    }
 
-	public COSName getDestination() {
-		return destination;
-	}
+    public COSName getDestination() {
+        return destination;
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		if (source == codepoint) {
-			return new char[] { (char) destinationCode };
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        if (source == codepoint) {
+            return new char[]{(char) destinationCode};
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		if (source == codepoint) {
-			return destinationCode;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCID(int codepoint) {
+        if (source == codepoint) {
+            return destinationCode;
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		if (cid == destinationCode) {
-			return source;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCodepoint(int cid) {
+        if (cid == destinationCode) {
+            return source;
+        } else {
+            return 0;
+        }
+    }
 }

@@ -36,75 +36,68 @@ import de.intarsys.pdf.cos.COSObject;
 /**
  * A generic action implementation to be used when no specific implementation
  * needed or around.
- * 
  */
 public class PDActionAny extends PDAction {
 
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAction.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDAction.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDActionAny(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDActionAny(object);
+        }
+    }
 
-	/**
-	 * all currently undefined or not implemented action types
-	 */
-	public static final COSName CN_ActionType_GoToE = COSName.constant("GoToE");
-	public static final COSName CN_ActionType_Thread = COSName
-			.constant("Thread");
-	public static final COSName CN_ActionType_Sound = COSName.constant("Sound");
-	public static final COSName CN_ActionType_Movie = COSName.constant("Movie");
-	public static final COSName CN_ActionType_Hide = COSName.constant("Hide");
-	public static final COSName CN_ActionType_ImportData = COSName
-			.constant("ImportData");
-	public static final COSName CN_ActionType_SetOCGState = COSName
-			.constant("SetOCGState");
-	public static final COSName CN_ActionType_Rendition = COSName
-			.constant("Rendition");
-	public static final COSName CN_ActionType_Trans = COSName.constant("Trans");
+    /**
+     * all currently undefined or not implemented action types
+     */
+    public static final COSName CN_ActionType_GoToE = COSName.constant("GoToE");
+    public static final COSName CN_ActionType_Thread = COSName.constant("Thread");
+    public static final COSName CN_ActionType_Sound = COSName.constant("Sound");
+    public static final COSName CN_ActionType_Movie = COSName.constant("Movie");
+    public static final COSName CN_ActionType_Hide = COSName.constant("Hide");
+    public static final COSName CN_ActionType_ImportData = COSName.constant("ImportData");
+    public static final COSName CN_ActionType_SetOCGState = COSName.constant("SetOCGState");
+    public static final COSName CN_ActionType_Rendition = COSName.constant("Rendition");
+    public static final COSName CN_ActionType_Trans = COSName.constant("Trans");
 
-	public static final COSName CN_ActionType_GoTo3DView = COSName
-			.constant("GoTo3DView");
-	// obsolete per 1.6
-	public static final COSName CN_ActionType_set_state = COSName
-			.constant("set-state");
+    public static final COSName CN_ActionType_GoTo3DView = COSName.constant("GoTo3DView");
+    // obsolete per 1.6
+    public static final COSName CN_ActionType_set_state = COSName.constant("set-state");
 
-	public static final COSName CN_ActionType_no_op = COSName.constant("no-op");
+    public static final COSName CN_ActionType_no_op = COSName.constant("no-op");
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	static public PDActionAny createNew(COSName actionType) {
-		PDActionAny result = (PDActionAny) PDActionAny.META.createNew();
-		result.cosSetActionType(actionType);
-		return result;
-	}
+    static public PDActionAny createNew(COSName actionType) {
+        PDActionAny result = (PDActionAny) PDActionAny.META.createNew();
+        result.cosSetActionType(actionType);
+        return result;
+    }
 
-	protected PDActionAny(COSObject object) {
-		super(object);
-	}
+    protected PDActionAny(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAction#cosGetExpectedActionType()
-	 */
-	@Override
-	public COSName cosGetExpectedActionType() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAction#cosGetExpectedActionType()
+     */
+    @Override
+    public COSName cosGetExpectedActionType() {
+        return null;
+    }
 
-	protected COSObject cosSetActionType(COSName newActionType) {
-		return cosSetField(DK_S, newActionType);
-	}
-
+    protected COSObject cosSetActionType(COSName newActionType) {
+        return cosSetField(DK_S, newActionType);
+    }
 }

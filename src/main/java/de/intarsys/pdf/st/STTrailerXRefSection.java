@@ -29,8 +29,6 @@
  */
 package de.intarsys.pdf.st;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.cos.COSTrailer;
@@ -38,79 +36,79 @@ import de.intarsys.pdf.crypt.ISystemSecurityHandler;
 import de.intarsys.pdf.parser.COSLoadException;
 import de.intarsys.pdf.writer.COSWriter;
 
+import java.io.IOException;
+
 /**
  * A section in a classical XRef.
  */
 public class STTrailerXRefSection extends STXRefSection {
-	private COSDictionary trailerDict;
+    private COSDictionary trailerDict;
 
-	private STStreamXRefSection xRefStream;
+    private STStreamXRefSection xRefStream;
 
-	public STTrailerXRefSection(STDocument doc) {
-		super(doc);
-		this.trailerDict = COSDictionary.create();
-	}
+    public STTrailerXRefSection(STDocument doc) {
+        super(doc);
+        this.trailerDict = COSDictionary.create();
+    }
 
-	public STTrailerXRefSection(STDocument doc, long offset) {
-		super(doc, offset);
-	}
+    public STTrailerXRefSection(STDocument doc, long offset) {
+        super(doc, offset);
+    }
 
-	@Override
-	public COSDictionary cosGetDict() {
-		return trailerDict;
-	}
+    @Override
+    public COSDictionary cosGetDict() {
+        return trailerDict;
+    }
 
-	@Override
-	public COSObject cosGetObject() {
-		return trailerDict;
-	}
+    @Override
+    public COSObject cosGetObject() {
+        return trailerDict;
+    }
 
-	public void cosSetDict(COSDictionary pTrailerDict) {
-		this.trailerDict = pTrailerDict;
-	}
+    public void cosSetDict(COSDictionary pTrailerDict) {
+        this.trailerDict = pTrailerDict;
+    }
 
-	@Override
-	public STXRefSection createSuccessor() {
-		STTrailerXRefSection newXRefSection = new STTrailerXRefSection(getDoc());
-		// we must copy everything from trailer dict as it may have changes
-		COSDictionary newTrailer = (COSDictionary) cosGetDict().copyShallow();
-		newTrailer.remove(COSTrailer.DK_Prev);
-		newTrailer.remove(STXRefSection.DK_XRefStm);
-		newXRefSection.cosSetDict(newTrailer);
-		newXRefSection.setPrevious(this);
-		return newXRefSection;
-	}
+    @Override
+    public STXRefSection createSuccessor() {
+        STTrailerXRefSection newXRefSection = new STTrailerXRefSection(getDoc());
+        // we must copy everything from trailer dict as it may have changes
+        COSDictionary newTrailer = (COSDictionary) cosGetDict().copyShallow();
+        newTrailer.remove(COSTrailer.DK_Prev);
+        newTrailer.remove(STXRefSection.DK_XRefStm);
+        newXRefSection.cosSetDict(newTrailer);
+        newXRefSection.setPrevious(this);
+        return newXRefSection;
+    }
 
-	@Override
-	public AbstractXRefWriter getWriter(COSWriter cosWriter) {
-		return new XRefTrailerWriter(cosWriter);
-	}
+    @Override
+    public AbstractXRefWriter getWriter(COSWriter cosWriter) {
+        return new XRefTrailerWriter(cosWriter);
+    }
 
-	public STStreamXRefSection getXRefStream() {
-		return xRefStream;
-	}
+    public STStreamXRefSection getXRefStream() {
+        return xRefStream;
+    }
 
-	@Override
-	protected boolean isStreamed() {
-		return false;
-	}
+    @Override
+    protected boolean isStreamed() {
+        return false;
+    }
 
-	@Override
-	public COSObject load(int objectNumber,
-			ISystemSecurityHandler securityHandler) throws IOException,
-			COSLoadException {
-		if (getXRefStream() != null) {
-			COSObject loaded = getXRefStream().load(objectNumber,
-					securityHandler);
-			if (loaded != null) {
-				return loaded;
-			}
-		}
-		return super.load(objectNumber, securityHandler);
-	}
+    @Override
+    public COSObject load(int objectNumber, ISystemSecurityHandler securityHandler)
+            throws IOException, COSLoadException {
+        if (getXRefStream() != null) {
+            COSObject loaded = getXRefStream().load(objectNumber, securityHandler);
+            if (loaded != null) {
+                return loaded;
+            }
+        }
+        return super.load(objectNumber, securityHandler);
+    }
 
-	public void setXRefStream(STStreamXRefSection xRefStream) {
-		this.xRefStream = xRefStream;
-		setXRefStmOffset(xRefStream.getOffset());
-	}
+    public void setXRefStream(STStreamXRefSection xRefStream) {
+        this.xRefStream = xRefStream;
+        setXRefStmOffset(xRefStream.getOffset());
+    }
 }

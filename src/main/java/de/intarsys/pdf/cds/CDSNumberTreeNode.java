@@ -36,17 +36,15 @@ import de.intarsys.pdf.cos.COSObject;
  * Implementation of the PDF number tree.
  * <p>
  * Not Yet done!!
- * 
  */
 public class CDSNumberTreeNode extends CDSTreeNode {
-	static public final COSName DK_Nums = COSName.constant("Nums"); //$NON-NLS-1$
+    static public final COSName DK_Nums = COSName.constant("Nums"); //$NON-NLS-1$
 
-	protected CDSNumberTreeNode(COSObject object) {
-		super(object);
-	}
+    protected CDSNumberTreeNode(COSObject object) {
+        super(object);
+    }
 
-	public boolean isLeaf() {
-		return cosGetDict().containsKey(DK_Nums);
-	}
-
+    public boolean isLeaf() {
+        return cosGetDict().containsKey(DK_Nums);
+    }
 }

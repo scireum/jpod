@@ -31,45 +31,44 @@ package de.intarsys.pdf.font;
 
 /**
  * A special map from a character code to a CID.
- * 
  */
 public class CMapCIDCharCodeMap extends CMapCharMap {
 
-	private final int destination;
+    private final int destination;
 
-	public CMapCIDCharCodeMap(byte[] source, int destination) {
-		super(source);
-		this.destination = destination;
-	}
+    public CMapCIDCharCodeMap(byte[] source, int destination) {
+        super(source);
+        this.destination = destination;
+    }
 
-	public int getDestination() {
-		return destination;
-	}
+    public int getDestination() {
+        return destination;
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		if (source == codepoint) {
-			return new char[] { (char) destination };
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        if (source == codepoint) {
+            return new char[]{(char) destination};
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		if (source == codepoint) {
-			return destination;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCID(int codepoint) {
+        if (source == codepoint) {
+            return destination;
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		if (destination == cid) {
-			return source;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCodepoint(int cid) {
+        if (destination == cid) {
+            return source;
+        } else {
+            return 0;
+        }
+    }
 }

@@ -29,36 +29,36 @@
  */
 package de.intarsys.pdf.filter;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSDictionary;
 
+import java.io.IOException;
+
 /**
- * 
+ *
  */
 public class DCTFilter extends Filter {
-	/**
-	 * 
-	 */
-	public DCTFilter(COSDictionary options) {
-		super(options);
-	}
+    /**
+     *
+     */
+    public DCTFilter(COSDictionary options) {
+        super(options);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
-	 */
-	protected byte[] encode(byte[] source) throws IOException {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
+     */
+    protected byte[] encode(byte[] source) throws IOException {
+        return null;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
-	 */
-	protected byte[] decode(byte[] source) throws IOException {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
+     */
+    protected byte[] decode(byte[] source) throws IOException {
+        return null;
+    }
 }

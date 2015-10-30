@@ -29,6 +29,9 @@
  */
 package de.intarsys.pdf.app.appearance;
 
+import de.intarsys.pdf.cos.COSName;
+import de.intarsys.tools.provider.ProviderTools;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -37,82 +40,71 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.intarsys.pdf.cos.COSName;
-import de.intarsys.tools.provider.ProviderTools;
-
 /**
  * A registry for the available {@link IAppearanceCreator} strategies. The
  * {@link IAppearanceCreator} is looked up by the annotation sub-type.
- * 
  */
-public class StandardAppearanceCreatorRegistry implements
-		IAppearanceCreatorRegistry {
-	private Map<COSName, IAppearanceCreator> instances = new HashMap<COSName, IAppearanceCreator>();
+public class StandardAppearanceCreatorRegistry implements IAppearanceCreatorRegistry {
+    private Map<COSName, IAppearanceCreator> instances = new HashMap<COSName, IAppearanceCreator>();
 
-	private boolean initialized = false;
+    private boolean initialized = false;
 
-	private boolean lookupProviders = true;
+    private boolean lookupProviders = true;
 
-	private static final Logger Log = Logger
-			.getLogger("de.intarsys.pdf.app.appearance");
+    private static final Logger Log = Logger.getLogger("de.intarsys.pdf.app.appearance");
 
-	protected StandardAppearanceCreatorRegistry() {
-		super();
-	}
+    protected StandardAppearanceCreatorRegistry() {
+        super();
+    }
 
-	protected IAppearanceCreator[] findProviders() {
-		List<IAppearanceCreator> result = new ArrayList<IAppearanceCreator>();
-		Iterator<IAppearanceCreator> ps = ProviderTools
-				.providers(IAppearanceCreator.class);
-		while (ps.hasNext()) {
-			try {
-				result.add(ps.next());
-			} catch (Throwable e) {
-				Log.log(Level.WARNING,
-						"can't load service provider (" + e.getMessage() + ")");
-			}
-		}
-		return result.toArray(new IAppearanceCreator[result.size()]);
-	}
+    protected IAppearanceCreator[] findProviders() {
+        List<IAppearanceCreator> result = new ArrayList<IAppearanceCreator>();
+        Iterator<IAppearanceCreator> ps = ProviderTools.providers(IAppearanceCreator.class);
+        while (ps.hasNext()) {
+            try {
+                result.add(ps.next());
+            } catch (Throwable e) {
+                Log.log(Level.WARNING, "can't load service provider (" + e.getMessage() + ")");
+            }
+        }
+        return result.toArray(new IAppearanceCreator[result.size()]);
+    }
 
-	synchronized public IAppearanceCreator[] getAppearanceCreators() {
-		init();
-		return instances.values().toArray(
-				new IAppearanceCreator[instances.size()]);
-	}
+    synchronized public IAppearanceCreator[] getAppearanceCreators() {
+        init();
+        return instances.values().toArray(new IAppearanceCreator[instances.size()]);
+    }
 
-	protected void init() {
-		if (!lookupProviders || initialized) {
-			return;
-		}
-		initialized = true;
-		IAppearanceCreator[] providers = findProviders();
-		for (int i = 0; i < providers.length; i++) {
-			IAppearanceCreator provider = providers[i];
-			registerAppearanceCreator(provider);
-		}
-	}
+    protected void init() {
+        if (!lookupProviders || initialized) {
+            return;
+        }
+        initialized = true;
+        IAppearanceCreator[] providers = findProviders();
+        for (int i = 0; i < providers.length; i++) {
+            IAppearanceCreator provider = providers[i];
+            registerAppearanceCreator(provider);
+        }
+    }
 
-	public boolean isLookupProviders() {
-		return lookupProviders;
-	}
+    public boolean isLookupProviders() {
+        return lookupProviders;
+    }
 
-	synchronized public IAppearanceCreator lookupAppearanceCreator(COSName type) {
-		init();
-		return instances.get(type);
-	}
+    synchronized public IAppearanceCreator lookupAppearanceCreator(COSName type) {
+        init();
+        return instances.get(type);
+    }
 
-	synchronized public void registerAppearanceCreator(
-			IAppearanceCreator creator) {
-		instances.put(creator.getAnnotationType(), creator);
-	}
+    synchronized public void registerAppearanceCreator(IAppearanceCreator creator) {
+        instances.put(creator.getAnnotationType(), creator);
+    }
 
-	public void setLookupProviders(boolean lookupProviders) {
-		this.lookupProviders = lookupProviders;
-	}
+    public void setLookupProviders(boolean lookupProviders) {
+        this.lookupProviders = lookupProviders;
+    }
 
-	synchronized public void unregisterAppearanceCreator(
-			IAppearanceCreator creator) {
-		instances.remove(creator.getAnnotationType());
-	}
+    synchronized public void unregisterAppearanceCreator(IAppearanceCreator creator) {
+        instances.remove(creator.getAnnotationType());
+    }
 }

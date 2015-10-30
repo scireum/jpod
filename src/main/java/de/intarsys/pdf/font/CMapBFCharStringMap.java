@@ -31,58 +31,57 @@ package de.intarsys.pdf.font;
 
 /**
  * A special map from a character code to a character code.
- * 
  */
 public class CMapBFCharStringMap extends CMapCharMap {
 
-	private final char[] chars;
+    private final char[] chars;
 
-	private final int last;
+    private final int last;
 
-	public CMapBFCharStringMap(byte[] source, byte[] destination) {
-		super(source);
-		this.chars = new char[destination.length >> 1];
-		int byteIndex = 0;
-		int charIndex = 0;
-		while (byteIndex < destination.length) {
-			this.chars[charIndex++] = (char) ((destination[byteIndex++] << 8) + destination[byteIndex++]);
-		}
-		this.last = this.chars.length - 1;
-	}
+    public CMapBFCharStringMap(byte[] source, byte[] destination) {
+        super(source);
+        this.chars = new char[destination.length >> 1];
+        int byteIndex = 0;
+        int charIndex = 0;
+        while (byteIndex < destination.length) {
+            this.chars[charIndex++] = (char) ((destination[byteIndex++] << 8) + destination[byteIndex++]);
+        }
+        this.last = this.chars.length - 1;
+    }
 
-	/**
-	 * The CID value for the codepoint.
-	 * 
-	 * @return The CID value for the codepoint.
-	 */
-	public int getDestination() {
-		return chars[last];
-	}
+    /**
+     * The CID value for the codepoint.
+     *
+     * @return The CID value for the codepoint.
+     */
+    public int getDestination() {
+        return chars[last];
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		if (source == codepoint) {
-			return chars;
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        if (source == codepoint) {
+            return chars;
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		if (source == codepoint) {
-			return chars[last];
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCID(int codepoint) {
+        if (source == codepoint) {
+            return chars[last];
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		if (chars[last] == cid) {
-			return source;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCodepoint(int cid) {
+        if (chars[last] == cid) {
+            return source;
+        } else {
+            return 0;
+        }
+    }
 }

@@ -29,7 +29,6 @@
  */
 package de.intarsys.pdf.postscript;
 
-
 public interface IOperator {
-	void execute(Handler handler) throws ParseException;
+    void execute(Handler handler) throws ParseException;
 }

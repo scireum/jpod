@@ -29,205 +29,203 @@
  */
 package de.intarsys.pdf.pd;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.cos.COSStream;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * The PDAppearance describes the visual content of a PDAnnotation.
  * <p>
  * The annotation supports different visual feedback dependent on the kind of
  * user interaction currently in effect.
- * 
+ * <p>
  * <code>
  * - Normal
  * - Down
  * - Rollover
  * </code>
- * 
+ * <p>
  * Additionaly, each of these appearances is supported for the different logical
  * states an annotation can enter (for example "On" and "Off" in a checkbox).
  * <p>
  * The PDForm objects responsible for this feedback are described here.
- * 
  */
 public class PDAppearance extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDAppearance(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDAppearance(object);
+        }
 
-		@Override
-		protected boolean isIndirect() {
-			return false;
-		}
-	}
+        @Override
+        protected boolean isIndirect() {
+            return false;
+        }
+    }
 
-	public static final COSName DK_D = COSName.constant("D");
+    public static final COSName DK_D = COSName.constant("D");
 
-	public static final COSName DK_N = COSName.constant("N");
+    public static final COSName DK_N = COSName.constant("N");
 
-	public static final COSName DK_R = COSName.constant("R");
+    public static final COSName DK_R = COSName.constant("R");
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDAppearance(COSObject object) {
-		super(object);
-	}
+    protected PDAppearance(COSObject object) {
+        super(object);
+    }
 
-	protected void collectAppearances(COSDictionary dict, List<PDForm> forms) {
-		for (Iterator i = dict.values().iterator(); i.hasNext();) {
-			COSObject entry = (COSObject) i.next();
-			if (entry.isNull()) {
-				continue;
-			}
-			if (entry instanceof COSStream) {
-				PDForm form = (PDForm) PDForm.META.createFromCos(entry);
-				if (form != null) {
-					forms.add(form);
-				}
-			}
-			if (entry instanceof COSDictionary) {
-				COSDictionary entryDict = (COSDictionary) entry;
-				collectAppearances(entryDict, forms);
-			}
-		}
-	}
+    protected void collectAppearances(COSDictionary dict, List<PDForm> forms) {
+        for (Iterator i = dict.values().iterator(); i.hasNext(); ) {
+            COSObject entry = (COSObject) i.next();
+            if (entry.isNull()) {
+                continue;
+            }
+            if (entry instanceof COSStream) {
+                PDForm form = (PDForm) PDForm.META.createFromCos(entry);
+                if (form != null) {
+                    forms.add(form);
+                }
+            }
+            if (entry instanceof COSDictionary) {
+                COSDictionary entryDict = (COSDictionary) entry;
+                collectAppearances(entryDict, forms);
+            }
+        }
+    }
 
-	/**
-	 * The {@link PDForm} for state <code>state</code>. <code>key</code> defines
-	 * the interaction context and is one of "/D", "/R" or "/N". If no
-	 * {@link PDForm} is available, return the {@link PDForm} for the "/N"
-	 * context.
-	 * 
-	 * @param key
-	 *            The interaction context
-	 * @param state
-	 *            The {@link PDAnnotation} state.
-	 * @return The {@link PDForm} for state <code>state</code>.
-	 */
-	public PDForm getAppearance(COSName key, COSName state) {
-		PDForm form = getForm(key, state);
-		if (form == null) {
-			form = getNormalAppearance(state);
-		}
-		return form;
-	}
+    /**
+     * The {@link PDForm} for state <code>state</code>. <code>key</code> defines
+     * the interaction context and is one of "/D", "/R" or "/N". If no
+     * {@link PDForm} is available, return the {@link PDForm} for the "/N"
+     * context.
+     *
+     * @param key   The interaction context
+     * @param state The {@link PDAnnotation} state.
+     * @return The {@link PDForm} for state <code>state</code>.
+     */
+    public PDForm getAppearance(COSName key, COSName state) {
+        PDForm form = getForm(key, state);
+        if (form == null) {
+            form = getNormalAppearance(state);
+        }
+        return form;
+    }
 
-	public PDForm getDownAppearance(COSName state) {
-		return getForm(DK_D, state);
-	}
+    public PDForm getDownAppearance(COSName state) {
+        return getForm(DK_D, state);
+    }
 
-	protected PDForm getForm(COSName key, COSName state) {
-		COSObject cosObject = cosGetField(key);
-		if (cosObject.isNull()) {
-			return null;
-		}
-		if (cosObject instanceof COSStream) {
-			return (PDForm) PDForm.META.createFromCos(cosObject);
-		}
-		if (cosObject instanceof COSDictionary && (state != null)) {
-			COSDictionary dict = (COSDictionary) cosObject;
-			COSStream stream = dict.get(state).asStream();
-			return (PDForm) PDForm.META.createFromCos(stream);
-		}
-		return null;
-	}
+    protected PDForm getForm(COSName key, COSName state) {
+        COSObject cosObject = cosGetField(key);
+        if (cosObject.isNull()) {
+            return null;
+        }
+        if (cosObject instanceof COSStream) {
+            return (PDForm) PDForm.META.createFromCos(cosObject);
+        }
+        if (cosObject instanceof COSDictionary && (state != null)) {
+            COSDictionary dict = (COSDictionary) cosObject;
+            COSStream stream = dict.get(state).asStream();
+            return (PDForm) PDForm.META.createFromCos(stream);
+        }
+        return null;
+    }
 
-	/**
-	 * Collects all appearance forms within this annotation dictionary.
-	 * 
-	 * @return The appearance forms.
-	 */
-	public List<PDForm> getForms() {
-		List<PDForm> forms = new ArrayList<PDForm>();
-		collectAppearances(cosGetDict(), forms);
-		return forms;
-	}
+    /**
+     * Collects all appearance forms within this annotation dictionary.
+     *
+     * @return The appearance forms.
+     */
+    public List<PDForm> getForms() {
+        List<PDForm> forms = new ArrayList<PDForm>();
+        collectAppearances(cosGetDict(), forms);
+        return forms;
+    }
 
-	public PDForm getNormalAppearance(COSName state) {
-		return getForm(DK_N, state);
-	}
+    public PDForm getNormalAppearance(COSName state) {
+        return getForm(DK_N, state);
+    }
 
-	public PDForm getRolloverAppearance(COSName state) {
-		return getForm(DK_R, state);
-	}
+    public PDForm getRolloverAppearance(COSName state) {
+        return getForm(DK_R, state);
+    }
 
-	/**
-	 * <code>true</code> if this appearance dictionary has valid contents. From
-	 * time to time there may be an empty /AP stub around, in this case this
-	 * method returns false.
-	 * 
-	 * @return <code>true</code> if this appearance dictionary has valid
-	 *         contents.
-	 */
-	public boolean isDefined() {
-		return getNormalAppearance(null) != null;
-	}
+    /**
+     * <code>true</code> if this appearance dictionary has valid contents. From
+     * time to time there may be an empty /AP stub around, in this case this
+     * method returns false.
+     *
+     * @return <code>true</code> if this appearance dictionary has valid
+     * contents.
+     */
+    public boolean isDefined() {
+        return getNormalAppearance(null) != null;
+    }
 
-	/**
-	 * <code>true</code> if this appearance dictionary has valid contents for
-	 * the requested rendering context and appearance state.
-	 * 
-	 * @return <code>true</code> if this appearance dictionary has valid
-	 *         contents for the requested rendering context and appearance
-	 *         state.
-	 */
-	public boolean isDefined(COSName key, COSName state) {
-		PDForm form = getForm(key, state);
-		if (form == null) {
-			form = getNormalAppearance(state);
-		}
-		return form != null;
-	}
+    /**
+     * <code>true</code> if this appearance dictionary has valid contents for
+     * the requested rendering context and appearance state.
+     *
+     * @return <code>true</code> if this appearance dictionary has valid
+     * contents for the requested rendering context and appearance
+     * state.
+     */
+    public boolean isDefined(COSName key, COSName state) {
+        PDForm form = getForm(key, state);
+        if (form == null) {
+            form = getNormalAppearance(state);
+        }
+        return form != null;
+    }
 
-	public void setDownAppearance(COSName state, PDForm form) {
-		setForm(DK_D, state, form);
-	}
+    public void setDownAppearance(COSName state, PDForm form) {
+        setForm(DK_D, state, form);
+    }
 
-	protected void setForm(COSName key, COSName state, PDForm form) {
-		COSObject cosObject = cosGetField(key);
-		if (state == null) {
-			if (form != null) {
-				cosSetField(key, form.cosGetStream());
-			} else {
-				cosRemoveField(key);
-			}
-		} else {
-			if (!(cosObject instanceof COSDictionary)) {
-				cosObject = COSDictionary.create();
-				cosSetField(key, cosObject);
-			}
-			COSDictionary dict = (COSDictionary) cosObject;
-			if (form != null) {
-				dict.put(state, form.cosGetStream());
-			} else {
-				dict.remove(state);
-			}
-		}
-	}
+    protected void setForm(COSName key, COSName state, PDForm form) {
+        COSObject cosObject = cosGetField(key);
+        if (state == null) {
+            if (form != null) {
+                cosSetField(key, form.cosGetStream());
+            } else {
+                cosRemoveField(key);
+            }
+        } else {
+            if (!(cosObject instanceof COSDictionary)) {
+                cosObject = COSDictionary.create();
+                cosSetField(key, cosObject);
+            }
+            COSDictionary dict = (COSDictionary) cosObject;
+            if (form != null) {
+                dict.put(state, form.cosGetStream());
+            } else {
+                dict.remove(state);
+            }
+        }
+    }
 
-	public void setNormalAppearance(COSName state, PDForm form) {
-		setForm(DK_N, state, form);
-	}
+    public void setNormalAppearance(COSName state, PDForm form) {
+        setForm(DK_N, state, form);
+    }
 
-	public void setRolloverAppearance(COSName state, PDForm form) {
-		setForm(DK_R, state, form);
-	}
+    public void setRolloverAppearance(COSName state, PDForm form) {
+        setForm(DK_R, state, form);
+    }
 }

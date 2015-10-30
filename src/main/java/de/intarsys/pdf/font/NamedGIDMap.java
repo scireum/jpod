@@ -33,36 +33,37 @@ package de.intarsys.pdf.font;
  * A named mapping from CID to glyph indices.
  */
 public class NamedGIDMap extends CIDToGIDMap {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends CIDToGIDMap.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
-	}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends CIDToGIDMap.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
+    }
 
-	public static NamedGIDMap SINGLETON = new NamedGIDMap();
+    public static NamedGIDMap SINGLETON = new NamedGIDMap();
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/**
-	 * @param object
-	 */
-	protected NamedGIDMap() {
-		super(null);
-	}
+    /**
+     * @param object
+     */
+    protected NamedGIDMap() {
+        super(null);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * de.intarsys.pdf.font.CIDToGIDMap#getGlyphIndex(de.intarsys.pdf.font.CID)
-	 */
-	@Override
-	public int getGlyphIndex(CharacterSelector cid) {
-		return cid.getValue();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * de.intarsys.pdf.font.CIDToGIDMap#getGlyphIndex(de.intarsys.pdf.font.CID)
+     */
+    @Override
+    public int getGlyphIndex(CharacterSelector cid) {
+        return cid.getValue();
+    }
 }

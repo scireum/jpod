@@ -33,47 +33,41 @@ import de.intarsys.pdf.cos.COSName;
 
 /**
  * A registry for {@link IAnnotationFactory} objects.
- * 
+ * <p>
  * <p>
  * The registry is used to look up the {@link IAnnotationFactory} via type
  * names.
  * </p>
  */
 public interface IAnnotationOutlet {
-	/**
-	 * The list of all available {@link IAnnotationFactory} objects. This is not
-	 * the internal data structure, so you can not manipulate directly.
-	 * 
-	 * 
-	 * @return The list of all available {@link IAnnotationFactory} instances.
-	 */
-	public IAnnotationFactory[] getAnnotationFactories();
+    /**
+     * The list of all available {@link IAnnotationFactory} objects. This is not
+     * the internal data structure, so you can not manipulate directly.
+     *
+     * @return The list of all available {@link IAnnotationFactory} instances.
+     */
+    public IAnnotationFactory[] getAnnotationFactories();
 
-	/**
-	 * The {@link IAnnotationFactory} for the requested annotation type or null.
-	 * 
-	 * @param type
-	 *            An annotation type.
-	 * 
-	 * @return The {@link IAnnotationFactory} for the requested annotation type
-	 *         or null.
-	 */
-	public IAnnotationFactory lookupAnnotationFactory(COSName type);
+    /**
+     * The {@link IAnnotationFactory} for the requested annotation type or null.
+     *
+     * @param type An annotation type.
+     * @return The {@link IAnnotationFactory} for the requested annotation type
+     * or null.
+     */
+    public IAnnotationFactory lookupAnnotationFactory(COSName type);
 
-	/**
-	 * Register a new {@link IAnnotationFactory} object.
-	 * 
-	 * @param factory
-	 *            The factory object to be registered.
-	 */
-	public void registerAnnotationFactory(IAnnotationFactory factory);
+    /**
+     * Register a new {@link IAnnotationFactory} object.
+     *
+     * @param factory The factory object to be registered.
+     */
+    public void registerAnnotationFactory(IAnnotationFactory factory);
 
-	/**
-	 * Unregister a {@link IAnnotationFactory} object.
-	 * 
-	 * @param factory
-	 *            The factory object to be deregistered.
-	 */
-	public void unregisterAnnotationFactory(IAnnotationFactory factory);
-
+    /**
+     * Unregister a {@link IAnnotationFactory} object.
+     *
+     * @param factory The factory object to be deregistered.
+     */
+    public void unregisterAnnotationFactory(IAnnotationFactory factory);
 }

@@ -31,22 +31,16 @@ package de.intarsys.pdf.cos;
 
 /**
  * A listener for changes in a {@link COSDocument}.
- * 
  */
 public interface ICOSDocumentListener {
-	/**
-	 * A COSDocument has changed its internal state.
-	 * 
-	 * @param document
-	 *            The document that has changed
-	 * @param slot
-	 *            The slot in the object that has changed (or null for
-	 *            unspecified change).
-	 * @param oldValue
-	 *            The old value of the slot if known.
-	 * @param newValue
-	 *            The new value of the slot if known.
-	 */
-	public void changed(COSDocument document, Object slot, Object oldValue,
-			Object newValue);
+    /**
+     * A COSDocument has changed its internal state.
+     *
+     * @param document The document that has changed
+     * @param slot     The slot in the object that has changed (or null for
+     *                 unspecified change).
+     * @param oldValue The old value of the slot if known.
+     * @param newValue The new value of the slot if known.
+     */
+    public void changed(COSDocument document, Object slot, Object oldValue, Object newValue);
 }

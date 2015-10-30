@@ -39,332 +39,331 @@ import de.intarsys.pdf.pd.PDObject;
  * the detail information about a font.
  */
 abstract public class PDFontDescriptor extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		public Class getRootClass() {
-			return PDFontDescriptor.class;
-		}
-	}
+        @Override
+        public Class getRootClass() {
+            return PDFontDescriptor.class;
+        }
+    }
 
-	static public final COSName CN_Type_FontDescriptor = COSName
-			.constant("FontDescriptor"); //$NON-NLS-1$
+    static public final COSName CN_Type_FontDescriptor = COSName.constant("FontDescriptor"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
-	private FontDescriptorFlags flags = new FontDescriptorFlags(this);
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
+    private FontDescriptorFlags flags = new FontDescriptorFlags(this);
 
-	protected PDFontDescriptor(COSObject object) {
-		super(object);
-	}
+    protected PDFontDescriptor(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
-	 */
-	@Override
-	protected COSName cosGetExpectedType() {
-		return CN_Type_FontDescriptor;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
+     */
+    @Override
+    protected COSName cosGetExpectedType() {
+        return CN_Type_FontDescriptor;
+    }
 
-	public COSStream cosGetFontFile() {
-		return null;
-	}
+    public COSStream cosGetFontFile() {
+        return null;
+    }
 
-	public COSStream cosGetFontFile2() {
-		return null;
-	}
+    public COSStream cosGetFontFile2() {
+        return null;
+    }
 
-	public COSStream cosGetFontFile3() {
-		return null;
-	}
+    public COSStream cosGetFontFile3() {
+        return null;
+    }
 
-	/**
-	 * The font ascent.
-	 * 
-	 * @return The font ascent.
-	 */
-	abstract public float getAscent();
+    /**
+     * The font ascent.
+     *
+     * @return The font ascent.
+     */
+    abstract public float getAscent();
 
-	/**
-	 * The font average width.
-	 * 
-	 * @return The font average width.
-	 */
-	abstract public float getAvgWidth();
+    /**
+     * The font average width.
+     *
+     * @return The font average width.
+     */
+    abstract public float getAvgWidth();
 
-	/**
-	 * The font capital height.
-	 * 
-	 * @return The capital height.
-	 */
-	abstract public float getCapHeight();
+    /**
+     * The font capital height.
+     *
+     * @return The capital height.
+     */
+    abstract public float getCapHeight();
 
-	abstract public String getCharSet();
+    abstract public String getCharSet();
 
-	/**
-	 * The font descent.
-	 * 
-	 * @return The font descent.
-	 */
-	abstract public float getDescent();
+    /**
+     * The font descent.
+     *
+     * @return The font descent.
+     */
+    abstract public float getDescent();
 
-	public FontDescriptorFlags getFlags() {
-		return flags;
-	}
+    public FontDescriptorFlags getFlags() {
+        return flags;
+    }
 
-	/**
-	 * The font flags.
-	 * 
-	 * @return The font flags.
-	 */
-	abstract public int getFlagsValue();
+    /**
+     * The font flags.
+     *
+     * @return The font flags.
+     */
+    abstract public int getFlagsValue();
 
-	/**
-	 * The character enclosing rectangle.
-	 * 
-	 * @return The character enclosing rectangle.
-	 */
-	abstract public CDSRectangle getFontBB();
+    /**
+     * The character enclosing rectangle.
+     *
+     * @return The character enclosing rectangle.
+     */
+    abstract public CDSRectangle getFontBB();
 
-	/**
-	 * The font family name.
-	 * 
-	 * @return The font name.
-	 */
-	abstract public String getFontFamily();
+    /**
+     * The font family name.
+     *
+     * @return The font name.
+     */
+    abstract public String getFontFamily();
 
-	/**
-	 * The data making up a Type1 font program.
-	 * 
-	 * @return The data making up a Type1 font program.
-	 */
-	public byte[] getFontFile() {
-		return null;
-	}
+    /**
+     * The data making up a Type1 font program.
+     *
+     * @return The data making up a Type1 font program.
+     */
+    public byte[] getFontFile() {
+        return null;
+    }
 
-	/**
-	 * The data making up a TrueType font program
-	 * 
-	 * @return The data making up a TrueType font program
-	 */
-	public byte[] getFontFile2() {
-		return null;
-	}
+    /**
+     * The data making up a TrueType font program
+     *
+     * @return The data making up a TrueType font program
+     */
+    public byte[] getFontFile2() {
+        return null;
+    }
 
-	/**
-	 * data for a font type specified in the /Subtpye entry of the stream
-	 * dictionary.
-	 * 
-	 * @return data for a font type specified in the /Subtpye entry of the
-	 *         stream dictionary.
-	 * 
-	 */
-	public byte[] getFontFile3() {
-		return null;
-	}
+    /**
+     * data for a font type specified in the /Subtpye entry of the stream
+     * dictionary.
+     *
+     * @return data for a font type specified in the /Subtpye entry of the
+     * stream dictionary.
+     */
+    public byte[] getFontFile3() {
+        return null;
+    }
 
-	/**
-	 * The font name.
-	 * 
-	 * @return The font name.
-	 */
-	abstract public String getFontName();
+    /**
+     * The font name.
+     *
+     * @return The font name.
+     */
+    abstract public String getFontName();
 
-	/**
-	 * The font stretch value, one of
-	 * <ul>
-	 * <li>UltraCondensed</li>
-	 * <li>ExtraCondensed</li>
-	 * <li>Condensed</li>
-	 * <li>SemiCondensed</li>
-	 * <li>Normal</li>
-	 * <li>SemiExpanded</li>
-	 * <li>Expanded</li>
-	 * <li>ExtraExpanded</li>
-	 * <li>UltraExpanded</li>
-	 * </ul>
-	 * 
-	 * @return The font stretch value
-	 */
-	abstract public String getFontStretch();
+    /**
+     * The font stretch value, one of
+     * <ul>
+     * <li>UltraCondensed</li>
+     * <li>ExtraCondensed</li>
+     * <li>Condensed</li>
+     * <li>SemiCondensed</li>
+     * <li>Normal</li>
+     * <li>SemiExpanded</li>
+     * <li>Expanded</li>
+     * <li>ExtraExpanded</li>
+     * <li>UltraExpanded</li>
+     * </ul>
+     *
+     * @return The font stretch value
+     */
+    abstract public String getFontStretch();
 
-	/**
-	 * The font weight value, one of
-	 * <ul>
-	 * <li>100</li>
-	 * <li>200</li>
-	 * <li>300</li>
-	 * <li>400 (normal)</li>
-	 * <li>500</li>
-	 * <li>600</li>
-	 * <li>700 (bold)</li>
-	 * <li>800</li>
-	 * <li>900</li>
-	 * </ul>
-	 * 
-	 * @return The font stretch value
-	 */
-	abstract public int getFontWeight();
+    /**
+     * The font weight value, one of
+     * <ul>
+     * <li>100</li>
+     * <li>200</li>
+     * <li>300</li>
+     * <li>400 (normal)</li>
+     * <li>500</li>
+     * <li>600</li>
+     * <li>700 (bold)</li>
+     * <li>800</li>
+     * <li>900</li>
+     * </ul>
+     *
+     * @return The font stretch value
+     */
+    abstract public int getFontWeight();
 
-	/**
-	 * The font italic angle.
-	 * 
-	 * @return The font italic angle.
-	 */
-	abstract public float getItalicAngle();
+    /**
+     * The font italic angle.
+     *
+     * @return The font italic angle.
+     */
+    abstract public float getItalicAngle();
 
-	/**
-	 * The font leading.
-	 * 
-	 * @return The font leading.
-	 */
-	abstract public int getLeading();
+    /**
+     * The font leading.
+     *
+     * @return The font leading.
+     */
+    abstract public int getLeading();
 
-	/**
-	 * The font character maximal width.
-	 * 
-	 * @return The font character maximal width.
-	 */
-	abstract public int getMaxWidth();
+    /**
+     * The font character maximal width.
+     *
+     * @return The font character maximal width.
+     */
+    abstract public int getMaxWidth();
 
-	/**
-	 * The width to use when definition is missing.
-	 * 
-	 * @return The width to use when definition is missing.
-	 */
-	abstract public int getMissingWidth();
+    /**
+     * The width to use when definition is missing.
+     *
+     * @return The width to use when definition is missing.
+     */
+    abstract public int getMissingWidth();
 
-	/**
-	 * The font horizontal stem.
-	 * 
-	 * @return The font horizontal stem.
-	 */
-	abstract public int getStemH();
+    /**
+     * The font horizontal stem.
+     *
+     * @return The font horizontal stem.
+     */
+    abstract public int getStemH();
 
-	/**
-	 * The font vertical stem.
-	 * 
-	 * @return The font vertical stem.
-	 */
-	abstract public int getStemV();
+    /**
+     * The font vertical stem.
+     *
+     * @return The font vertical stem.
+     */
+    abstract public int getStemV();
 
-	/**
-	 * The height of "X".
-	 * 
-	 * @return The height of "X".
-	 */
-	abstract public float getXHeight();
+    /**
+     * The height of "X".
+     *
+     * @return The height of "X".
+     */
+    abstract public float getXHeight();
 
-	public boolean isAllCap() {
-		return flags.isAllCap();
-	}
+    public boolean isAllCap() {
+        return flags.isAllCap();
+    }
 
-	public boolean isBuiltin() {
-		return false;
-	}
+    public boolean isBuiltin() {
+        return false;
+    }
 
-	public boolean isFixedPitch() {
-		return flags.isFixedPitch();
-	}
+    public boolean isFixedPitch() {
+        return flags.isFixedPitch();
+    }
 
-	public boolean isForceBold() {
-		return flags.isForceBold();
-	}
+    public boolean isForceBold() {
+        return flags.isForceBold();
+    }
 
-	public boolean isItalic() {
-		return flags.isItalic();
-	}
+    public boolean isItalic() {
+        return flags.isItalic();
+    }
 
-	public boolean isNonsymbolic() {
-		return flags.isNonsymbolic();
-	}
+    public boolean isNonsymbolic() {
+        return flags.isNonsymbolic();
+    }
 
-	public boolean isScript() {
-		return flags.isScript();
-	}
+    public boolean isScript() {
+        return flags.isScript();
+    }
 
-	public boolean isSerif() {
-		return flags.isSerif();
-	}
+    public boolean isSerif() {
+        return flags.isSerif();
+    }
 
-	public boolean isSmallCap() {
-		return flags.isSmallCap();
-	}
+    public boolean isSmallCap() {
+        return flags.isSmallCap();
+    }
 
-	public boolean isSymbolic() {
-		return flags.isSymbolic();
-	}
+    public boolean isSymbolic() {
+        return flags.isSymbolic();
+    }
 
-	public void setAllCap(boolean flag) {
-		flags.setAllCap(flag);
-	}
+    public void setAllCap(boolean flag) {
+        flags.setAllCap(flag);
+    }
 
-	abstract public void setCharSet(String charset);
+    abstract public void setCharSet(String charset);
 
-	public void setFixedPitch(boolean flag) {
-		flags.setFixedPitch(flag);
-	}
+    public void setFixedPitch(boolean flag) {
+        flags.setFixedPitch(flag);
+    }
 
-	abstract public void setFlagsValue(int value);
+    abstract public void setFlagsValue(int value);
 
-	public void setFontFamily(String value) {
-		//
-	}
+    public void setFontFamily(String value) {
+        //
+    }
 
-	public void setFontFile(byte[] data) {
-		//
-	}
+    public void setFontFile(byte[] data) {
+        //
+    }
 
-	public void setFontFile2(byte[] data) {
-		//
-	}
+    public void setFontFile2(byte[] data) {
+        //
+    }
 
-	public void setFontFile3(byte[] data) {
-		//
-	}
+    public void setFontFile3(byte[] data) {
+        //
+    }
 
-	public void setFontName(String value) {
-		//
-	}
+    public void setFontName(String value) {
+        //
+    }
 
-	abstract public void setFontStretch(String stretch);
+    abstract public void setFontStretch(String stretch);
 
-	abstract public void setFontWeight(int weight);
+    abstract public void setFontWeight(int weight);
 
-	public void setForceBold(boolean flag) {
-		flags.setForceBold(flag);
-	}
+    public void setForceBold(boolean flag) {
+        flags.setForceBold(flag);
+    }
 
-	public void setItalic(boolean flag) {
-		flags.setItalic(flag);
-	}
+    public void setItalic(boolean flag) {
+        flags.setItalic(flag);
+    }
 
-	public void setNonsymbolic(boolean flag) {
-		flags.setNonsymbolic(flag);
-	}
+    public void setNonsymbolic(boolean flag) {
+        flags.setNonsymbolic(flag);
+    }
 
-	public void setScript(boolean flag) {
-		flags.setScript(flag);
-	}
+    public void setScript(boolean flag) {
+        flags.setScript(flag);
+    }
 
-	public void setSerif(boolean flag) {
-		flags.setSerif(flag);
-	}
+    public void setSerif(boolean flag) {
+        flags.setSerif(flag);
+    }
 
-	public void setSmallCap(boolean flag) {
-		flags.setSmallCap(flag);
-	}
+    public void setSmallCap(boolean flag) {
+        flags.setSmallCap(flag);
+    }
 
-	public void setSymbolic(boolean flag) {
-		flags.setSymbolic(flag);
-	}
+    public void setSymbolic(boolean flag) {
+        flags.setSymbolic(flag);
+    }
 }

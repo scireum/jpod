@@ -36,16 +36,15 @@ import de.intarsys.pdf.pd.PDDocument;
  * {@link PDDocument}.
  */
 public interface IFontOutlet {
-	/**
-	 * A {@link IFontFactory} suitable for <code>doc</code>.
-	 * <p>
-	 * The result {@link IFontFactory} should try to reuse fonts already
-	 * available in the document before it creates new ones.
-	 * 
-	 * @param doc
-	 *            The document that serves as the context and container for the
-	 *            result fonts of the {@link IFontFactory}.
-	 * @return A {@link IFontFactory} suitable for <code>doc</code>.
-	 */
-	public IFontFactory lookupFontFactory(PDDocument doc);
+    /**
+     * A {@link IFontFactory} suitable for <code>doc</code>.
+     * <p>
+     * The result {@link IFontFactory} should try to reuse fonts already
+     * available in the document before it creates new ones.
+     *
+     * @param doc The document that serves as the context and container for the
+     *            result fonts of the {@link IFontFactory}.
+     * @return A {@link IFontFactory} suitable for <code>doc</code>.
+     */
+    public IFontFactory lookupFontFactory(PDDocument doc);
 }

@@ -29,30 +29,28 @@
  */
 package de.intarsys.pdf.filter;
 
+import de.intarsys.pdf.cos.COSDictionary;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import de.intarsys.pdf.cos.COSDictionary;
-
 /**
- * 
+ *
  */
 public class ASCII85Filter extends StreamBasedFilter {
-	/**
-	 * 
-	 */
-	public ASCII85Filter(COSDictionary options) {
-		super(options);
-	}
+    /**
+     *
+     */
+    public ASCII85Filter(COSDictionary options) {
+        super(options);
+    }
 
-	protected InputStream createInputFilterStream(InputStream is)
-			throws IOException {
-		return new ASCII85InputStream(is);
-	}
+    protected InputStream createInputFilterStream(InputStream is) throws IOException {
+        return new ASCII85InputStream(is);
+    }
 
-	protected OutputStream createOutputFilterStream(OutputStream os)
-			throws IOException {
-		return new ASCII85OutputStream(os);
-	}
+    protected OutputStream createOutputFilterStream(OutputStream os) throws IOException {
+        return new ASCII85OutputStream(os);
+    }
 }

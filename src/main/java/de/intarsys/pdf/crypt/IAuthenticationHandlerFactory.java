@@ -29,7 +29,6 @@
  */
 package de.intarsys.pdf.crypt;
 
-
 /**
  * A factory for {@link IAuthenticationHandler} instances.
  * <p>
@@ -38,16 +37,13 @@ package de.intarsys.pdf.crypt;
  */
 public interface IAuthenticationHandlerFactory {
 
-	/**
-	 * Create an {@link IAuthenticationHandler} for the {@link ISecurityHandler}.
-	 * 
-	 * @param securityHandler
-	 *            The {@link ISecurityHandler} looking for an
-	 *            {@link IAuthenticationHandler}.
-	 * @return The {@link IAuthenticationHandler} to be used for the
-	 *         {@link ISecurityHandler}
-	 */
-	public IAuthenticationHandler createAuthenticationHandler(
-			ISecurityHandler securityHandler);
-
+    /**
+     * Create an {@link IAuthenticationHandler} for the {@link ISecurityHandler}.
+     *
+     * @param securityHandler The {@link ISecurityHandler} looking for an
+     *                        {@link IAuthenticationHandler}.
+     * @return The {@link IAuthenticationHandler} to be used for the
+     * {@link ISecurityHandler}
+     */
+    public IAuthenticationHandler createAuthenticationHandler(ISecurityHandler securityHandler);
 }

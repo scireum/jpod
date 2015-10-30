@@ -38,41 +38,42 @@ import de.intarsys.pdf.cos.COSObject;
  * CID's to glyph indices. This mapping is valid only for embedded fonts.
  */
 public abstract class CIDToGIDMap extends COSBasedObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends COSBasedObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends COSBasedObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			if (object instanceof COSName) {
-				return getSingleton((COSName) object);
-			} else {
-				return new StreamBasedGIDMap(object);
-			}
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            if (object instanceof COSName) {
+                return getSingleton((COSName) object);
+            } else {
+                return new StreamBasedGIDMap(object);
+            }
+        }
+    }
 
-	public static final COSName CN_Identity = COSName.constant("Identity");
+    public static final COSName CN_Identity = COSName.constant("Identity");
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static CIDToGIDMap getSingleton(COSName name) {
-		if (name.equals(CN_Identity)) {
-			return NamedGIDMap.SINGLETON;
-		} else {
-			return null;
-		}
-	}
+    public static CIDToGIDMap getSingleton(COSName name) {
+        if (name.equals(CN_Identity)) {
+            return NamedGIDMap.SINGLETON;
+        } else {
+            return null;
+        }
+    }
 
-	protected CIDToGIDMap(COSObject object) {
-		super(object);
-	}
+    protected CIDToGIDMap(COSObject object) {
+        super(object);
+    }
 
-	abstract public int getGlyphIndex(CharacterSelector cid);
+    abstract public int getGlyphIndex(CharacterSelector cid);
 }

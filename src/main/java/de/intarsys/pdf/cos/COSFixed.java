@@ -33,186 +33,182 @@ package de.intarsys.pdf.cos;
  * Represents floating point numbers in pdf.
  */
 public class COSFixed extends COSNumber {
-	static public final int DEFAULT_PRECISION = 5;
+    static public final int DEFAULT_PRECISION = 5;
 
-	static public COSFixed create(byte[] bytes, int start, int length) {
-		long result = 0;
-		long decimal = 1;
-		int end = start + length;
-		boolean negative = false;
-		boolean point = false;
-		int precision = 0;
-		int i = start;
-		byte prefix = bytes[i];
-		if (prefix == '+') {
-			i++;
-		} else if (prefix == '-') {
-			negative = true;
-			i++;
-		}
-		for (; i < end; i++) {
-			byte digit = bytes[i];
-			if (digit == '.') {
-				point = true;
-			} else {
-				result = ((result * 10) + digit) - '0';
-				if (point) {
-					decimal = decimal * 10;
-					precision++;
-				}
-			}
-		}
-		if (negative) {
-			return new COSFixed(-(float) ((double) result / (double) decimal),
-					precision);
-		}
-		return new COSFixed((float) ((double) result / (double) decimal),
-				precision);
-	}
+    static public COSFixed create(byte[] bytes, int start, int length) {
+        long result = 0;
+        long decimal = 1;
+        int end = start + length;
+        boolean negative = false;
+        boolean point = false;
+        int precision = 0;
+        int i = start;
+        byte prefix = bytes[i];
+        if (prefix == '+') {
+            i++;
+        } else if (prefix == '-') {
+            negative = true;
+            i++;
+        }
+        for (; i < end; i++) {
+            byte digit = bytes[i];
+            if (digit == '.') {
+                point = true;
+            } else {
+                result = ((result * 10) + digit) - '0';
+                if (point) {
+                    decimal = decimal * 10;
+                    precision++;
+                }
+            }
+        }
+        if (negative) {
+            return new COSFixed(-(float) ((double) result / (double) decimal), precision);
+        }
+        return new COSFixed((float) ((double) result / (double) decimal), precision);
+    }
 
-	static public COSFixed create(double value) {
-		return new COSFixed((float) value, DEFAULT_PRECISION);
-	}
+    static public COSFixed create(double value) {
+        return new COSFixed((float) value, DEFAULT_PRECISION);
+    }
 
-	static public COSFixed create(double value, int precision) {
-		return new COSFixed((float) value, precision);
-	}
+    static public COSFixed create(double value, int precision) {
+        return new COSFixed((float) value, precision);
+    }
 
-	static public COSFixed create(float value) {
-		return new COSFixed(value, DEFAULT_PRECISION);
-	}
+    static public COSFixed create(float value) {
+        return new COSFixed(value, DEFAULT_PRECISION);
+    }
 
-	static public COSFixed create(float value, int precision) {
-		return new COSFixed(value, precision);
-	}
+    static public COSFixed create(float value, int precision) {
+        return new COSFixed(value, precision);
+    }
 
-	private final float floatValue;
+    private final float floatValue;
 
-	private byte precision;
+    private byte precision;
 
-	protected COSFixed(float value, int precision) {
-		this.floatValue = value;
-		this.precision = (byte) precision;
-	}
+    protected COSFixed(float value, int precision) {
+        this.floatValue = value;
+        this.precision = (byte) precision;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
-	 */
-	@Override
-	public java.lang.Object accept(ICOSObjectVisitor visitor)
-			throws COSVisitorException {
-		return visitor.visitFromFixed(this);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
+     */
+    @Override
+    public java.lang.Object accept(ICOSObjectVisitor visitor) throws COSVisitorException {
+        return visitor.visitFromFixed(this);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#asFixed()
-	 */
-	@Override
-	public COSFixed asFixed() {
-		return this;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#asFixed()
+     */
+    @Override
+    public COSFixed asFixed() {
+        return this;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#basicToString()
-	 */
-	@Override
-	protected String basicToString() {
-		return String.valueOf(floatValue);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#basicToString()
+     */
+    @Override
+    protected String basicToString() {
+        return String.valueOf(floatValue);
+    }
 
-	@Override
-	protected COSObject copyBasic() {
-		return new COSFixed(floatValue, precision);
-	}
+    @Override
+    protected COSObject copyBasic() {
+        return new COSFixed(floatValue, precision);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof COSFixed)) {
-			return false;
-		}
-		return floatValue == ((COSFixed) o).floatValue;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof COSFixed)) {
+            return false;
+        }
+        return floatValue == ((COSFixed) o).floatValue;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSNumber#floatValue()
-	 */
-	@Override
-	public float floatValue() {
-		return floatValue;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSNumber#floatValue()
+     */
+    @Override
+    public float floatValue() {
+        return floatValue;
+    }
 
-	/**
-	 * The precision (digits after period) for this.
-	 * 
-	 * @return The precision (digits after period) for this.
-	 */
-	public int getPrecision() {
-		return precision;
-	}
+    /**
+     * The precision (digits after period) for this.
+     *
+     * @return The precision (digits after period) for this.
+     */
+    public int getPrecision() {
+        return precision;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return Float.floatToIntBits(floatValue);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return Float.floatToIntBits(floatValue);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSNumber#intValue()
-	 */
-	@Override
-	public int intValue() {
-		return (int) floatValue;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSNumber#intValue()
+     */
+    @Override
+    public int intValue() {
+        return (int) floatValue;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#restoreState(java.lang.Object)
-	 */
-	@Override
-	public void restoreState(Object object) {
-		super.restoreState(object);
-		COSFixed fixed = (COSFixed) object;
-		this.precision = fixed.precision;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#restoreState(java.lang.Object)
+     */
+    @Override
+    public void restoreState(Object object) {
+        super.restoreState(object);
+        COSFixed fixed = (COSFixed) object;
+        this.precision = fixed.precision;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
-	 */
-	public Object saveState() {
-		COSFixed result = new COSFixed(floatValue, precision);
-		result.container = this.container.saveStateContainer();
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
+     */
+    public Object saveState() {
+        COSFixed result = new COSFixed(floatValue, precision);
+        result.container = this.container.saveStateContainer();
+        return result;
+    }
 
-	/**
-	 * Assign the precision for this.
-	 * 
-	 * @param precision
-	 *            The new precision.
-	 */
-	public void setPrecision(int precision) {
-		this.precision = (byte) precision;
-	}
+    /**
+     * Assign the precision for this.
+     *
+     * @param precision The new precision.
+     */
+    public void setPrecision(int precision) {
+        this.precision = (byte) precision;
+    }
 }

@@ -29,13 +29,13 @@
  */
 package de.intarsys.pdf.app.annotation;
 
-import java.awt.geom.Rectangle2D;
-import java.util.Map;
-
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.pd.PDAnnotation;
 import de.intarsys.pdf.pd.PDPage;
 import de.intarsys.tools.reflect.ObjectCreationException;
+
+import java.awt.geom.Rectangle2D;
+import java.util.Map;
 
 /**
  * A factory for {@link PDAnnotation} instances. A new {@link PDAnnotation} is
@@ -45,29 +45,24 @@ import de.intarsys.tools.reflect.ObjectCreationException;
  */
 public interface IAnnotationFactory {
 
-	/**
-	 * Create a new {@link PDAnnotation} from scratch.
-	 * 
-	 * @param page
-	 *            The page where the annotation is created.
-	 * @param rect
-	 *            The rectangle bounds of the annotation.
-	 * @param attributes
-	 *            More attributes that are required for annotation creation in
-	 *            their special {@link IAnnotationFactory} implementation.
-	 * @return The newly created {@link PDAnnotation}
-	 * @throws ObjectCreationException
-	 */
-	public PDAnnotation createAnnotation(PDPage page, Rectangle2D rect,
-			Map attributes) throws ObjectCreationException;
+    /**
+     * Create a new {@link PDAnnotation} from scratch.
+     *
+     * @param page       The page where the annotation is created.
+     * @param rect       The rectangle bounds of the annotation.
+     * @param attributes More attributes that are required for annotation creation in
+     *                   their special {@link IAnnotationFactory} implementation.
+     * @return The newly created {@link PDAnnotation}
+     * @throws ObjectCreationException
+     */
+    public PDAnnotation createAnnotation(PDPage page, Rectangle2D rect, Map attributes) throws ObjectCreationException;
 
-	/**
-	 * The type of annotation this factory can create.
-	 * <p>
-	 * This is for example /Ink or /Circle.
-	 * 
-	 * @return The type of annotation this factory can create
-	 */
-	public COSName getAnnotationType();
-
+    /**
+     * The type of annotation this factory can create.
+     * <p>
+     * This is for example /Ink or /Circle.
+     *
+     * @return The type of annotation this factory can create
+     */
+    public COSName getAnnotationType();
 }

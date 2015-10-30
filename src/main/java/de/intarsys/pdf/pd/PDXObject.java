@@ -40,123 +40,122 @@ import de.intarsys.pdf.cos.COSStream;
  * content is defined in the underlying content stream.
  */
 abstract public class PDXObject extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSObject doCreateCOSObject() {
-			return COSStream.create(null);
-		}
+        protected COSObject doCreateCOSObject() {
+            return COSStream.create(null);
+        }
 
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			COSDictionary dict;
-			if (object instanceof COSStream) {
-				dict = ((COSStream) object).getDict();
-			} else {
-				dict = (COSDictionary) object;
-			}
-			COSName subtype = (COSName) dict.get(DK_Subtype).asName();
-			if (PDForm.CN_Subtype_Form.equals(subtype)) {
-				return PDForm.META;
-			} else if (PDImage.CN_Subtype_Image.equals(subtype)) {
-				return PDImage.META;
-			} else if (PDPostScript.CN_Subtype_PS.equals(subtype)) {
-				return PDPostScript.META;
-			} else {
-				return super.doDetermineClass(object);
-			}
-		}
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            COSDictionary dict;
+            if (object instanceof COSStream) {
+                dict = ((COSStream) object).getDict();
+            } else {
+                dict = (COSDictionary) object;
+            }
+            COSName subtype = (COSName) dict.get(DK_Subtype).asName();
+            if (PDForm.CN_Subtype_Form.equals(subtype)) {
+                return PDForm.META;
+            } else if (PDImage.CN_Subtype_Image.equals(subtype)) {
+                return PDImage.META;
+            } else if (PDPostScript.CN_Subtype_PS.equals(subtype)) {
+                return PDPostScript.META;
+            } else {
+                return super.doDetermineClass(object);
+            }
+        }
 
-		public Class getRootClass() {
-			return PDXObject.class;
-		}
-	}
+        public Class getRootClass() {
+            return PDXObject.class;
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	//
-	static public final COSName DK_Resources = COSName.constant("Resources");
+    //
+    static public final COSName DK_Resources = COSName.constant("Resources");
 
-	static public final COSName CN_Type_XObject = COSName.constant("XObject");
+    static public final COSName CN_Type_XObject = COSName.constant("XObject");
 
-	/**
-	 * Create the receiver class from an already defined {@link COSStream}.
-	 * NEVER use the constructor directly.
-	 * 
-	 * @param object
-	 *            the PDDocument containing the new object
-	 */
-	protected PDXObject(COSObject object) {
-		super(object);
-	}
+    /**
+     * Create the receiver class from an already defined {@link COSStream}.
+     * NEVER use the constructor directly.
+     *
+     * @param object the PDDocument containing the new object
+     */
+    protected PDXObject(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSBasedObject#cosGetDict()
-	 */
-	public COSDictionary cosGetDict() {
-		return cosGetStream().getDict();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSBasedObject#cosGetDict()
+     */
+    public COSDictionary cosGetDict() {
+        return cosGetStream().getDict();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
-	 */
-	protected COSName cosGetExpectedType() {
-		return CN_Type_XObject;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
+     */
+    protected COSName cosGetExpectedType() {
+        return CN_Type_XObject;
+    }
 
-	/**
-	 * The data representing the XObject
-	 * 
-	 * @return The data representing the XObject
-	 */
-	public byte[] getBytes() {
-		return cosGetStream().getDecodedBytes();
-	}
+    /**
+     * The data representing the XObject
+     *
+     * @return The data representing the XObject
+     */
+    public byte[] getBytes() {
+        return cosGetStream().getDecodedBytes();
+    }
 
-	/**
-	 * <code>true</code> if this is a form.
-	 * 
-	 * @return <code>true</code> if this is a form.
-	 */
-	public boolean isForm() {
-		return false;
-	}
+    /**
+     * <code>true</code> if this is a form.
+     *
+     * @return <code>true</code> if this is a form.
+     */
+    public boolean isForm() {
+        return false;
+    }
 
-	/**
-	 * <code>true</code> if this is an image.
-	 * 
-	 * @return <code>true</code> if this is an image.
-	 */
-	public boolean isImage() {
-		return false;
-	}
+    /**
+     * <code>true</code> if this is an image.
+     *
+     * @return <code>true</code> if this is an image.
+     */
+    public boolean isImage() {
+        return false;
+    }
 
-	/**
-	 * <code>true</code> if this is a postscript object.
-	 * 
-	 * @return <code>true</code> if this is a postscript object.
-	 */
-	public boolean isPostscript() {
-		return false;
-	}
+    /**
+     * <code>true</code> if this is a postscript object.
+     *
+     * @return <code>true</code> if this is a postscript object.
+     */
+    public boolean isPostscript() {
+        return false;
+    }
 
-	/**
-	 * Set the data representing the XObject
-	 * 
-	 * @param bytes
-	 *            The data representing the XObject
-	 */
-	public void setBytes(byte[] bytes) {
-		cosGetStream().setDecodedBytes(bytes);
-	}
+    /**
+     * Set the data representing the XObject
+     *
+     * @param bytes The data representing the XObject
+     */
+    public void setBytes(byte[] bytes) {
+        cosGetStream().setDecodedBytes(bytes);
+    }
 }

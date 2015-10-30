@@ -29,41 +29,37 @@
  */
 package de.intarsys.pdf.app.acroform;
 
-import java.util.Map;
-
 import de.intarsys.pdf.pd.PDDocument;
 import de.intarsys.tools.attribute.Attribute;
+
+import java.util.Map;
 
 /**
  * The standard implementation for {@link IFormHandlerFactory} creating a
  * {@link StandardFormHandler}.
- * 
  */
 public class StandardFormHandlerFactory implements IFormHandlerFactory {
 
-	private static final Attribute ATTR_FORMHANDLER = new Attribute(
-			"formhandler");
+    private static final Attribute ATTR_FORMHANDLER = new Attribute("formhandler");
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.app.acroform.IFormHandlerFactory#createFormHandler(de.intarsys.pdf.pd.PDDocument)
-	 */
-	synchronized public IFormHandler createFormHandler(PDDocument doc,
-			Map options) {
-		if (doc == null) {
-			return null;
-		}
-		IFormHandler handler = (IFormHandler) doc
-				.getAttribute(ATTR_FORMHANDLER);
-		if (handler == null) {
-			try {
-				handler = new StandardFormHandler(doc);
-				doc.setAttribute(ATTR_FORMHANDLER, handler);
-			} catch (IllegalArgumentException e) {
-				// ignore
-			}
-		}
-		return handler;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.app.acroform.IFormHandlerFactory#createFormHandler(de.intarsys.pdf.pd.PDDocument)
+     */
+    synchronized public IFormHandler createFormHandler(PDDocument doc, Map options) {
+        if (doc == null) {
+            return null;
+        }
+        IFormHandler handler = (IFormHandler) doc.getAttribute(ATTR_FORMHANDLER);
+        if (handler == null) {
+            try {
+                handler = new StandardFormHandler(doc);
+                doc.setAttribute(ATTR_FORMHANDLER, handler);
+            } catch (IllegalArgumentException e) {
+                // ignore
+            }
+        }
+        return handler;
+    }
 }

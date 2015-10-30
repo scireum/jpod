@@ -29,10 +29,6 @@
  */
 package de.intarsys.pdf.st;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
 import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSDocument;
@@ -44,6 +40,10 @@ import de.intarsys.pdf.crypt.ISystemSecurityHandler;
 import de.intarsys.pdf.parser.COSLoadException;
 import de.intarsys.pdf.writer.COSWriter;
 
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * A section in a XRef.
  * <p>
@@ -54,313 +54,312 @@ import de.intarsys.pdf.writer.COSWriter;
  * incremental update.
  */
 public abstract class STXRefSection {
-	public static final COSName DK_XRefStm = COSName.constant("XRefStm"); //$NON-NLS-1$
+    public static final COSName DK_XRefStm = COSName.constant("XRefStm"); //$NON-NLS-1$
 
-	private STXRefSubsection xRefSubsection;
+    private STXRefSubsection xRefSubsection;
 
-	private long offset = -1;
+    private long offset = -1;
 
-	private STDocument doc;
+    private STDocument doc;
 
-	private STXRefSection previous;
+    private STXRefSection previous;
 
-	protected STXRefSection(STDocument doc) {
-		this(doc, -1);
-	}
+    protected STXRefSection(STDocument doc) {
+        this(doc, -1);
+    }
 
-	protected STXRefSection(STDocument doc, long offset) {
-		this.doc = doc;
-		this.offset = offset;
-		xRefSubsection = new STXRefSubsection(this, 0);
-		xRefSubsection.addEntry(new STXRefEntryFree(0, 65535, 0));
-	}
+    protected STXRefSection(STDocument doc, long offset) {
+        this.doc = doc;
+        this.offset = offset;
+        xRefSubsection = new STXRefSubsection(this, 0);
+        xRefSubsection.addEntry(new STXRefEntryFree(0, 65535, 0));
+    }
 
-	public void addEntry(STXRefEntry entry) {
-		STXRefSubsection prev = null;
-		STXRefSubsection current = getXRefSubsection();
-		int number = entry.getObjectNumber();
-		while (current != null) {
-			int start = current.getStart();
-			int stop = current.getStop();
-			if (number < start) {
-				STXRefSubsection newSection = new STXRefSubsection(this, number);
-				newSection.setNext(current);
-				if (prev != null) {
-					prev.setNext(newSection);
-				} else {
-					setXRefSubsection(newSection);
-				}
-				newSection.addEntry(entry);
-				return;
-			}
-			if (start <= number && number <= stop) {
-				current.addEntry(entry);
-				return;
-			}
-			prev = current;
-			current = current.getNext();
-		}
-		STXRefSubsection newSection = new STXRefSubsection(this, number);
-		newSection.setNext(null);
-		if (prev != null) {
-			prev.setNext(newSection);
-		} else {
-			setXRefSubsection(newSection);
-		}
-		newSection.addEntry(entry);
-	}
+    public void addEntry(STXRefEntry entry) {
+        STXRefSubsection prev = null;
+        STXRefSubsection current = getXRefSubsection();
+        int number = entry.getObjectNumber();
+        while (current != null) {
+            int start = current.getStart();
+            int stop = current.getStop();
+            if (number < start) {
+                STXRefSubsection newSection = new STXRefSubsection(this, number);
+                newSection.setNext(current);
+                if (prev != null) {
+                    prev.setNext(newSection);
+                } else {
+                    setXRefSubsection(newSection);
+                }
+                newSection.addEntry(entry);
+                return;
+            }
+            if (start <= number && number <= stop) {
+                current.addEntry(entry);
+                return;
+            }
+            prev = current;
+            current = current.getNext();
+        }
+        STXRefSubsection newSection = new STXRefSubsection(this, number);
+        newSection.setNext(null);
+        if (prev != null) {
+            prev.setNext(newSection);
+        } else {
+            setXRefSubsection(newSection);
+        }
+        newSection.addEntry(entry);
+    }
 
-	public boolean contains(int number) {
-		STXRefSubsection current = getXRefSubsection();
-		while (current != null) {
-			if (number < current.getStart()) {
-				return false;
-			}
-			if (current.getStart() <= number && number < current.getStop()) {
-				return true;
-			}
-			current = current.getNext();
-		}
-		return false;
-	}
+    public boolean contains(int number) {
+        STXRefSubsection current = getXRefSubsection();
+        while (current != null) {
+            if (number < current.getStart()) {
+                return false;
+            }
+            if (current.getStart() <= number && number < current.getStop()) {
+                return true;
+            }
+            current = current.getNext();
+        }
+        return false;
+    }
 
-	/**
-	 * The "trailer" dictionary associated with the XRef section.
-	 * 
-	 * @return The "trailer" dictionary associated with the XRef section.
-	 */
-	public abstract COSDictionary cosGetDict();
+    /**
+     * The "trailer" dictionary associated with the XRef section.
+     *
+     * @return The "trailer" dictionary associated with the XRef section.
+     */
+    public abstract COSDictionary cosGetDict();
 
-	abstract public COSObject cosGetObject();
+    abstract public COSObject cosGetObject();
 
-	protected void createNewSubsection(int pStart) {
-	}
+    protected void createNewSubsection(int pStart) {
+    }
 
-	public abstract STXRefSection createSuccessor();
+    public abstract STXRefSection createSuccessor();
 
-	public Iterator entryIterator() {
-		return new Iterator() {
-			private Iterator currentIterator;
+    public Iterator entryIterator() {
+        return new Iterator() {
+            private Iterator currentIterator;
 
-			private STXRefSubsection myNext = getXRefSubsection();
+            private STXRefSubsection myNext = getXRefSubsection();
 
-			public boolean hasNext() {
-				if (currentIterator != null && currentIterator.hasNext()) {
-					return true;
-				}
-				if (myNext != null) {
-					currentIterator = myNext.getEntries().iterator();
-					myNext = myNext.getNext();
-					// must enter recursive!
-					return hasNext();
-				}
-				return false;
-			}
+            public boolean hasNext() {
+                if (currentIterator != null && currentIterator.hasNext()) {
+                    return true;
+                }
+                if (myNext != null) {
+                    currentIterator = myNext.getEntries().iterator();
+                    myNext = myNext.getNext();
+                    // must enter recursive!
+                    return hasNext();
+                }
+                return false;
+            }
 
-			public Object next() {
-				if (hasNext()) {
-					return currentIterator.next();
-				}
-				throw new NoSuchElementException();
-			}
+            public Object next() {
+                if (hasNext()) {
+                    return currentIterator.next();
+                }
+                throw new NoSuchElementException();
+            }
 
-			public void remove() {
-				throw new UnsupportedOperationException();
-			}
-		};
-	}
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
 
-	public STDocument getDoc() {
-		return doc;
-	}
+    public STDocument getDoc() {
+        return doc;
+    }
 
-	public STXRefEntry getEntry(int number) {
-		STXRefSubsection current = getXRefSubsection();
-		while (current != null) {
-			if (number < current.getStart()) {
-				return null;
-			}
-			if (current.getStart() <= number && number < current.getStop()) {
-				return current.getEntry(number);
-			}
-			current = current.getNext();
-		}
-		return null;
-	}
+    public STXRefEntry getEntry(int number) {
+        STXRefSubsection current = getXRefSubsection();
+        while (current != null) {
+            if (number < current.getStart()) {
+                return null;
+            }
+            if (current.getStart() <= number && number < current.getStop()) {
+                return current.getEntry(number);
+            }
+            current = current.getNext();
+        }
+        return null;
+    }
 
-	public COSArray getID() {
-		return cosGetDict().get(COSTrailer.DK_ID).asArray();
-	}
+    public COSArray getID() {
+        return cosGetDict().get(COSTrailer.DK_ID).asArray();
+    }
 
-	public int getIncrementalCount() {
-		if (getPrevious() == null) {
-			return 1;
-		} else {
-			// todo maybe we should check linearization in another way
-			if (cosGetDict().get(COSTrailer.DK_Root).isNull()) {
-				// part of linearized structure
-				return getPrevious().getIncrementalCount();
-			} else {
-				return getPrevious().getIncrementalCount() + 1;
-			}
-		}
-	}
+    public int getIncrementalCount() {
+        if (getPrevious() == null) {
+            return 1;
+        } else {
+            // todo maybe we should check linearization in another way
+            if (cosGetDict().get(COSTrailer.DK_Root).isNull()) {
+                // part of linearized structure
+                return getPrevious().getIncrementalCount();
+            } else {
+                return getPrevious().getIncrementalCount() + 1;
+            }
+        }
+    }
 
-	public int getMaxObjectNumber() {
-		STXRefSubsection current = getXRefSubsection();
-		while (current != null) {
-			if (current.getNext() != null) {
-				current = current.getNext();
-			} else {
-				return current.getStop();
-			}
-		}
-		return 0;
-	}
+    public int getMaxObjectNumber() {
+        STXRefSubsection current = getXRefSubsection();
+        while (current != null) {
+            if (current.getNext() != null) {
+                current = current.getNext();
+            } else {
+                return current.getStop();
+            }
+        }
+        return 0;
+    }
 
-	public long getOffset() {
-		return offset;
-	}
+    public long getOffset() {
+        return offset;
+    }
 
-	public STXRefSection getPrevious() {
-		return previous;
-	}
+    public STXRefSection getPrevious() {
+        return previous;
+    }
 
-	/**
-	 * @return offset of previous trailer dict or -1 if none exists
-	 */
-	public int getPreviousOffset() {
-		COSInteger value = cosGetDict().get(COSTrailer.DK_Prev).asInteger();
-		if (value == null) {
-			return -1;
-		}
-		return value.intValue();
-	}
+    /**
+     * @return offset of previous trailer dict or -1 if none exists
+     */
+    public int getPreviousOffset() {
+        COSInteger value = cosGetDict().get(COSTrailer.DK_Prev).asInteger();
+        if (value == null) {
+            return -1;
+        }
+        return value.intValue();
+    }
 
-	protected int getPreviousXRefStmOffset() {
-		COSInteger value = cosGetDict().get(DK_XRefStm).asInteger();
-		if (value == null) {
-			return -1;
-		}
-		return value.intValue();
-	}
+    protected int getPreviousXRefStmOffset() {
+        COSInteger value = cosGetDict().get(DK_XRefStm).asInteger();
+        if (value == null) {
+            return -1;
+        }
+        return value.intValue();
+    }
 
-	/**
-	 * The total number of indirect objects in the document.
-	 * 
-	 * @return The total number of indirect objects in the document.
-	 */
-	public int getSize() {
-		COSInteger value = cosGetDict().get(COSTrailer.DK_Size).asInteger();
-		if (value == null) {
-			return -1;
-		}
-		return value.intValue();
-	}
+    /**
+     * The total number of indirect objects in the document.
+     *
+     * @return The total number of indirect objects in the document.
+     */
+    public int getSize() {
+        COSInteger value = cosGetDict().get(COSTrailer.DK_Size).asInteger();
+        if (value == null) {
+            return -1;
+        }
+        return value.intValue();
+    }
 
-	/**
-	 * The object number of the first object in this section.
-	 * 
-	 * @return The object number of the first object in this section.
-	 */
-	public int getStart() {
-		return getXRefSubsection().getStart();
-	}
+    /**
+     * The object number of the first object in this section.
+     *
+     * @return The object number of the first object in this section.
+     */
+    public int getStart() {
+        return getXRefSubsection().getStart();
+    }
 
-	public abstract AbstractXRefWriter getWriter(COSWriter cosWriter);
+    public abstract AbstractXRefWriter getWriter(COSWriter cosWriter);
 
-	protected int getXRefStmOffset() {
-		COSInteger value = cosGetDict().get(DK_XRefStm).asInteger();
-		if (value == null) {
-			return -1;
-		}
-		return value.intValue();
-	}
+    protected int getXRefStmOffset() {
+        COSInteger value = cosGetDict().get(DK_XRefStm).asInteger();
+        if (value == null) {
+            return -1;
+        }
+        return value.intValue();
+    }
 
-	/**
-	 * The first subsection in this section. All other subsections are
-	 * implemented as a linked list.
-	 * 
-	 * @return The first subsection in this section.
-	 */
-	public STXRefSubsection getXRefSubsection() {
-		return xRefSubsection;
-	}
+    /**
+     * The first subsection in this section. All other subsections are
+     * implemented as a linked list.
+     *
+     * @return The first subsection in this section.
+     */
+    public STXRefSubsection getXRefSubsection() {
+        return xRefSubsection;
+    }
 
-	protected abstract boolean isStreamed();
+    protected abstract boolean isStreamed();
 
-	public COSObject load(int objectNumber,
-			ISystemSecurityHandler securityHandler) throws IOException,
-			COSLoadException {
-		if (contains(objectNumber)) {
-			return getEntry(objectNumber).load(getDoc(), securityHandler);
-		}
-		if (getPrevious() != null) {
-			return getPrevious().load(objectNumber, securityHandler);
-		}
-		return null;
-	}
+    public COSObject load(int objectNumber, ISystemSecurityHandler securityHandler)
+            throws IOException, COSLoadException {
+        if (contains(objectNumber)) {
+            return getEntry(objectNumber).load(getDoc(), securityHandler);
+        }
+        if (getPrevious() != null) {
+            return getPrevious().load(objectNumber, securityHandler);
+        }
+        return null;
+    }
 
-	protected void setCOSDoc(COSDocument doc) {
-		doc.add(cosGetObject());
-	}
+    protected void setCOSDoc(COSDocument doc) {
+        doc.add(cosGetObject());
+    }
 
-	protected void setID(COSArray id) {
-		cosGetDict().put(COSTrailer.DK_ID, id);
-	}
+    protected void setID(COSArray id) {
+        cosGetDict().put(COSTrailer.DK_ID, id);
+    }
 
-	protected void setOffset(long offset) {
-		this.offset = offset;
-	}
+    protected void setOffset(long offset) {
+        this.offset = offset;
+    }
 
-	protected void setPrevious(STXRefSection xRefSection) {
-		this.previous = xRefSection;
-		if (getPreviousOffset() != xRefSection.getOffset()) {
-			setPreviousOffset(xRefSection.getOffset());
-		}
-	}
+    protected void setPrevious(STXRefSection xRefSection) {
+        this.previous = xRefSection;
+        if (getPreviousOffset() != xRefSection.getOffset()) {
+            setPreviousOffset(xRefSection.getOffset());
+        }
+    }
 
-	protected void setPreviousOffset(long offset) {
-		cosGetDict().put(COSTrailer.DK_Prev, COSInteger.create((int) offset));
-	}
+    protected void setPreviousOffset(long offset) {
+        cosGetDict().put(COSTrailer.DK_Prev, COSInteger.create((int) offset));
+    }
 
-	protected void setSize(int size) {
-		cosGetDict().put(COSTrailer.DK_Size, COSInteger.create(size));
-	}
+    protected void setSize(int size) {
+        cosGetDict().put(COSTrailer.DK_Size, COSInteger.create(size));
+    }
 
-	protected void setXRefStmOffset(long xrefStmOffset) {
-		cosGetDict().put(DK_XRefStm, COSInteger.create((int) xrefStmOffset));
-	}
+    protected void setXRefStmOffset(long xrefStmOffset) {
+        cosGetDict().put(DK_XRefStm, COSInteger.create((int) xrefStmOffset));
+    }
 
-	protected void setXRefSubsection(STXRefSubsection newXRef) {
-		this.xRefSubsection = newXRef;
-		STXRefSubsection current = getXRefSubsection();
-		while (current != null) {
-			current.setXRefSection(this);
-			current = current.getNext();
-		}
-	}
+    protected void setXRefSubsection(STXRefSubsection newXRef) {
+        this.xRefSubsection = newXRef;
+        STXRefSubsection current = getXRefSubsection();
+        while (current != null) {
+            current.setXRefSection(this);
+            current = current.getNext();
+        }
+    }
 
-	public Iterator subsectionIterator() {
-		return new Iterator() {
-			private STXRefSubsection current = getXRefSubsection();
+    public Iterator subsectionIterator() {
+        return new Iterator() {
+            private STXRefSubsection current = getXRefSubsection();
 
-			public boolean hasNext() {
-				return current != null;
-			}
+            public boolean hasNext() {
+                return current != null;
+            }
 
-			public Object next() {
-				if (current == null) {
-					throw new NoSuchElementException();
-				}
-				STXRefSubsection result = current;
-				current = current.getNext();
-				return result;
-			}
+            public Object next() {
+                if (current == null) {
+                    throw new NoSuchElementException();
+                }
+                STXRefSubsection result = current;
+                current = current.getNext();
+                return result;
+            }
 
-			public void remove() {
-				throw new UnsupportedOperationException();
-			}
-		};
-	}
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
 }

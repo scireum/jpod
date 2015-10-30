@@ -29,8 +29,6 @@
  */
 package de.intarsys.pdf.fd;
 
-import java.util.List;
-
 import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSDictionary;
@@ -38,84 +36,85 @@ import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.cos.COSString;
 
+import java.util.List;
+
 public class FDFDF extends FDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends FDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends FDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new FDFDF(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new FDFDF(object);
+        }
+    }
 
-	//
-	public static final COSName DK_F = COSName.constant("F");
+    //
+    public static final COSName DK_F = COSName.constant("F");
 
-	public static final COSName DK_ID = COSName.constant("ID");
+    public static final COSName DK_ID = COSName.constant("ID");
 
-	public static final COSName DK_Fields = COSName.constant("Fields");
+    public static final COSName DK_Fields = COSName.constant("Fields");
 
-	public static final COSName DK_Status = COSName.constant("Status");
+    public static final COSName DK_Status = COSName.constant("Status");
 
-	public static final COSName DK_Pages = COSName.constant("Pages");
+    public static final COSName DK_Pages = COSName.constant("Pages");
 
-	public static final COSName DK_Encoding = COSName.constant("Encoding");
+    public static final COSName DK_Encoding = COSName.constant("Encoding");
 
-	public static final COSName DK_Annots = COSName.constant("Annots");
+    public static final COSName DK_Annots = COSName.constant("Annots");
 
-	public static final COSName DK_Differences = COSName
-			.constant("Differences");
+    public static final COSName DK_Differences = COSName.constant("Differences");
 
-	public static final COSName DK_Target = COSName.constant("Target");
+    public static final COSName DK_Target = COSName.constant("Target");
 
-	public static final COSName DK_EmbeddedFDFs = COSName
-			.constant("EmbeddedFDFs");
+    public static final COSName DK_EmbeddedFDFs = COSName.constant("EmbeddedFDFs");
 
-	public static final COSName DK_JavaScript = COSName.constant("JavaScript");
+    public static final COSName DK_JavaScript = COSName.constant("JavaScript");
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected FDFDF(COSObject object) {
-		super(object);
-	}
+    protected FDFDF(COSObject object) {
+        super(object);
+    }
 
-	public void addField(FDField field) {
-		cosAddField(field.cosGetDict());
-	}
+    public void addField(FDField field) {
+        cosAddField(field.cosGetDict());
+    }
 
-	public void cosAddField(COSDictionary field) {
-		COSArray cosFields = cosGetField(DK_Fields).asArray();
-		if (cosFields == null) {
-			cosFields = COSArray.create();
-			cosSetField(DK_Fields, cosFields);
-		}
-		cosFields.add(field);
-	}
+    public void cosAddField(COSDictionary field) {
+        COSArray cosFields = cosGetField(DK_Fields).asArray();
+        if (cosFields == null) {
+            cosFields = COSArray.create();
+            cosSetField(DK_Fields, cosFields);
+        }
+        cosFields.add(field);
+    }
 
-	public List getFields() {
-		return getFDObjects(DK_Fields, FDField.META);
-	}
+    public List getFields() {
+        return getFDObjects(DK_Fields, FDField.META);
+    }
 
-	public String getFile() {
-		COSString cosObject = cosGetField(DK_F).asString();
-		if (cosObject != null) {
-			return cosObject.stringValue();
-		}
-		return null;
-	}
+    public String getFile() {
+        COSString cosObject = cosGetField(DK_F).asString();
+        if (cosObject != null) {
+            return cosObject.stringValue();
+        }
+        return null;
+    }
 
-	public void setFields(List fields) {
-		setFDObjects(DK_Fields, fields, true);
-	}
+    public void setFields(List fields) {
+        setFDObjects(DK_Fields, fields, true);
+    }
 
-	public void setFile(String file) {
-		setFieldString(DK_F, file);
-	}
+    public void setFile(String file) {
+        setFieldString(DK_F, file);
+    }
 }

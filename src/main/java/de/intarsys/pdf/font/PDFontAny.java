@@ -33,69 +33,69 @@ import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSObject;
 
 /**
- * 
+ *
  */
 public class PDFontAny extends PDSingleByteFont {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDFont.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDFont.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDFontAny(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDFontAny(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDFontAny(COSObject object) {
-		super(object);
-	}
+    protected PDFontAny(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.PDFont#createBuiltinFontDescriptor()
-	 */
-	@Override
-	protected PDFontDescriptor createBuiltinFontDescriptor() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.PDFont#createBuiltinFontDescriptor()
+     */
+    @Override
+    protected PDFontDescriptor createBuiltinFontDescriptor() {
+        return null;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.font.IFont#getFontFamilyName()
-	 */
-	@Override
-	public String getFontFamilyName() {
-		return "Helvetica";
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.font.IFont#getFontFamilyName()
+     */
+    @Override
+    public String getFontFamilyName() {
+        return "Helvetica";
+    }
 
-	@Override
-	public String getFontName() {
-		return "Helvetica";
-	}
+    @Override
+    public String getFontName() {
+        return "Helvetica";
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.font.IFont#getFontStyle()
-	 */
-	@Override
-	public PDFontStyle getFontStyle() {
-		return PDFontStyle.REGULAR;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.font.IFont#getFontStyle()
+     */
+    @Override
+    public PDFontStyle getFontStyle() {
+        return PDFontStyle.REGULAR;
+    }
 
-	@Override
-	public String getFontType() {
-		return "Unknown";
-	}
-
+    @Override
+    public String getFontType() {
+        return "Unknown";
+    }
 }

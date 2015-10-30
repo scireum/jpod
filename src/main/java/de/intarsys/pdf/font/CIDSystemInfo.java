@@ -36,42 +36,43 @@ import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.cos.COSString;
 
 /**
- * 
+ *
  */
 public class CIDSystemInfo extends COSBasedObject {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends COSBasedObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends COSBasedObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new CIDSystemInfo(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new CIDSystemInfo(object);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName DK_Registry = COSName.constant("Registry");
+    public static final COSName DK_Registry = COSName.constant("Registry");
 
-	public static final COSName DK_Ordering = COSName.constant("Ordering");
+    public static final COSName DK_Ordering = COSName.constant("Ordering");
 
-	public static final COSName DK_Supplement = COSName.constant("Supplement");
+    public static final COSName DK_Supplement = COSName.constant("Supplement");
 
-	protected CIDSystemInfo(COSObject object) {
-		super(object);
-	}
+    protected CIDSystemInfo(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	protected void initializeFromScratch() {
-		super.initializeFromScratch();
-		cosSetField(DK_Registry, COSString.create("Adobe"));
-		cosSetField(DK_Ordering, COSString.create("Identity"));
-		cosSetField(DK_Supplement, COSInteger.create(0));
-	}
+    @Override
+    protected void initializeFromScratch() {
+        super.initializeFromScratch();
+        cosSetField(DK_Registry, COSString.create("Adobe"));
+        cosSetField(DK_Ordering, COSString.create("Identity"));
+        cosSetField(DK_Supplement, COSInteger.create(0));
+    }
 }

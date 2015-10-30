@@ -34,74 +34,74 @@ package de.intarsys.pdf.cos;
  */
 public class COSObjectKey {
 
-	private final int objectNumber;
+    private final int objectNumber;
 
-	private final short generationNumber;
+    private final short generationNumber;
 
-	public COSObjectKey(int objectNumber, int generationNumber) {
-		super();
-		this.objectNumber = objectNumber;
-		this.generationNumber = (short) generationNumber;
-	}
+    public COSObjectKey(int objectNumber, int generationNumber) {
+        super();
+        this.objectNumber = objectNumber;
+        this.generationNumber = (short) generationNumber;
+    }
 
-	/**
-	 * The next key after this.
-	 * 
-	 * @return The next key after this.
-	 */
-	public COSObjectKey createNextKey() {
-		return new COSObjectKey(getObjectNumber() + 1, (short) 0);
-	}
+    /**
+     * The next key after this.
+     *
+     * @return The next key after this.
+     */
+    public COSObjectKey createNextKey() {
+        return new COSObjectKey(getObjectNumber() + 1, (short) 0);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof COSObjectKey)) {
-			return false;
-		}
-		COSObjectKey other = (COSObjectKey) obj;
-		return objectNumber == other.objectNumber;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof COSObjectKey)) {
+            return false;
+        }
+        COSObjectKey other = (COSObjectKey) obj;
+        return objectNumber == other.objectNumber;
+    }
 
-	/**
-	 * The keys generation number.
-	 * 
-	 * @return The keys generation number.
-	 */
-	public int getGenerationNumber() {
-		return generationNumber & 0xffff;
-	}
+    /**
+     * The keys generation number.
+     *
+     * @return The keys generation number.
+     */
+    public int getGenerationNumber() {
+        return generationNumber & 0xffff;
+    }
 
-	/**
-	 * The keys object number.
-	 * 
-	 * @return The keys object number.
-	 */
-	public int getObjectNumber() {
-		return objectNumber;
-	}
+    /**
+     * The keys object number.
+     *
+     * @return The keys object number.
+     */
+    public int getObjectNumber() {
+        return objectNumber;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return objectNumber;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return objectNumber;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getObjectNumber() + " " + getGenerationNumber() + " R"; //$NON-NLS-1$ //$NON-NLS-2$
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return getObjectNumber() + " " + getGenerationNumber() + " R"; //$NON-NLS-1$ //$NON-NLS-2$
+    }
 }

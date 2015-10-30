@@ -33,19 +33,19 @@ package de.intarsys.pdf.cos;
  * An exceptional condition while performing an {@link ICOSObjectVisitor}.
  */
 public class COSVisitorException extends Exception {
-	public COSVisitorException() {
-		super();
-	}
+    public COSVisitorException() {
+        super();
+    }
 
-	public COSVisitorException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public COSVisitorException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public COSVisitorException(String message) {
-		super(message);
-	}
+    public COSVisitorException(String message) {
+        super(message);
+    }
 
-	public COSVisitorException(Throwable cause) {
-		super(cause);
-	}
+    public COSVisitorException(Throwable cause) {
+        super(cause);
+    }
 }

@@ -30,30 +30,28 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_or implements IOperator {
-	public static Operator_or Instance;
+    public static Operator_or Instance;
 
-	static {
-		Instance = new Operator_or();
-	}
+    static {
+        Instance = new Operator_or();
+    }
 
-	private Operator_or() {
-		super();
-	}
+    private Operator_or() {
+        super();
+    }
 
-	public void execute(Handler handler) throws ParseException {
-		Object element1;
-		Object element2;
+    public void execute(Handler handler) throws ParseException {
+        Object element1;
+        Object element2;
 
-		element2 = handler.pop();
-		element1 = handler.pop();
-		if (element1 instanceof Integer && element2 instanceof Integer) {
-			handler.push(new Integer(((Integer) element1).intValue()
-					| ((Integer) element2).intValue()));
-		}
-		if (element1 instanceof Boolean && element2 instanceof Boolean) {
-			handler.push(new Boolean(((Boolean) element1).booleanValue()
-					| ((Boolean) element2).booleanValue()));
-		}
-		throw new ParseException();
-	}
+        element2 = handler.pop();
+        element1 = handler.pop();
+        if (element1 instanceof Integer && element2 instanceof Integer) {
+            handler.push(new Integer(((Integer) element1).intValue() | ((Integer) element2).intValue()));
+        }
+        if (element1 instanceof Boolean && element2 instanceof Boolean) {
+            handler.push(new Boolean(((Boolean) element1).booleanValue() | ((Boolean) element2).booleanValue()));
+        }
+        throw new ParseException();
+    }
 }

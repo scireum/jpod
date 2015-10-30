@@ -29,88 +29,87 @@
  */
 package de.intarsys.pdf.pd;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.cos.COSRuntimeException;
 import de.intarsys.pdf.cos.COSString;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class PDFileSpecificationURL extends PDFileSpecification {
-	// todo 2 review url attribute
+    // todo 2 review url attribute
 
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDFileSpecification.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDFileSpecification.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDFileSpecificationURL(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDFileSpecificationURL(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	static public PDFileSpecificationURL createNew(URL url) {
-		PDFileSpecificationURL result = (PDFileSpecificationURL) META
-				.createNew();
-		result.setURL(url);
-		return result;
-	}
+    static public PDFileSpecificationURL createNew(URL url) {
+        PDFileSpecificationURL result = (PDFileSpecificationURL) META.createNew();
+        result.setURL(url);
+        return result;
+    }
 
-	private URL url = null;
+    private URL url = null;
 
-	protected PDFileSpecificationURL(COSObject object) {
-		super(object);
-	}
+    protected PDFileSpecificationURL(COSObject object) {
+        super(object);
+    }
 
-	public URL getURL() {
-		return url;
-	}
+    public URL getURL() {
+        return url;
+    }
 
-	/**
-	 * provide some hook for initialization after creation based on a cos object
-	 */
-	@Override
-	protected void initializeFromCos() {
-		super.initializeFromCos();
-		setFileSystem(CN_FS_URL);
-		COSString fileString = cosGetField(DK_F).asString();
-		if (fileString != null) {
-			try {
-				setURL(new URL(fileString.stringValue()));
-			} catch (MalformedURLException e) {
-				cosGetObject().handleException(
-						new COSRuntimeException("error parsing URL", e));
-			}
-		}
-	}
+    /**
+     * provide some hook for initialization after creation based on a cos object
+     */
+    @Override
+    protected void initializeFromCos() {
+        super.initializeFromCos();
+        setFileSystem(CN_FS_URL);
+        COSString fileString = cosGetField(DK_F).asString();
+        if (fileString != null) {
+            try {
+                setURL(new URL(fileString.stringValue()));
+            } catch (MalformedURLException e) {
+                cosGetObject().handleException(new COSRuntimeException("error parsing URL", e));
+            }
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDFileSpecification#initializeFromScratch()
-	 */
-	@Override
-	protected void initializeFromScratch() {
-		super.initializeFromScratch();
-		setFileSystem((COSName) CN_FS_URL.copyShallow());
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDFileSpecification#initializeFromScratch()
+     */
+    @Override
+    protected void initializeFromScratch() {
+        super.initializeFromScratch();
+        setFileSystem((COSName) CN_FS_URL.copyShallow());
+    }
 
-	public void setURL(URL newURL) {
-		this.url = newURL;
-		if (newURL == null) {
-			setFieldString(DK_F, null);
-		} else {
-			setFieldString(DK_F, url.toString());
-		}
-	}
+    public void setURL(URL newURL) {
+        this.url = newURL;
+        if (newURL == null) {
+            setFieldString(DK_F, null);
+        } else {
+            setFieldString(DK_F, url.toString());
+        }
+    }
 }

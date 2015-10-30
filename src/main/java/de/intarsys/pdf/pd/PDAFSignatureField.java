@@ -29,173 +29,168 @@
  */
 package de.intarsys.pdf.pd;
 
-import java.util.HashSet;
-import java.util.Iterator;
-
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 
+import java.util.HashSet;
+import java.util.Iterator;
+
 /**
  * A logical signature field within an AcroForm.
- * 
  */
 public class PDAFSignatureField extends PDAcroFormField {
-	/*
-	 * protected PDSignatureLock cosGetLock() { COSObject cosObject =
-	 * cosGetField(DK_Lock); if (cosObject != null) { return (PDSignatureLock)
-	 * PDSignatureLock.createFromCos( this, (COSDictionary) cosObject ); }
-	 * return null; }
-	 * 
-	 * protected PDSeedValue cosGetSeedValue() { COSObject cosObject =
-	 * cosGetField(DK_SV); if (cosObject != null) { return (PDSeedValue)
-	 * PDSeedValue.createFromCos( this, (COSDictionary) cosObject ); } return
-	 * null; }
-	 * 
-	 * protected void cosSetLock(PDSignatureLock newLock) { if (newLock != null) {
-	 * cosSetField(DK_Lock, newLock.cosSerialize()); } else {
-	 * cosSetField(DK_Lock, null); } }
-	 * 
-	 * protected void cosSetSeedValue(PDSeedValue newSeedValue) { if
-	 * (newSeedValue != null) { cosSetField(DK_SV, newSeedValue.cosSerialize()); }
-	 * else { cosSetField(DK_SV, null); } }
-	 */
-	static public class MetaClass extends PDAcroFormField.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /*
+     * protected PDSignatureLock cosGetLock() { COSObject cosObject =
+     * cosGetField(DK_Lock); if (cosObject != null) { return (PDSignatureLock)
+     * PDSignatureLock.createFromCos( this, (COSDictionary) cosObject ); }
+     * return null; }
+     *
+     * protected PDSeedValue cosGetSeedValue() { COSObject cosObject =
+     * cosGetField(DK_SV); if (cosObject != null) { return (PDSeedValue)
+     * PDSeedValue.createFromCos( this, (COSDictionary) cosObject ); } return
+     * null; }
+     *
+     * protected void cosSetLock(PDSignatureLock newLock) { if (newLock != null) {
+     * cosSetField(DK_Lock, newLock.cosSerialize()); } else {
+     * cosSetField(DK_Lock, null); } }
+     *
+     * protected void cosSetSeedValue(PDSeedValue newSeedValue) { if
+     * (newSeedValue != null) { cosSetField(DK_SV, newSeedValue.cosSerialize()); }
+     * else { cosSetField(DK_SV, null); } }
+     */
+    static public class MetaClass extends PDAcroFormField.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDAFSignatureField(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDAFSignatureField(object);
+        }
+    }
 
-	static public final COSName DK_Lock = COSName.constant("Lock"); //$NON-NLS-1$
+    static public final COSName DK_Lock = COSName.constant("Lock"); //$NON-NLS-1$
 
-	static public final COSName DK_SV = COSName.constant("SV"); //$NON-NLS-1$
+    static public final COSName DK_SV = COSName.constant("SV"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	private PDSignature cachedSignature;
+    private PDSignature cachedSignature;
 
-	protected PDAFSignatureField(COSObject object) {
-		super(object);
-	}
+    protected PDAFSignatureField(COSObject object) {
+        super(object);
+    }
 
-	public void clearSignature() {
-		COSDictionary perms = getDoc().cosGetPermissionsDict();
-		if (perms != null) {
-			for (Iterator i = new HashSet(perms.keySet()).iterator(); i
-					.hasNext();) {
-				COSName key = (COSName) i.next();
-				COSObject value = perms.get(key);
-				if (value == cosGetValue()) {
-					perms.remove(key);
-				}
-			}
-		}
-		//
-		setSignature(null);
-	}
+    public void clearSignature() {
+        COSDictionary perms = getDoc().cosGetPermissionsDict();
+        if (perms != null) {
+            for (Iterator i = new HashSet(perms.keySet()).iterator(); i.hasNext(); ) {
+                COSName key = (COSName) i.next();
+                COSObject value = perms.get(key);
+                if (value == cosGetValue()) {
+                    perms.remove(key);
+                }
+            }
+        }
+        //
+        setSignature(null);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormField#cosGetExpectedFieldType()
-	 */
-	@Override
-	public COSName cosGetExpectedFieldType() {
-		return CN_FT_Sig;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormField#cosGetExpectedFieldType()
+     */
+    @Override
+    public COSName cosGetExpectedFieldType() {
+        return CN_FT_Sig;
+    }
 
-	@Override
-	public COSObject cosSetValue(COSObject newValue) {
-		COSObject result = super.cosSetValue(newValue);
-		AcroFormSigFlags sigFlags = getAcroForm().getSigFlags();
-		sigFlags.setAppendOnly(getAcroForm().isSigned());
-		return result;
-	}
+    @Override
+    public COSObject cosSetValue(COSObject newValue) {
+        COSObject result = super.cosSetValue(newValue);
+        AcroFormSigFlags sigFlags = getAcroForm().getSigFlags();
+        sigFlags.setAppendOnly(getAcroForm().isSigned());
+        return result;
+    }
 
-	public PDSignatureLock getLock() {
-		return (PDSignatureLock) PDSignatureLock.META
-				.createFromCos(cosGetField(DK_Lock));
-	}
+    public PDSignatureLock getLock() {
+        return (PDSignatureLock) PDSignatureLock.META.createFromCos(cosGetField(DK_Lock));
+    }
 
-	public PDSignatureSeedValue getSeedValue() {
-		return (PDSignatureSeedValue) PDSignatureSeedValue.META
-				.createFromCos(cosGetField(DK_SV));
-	}
+    public PDSignatureSeedValue getSeedValue() {
+        return (PDSignatureSeedValue) PDSignatureSeedValue.META.createFromCos(cosGetField(DK_SV));
+    }
 
-	/**
-	 * The associated {@link PDSignature} if available.
-	 * 
-	 * @return The associated {@link PDSignature} if available.
-	 */
-	public PDSignature getSignature() {
-		if (cachedSignature == null) {
-			cachedSignature = (PDSignature) PDSignature.META
-					.createFromCos(cosGetValue());
-			if (cachedSignature != null) {
-				cachedSignature.setAcroFormField(this);
-			}
-		}
-		return cachedSignature;
-	}
+    /**
+     * The associated {@link PDSignature} if available.
+     *
+     * @return The associated {@link PDSignature} if available.
+     */
+    public PDSignature getSignature() {
+        if (cachedSignature == null) {
+            cachedSignature = (PDSignature) PDSignature.META.createFromCos(cosGetValue());
+            if (cachedSignature != null) {
+                cachedSignature.setAcroFormField(this);
+            }
+        }
+        return cachedSignature;
+    }
 
-	@Override
-	public void invalidateCaches() {
-		super.invalidateCaches();
-		cachedSignature = null;
-	}
+    @Override
+    public void invalidateCaches() {
+        super.invalidateCaches();
+        cachedSignature = null;
+    }
 
-	/**
-	 * <code>true</code> if this field is already signed.
-	 * 
-	 * @return <code>true</code> if this field is already signed.
-	 */
-	public boolean isSigned() {
-		return !cosGetValue().isNull();
-	}
+    /**
+     * <code>true</code> if this field is already signed.
+     *
+     * @return <code>true</code> if this field is already signed.
+     */
+    public boolean isSigned() {
+        return !cosGetValue().isNull();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormField#isTypeSig()
-	 */
-	@Override
-	public boolean isTypeSig() {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormField#isTypeSig()
+     */
+    @Override
+    public boolean isTypeSig() {
+        return true;
+    }
 
-	public void setLock(PDSignatureLock lock) {
-		setFieldObject(DK_Lock, lock);
-	}
+    public void setLock(PDSignatureLock lock) {
+        setFieldObject(DK_Lock, lock);
+    }
 
-	public void setSeedValue(PDSignatureSeedValue value) {
-		setFieldObject(DK_SV, value);
-	}
+    public void setSeedValue(PDSignatureSeedValue value) {
+        setFieldObject(DK_SV, value);
+    }
 
-	/**
-	 * Assign a new signature value.
-	 * 
-	 * @param newSignature
-	 *            The new signature value.
-	 */
-	public void setSignature(PDSignature newSignature) {
-		if (cachedSignature != null) {
-			cachedSignature.setAcroFormField(null);
-		}
-		cachedSignature = newSignature;
+    /**
+     * Assign a new signature value.
+     *
+     * @param newSignature The new signature value.
+     */
+    public void setSignature(PDSignature newSignature) {
+        if (cachedSignature != null) {
+            cachedSignature.setAcroFormField(null);
+        }
+        cachedSignature = newSignature;
 
-		if (newSignature != null) {
-			newSignature.setAcroFormField(this);
-			cosSetValue(newSignature.cosGetObject());
-		} else {
-			cosSetValue(null);
-		}
-	}
+        if (newSignature != null) {
+            newSignature.setAcroFormField(this);
+            cosSetValue(newSignature.cosGetObject());
+        } else {
+            cosSetValue(null);
+        }
+    }
 }

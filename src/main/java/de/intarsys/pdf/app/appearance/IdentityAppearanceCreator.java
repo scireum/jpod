@@ -35,22 +35,20 @@ import de.intarsys.pdf.pd.PDAppearance;
 
 /**
  * Return the annotation's current appearance.
- * 
  */
 public class IdentityAppearanceCreator implements IAppearanceCreator {
 
-	private static final COSName CN_IDENTITY = COSName.constant("Identity"); //$NON-NLS-1$
+    private static final COSName CN_IDENTITY = COSName.constant("Identity"); //$NON-NLS-1$
 
-	public IdentityAppearanceCreator() {
-		super();
-	}
+    public IdentityAppearanceCreator() {
+        super();
+    }
 
-	public PDAppearance createAppearance(PDAnnotation annotation,
-			PDAppearance appearance) {
-		return annotation.getAppearance();
-	}
+    public PDAppearance createAppearance(PDAnnotation annotation, PDAppearance appearance) {
+        return annotation.getAppearance();
+    }
 
-	public COSName getAnnotationType() {
-		return CN_IDENTITY;
-	}
+    public COSName getAnnotationType() {
+        return CN_IDENTITY;
+    }
 }

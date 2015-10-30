@@ -30,20 +30,20 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_log implements IOperator {
-	public static Operator_log Instance;
+    public static Operator_log Instance;
 
-	static {
-		Instance = new Operator_log();
-	}
+    static {
+        Instance = new Operator_log();
+    }
 
-	private Operator_log() {
-		super();
-	}
+    private Operator_log() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		double operand;
+    public void execute(Handler handler) {
+        double operand;
 
-		operand = ((Number) handler.pop()).doubleValue();
-		handler.push(new Double(Math.log10(operand)));
-	}
+        operand = ((Number) handler.pop()).doubleValue();
+        handler.push(new Double(Math.log10(operand)));
+    }
 }

@@ -31,43 +31,56 @@
 package de.intarsys.pdf.postscript;
 
 public interface ParserConstants {
-	int DECIMAL_LITERAL = 4;
+    int DECIMAL_LITERAL = 4;
 
-	int DEFAULT = 0;
+    int DEFAULT = 0;
 
-	int DIGIT = 13;
+    int DIGIT = 13;
 
-	int EOF = 0;
+    int EOF = 0;
 
-	int EXPONENT = 7;
+    int EXPONENT = 7;
 
-	int FLOATING_POINT_LITERAL = 6;
+    int FLOATING_POINT_LITERAL = 6;
 
-	int HEX_LITERAL = 5;
+    int HEX_LITERAL = 5;
 
-	int IDENTIFIER = 9;
+    int IDENTIFIER = 9;
 
-	int IMMEDIATE_IDENTIFIER = 11;
+    int IMMEDIATE_IDENTIFIER = 11;
 
-	int INTEGER_LITERAL = 3;
+    int INTEGER_LITERAL = 3;
 
-	int KEY_IDENTIFIER = 10;
+    int KEY_IDENTIFIER = 10;
 
-	int LBRACE = 14;
+    int LBRACE = 14;
 
-	int LBRACKET = 16;
+    int LBRACKET = 16;
 
-	int LETTER = 12;
+    int LETTER = 12;
 
-	int RBRACE = 15;
+    int RBRACE = 15;
 
-	int RBRACKET = 17;
+    int RBRACKET = 17;
 
-	int STRING_LITERAL = 8;
+    int STRING_LITERAL = 8;
 
-	String[] tokenImage = { "<EOF>", "<token of kind 1>", "<token of kind 2>",
-			"<INTEGER_LITERAL>", "<DECIMAL_LITERAL>", "<HEX_LITERAL>",
-			"<FLOATING_POINT_LITERAL>", "<EXPONENT>", "<STRING_LITERAL>",
-			"<IDENTIFIER>", "<KEY_IDENTIFIER>", "<IMMEDIATE_IDENTIFIER>",
-			"<LETTER>", "<DIGIT>", "\"{\"", "\"}\"", "\"[\"", "\"]\"", };
+    String[] tokenImage = {"<EOF>",
+                           "<token of kind 1>",
+                           "<token of kind 2>",
+                           "<INTEGER_LITERAL>",
+                           "<DECIMAL_LITERAL>",
+                           "<HEX_LITERAL>",
+                           "<FLOATING_POINT_LITERAL>",
+                           "<EXPONENT>",
+                           "<STRING_LITERAL>",
+                           "<IDENTIFIER>",
+                           "<KEY_IDENTIFIER>",
+                           "<IMMEDIATE_IDENTIFIER>",
+                           "<LETTER>",
+                           "<DIGIT>",
+                           "\"{\"",
+                           "\"}\"",
+                           "\"[\"",
+                           "\"]\"",};
 }

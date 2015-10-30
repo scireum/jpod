@@ -35,22 +35,20 @@ import de.intarsys.pdf.pd.PDAppearance;
 
 /**
  * Create an empty annotation appearance.
- * 
  */
 public class NullAppearanceCreator implements IAppearanceCreator {
 
-	private static final COSName CN_NULL = COSName.constant("Null"); //$NON-NLS-1$
+    private static final COSName CN_NULL = COSName.constant("Null"); //$NON-NLS-1$
 
-	public NullAppearanceCreator() {
-		super();
-	}
+    public NullAppearanceCreator() {
+        super();
+    }
 
-	public PDAppearance createAppearance(PDAnnotation annotation,
-			PDAppearance appearance) {
-		return null;
-	}
+    public PDAppearance createAppearance(PDAnnotation annotation, PDAppearance appearance) {
+        return null;
+    }
 
-	public COSName getAnnotationType() {
-		return CN_NULL;
-	}
+    public COSName getAnnotationType() {
+        return CN_NULL;
+    }
 }

@@ -34,33 +34,33 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * Use a free form shading when filling the shape.
- * 
  */
 public class PDFreeFormShading extends PDShading {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDShading.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDShading.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDFreeFormShading(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDFreeFormShading(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDFreeFormShading(COSObject object) {
-		super(object);
-	}
+    protected PDFreeFormShading(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public int getShadingType() {
-		return SHADING_TYPE_FREEFORM;
-	}
+    @Override
+    public int getShadingType() {
+        return SHADING_TYPE_FREEFORM;
+    }
 }

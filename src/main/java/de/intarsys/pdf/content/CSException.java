@@ -34,19 +34,19 @@ package de.intarsys.pdf.content;
  * operations.
  */
 abstract public class CSException extends RuntimeException {
-	public CSException(String message) {
-		super(message);
-	}
+    public CSException(String message) {
+        super(message);
+    }
 
-	public CSException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public CSException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public CSException() {
-		super();
-	}
+    public CSException() {
+        super();
+    }
 
-	public CSException(Throwable cause) {
-		super(cause);
-	}
+    public CSException(Throwable cause) {
+        super(cause);
+    }
 }

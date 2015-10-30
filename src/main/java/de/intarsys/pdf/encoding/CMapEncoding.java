@@ -29,76 +29,73 @@
  */
 package de.intarsys.pdf.encoding;
 
+import de.intarsys.pdf.cos.COSObject;
+import de.intarsys.pdf.font.CMap;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import de.intarsys.pdf.cos.COSObject;
-import de.intarsys.pdf.font.CMap;
-
 /**
  * This is a wrapper implementation around the CMap definition in the /Encoding
  * entry for a Type0 font.
- * 
  */
 public class CMapEncoding extends Encoding {
 
-	final private CMap cmap;
+    final private CMap cmap;
 
-	public CMapEncoding(CMap map) {
-		super();
-		this.cmap = map;
-	}
+    public CMapEncoding(CMap map) {
+        super();
+        this.cmap = map;
+    }
 
-	@Override
-	public COSObject cosGetObject() {
-		return null;
-	}
+    @Override
+    public COSObject cosGetObject() {
+        return null;
+    }
 
-	@Override
-	public int getDecoded(int codepoint) {
-		return cmap.getDecoded(codepoint);
-	}
+    @Override
+    public int getDecoded(int codepoint) {
+        return cmap.getDecoded(codepoint);
+    }
 
-	@Override
-	public int getEncoded(int character) {
-		return cmap.getEncoded(character);
-	}
+    @Override
+    public int getEncoded(int character) {
+        return cmap.getEncoded(character);
+    }
 
-	@Override
-	public int getEncoded(String name) {
-		return getEncoded(GlyphNameMap.Standard.getUnicode(name));
-	}
+    @Override
+    public int getEncoded(String name) {
+        return getEncoded(GlyphNameMap.Standard.getUnicode(name));
+    }
 
-	@Override
-	public String getGlyphName(int codepoint) {
-		return GlyphNameMap.Standard.getGlyphName(getDecoded(codepoint));
-	}
+    @Override
+    public String getGlyphName(int codepoint) {
+        return GlyphNameMap.Standard.getGlyphName(getDecoded(codepoint));
+    }
 
-	@Override
-	public String getName() {
-		return "CMapEncoding";
-	}
+    @Override
+    public String getName() {
+        return "CMapEncoding";
+    }
 
-	@Override
-	public int getNextDecoded(InputStream is) throws IOException {
-		return cmap.getNextDecoded(is);
-	}
+    @Override
+    public int getNextDecoded(InputStream is) throws IOException {
+        return cmap.getNextDecoded(is);
+    }
 
-	@Override
-	public int getNextEncoded(InputStream is) throws IOException {
-		return cmap.getNextEncoded(is);
-	}
+    @Override
+    public int getNextEncoded(InputStream is) throws IOException {
+        return cmap.getNextEncoded(is);
+    }
 
-	@Override
-	public void putNextDecoded(OutputStream os, int character)
-			throws IOException {
-		cmap.putNextDecoded(os, character);
-	}
+    @Override
+    public void putNextDecoded(OutputStream os, int character) throws IOException {
+        cmap.putNextDecoded(os, character);
+    }
 
-	@Override
-	public void putNextEncoded(OutputStream os, int codepoint)
-			throws IOException {
-		cmap.putNextEncoded(os, codepoint);
-	}
+    @Override
+    public void putNextEncoded(OutputStream os, int codepoint) throws IOException {
+        cmap.putNextEncoded(os, codepoint);
+    }
 }

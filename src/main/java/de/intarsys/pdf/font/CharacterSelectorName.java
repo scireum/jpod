@@ -33,37 +33,36 @@ import de.intarsys.pdf.cos.COSName;
 
 /**
  * A selector based on a character name. Not used in PDF.
- * 
  */
 public class CharacterSelectorName extends CharacterSelector {
-	private final COSName name;
+    private final COSName name;
 
-	public CharacterSelectorName(COSName name) {
-		super();
-		this.name = name;
-	}
+    public CharacterSelectorName(COSName name) {
+        super();
+        this.name = name;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.CID#getLength()
-	 */
-	@Override
-	public int getLength() {
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.CID#getLength()
+     */
+    @Override
+    public int getLength() {
+        return 0;
+    }
 
-	public COSName getName() {
-		return name;
-	}
+    public COSName getName() {
+        return name;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.font.CID#getValue()
-	 */
-	@Override
-	public int getValue() {
-		return -1;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.font.CID#getValue()
+     */
+    @Override
+    public int getValue() {
+        return -1;
+    }
 }

@@ -53,173 +53,173 @@ package de.intarsys.pdf.pd;
  * </ul>
  */
 public class SubmitFormFlags extends AbstractBitFlags {
-	static public final int Bit_Include = 1; // Bit position 1
+    static public final int Bit_Include = 1; // Bit position 1
 
-	static public final int Bit_IncludeNoValueFields = 1 << 1; // Bit pos 2
+    static public final int Bit_IncludeNoValueFields = 1 << 1; // Bit pos 2
 
-	static public final int Bit_ExportFormat = 1 << 2; // Bit pos 3
+    static public final int Bit_ExportFormat = 1 << 2; // Bit pos 3
 
-	static public final int Bit_GetMethod = 1 << 3;
+    static public final int Bit_GetMethod = 1 << 3;
 
-	static public final int Bit_SubmitCoordinates = 1 << 4;
+    static public final int Bit_SubmitCoordinates = 1 << 4;
 
-	static public final int Bit_XFDF = 1 << 5;
+    static public final int Bit_XFDF = 1 << 5;
 
-	static public final int Bit_IncludeAppendSaves = 1 << 6;
+    static public final int Bit_IncludeAppendSaves = 1 << 6;
 
-	static public final int Bit_IncludeAnnotations = 1 << 7;
+    static public final int Bit_IncludeAnnotations = 1 << 7;
 
-	static public final int Bit_SubmitPDF = 1 << 8;
+    static public final int Bit_SubmitPDF = 1 << 8;
 
-	static public final int Bit_CanonicalFormat = 1 << 9;
+    static public final int Bit_CanonicalFormat = 1 << 9;
 
-	static public final int Bit_ExclNonUserAnnots = 1 << 10;
+    static public final int Bit_ExclNonUserAnnots = 1 << 10;
 
-	static public final int Bit_ExclFKey = 1 << 11;
+    static public final int Bit_ExclFKey = 1 << 11;
 
-	static public final int Bit_NotDEFINED = 1 << 12;
+    static public final int Bit_NotDEFINED = 1 << 12;
 
-	static public final int Bit_EmbedForm = 1 << 13;
+    static public final int Bit_EmbedForm = 1 << 13;
 
-	private PDActionSubmitForm submitForm;
+    private PDActionSubmitForm submitForm;
 
-	public SubmitFormFlags(int value) {
-		super(value);
-	}
+    public SubmitFormFlags(int value) {
+        super(value);
+    }
 
-	public SubmitFormFlags(PDActionSubmitForm submitForm) {
-		super(submitForm, null);
-		this.submitForm = submitForm;
-	}
+    public SubmitFormFlags(PDActionSubmitForm submitForm) {
+        super(submitForm, null);
+        this.submitForm = submitForm;
+    }
 
-	protected PDActionSubmitForm getSubmitForm() {
-		return submitForm;
-	}
+    protected PDActionSubmitForm getSubmitForm() {
+        return submitForm;
+    }
 
-	@Override
-	protected int getValueInObject() {
-		return getSubmitForm().basicGetFlags();
-	}
+    @Override
+    protected int getValueInObject() {
+        return getSubmitForm().basicGetFlags();
+    }
 
-	public boolean isCanonicalFormat() {
-		return isSetAnd(Bit_CanonicalFormat);
-	}
+    public boolean isCanonicalFormat() {
+        return isSetAnd(Bit_CanonicalFormat);
+    }
 
-	public boolean isEmbedForm() {
-		return isSetAnd(Bit_EmbedForm);
-	}
+    public boolean isEmbedForm() {
+        return isSetAnd(Bit_EmbedForm);
+    }
 
-	public boolean isExclFKey() {
-		return isSetAnd(Bit_ExclFKey);
-	}
+    public boolean isExclFKey() {
+        return isSetAnd(Bit_ExclFKey);
+    }
 
-	public boolean isExclNonUserAnnots() {
-		return isSetAnd(Bit_ExclNonUserAnnots);
-	}
+    public boolean isExclNonUserAnnots() {
+        return isSetAnd(Bit_ExclNonUserAnnots);
+    }
 
-	public boolean isExportFormat() {
-		return isSetAnd(Bit_ExportFormat);
-	}
+    public boolean isExportFormat() {
+        return isSetAnd(Bit_ExportFormat);
+    }
 
-	public boolean isGetMethod() {
-		return isSetAnd(Bit_GetMethod);
-	}
+    public boolean isGetMethod() {
+        return isSetAnd(Bit_GetMethod);
+    }
 
-	public boolean isInclude() {
-		return isSetAnd(Bit_Include);
-	}
+    public boolean isInclude() {
+        return isSetAnd(Bit_Include);
+    }
 
-	public boolean isIncludeAnnotations() {
-		return isSetAnd(Bit_IncludeAnnotations);
-	}
+    public boolean isIncludeAnnotations() {
+        return isSetAnd(Bit_IncludeAnnotations);
+    }
 
-	public boolean isIncludeAppendSaves() {
-		return isSetAnd(Bit_IncludeAppendSaves);
-	}
+    public boolean isIncludeAppendSaves() {
+        return isSetAnd(Bit_IncludeAppendSaves);
+    }
 
-	public boolean isIncludeNoValueFields() {
-		return isSetAnd(Bit_IncludeNoValueFields);
-	}
+    public boolean isIncludeNoValueFields() {
+        return isSetAnd(Bit_IncludeNoValueFields);
+    }
 
-	public boolean isNotDEFINED() {
-		return isSetAnd(Bit_NotDEFINED);
-	}
+    public boolean isNotDEFINED() {
+        return isSetAnd(Bit_NotDEFINED);
+    }
 
-	public boolean isSubmitCoordinates() {
-		return isSetAnd(Bit_SubmitCoordinates);
-	}
+    public boolean isSubmitCoordinates() {
+        return isSetAnd(Bit_SubmitCoordinates);
+    }
 
-	public boolean isSubmitPDF() {
-		return isSetAnd(Bit_SubmitPDF);
-	}
+    public boolean isSubmitPDF() {
+        return isSetAnd(Bit_SubmitPDF);
+    }
 
-	public boolean isXFDF() {
-		return isSetAnd(Bit_XFDF);
-	}
+    public boolean isXFDF() {
+        return isSetAnd(Bit_XFDF);
+    }
 
-	public void setCanonicalFormat(boolean flag) {
-		set(Bit_CanonicalFormat, flag);
-	}
+    public void setCanonicalFormat(boolean flag) {
+        set(Bit_CanonicalFormat, flag);
+    }
 
-	public void setEmbedForm(boolean flag) {
-		set(Bit_EmbedForm, flag);
-	}
+    public void setEmbedForm(boolean flag) {
+        set(Bit_EmbedForm, flag);
+    }
 
-	public void setExclFKey(boolean flag) {
-		set(Bit_ExclFKey, flag);
-	}
+    public void setExclFKey(boolean flag) {
+        set(Bit_ExclFKey, flag);
+    }
 
-	public void setExclNonUserAnnots(boolean flag) {
-		set(Bit_ExclNonUserAnnots, flag);
-	}
+    public void setExclNonUserAnnots(boolean flag) {
+        set(Bit_ExclNonUserAnnots, flag);
+    }
 
-	public void setExportFormat(boolean flag) {
-		set(Bit_ExportFormat, flag);
-	}
+    public void setExportFormat(boolean flag) {
+        set(Bit_ExportFormat, flag);
+    }
 
-	public void setGetMethod(boolean flag) {
-		set(Bit_GetMethod, flag);
-	}
+    public void setGetMethod(boolean flag) {
+        set(Bit_GetMethod, flag);
+    }
 
-	public void setInclude(boolean flag) {
-		set(Bit_Include, flag);
-	}
+    public void setInclude(boolean flag) {
+        set(Bit_Include, flag);
+    }
 
-	public void setIncludeAnnotations(boolean flag) {
-		set(Bit_IncludeAnnotations, flag);
-	}
+    public void setIncludeAnnotations(boolean flag) {
+        set(Bit_IncludeAnnotations, flag);
+    }
 
-	public void setIncludeAppendSaves(boolean flag) {
-		set(Bit_IncludeAppendSaves, flag);
-	}
+    public void setIncludeAppendSaves(boolean flag) {
+        set(Bit_IncludeAppendSaves, flag);
+    }
 
-	public void setIncludeNoValueFields(boolean flag) {
-		set(Bit_IncludeNoValueFields, flag);
-	}
+    public void setIncludeNoValueFields(boolean flag) {
+        set(Bit_IncludeNoValueFields, flag);
+    }
 
-	public void setNotDEFINED(boolean flag) {
-		set(Bit_NotDEFINED, flag);
-	}
+    public void setNotDEFINED(boolean flag) {
+        set(Bit_NotDEFINED, flag);
+    }
 
-	public void setSubmitCoordinates(boolean flag) {
-		set(Bit_SubmitCoordinates, flag);
-	}
+    public void setSubmitCoordinates(boolean flag) {
+        set(Bit_SubmitCoordinates, flag);
+    }
 
-	public void setSubmitPDF(boolean flag) {
-		set(Bit_SubmitPDF, flag);
-	}
+    public void setSubmitPDF(boolean flag) {
+        set(Bit_SubmitPDF, flag);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.AbstractBitFlags#setValue(int)
-	 */
-	@Override
-	protected void setValueInObject(int newValue) {
-		getSubmitForm().basicSetFlags(newValue);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.AbstractBitFlags#setValue(int)
+     */
+    @Override
+    protected void setValueInObject(int newValue) {
+        getSubmitForm().basicSetFlags(newValue);
+    }
 
-	public void setXFDF(boolean flag) {
-		set(Bit_XFDF, flag);
-	}
+    public void setXFDF(boolean flag) {
+        set(Bit_XFDF, flag);
+    }
 }

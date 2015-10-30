@@ -29,55 +29,55 @@
  */
 package de.intarsys.pdf.pd;
 
-import java.util.Iterator;
-import java.util.List;
-
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Just an intermediate, structural node in the acro form hierarchy.
- * 
  */
 public class PDAFIntermediateNode extends PDAcroFormField {
-	static public class MetaClass extends PDAcroFormField.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    static public class MetaClass extends PDAcroFormField.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDAFIntermediateNode(object);
-		}
-	}
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDAFIntermediateNode(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public PDAFIntermediateNode(COSObject object) {
-		super(object);
-	}
+    public PDAFIntermediateNode(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormField#cosGetExpectedFieldType()
-	 */
-	public COSName cosGetExpectedFieldType() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormField#cosGetExpectedFieldType()
+     */
+    public COSName cosGetExpectedFieldType() {
+        return null;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDAcroFormNode#collectLeafFields(java.util.List)
-	 */
-	protected List collectLeafFields(List result) {
-		for (Iterator i = getKids().iterator(); i.hasNext();) {
-			PDAcroFormField child = (PDAcroFormField) i.next();
-			child.collectLeafFields(result);
-		}
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDAcroFormNode#collectLeafFields(java.util.List)
+     */
+    protected List collectLeafFields(List result) {
+        for (Iterator i = getKids().iterator(); i.hasNext(); ) {
+            PDAcroFormField child = (PDAcroFormField) i.next();
+            child.collectLeafFields(result);
+        }
+        return result;
+    }
 }

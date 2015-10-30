@@ -34,39 +34,39 @@ package de.intarsys.pdf.font;
  */
 public class CMapCIDRangeCodeMap extends CMapRangeMap {
 
-	final private int destination;
+    final private int destination;
 
-	public CMapCIDRangeCodeMap(byte[] start, byte[] end, int destination) {
-		super(start, end);
-		this.destination = destination;
-	}
+    public CMapCIDRangeCodeMap(byte[] start, byte[] end, int destination) {
+        super(start, end);
+        this.destination = destination;
+    }
 
-	protected int getDestination() {
-		return destination;
-	}
+    protected int getDestination() {
+        return destination;
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		if (codepoint >= start && codepoint <= end) {
-			return new char[] { (char) (destination + codepoint - start) };
-		}
-		return null;
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        if (codepoint >= start && codepoint <= end) {
+            return new char[]{(char) (destination + codepoint - start)};
+        }
+        return null;
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		if (codepoint >= start && codepoint <= end) {
-			return destination + codepoint - start;
-		}
-		return 0;
-	}
+    @Override
+    public int toCID(int codepoint) {
+        if (codepoint >= start && codepoint <= end) {
+            return destination + codepoint - start;
+        }
+        return 0;
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		if ((cid >= destination) && (cid <= destination + end - start)) {
-			return start + cid - destination;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCodepoint(int cid) {
+        if ((cid >= destination) && (cid <= destination + end - start)) {
+            return start + cid - destination;
+        } else {
+            return 0;
+        }
+    }
 }

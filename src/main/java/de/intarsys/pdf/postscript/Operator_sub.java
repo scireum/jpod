@@ -30,29 +30,26 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_sub implements IOperator {
-	public static Operator_sub Instance;
+    public static Operator_sub Instance;
 
-	static {
-		Instance = new Operator_sub();
-	}
+    static {
+        Instance = new Operator_sub();
+    }
 
-	private Operator_sub() {
-		super();
-	}
+    private Operator_sub() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		Number element1;
-		Number element2;
+    public void execute(Handler handler) {
+        Number element1;
+        Number element2;
 
-		element2 = (Number) handler.pop();
-		element1 = (Number) handler.pop();
-		if (element1 instanceof Integer && element2 instanceof Integer) {
-			handler
-					.push(new Integer(element1.intValue() - element2.intValue()));
-			return;
-		}
-		handler
-				.push(new Double(element1.doubleValue()
-						- element2.doubleValue()));
-	}
+        element2 = (Number) handler.pop();
+        element1 = (Number) handler.pop();
+        if (element1 instanceof Integer && element2 instanceof Integer) {
+            handler.push(new Integer(element1.intValue() - element2.intValue()));
+            return;
+        }
+        handler.push(new Double(element1.doubleValue() - element2.doubleValue()));
+    }
 }

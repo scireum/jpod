@@ -31,64 +31,66 @@ package de.intarsys.pdf.font;
 
 /**
  * A codespace range for a CMap.
- * 
+ * <p>
  * <p>
  * todo 1 cmap implement correct byte check
  * </p>
  */
 public class CMapRange {
-	/** The start index of the range */
-	private final byte[] start;
+    /**
+     * The start index of the range
+     */
+    private final byte[] start;
 
-	/** The end index of the range */
-	private final byte[] end;
+    /**
+     * The end index of the range
+     */
+    private final byte[] end;
 
-	/**
-	 * 
-	 */
-	public CMapRange(byte[] start, byte[] end) {
-		super();
-		this.start = start;
-		this.end = end;
-	}
+    /**
+     *
+     */
+    public CMapRange(byte[] start, byte[] end) {
+        super();
+        this.start = start;
+        this.end = end;
+    }
 
-	public boolean checkPrefix(byte[] value, int count) {
-		if (count <= start.length) {
-			for (int i = 0; i < count; i++) {
-				if (((value[i] & 0xff) < (start[i] & 0xff))
-						|| ((value[i] & 0xff) > (end[i] & 0xff))) {
-					return false;
-				}
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public boolean checkPrefix(byte[] value, int count) {
+        if (count <= start.length) {
+            for (int i = 0; i < count; i++) {
+                if (((value[i] & 0xff) < (start[i] & 0xff)) || ((value[i] & 0xff) > (end[i] & 0xff))) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public boolean checkRange(byte[] value, int count) {
-		if (count == start.length) {
-			for (int i = 0; i < count; i++) {
-				if (((value[i] & 0xff) < (start[i] & 0xff))
-						|| ((value[i] & 0xff) > (end[i] & 0xff))) {
-					return false;
-				}
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public boolean checkRange(byte[] value, int count) {
+        if (count == start.length) {
+            for (int i = 0; i < count; i++) {
+                if (((value[i] & 0xff) < (start[i] & 0xff)) || ((value[i] & 0xff) > (end[i] & 0xff))) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public int getByteCount() {
-		return start.length;
-	}
+    public int getByteCount() {
+        return start.length;
+    }
 
-	public byte[] getEnd() {
-		return end;
-	}
+    public byte[] getEnd() {
+        return end;
+    }
 
-	public byte[] getStart() {
-		return start;
-	}
+    public byte[] getStart() {
+        return start;
+    }
 }

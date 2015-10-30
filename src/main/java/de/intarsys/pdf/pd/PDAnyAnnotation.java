@@ -36,28 +36,29 @@ import de.intarsys.pdf.cos.COSObject;
  * A generic annotation implementation.
  */
 public class PDAnyAnnotation extends PDAnnotation {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAnnotation.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDAnnotation.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDAnyAnnotation(object);
-		}
-	}
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDAnyAnnotation(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDAnyAnnotation(COSObject object) {
-		super(object);
-	}
+    protected PDAnyAnnotation(COSObject object) {
+        super(object);
+    }
 
-	public String getSubtypeLabel() {
-		return "Annotation";
-	}
+    public String getSubtypeLabel() {
+        return "Annotation";
+    }
 }

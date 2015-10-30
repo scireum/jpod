@@ -31,26 +31,28 @@ package de.intarsys.pdf.pd;
 
 /**
  * The implementation of the FieldMDP algorithm.
- * 
  */
 public class PDTransformMethodFieldMDP extends PDTransformMethod {
-	/**
-	 * The meta class implementation
-	 */
-	public static class MetaClass extends PDTransformMethod.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
-	}
+    /**
+     * The meta class implementation
+     */
+    public static class MetaClass extends PDTransformMethod.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
+    }
 
-	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The one and only instance of the transform method. */
-	public static PDTransformMethod SINGLETON = new PDTransformMethodFieldMDP();
+    /**
+     * The one and only instance of the transform method.
+     */
+    public static PDTransformMethod SINGLETON = new PDTransformMethodFieldMDP();
 
-	private PDTransformMethodFieldMDP() {
-		super(DK_FieldMDP);
-	}
+    private PDTransformMethodFieldMDP() {
+        super(DK_FieldMDP);
+    }
 }

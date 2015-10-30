@@ -37,118 +37,111 @@ import java.io.Reader;
  * A reader that uses a PDF style encoding to map byte code to unicode.
  */
 public class MappedReader extends Reader {
-	/** the encoding we use to decode/encode the byte stream */
-	private Encoding encoding;
+    /**
+     * the encoding we use to decode/encode the byte stream
+     */
+    private Encoding encoding;
 
-	/** the stream we read from */
-	private InputStream inStream;
+    /**
+     * the stream we read from
+     */
+    private InputStream inStream;
 
-	/**
-	 * Create a MappedReader
-	 * 
-	 * @param is
-	 *            The underlying byte stream.
-	 * @param encoding
-	 *            The encoding to use.
-	 */
-	public MappedReader(InputStream is, Encoding encoding) {
-		super(is);
-		setInStream(is);
-		setEncoding(encoding);
-	}
+    /**
+     * Create a MappedReader
+     *
+     * @param is       The underlying byte stream.
+     * @param encoding The encoding to use.
+     */
+    public MappedReader(InputStream is, Encoding encoding) {
+        super(is);
+        setInStream(is);
+        setEncoding(encoding);
+    }
 
-	/**
-	 * @see java.io.Reader#close()
-	 */
-	@Override
-	public void close() throws IOException {
-		synchronized (lock) {
-			if (inStream == null) {
-				return;
-			}
-			inStream.close();
-			inStream = null;
-		}
-	}
+    /**
+     * @see java.io.Reader#close()
+     */
+    @Override
+    public void close() throws IOException {
+        synchronized (lock) {
+            if (inStream == null) {
+                return;
+            }
+            inStream.close();
+            inStream = null;
+        }
+    }
 
-	/**
-	 * Check to make sure that the stream has not been closed
-	 * 
-	 * @throws IOException
-	 *             if the inStream is null.
-	 */
-	protected void ensureOpen() throws IOException {
-		if (inStream == null) {
-			throw new IOException("Stream closed");
-		}
-	}
+    /**
+     * Check to make sure that the stream has not been closed
+     *
+     * @throws IOException if the inStream is null.
+     */
+    protected void ensureOpen() throws IOException {
+        if (inStream == null) {
+            throw new IOException("Stream closed");
+        }
+    }
 
-	/**
-	 * The encoding used by this reader.
-	 * 
-	 * @return The encoding used by this reader.
-	 */
-	public Encoding getEncoding() {
-		return encoding;
-	}
+    /**
+     * The encoding used by this reader.
+     *
+     * @return The encoding used by this reader.
+     */
+    public Encoding getEncoding() {
+        return encoding;
+    }
 
-	/**
-	 * Read characters into a portion of an array. This method will block until
-	 * some input is available, an I/O error occurs, or the end of the stream is
-	 * reached.
-	 * 
-	 * @param cbuf
-	 *            Destination buffer
-	 * @param off
-	 *            Offset at which to start storing characters
-	 * @param len
-	 *            Maximum number of characters to read
-	 * 
-	 * @return The number of characters read, or -1 if the end of the stream has
-	 *         been reached
-	 * 
-	 * @exception IOException
-	 *                If an I/O error occurs
-	 * @throws IndexOutOfBoundsException
-	 */
-	@Override
-	public int read(char[] cbuf, int off, int len) throws IOException {
-		synchronized (lock) {
-			ensureOpen();
-			if ((off < 0) || (off > cbuf.length) || (len < 0)
-					|| ((off + len) > cbuf.length) || ((off + len) < 0)) {
-				throw new IndexOutOfBoundsException();
-			} else if (len == 0) {
-				return 0;
-			}
+    /**
+     * Read characters into a portion of an array. This method will block until
+     * some input is available, an I/O error occurs, or the end of the stream is
+     * reached.
+     *
+     * @param cbuf Destination buffer
+     * @param off  Offset at which to start storing characters
+     * @param len  Maximum number of characters to read
+     * @return The number of characters read, or -1 if the end of the stream has
+     * been reached
+     * @throws IOException               If an I/O error occurs
+     * @throws IndexOutOfBoundsException
+     */
+    @Override
+    public int read(char[] cbuf, int off, int len) throws IOException {
+        synchronized (lock) {
+            ensureOpen();
+            if ((off < 0) || (off > cbuf.length) || (len < 0) || ((off + len) > cbuf.length) || ((off + len) < 0)) {
+                throw new IndexOutOfBoundsException();
+            } else if (len == 0) {
+                return 0;
+            }
 
-			int stop = off + len;
-			int c = 0;
-			for (int i = off; i < stop; i++) {
-				c = encoding.getNextDecoded(inStream);
-				if (c == -1) {
-					if (i == off) {
-						return -1;
-					}
-					return i - off;
-				}
-				cbuf[i] = (char) c;
-			}
-			return len;
-		}
-	}
+            int stop = off + len;
+            int c = 0;
+            for (int i = off; i < stop; i++) {
+                c = encoding.getNextDecoded(inStream);
+                if (c == -1) {
+                    if (i == off) {
+                        return -1;
+                    }
+                    return i - off;
+                }
+                cbuf[i] = (char) c;
+            }
+            return len;
+        }
+    }
 
-	/**
-	 * Set the encoding to be used by this reader.
-	 * 
-	 * @param encoding
-	 *            The new encoding to use.
-	 */
-	private void setEncoding(Encoding encoding) {
-		this.encoding = encoding;
-	}
+    /**
+     * Set the encoding to be used by this reader.
+     *
+     * @param encoding The new encoding to use.
+     */
+    private void setEncoding(Encoding encoding) {
+        this.encoding = encoding;
+    }
 
-	protected void setInStream(java.io.InputStream newInStream) {
-		inStream = newInStream;
-	}
+    protected void setInStream(java.io.InputStream newInStream) {
+        inStream = newInStream;
+    }
 }

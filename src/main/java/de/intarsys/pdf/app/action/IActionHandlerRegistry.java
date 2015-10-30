@@ -33,43 +33,40 @@ import de.intarsys.pdf.cos.COSName;
 
 /**
  * A factory for action handler objects.
- * 
+ * <p>
  * <p>
  * The action handler factory returns a registered handler for a given action
  * type.
  * </p>
  */
 public interface IActionHandlerRegistry {
-	/**
-	 * A collection of all registered {@link IActionHandler} instances.
-	 * 
-	 * @return A collection of all registered {@link IActionHandler} instances.
-	 */
-	public IActionHandler[] getActionHandlers();
+    /**
+     * A collection of all registered {@link IActionHandler} instances.
+     *
+     * @return A collection of all registered {@link IActionHandler} instances.
+     */
+    public IActionHandler[] getActionHandlers();
 
-	/**
-	 * The {@link IActionHandler} for the specified <code>actionType</code>.
-	 * 
-	 * @param actionType
-	 *            The type of action to be executed, for example /JavaScript
-	 * @return The {@link IActionHandler} able to process an action definition
-	 *         of the specified type.
-	 */
-	public IActionHandler lookupActionHandler(COSName actionType);
+    /**
+     * The {@link IActionHandler} for the specified <code>actionType</code>.
+     *
+     * @param actionType The type of action to be executed, for example /JavaScript
+     * @return The {@link IActionHandler} able to process an action definition
+     * of the specified type.
+     */
+    public IActionHandler lookupActionHandler(COSName actionType);
 
-	/**
-	 * Register an {@link IActionHandler}.
-	 * 
-	 * @param handler
-	 *            The new handler
-	 */
-	public void registerActionHandler(IActionHandler handler);
+    /**
+     * Register an {@link IActionHandler}.
+     *
+     * @param handler The new handler
+     */
+    public void registerActionHandler(IActionHandler handler);
 
-	/**
-	 * Unregister an {@link IActionHandler}.
-	 * 
-	 * @param handler
-	 *            The {@link IActionHandler} to be unregistered.
-	 */
-	public void unregisterActionHandler(IActionHandler handler);
+    /**
+     * Unregister an {@link IActionHandler}.
+     *
+     * @param handler The {@link IActionHandler} to be unregistered.
+     */
+    public void unregisterActionHandler(IActionHandler handler);
 }

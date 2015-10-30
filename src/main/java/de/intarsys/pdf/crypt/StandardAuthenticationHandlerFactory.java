@@ -35,31 +35,26 @@ import de.intarsys.tools.attribute.Attribute;
 /**
  * The standard factory for an {@link IAuthenticationHandler}.
  */
-public class StandardAuthenticationHandlerFactory implements
-		IAuthenticationHandlerFactory {
+public class StandardAuthenticationHandlerFactory implements IAuthenticationHandlerFactory {
 
-	private static final Attribute ATTR_AUTHENTICATIONHANDLER = new Attribute(
-			"authenticationHandler");
+    private static final Attribute ATTR_AUTHENTICATIONHANDLER = new Attribute("authenticationHandler");
 
-	/**
-	 * This implementation will return the same {@link IAuthenticationHandler}
-	 * for a document on every request.
-	 * 
-	 * @see de.intarsys.pdf.crypt.IAuthenticationHandlerFactory#createAuthenticationHandler(de.intarsys.pdf.crypt.ISecurityHandler)
-	 */
-	public IAuthenticationHandler createAuthenticationHandler(
-			ISecurityHandler securityHandler) {
-		STDocument doc = securityHandler.stGetDoc();
-		if (doc == null) {
-			return new StandardAuthenticationHandler();
-		}
-		IAuthenticationHandler handler = (IAuthenticationHandler) doc
-				.getAttribute(ATTR_AUTHENTICATIONHANDLER);
-		if (handler == null) {
-			handler = new StandardAuthenticationHandler();
-			doc.setAttribute(ATTR_AUTHENTICATIONHANDLER, handler);
-		}
-		return handler;
-	}
-
+    /**
+     * This implementation will return the same {@link IAuthenticationHandler}
+     * for a document on every request.
+     *
+     * @see de.intarsys.pdf.crypt.IAuthenticationHandlerFactory#createAuthenticationHandler(de.intarsys.pdf.crypt.ISecurityHandler)
+     */
+    public IAuthenticationHandler createAuthenticationHandler(ISecurityHandler securityHandler) {
+        STDocument doc = securityHandler.stGetDoc();
+        if (doc == null) {
+            return new StandardAuthenticationHandler();
+        }
+        IAuthenticationHandler handler = (IAuthenticationHandler) doc.getAttribute(ATTR_AUTHENTICATIONHANDLER);
+        if (handler == null) {
+            handler = new StandardAuthenticationHandler();
+            doc.setAttribute(ATTR_AUTHENTICATIONHANDLER, handler);
+        }
+        return handler;
+    }
 }

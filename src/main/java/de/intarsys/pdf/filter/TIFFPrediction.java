@@ -32,35 +32,35 @@ package de.intarsys.pdf.filter;
 import de.intarsys.pdf.cos.COSDictionary;
 
 public class TIFFPrediction extends Prediction {
-	public TIFFPrediction(COSDictionary options) {
-		super(options);
-	}
+    public TIFFPrediction(COSDictionary options) {
+        super(options);
+    }
 
-	protected void decodeRow(byte[] source, int sourceOffset, byte[] result,
-			int resultOffset) {
-		int colors;
-		int columns;
+    protected void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
+        int colors;
+        int columns;
 
-		if (getBitsPerComponent() != 8) {
-			// TODO 2 @ehk implement
-			return;
-		}
+        if (getBitsPerComponent() != 8) {
+            // TODO 2 @ehk implement
+            return;
+        }
 
-		colors = getColors();
-		columns = getColumns();
-		for (int index = 0; index < colors; index++) {
-			result[resultOffset + index] = source[sourceOffset + index];
-		}
-		for (int byteIndex = 1; byteIndex < columns; byteIndex++) {
-			for (int colorIndex = 0; colorIndex < colors; colorIndex++) {
-				result[resultOffset + (byteIndex * colors) + colorIndex] = (byte) (result[resultOffset
-						+ ((byteIndex - 1) * colors) + colorIndex] + source[sourceOffset
-						+ (byteIndex * colors) + colorIndex]);
-			}
-		}
-	}
+        colors = getColors();
+        columns = getColumns();
+        for (int index = 0; index < colors; index++) {
+            result[resultOffset + index] = source[sourceOffset + index];
+        }
+        for (int byteIndex = 1; byteIndex < columns; byteIndex++) {
+            for (int colorIndex = 0; colorIndex < colors; colorIndex++) {
+                result[resultOffset + (byteIndex * colors) + colorIndex] =
+                        (byte) (result[resultOffset + ((byteIndex - 1) * colors) + colorIndex] + source[sourceOffset + (
+                                byteIndex
+                                * colors) + colorIndex]);
+            }
+        }
+    }
 
-	public int getRowSize() {
-		return getColumns() * getColors();
-	}
+    public int getRowSize() {
+        return getColumns() * getColors();
+    }
 }

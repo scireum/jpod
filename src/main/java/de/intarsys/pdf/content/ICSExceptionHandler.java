@@ -34,7 +34,7 @@ package de.intarsys.pdf.content;
  * stream. This one is plugged into an {@link ICSInterpreter}.
  */
 public interface ICSExceptionHandler {
-	public void error(CSError error) throws CSException;
+    public void error(CSError error) throws CSException;
 
-	public void warning(CSWarning warning) throws CSException;
+    public void warning(CSWarning warning) throws CSException;
 }

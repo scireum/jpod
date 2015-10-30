@@ -42,32 +42,25 @@ import de.intarsys.pdf.cos.COSObjectKey;
  * can be used.
  */
 public interface ICryptHandler {
-	/**
-	 * Decrypt any bytes in the context of COSObject referenced by the provided
-	 * key.
-	 * 
-	 * @param key
-	 *            of the object which provides the context
-	 * @param bytes
-	 *            to decrypt
-	 * @return the decrypted bytes
-	 * @throws COSSecurityException
-	 */
-	public byte[] decrypt(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException;
+    /**
+     * Decrypt any bytes in the context of COSObject referenced by the provided
+     * key.
+     *
+     * @param key   of the object which provides the context
+     * @param bytes to decrypt
+     * @return the decrypted bytes
+     * @throws COSSecurityException
+     */
+    public byte[] decrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException;
 
-	/**
-	 * Encrypt any bytes in the context of COSObject referenced by the provided
-	 * key.
-	 * 
-	 * @param key
-	 *            of the object which provides the context
-	 * @param bytes
-	 *            to decrypt
-	 * @return the encrypted bytes
-	 * @throws COSSecurityException
-	 */
-	public byte[] encrypt(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException;
-
+    /**
+     * Encrypt any bytes in the context of COSObject referenced by the provided
+     * key.
+     *
+     * @param key   of the object which provides the context
+     * @param bytes to decrypt
+     * @return the encrypted bytes
+     * @throws COSSecurityException
+     */
+    public byte[] encrypt(COSObjectKey key, byte[] bytes) throws COSSecurityException;
 }

@@ -29,15 +29,13 @@
  */
 package de.intarsys.pdf.filter;
 
-import java.io.IOException;
-
 import de.intarsys.pdf.cos.COSDictionary;
+
+import java.io.IOException;
 
 /**
  * A factory for {@link IPrediction} objects.
- * 
  */
 public interface IPredictionFactory {
-	public IPrediction createPrediction(COSDictionary options)
-			throws IOException;
+    public IPrediction createPrediction(COSDictionary options) throws IOException;
 }

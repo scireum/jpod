@@ -29,10 +29,10 @@
  */
 package de.intarsys.pdf.app.annotation;
 
-import java.awt.geom.Point2D;
-
 import de.intarsys.pdf.pd.PDAnnotation;
 import de.intarsys.pdf.pd.PDDocument;
+
+import java.awt.geom.Point2D;
 
 /**
  * An object designating an annotation within a document.
@@ -42,42 +42,42 @@ import de.intarsys.pdf.pd.PDDocument;
  */
 public interface IAnnotationReference {
 
-	/**
-	 * The {@link PDAnnotation} referenced by this.
-	 * <p>
-	 * Evaluating this method may create a new {@link PDAnnotation} lazy and
-	 * modify the {@link PDDocument}!
-	 * 
-	 * @return The {@link PDAnnotation} referenced by this.
-	 */
-	public PDAnnotation getAnnotation();
+    /**
+     * The {@link PDAnnotation} referenced by this.
+     * <p>
+     * Evaluating this method may create a new {@link PDAnnotation} lazy and
+     * modify the {@link PDDocument}!
+     *
+     * @return The {@link PDAnnotation} referenced by this.
+     */
+    public PDAnnotation getAnnotation();
 
-	/**
-	 * The {@link PDDocument} hosting the {@link PDAnnotation}.
-	 * 
-	 * @return The {@link PDDocument} hosting the {@link PDAnnotation}.
-	 */
-	public PDDocument getDocument();
+    /**
+     * The {@link PDDocument} hosting the {@link PDAnnotation}.
+     *
+     * @return The {@link PDDocument} hosting the {@link PDAnnotation}.
+     */
+    public PDDocument getDocument();
 
-	/**
-	 * The position of the bounding box of the {@link PDAnnotation}. This may
-	 * be evaluated even if the {@link PDAnnotation} not yet exists without
-	 * modifying the {@link PDDocument}.
-	 * 
-	 * @return The position of the bounding box of the {@link PDAnnotation}.
-	 */
-	public Point2D getPosition();
+    /**
+     * The position of the bounding box of the {@link PDAnnotation}. This may
+     * be evaluated even if the {@link PDAnnotation} not yet exists without
+     * modifying the {@link PDDocument}.
+     *
+     * @return The position of the bounding box of the {@link PDAnnotation}.
+     */
+    public Point2D getPosition();
 
-	/**
-	 * The size of the bounding box of the {@link PDAnnotation}. This may be
-	 * evaluated even if the {@link PDAnnotation} not yet exists without
-	 * modifying the {@link PDDocument}.
-	 * 
-	 * @return The size of the bounding box of the {@link PDAnnotation}.
-	 */
-	public Point2D getSize();
+    /**
+     * The size of the bounding box of the {@link PDAnnotation}. This may be
+     * evaluated even if the {@link PDAnnotation} not yet exists without
+     * modifying the {@link PDDocument}.
+     *
+     * @return The size of the bounding box of the {@link PDAnnotation}.
+     */
+    public Point2D getSize();
 
-	public boolean isNew();
+    public boolean isNew();
 
-	public boolean isVisible();
+    public boolean isVisible();
 }

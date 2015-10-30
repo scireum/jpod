@@ -29,55 +29,53 @@
  */
 package de.intarsys.pdf.filter;
 
+import de.intarsys.pdf.cos.COSDictionary;
+import de.intarsys.tools.stream.StreamTools;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import de.intarsys.pdf.cos.COSDictionary;
-import de.intarsys.tools.stream.StreamTools;
-
 /**
- * 
+ *
  */
 abstract public class StreamBasedFilter extends Filter {
-	/**
-	 * 
-	 */
-	public StreamBasedFilter(COSDictionary options) {
-		super(options);
-	}
+    /**
+     *
+     */
+    public StreamBasedFilter(COSDictionary options) {
+        super(options);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
-	 */
-	protected byte[] encode(byte[] source) throws IOException {
-		ByteArrayInputStream is = new ByteArrayInputStream(source);
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		OutputStream filter = createOutputFilterStream(os);
-		StreamTools.copyStream(is, true, filter, true);
-		return os.toByteArray();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#encode(byte[])
+     */
+    protected byte[] encode(byte[] source) throws IOException {
+        ByteArrayInputStream is = new ByteArrayInputStream(source);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        OutputStream filter = createOutputFilterStream(os);
+        StreamTools.copyStream(is, true, filter, true);
+        return os.toByteArray();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
-	 */
-	protected byte[] decode(byte[] source) throws IOException {
-		ByteArrayInputStream is = new ByteArrayInputStream(source);
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		InputStream filter = createInputFilterStream(is);
-		StreamTools.copyStream(filter, true, os, true);
-		return os.toByteArray();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.filter.IFilter#decode(byte[])
+     */
+    protected byte[] decode(byte[] source) throws IOException {
+        ByteArrayInputStream is = new ByteArrayInputStream(source);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        InputStream filter = createInputFilterStream(is);
+        StreamTools.copyStream(filter, true, os, true);
+        return os.toByteArray();
+    }
 
-	abstract protected InputStream createInputFilterStream(InputStream is)
-			throws IOException;
+    abstract protected InputStream createInputFilterStream(InputStream is) throws IOException;
 
-	abstract protected OutputStream createOutputFilterStream(OutputStream os)
-			throws IOException;
+    abstract protected OutputStream createOutputFilterStream(OutputStream os) throws IOException;
 }

@@ -34,13 +34,13 @@ package de.intarsys.pdf.app.annotation;
  */
 public class AnnotationOutlet {
 
-	private static IAnnotationOutlet ACTIVE = new StandardAnnotationOutlet();
+    private static IAnnotationOutlet ACTIVE = new StandardAnnotationOutlet();
 
-	static public IAnnotationOutlet get() {
-		return ACTIVE;
-	}
+    static public IAnnotationOutlet get() {
+        return ACTIVE;
+    }
 
-	static public void set(IAnnotationOutlet outlet) {
-		ACTIVE = outlet;
-	}
+    static public void set(IAnnotationOutlet outlet) {
+        ACTIVE = outlet;
+    }
 }

@@ -30,21 +30,21 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_if implements IOperator {
-	public static Operator_if Instance;
+    public static Operator_if Instance;
 
-	static {
-		Instance = new Operator_if();
-	}
+    static {
+        Instance = new Operator_if();
+    }
 
-	private Operator_if() {
-		super();
-	}
+    private Operator_if() {
+        super();
+    }
 
-	public void execute(Handler handler) throws ParseException {
-		PSArray procedure = (PSArray) handler.pop();
-		Boolean condition = (Boolean) handler.pop();
-		if (condition) {
-			procedure.accept(handler);
-		}
-	}
+    public void execute(Handler handler) throws ParseException {
+        PSArray procedure = (PSArray) handler.pop();
+        Boolean condition = (Boolean) handler.pop();
+        if (condition) {
+            procedure.accept(handler);
+        }
+    }
 }

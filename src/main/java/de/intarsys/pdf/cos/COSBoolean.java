@@ -34,48 +34,45 @@ package de.intarsys.pdf.cos;
  */
 abstract public class COSBoolean extends COSPrimitiveObject {
 
-	public static final COSBoolean TRUE = (COSBoolean) COSBoolean.create(true)
-			.beConstant();
+    public static final COSBoolean TRUE = (COSBoolean) COSBoolean.create(true).beConstant();
 
-	public static final COSBoolean FALSE = (COSBoolean) COSBoolean
-			.create(false).beConstant();
+    public static final COSBoolean FALSE = (COSBoolean) COSBoolean.create(false).beConstant();
 
-	static public COSBoolean create(boolean value) {
-		if (value) {
-			return COSTrue.create();
-		}
-		return COSFalse.create();
-	}
+    static public COSBoolean create(boolean value) {
+        if (value) {
+            return COSTrue.create();
+        }
+        return COSFalse.create();
+    }
 
-	protected COSBoolean() {
-		super();
-	}
+    protected COSBoolean() {
+        super();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
-	 */
-	@Override
-	public java.lang.Object accept(ICOSObjectVisitor visitor)
-			throws COSVisitorException {
-		return visitor.visitFromBoolean(this);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
+     */
+    @Override
+    public java.lang.Object accept(ICOSObjectVisitor visitor) throws COSVisitorException {
+        return visitor.visitFromBoolean(this);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#asBoolean()
-	 */
-	@Override
-	public COSBoolean asBoolean() {
-		return this;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#asBoolean()
+     */
+    @Override
+    public COSBoolean asBoolean() {
+        return this;
+    }
 
-	/**
-	 * The boolean value for this.
-	 * 
-	 * @return The boolean value for this.
-	 */
-	abstract public boolean booleanValue();
+    /**
+     * The boolean value for this.
+     *
+     * @return The boolean value for this.
+     */
+    abstract public boolean booleanValue();
 }

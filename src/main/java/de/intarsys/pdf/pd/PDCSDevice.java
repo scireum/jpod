@@ -33,20 +33,21 @@ package de.intarsys.pdf.pd;
  * Abstract superclass for all device color spaces.
  */
 abstract public class PDCSDevice extends PDColorSpace {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDColorSpace.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
-	}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDColorSpace.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	protected PDCSDevice() {
-		super(null);
-	}
+    protected PDCSDevice() {
+        super(null);
+    }
 }

@@ -30,23 +30,23 @@
 package de.intarsys.pdf.parser;
 
 /**
- * 
- * 
+ *
+ *
  */
 public class COSLoadError extends COSLoadException {
-	public COSLoadError(String message) {
-		super(message);
-	}
+    public COSLoadError(String message) {
+        super(message);
+    }
 
-	public COSLoadError(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public COSLoadError(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public COSLoadError() {
-		super();
-	}
+    public COSLoadError() {
+        super();
+    }
 
-	public COSLoadError(Throwable cause) {
-		super(cause);
-	}
+    public COSLoadError(Throwable cause) {
+        super(cause);
+    }
 }

@@ -33,56 +33,54 @@ import de.intarsys.pdf.cos.COSDictionary;
 
 public class PNGAveragePrediction extends PNGPrediction {
 
-	public PNGAveragePrediction(COSDictionary options) {
-		super(options);
-	}
+    public PNGAveragePrediction(COSDictionary options) {
+        super(options);
+    }
 
-	@Override
-	protected void decodeRow(byte[] source, int sourceOffset, byte[] result,
-			int resultOffset) {
-		// Average(x) + floor((Raw(x-bpp)+Prior(x))/2)
-		int raw;
+    @Override
+    protected void decodeRow(byte[] source, int sourceOffset, byte[] result, int resultOffset) {
+        // Average(x) + floor((Raw(x-bpp)+Prior(x))/2)
+        int raw;
 
-		// Average(x) + floor((Raw(x-bpp)+Prior(x))/2)
-		int left;
+        // Average(x) + floor((Raw(x-bpp)+Prior(x))/2)
+        int left;
 
-		// Average(x) + floor((Raw(x-bpp)+Prior(x))/2)
-		int above;
-		int colors = getColors();
-		if (getBitsPerComponent() != 8) {
-			// TODO 2 @ehk implement
-			return;
-		}
+        // Average(x) + floor((Raw(x-bpp)+Prior(x))/2)
+        int above;
+        int colors = getColors();
+        if (getBitsPerComponent() != 8) {
+            // TODO 2 @ehk implement
+            return;
+        }
 
-		sourceOffset = sourceOffset + 1;
+        sourceOffset = sourceOffset + 1;
 
-		if (sourceOffset == 1) {
-			for (int c = 0; c < colors; c++) {
-				result[resultOffset + c] = source[sourceOffset + c];
-			}
+        if (sourceOffset == 1) {
+            for (int c = 0; c < colors; c++) {
+                result[resultOffset + c] = source[sourceOffset + c];
+            }
 
-			for (int x = 1; x < getResultRowSize(); x++) {
-				raw = source[sourceOffset + x] & 0xff;
-				left = result[(resultOffset + x) - colors] & 0xff;
-				above = 0;
-				result[resultOffset + x] = (byte) (raw + ((left + above) / 2));
-			}
-			return;
-		}
+            for (int x = 1; x < getResultRowSize(); x++) {
+                raw = source[sourceOffset + x] & 0xff;
+                left = result[(resultOffset + x) - colors] & 0xff;
+                above = 0;
+                result[resultOffset + x] = (byte) (raw + ((left + above) / 2));
+            }
+            return;
+        }
 
-		for (int c = 0; c < colors; c++) {
-			raw = source[sourceOffset + c] & 0xff;
-			left = 0;
-			above = result[(resultOffset + c) - getResultRowSize()] & 0xff;
-			result[resultOffset + c] = (byte) (raw + ((left + above) / 2));
-		}
+        for (int c = 0; c < colors; c++) {
+            raw = source[sourceOffset + c] & 0xff;
+            left = 0;
+            above = result[(resultOffset + c) - getResultRowSize()] & 0xff;
+            result[resultOffset + c] = (byte) (raw + ((left + above) / 2));
+        }
 
-		for (int x = colors; x < getResultRowSize(); x++) {
-			raw = source[sourceOffset + x] & 0xff;
-			left = result[(resultOffset + x) - colors] & 0xff;
-			above = result[(resultOffset + x) - getResultRowSize()] & 0xff;
-			result[resultOffset + x] = (byte) (raw + ((left + above) / 2));
-		}
-	}
-
+        for (int x = colors; x < getResultRowSize(); x++) {
+            raw = source[sourceOffset + x] & 0xff;
+            left = result[(resultOffset + x) - colors] & 0xff;
+            above = result[(resultOffset + x) - getResultRowSize()] & 0xff;
+            result[resultOffset + x] = (byte) (raw + ((left + above) / 2));
+        }
+    }
 }

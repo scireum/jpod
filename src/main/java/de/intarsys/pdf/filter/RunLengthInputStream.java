@@ -39,104 +39,103 @@ import java.io.InputStream;
  */
 public class RunLengthInputStream extends FilterInputStream {
 
-	private byte[] buffer = new byte[128];
+    private byte[] buffer = new byte[128];
 
-	private int length = 0;
+    private int length = 0;
 
-	private int pos = 0;
+    private int pos = 0;
 
-	public RunLengthInputStream(InputStream in) {
-		super(in);
-	}
+    public RunLengthInputStream(InputStream in) {
+        super(in);
+    }
 
-	@Override
-	public int available() throws IOException {
-		throw new IOException("method not supported");
-	}
+    @Override
+    public int available() throws IOException {
+        throw new IOException("method not supported");
+    }
 
-	@Override
-	public boolean markSupported() {
-		return false;
-	}
+    @Override
+    public boolean markSupported() {
+        return false;
+    }
 
-	@Override
-	public int read() throws IOException {
-		if (pos >= length) {
-			int i = in.read();
-			if (i == -1 || i == 128) {
-				return -1;
-			}
-			pos = 0;
-			if (i <= 127) {
-				length = i + 1;
-				int index = 0;
-				while (index < length) {
-					int count = in.read(buffer, index, length - index);
-					if (count == -1) {
-						// unexpected end... but use what we have read..
-						length = index;
-					} else {
-						index += count;
-					}
-				}
-			} else {
-				length = 257 - i;
-				int copy = in.read();
-				if (copy == -1) {
-					// unexpected end
-					length = 0;
-				}
-				int index = 0;
-				while (index < length) {
-					buffer[index++] = (byte) copy;
-				}
-			}
-			return read();
-		} else {
-			return buffer[pos++] & 0xff;
-		}
-	}
+    @Override
+    public int read() throws IOException {
+        if (pos >= length) {
+            int i = in.read();
+            if (i == -1 || i == 128) {
+                return -1;
+            }
+            pos = 0;
+            if (i <= 127) {
+                length = i + 1;
+                int index = 0;
+                while (index < length) {
+                    int count = in.read(buffer, index, length - index);
+                    if (count == -1) {
+                        // unexpected end... but use what we have read..
+                        length = index;
+                    } else {
+                        index += count;
+                    }
+                }
+            } else {
+                length = 257 - i;
+                int copy = in.read();
+                if (copy == -1) {
+                    // unexpected end
+                    length = 0;
+                }
+                int index = 0;
+                while (index < length) {
+                    buffer[index++] = (byte) copy;
+                }
+            }
+            return read();
+        } else {
+            return buffer[pos++] & 0xff;
+        }
+    }
 
-	@Override
-	public int read(byte[] b, int off, int len) throws IOException {
-		if (b == null) {
-			throw new NullPointerException();
-		} else if ((off < 0) || (off > b.length) || (len < 0)
-				|| ((off + len) > b.length) || ((off + len) < 0)) {
-			throw new IndexOutOfBoundsException();
-		} else if (len == 0) {
-			return 0;
-		}
+    @Override
+    public int read(byte[] b, int off, int len) throws IOException {
+        if (b == null) {
+            throw new NullPointerException();
+        } else if ((off < 0) || (off > b.length) || (len < 0) || ((off + len) > b.length) || ((off + len) < 0)) {
+            throw new IndexOutOfBoundsException();
+        } else if (len == 0) {
+            return 0;
+        }
 
-		int c = read();
-		if (c == -1) {
-			return -1;
-		}
-		b[off] = (byte) c;
+        int c = read();
+        if (c == -1) {
+            return -1;
+        }
+        b[off] = (byte) c;
 
-		int i = 1;
-		try {
-			for (; i < len; i++) {
-				c = read();
-				if (c == -1) {
-					break;
-				}
-				if (b != null) {
-					b[off + i] = (byte) c;
-				}
-			}
-		} catch (IOException ee) {
-		}
-		return i;
-	}
+        int i = 1;
+        try {
+            for (; i < len; i++) {
+                c = read();
+                if (c == -1) {
+                    break;
+                }
+                if (b != null) {
+                    b[off + i] = (byte) c;
+                }
+            }
+        } catch (IOException ee) {
+        }
+        return i;
+    }
 
-	@Override
-	public synchronized void reset() throws IOException {
-		throw new IOException("method not supported");
-	}
+    @Override
+    public synchronized void reset() throws IOException {
+        throw new IOException("method not supported");
+    }
 
-	@Override
-	public long skip(long n) throws IOException {
-		throw new IOException("method not supported");
-	}
+    @Override
+    public long skip(long n) throws IOException {
+        throw new IOException("method not supported");
+    }
 }

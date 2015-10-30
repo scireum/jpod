@@ -29,108 +29,105 @@
  */
 package de.intarsys.pdf.tools.kernel;
 
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-
 import de.intarsys.pdf.cds.CDSMatrix;
 import de.intarsys.pdf.cds.CDSRectangle;
 import de.intarsys.pdf.pd.PDPage;
+
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Tool class for calculations regarding the PDF geometry.
  */
 public class PDFGeometryTools {
 
-	protected static final double RADIANS_MIN_270 = Math.toRadians(-270);
-	protected static final double RADIANS_MIN_180 = Math.toRadians(-180);
-	protected static final double RADIANS_MIN_90 = Math.toRadians(-90);
+    protected static final double RADIANS_MIN_270 = Math.toRadians(-270);
+    protected static final double RADIANS_MIN_180 = Math.toRadians(-180);
+    protected static final double RADIANS_MIN_90 = Math.toRadians(-90);
 
-	/**
-	 * Given a device space transformation, apply the necessary transformation
-	 * steps to move the origin of the coordinate system to the lower left
-	 * corner of <code>rect</code> after rotating it clockwise by
-	 * <code>rotate</code>.
-	 * <p>
-	 * <code>transform</code> is modified
-	 * 
-	 * @param transform
-	 * @param rotate
-	 * @param rect
-	 */
-	public static void adjustTransform(AffineTransform transform, int rotate,
-			Rectangle2D rect) {
-		if (rotate == 0) {
-			transform.translate(-rect.getMinX(), -rect.getMinY());
-		} else if (rotate == 90) {
-			transform.translate(-rect.getMinY(), rect.getMaxX());
-			transform.rotate(RADIANS_MIN_90);
-		} else if (rotate == 180) {
-			transform.translate(rect.getMaxX(), rect.getMaxY());
-			transform.rotate(RADIANS_MIN_180);
-		} else if (rotate == 270) {
-			transform.translate(rect.getMaxY(), -rect.getMinX());
-			transform.rotate(RADIANS_MIN_270);
-		} else {
-			// this should not happen...
-			transform.translate(-rect.getMinX(), -rect.getMinY());
-		}
-	}
+    /**
+     * Given a device space transformation, apply the necessary transformation
+     * steps to move the origin of the coordinate system to the lower left
+     * corner of <code>rect</code> after rotating it clockwise by
+     * <code>rotate</code>.
+     * <p>
+     * <code>transform</code> is modified
+     *
+     * @param transform
+     * @param rotate
+     * @param rect
+     */
+    public static void adjustTransform(AffineTransform transform, int rotate, Rectangle2D rect) {
+        if (rotate == 0) {
+            transform.translate(-rect.getMinX(), -rect.getMinY());
+        } else if (rotate == 90) {
+            transform.translate(-rect.getMinY(), rect.getMaxX());
+            transform.rotate(RADIANS_MIN_90);
+        } else if (rotate == 180) {
+            transform.translate(rect.getMaxX(), rect.getMaxY());
+            transform.rotate(RADIANS_MIN_180);
+        } else if (rotate == 270) {
+            transform.translate(rect.getMaxY(), -rect.getMinX());
+            transform.rotate(RADIANS_MIN_270);
+        } else {
+            // this should not happen...
+            transform.translate(-rect.getMinX(), -rect.getMinY());
+        }
+    }
 
-	/**
-	 * Given a device space transformation, apply the necessary transformation
-	 * steps to move the origin of the coordinate system to the lower left
-	 * corner of <code>page</code>.
-	 * <p>
-	 * <code>transform</code> is modified
-	 * 
-	 * @param transform
-	 * @param page
-	 */
-	public static void adjustTransform(AffineTransform transform, PDPage page) {
-		int rotate = PDFGeometryTools.normalizeRotate(page.getRotate());
-		Rectangle2D rect = page.getCropBox().toNormalizedRectangle();
-		adjustTransform(transform, rotate, rect);
-	}
+    /**
+     * Given a device space transformation, apply the necessary transformation
+     * steps to move the origin of the coordinate system to the lower left
+     * corner of <code>page</code>.
+     * <p>
+     * <code>transform</code> is modified
+     *
+     * @param transform
+     * @param page
+     */
+    public static void adjustTransform(AffineTransform transform, PDPage page) {
+        int rotate = PDFGeometryTools.normalizeRotate(page.getRotate());
+        Rectangle2D rect = page.getCropBox().toNormalizedRectangle();
+        adjustTransform(transform, rotate, rect);
+    }
 
-	/**
-	 * Normalize the rotation parameter to a positive multiple of 90 between 0
-	 * and 270.
-	 * 
-	 * @param rotation
-	 * @return Normalize the rotation parameter to a positive multiple of 90
-	 *         between 0 and 270.
-	 */
-	static public int normalizeRotate(int rotation) {
-		rotation = rotation % 360;
-		if (rotation > 0) {
-			return rotation - (rotation % 90);
-		} else if (rotation == 0) {
-			return 0;
-		} else {
-			rotation = 360 + rotation;
-			return rotation - (rotation % 90);
-		}
-	}
+    /**
+     * Normalize the rotation parameter to a positive multiple of 90 between 0
+     * and 270.
+     *
+     * @param rotation
+     * @return Normalize the rotation parameter to a positive multiple of 90
+     * between 0 and 270.
+     */
+    static public int normalizeRotate(int rotation) {
+        rotation = rotation % 360;
+        if (rotation > 0) {
+            return rotation - (rotation % 90);
+        } else if (rotation == 0) {
+            return 0;
+        } else {
+            rotation = 360 + rotation;
+            return rotation - (rotation % 90);
+        }
+    }
 
-	/**
-	 * Create the transformation of <code>rect</code> and return it.
-	 * 
-	 * @param matrix
-	 *            The transformation to apply.
-	 * @param rect
-	 *            The rectangle to be transformed. This is not changed.
-	 * @return The transformed rectangle
-	 */
-	public static CDSRectangle transform(CDSMatrix matrix, CDSRectangle rect) {
-		float[] vec = new float[] { rect.getLowerLeftX(), rect.getLowerLeftY(),
-				rect.getUpperRightX(), rect.getUpperRightY() };
-		float[] tVec = matrix.transform(vec);
-		return new CDSRectangle(tVec);
-	}
+    /**
+     * Create the transformation of <code>rect</code> and return it.
+     *
+     * @param matrix The transformation to apply.
+     * @param rect   The rectangle to be transformed. This is not changed.
+     * @return The transformed rectangle
+     */
+    public static CDSRectangle transform(CDSMatrix matrix, CDSRectangle rect) {
+        float[] vec =
+                new float[]{rect.getLowerLeftX(), rect.getLowerLeftY(), rect.getUpperRightX(), rect.getUpperRightY()};
+        float[] tVec = matrix.transform(vec);
+        return new CDSRectangle(tVec);
+    }
 
-	/**
-	 * Tool class cannot be instantiated.
-	 */
-	private PDFGeometryTools() {
-	}
+    /**
+     * Tool class cannot be instantiated.
+     */
+    private PDFGeometryTools() {
+    }
 }

@@ -29,51 +29,51 @@
  */
 package de.intarsys.pdf.app.action;
 
+import de.intarsys.pdf.cos.COSName;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import de.intarsys.pdf.cos.COSName;
 
 /**
  * The default implementation for a action handler factory.
  */
 public class StandardActionHandlerRegistry implements IActionHandlerRegistry {
-	/**
-	 * The mapping from action types to action handler objects.
-	 */
-	private Map<COSName, IActionHandler> nameMap;
+    /**
+     * The mapping from action types to action handler objects.
+     */
+    private Map<COSName, IActionHandler> nameMap;
 
-	/**
-	 * A default handler if none is detected.
-	 */
-	private IActionHandler defaultHandler;
+    /**
+     * A default handler if none is detected.
+     */
+    private IActionHandler defaultHandler;
 
-	public StandardActionHandlerRegistry() {
-		nameMap = new HashMap<COSName, IActionHandler>(5);
-	}
+    public StandardActionHandlerRegistry() {
+        nameMap = new HashMap<COSName, IActionHandler>(5);
+    }
 
-	synchronized public IActionHandler[] getActionHandlers() {
-		return nameMap.values().toArray(new IActionHandler[nameMap.size()]);
-	}
+    synchronized public IActionHandler[] getActionHandlers() {
+        return nameMap.values().toArray(new IActionHandler[nameMap.size()]);
+    }
 
-	synchronized public IActionHandler getDefaultHandler() {
-		return defaultHandler;
-	}
+    synchronized public IActionHandler getDefaultHandler() {
+        return defaultHandler;
+    }
 
-	synchronized public IActionHandler lookupActionHandler(COSName actionType) {
-		IActionHandler result = nameMap.get(actionType);
-		return result;
-	}
+    synchronized public IActionHandler lookupActionHandler(COSName actionType) {
+        IActionHandler result = nameMap.get(actionType);
+        return result;
+    }
 
-	synchronized public void registerActionHandler(IActionHandler handler) {
-		nameMap.put(handler.getActionType(), handler);
-	}
+    synchronized public void registerActionHandler(IActionHandler handler) {
+        nameMap.put(handler.getActionType(), handler);
+    }
 
-	synchronized public void registerDefaultHandler(IActionHandler handler) {
-		defaultHandler = handler;
-	}
+    synchronized public void registerDefaultHandler(IActionHandler handler) {
+        defaultHandler = handler;
+    }
 
-	synchronized public void unregisterActionHandler(IActionHandler handler) {
-		nameMap.remove(handler.getActionType());
-	}
+    synchronized public void unregisterActionHandler(IActionHandler handler) {
+        nameMap.remove(handler.getActionType());
+    }
 }

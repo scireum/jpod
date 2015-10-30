@@ -37,44 +37,44 @@ import de.intarsys.pdf.cos.COSObject;
  */
 public class SymbolEncoding extends Encoding {
 
-	public static SymbolEncoding UNIQUE = new SymbolEncoding();
+    public static SymbolEncoding UNIQUE = new SymbolEncoding();
 
-	protected SymbolEncoding() {
-		super();
-	}
+    protected SymbolEncoding() {
+        super();
+    }
 
-	@Override
-	public COSObject cosGetObject() {
-		return COSNull.NULL;
-	}
+    @Override
+    public COSObject cosGetObject() {
+        return COSNull.NULL;
+    }
 
-	@Override
-	public int getDecoded(int codepoint) {
-		return codepoint;
-	}
+    @Override
+    public int getDecoded(int codepoint) {
+        return codepoint;
+    }
 
-	@Override
-	public int getEncoded(int character) {
-		return character;
-	}
+    @Override
+    public int getEncoded(int character) {
+        return character;
+    }
 
-	@Override
-	public int getEncoded(String name) {
-		return GlyphNameMap.Standard.getUnicode(name);
-	}
+    @Override
+    public int getEncoded(String name) {
+        return GlyphNameMap.Standard.getUnicode(name);
+    }
 
-	@Override
-	public String getGlyphName(int codePoint) {
-		return GlyphNameMap.Standard.getGlyphName(codePoint);
-	}
+    @Override
+    public String getGlyphName(int codePoint) {
+        return GlyphNameMap.Standard.getGlyphName(codePoint);
+    }
 
-	@Override
-	public String getName() {
-		return "SymbolEncoding";
-	}
+    @Override
+    public String getName() {
+        return "SymbolEncoding";
+    }
 
-	@Override
-	public boolean isFontSpecificEncoding() {
-		return true;
-	}
+    @Override
+    public boolean isFontSpecificEncoding() {
+        return true;
+    }
 }

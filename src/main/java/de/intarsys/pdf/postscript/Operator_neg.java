@@ -30,20 +30,20 @@
 package de.intarsys.pdf.postscript;
 
 public class Operator_neg implements IOperator {
-	public static Operator_neg Instance;
+    public static Operator_neg Instance;
 
-	static {
-		Instance = new Operator_neg();
-	}
+    static {
+        Instance = new Operator_neg();
+    }
 
-	private Operator_neg() {
-		super();
-	}
+    private Operator_neg() {
+        super();
+    }
 
-	public void execute(Handler handler) {
-		int operand;
+    public void execute(Handler handler) {
+        int operand;
 
-		operand = ((Integer) handler.pop()).intValue();
-		handler.push(new Integer(-operand));
-	}
+        operand = ((Integer) handler.pop()).intValue();
+        handler.push(new Integer(-operand));
+    }
 }

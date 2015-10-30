@@ -40,70 +40,62 @@ import de.intarsys.pdf.cos.COSObjectKey;
  */
 public class SystemSecurityHandlerV1 extends SystemSecurityHandler {
 
-	private ICryptHandler cryptHandler;
+    private ICryptHandler cryptHandler;
 
-	protected SystemSecurityHandlerV1(COSDictionary dict) {
-		super(dict);
-	}
+    protected SystemSecurityHandlerV1(COSDictionary dict) {
+        super(dict);
+    }
 
-	protected ICryptHandler createCryptHandler() throws COSSecurityException {
-		ArcFourCryptHandler result = new ArcFourCryptHandler();
-		result.initialize(getSecurityHandler().getCryptKey());
-		return result;
-	}
+    protected ICryptHandler createCryptHandler() throws COSSecurityException {
+        ArcFourCryptHandler result = new ArcFourCryptHandler();
+        result.initialize(getSecurityHandler().getCryptKey());
+        return result;
+    }
 
-	protected byte[] decrypt(COSObjectKey objectKey, byte[] bytes)
-			throws COSSecurityException {
-		return getCryptHandler().decrypt(objectKey, bytes);
-	}
+    protected byte[] decrypt(COSObjectKey objectKey, byte[] bytes) throws COSSecurityException {
+        return getCryptHandler().decrypt(objectKey, bytes);
+    }
 
-	public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes)
-			throws COSSecurityException {
-		return decrypt(key, bytes);
-	}
+    public byte[] decryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        return decrypt(key, bytes);
+    }
 
-	public byte[] decryptStream(COSObjectKey key, COSDictionary dict,
-			byte[] bytes) throws COSSecurityException {
-		return decrypt(key, bytes);
-	}
+    public byte[] decryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        return decrypt(key, bytes);
+    }
 
-	public byte[] decryptString(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException {
-		return decrypt(key, bytes);
-	}
+    public byte[] decryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
+        return decrypt(key, bytes);
+    }
 
-	protected byte[] encrypt(COSObjectKey objectKey, byte[] bytes)
-			throws COSSecurityException {
-		if (!isEnabled()) {
-			return bytes;
-		}
-		return getCryptHandler().encrypt(objectKey, bytes);
-	}
+    protected byte[] encrypt(COSObjectKey objectKey, byte[] bytes) throws COSSecurityException {
+        if (!isEnabled()) {
+            return bytes;
+        }
+        return getCryptHandler().encrypt(objectKey, bytes);
+    }
 
-	public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes)
-			throws COSSecurityException {
-		return encrypt(key, bytes);
-	}
+    public byte[] encryptFile(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        return encrypt(key, bytes);
+    }
 
-	public byte[] encryptStream(COSObjectKey key, COSDictionary dict,
-			byte[] bytes) throws COSSecurityException {
-		return encrypt(key, bytes);
-	}
+    public byte[] encryptStream(COSObjectKey key, COSDictionary dict, byte[] bytes) throws COSSecurityException {
+        return encrypt(key, bytes);
+    }
 
-	public byte[] encryptString(COSObjectKey key, byte[] bytes)
-			throws COSSecurityException {
-		return encrypt(key, bytes);
-	}
+    public byte[] encryptString(COSObjectKey key, byte[] bytes) throws COSSecurityException {
+        return encrypt(key, bytes);
+    }
 
-	protected ICryptHandler getCryptHandler() throws COSSecurityException {
-		if (cryptHandler == null) {
-			cryptHandler = createCryptHandler();
-		}
-		return cryptHandler;
-	}
+    protected ICryptHandler getCryptHandler() throws COSSecurityException {
+        if (cryptHandler == null) {
+            cryptHandler = createCryptHandler();
+        }
+        return cryptHandler;
+    }
 
-	@Override
-	public int getVersion() {
-		return 1;
-	}
+    @Override
+    public int getVersion() {
+        return 1;
+    }
 }

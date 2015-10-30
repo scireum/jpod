@@ -33,156 +33,157 @@ package de.intarsys.pdf.cos;
  * This class represents integer numbers in pdf
  */
 public class COSInteger extends COSNumber {
-	static public COSInteger create(byte[] bytes, int start, int length) {
-		int result = 0;
-		int end = start + length;
-		boolean negative = false;
-		byte prefix = bytes[start];
-		if (prefix == '+') {
-			start++;
-		} else if (prefix == '-') {
-			negative = true;
-			start++;
-		}
-		for (int i = start; i < end; i++) {
-			result = ((result * 10) + bytes[i]) - '0';
-		}
-		if (negative) {
-			return new COSInteger(-result);
-		}
-		return new COSInteger(result);
-	}
+    static public COSInteger create(byte[] bytes, int start, int length) {
+        int result = 0;
+        int end = start + length;
+        boolean negative = false;
+        byte prefix = bytes[start];
+        if (prefix == '+') {
+            start++;
+        } else if (prefix == '-') {
+            negative = true;
+            start++;
+        }
+        for (int i = start; i < end; i++) {
+            result = ((result * 10) + bytes[i]) - '0';
+        }
+        if (negative) {
+            return new COSInteger(-result);
+        }
+        return new COSInteger(result);
+    }
 
-	static public COSInteger create(int value) {
-		return new COSInteger(value);
-	}
+    static public COSInteger create(int value) {
+        return new COSInteger(value);
+    }
 
-	static public COSInteger createStrict(byte[] bytes, int start, int length) {
-		long resultLong = 0;
-		int end = start + length;
-		boolean negative = false;
-		byte prefix = bytes[start];
-		if (prefix == '+') {
-			start++;
-		} else if (prefix == '-') {
-			negative = true;
-			start++;
-		}
-		for (int i = start; i < end; i++) {
-			resultLong = ((resultLong * 10) + bytes[i]) - '0';
-		}
+    static public COSInteger createStrict(byte[] bytes, int start, int length) {
+        long resultLong = 0;
+        int end = start + length;
+        boolean negative = false;
+        byte prefix = bytes[start];
+        if (prefix == '+') {
+            start++;
+        } else if (prefix == '-') {
+            negative = true;
+            start++;
+        }
+        for (int i = start; i < end; i++) {
+            resultLong = ((resultLong * 10) + bytes[i]) - '0';
+        }
 
-		if (negative) {
-		    resultLong = -resultLong;
-		}
+        if (negative) {
+            resultLong = -resultLong;
+        }
 
-		if (resultLong > Integer.MAX_VALUE || resultLong < Integer.MIN_VALUE) {
-			return null;
-		}
+        if (resultLong > Integer.MAX_VALUE || resultLong < Integer.MIN_VALUE) {
+            return null;
+        }
 
-		return new COSInteger((int) resultLong);
-	}
+        return new COSInteger((int) resultLong);
+    }
 
-	/** the integer value represented */
-	private final int value;
+    /**
+     * the integer value represented
+     */
+    private final int value;
 
-	protected COSInteger(int newValue) {
-		value = newValue;
-	}
+    protected COSInteger(int newValue) {
+        value = newValue;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
-	 */
-	@Override
-	public java.lang.Object accept(ICOSObjectVisitor visitor)
-			throws COSVisitorException {
-		return visitor.visitFromInteger(this);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor)
+     */
+    @Override
+    public java.lang.Object accept(ICOSObjectVisitor visitor) throws COSVisitorException {
+        return visitor.visitFromInteger(this);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see de.intarsys.pdf.cos.COSObject#asInteger()
-	 */
-	@Override
-	public COSInteger asInteger() {
-		return this;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#asInteger()
+     */
+    @Override
+    public COSInteger asInteger() {
+        return this;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see de.intarsys.pdf.cos.COSObject#basicToString()
-	 */
-	@Override
-	protected String basicToString() {
-		return String.valueOf(intValue());
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#basicToString()
+     */
+    @Override
+    protected String basicToString() {
+        return String.valueOf(intValue());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see de.intarsys.pdf.cos.COSObject#copyBasic()
-	 */
-	@Override
-	protected COSObject copyBasic() {
-		return new COSInteger(value);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSObject#copyBasic()
+     */
+    @Override
+    protected COSObject copyBasic() {
+        return new COSInteger(value);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof COSInteger)) {
-			return false;
-		}
-		return value == ((COSInteger) o).intValue();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof COSInteger)) {
+            return false;
+        }
+        return value == ((COSInteger) o).intValue();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see de.intarsys.pdf.cos.COSNumber#floatValue()
-	 */
-	@Override
-	public float floatValue() {
-		return value;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSNumber#floatValue()
+     */
+    @Override
+    public float floatValue() {
+        return value;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return value;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return value;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see de.intarsys.pdf.cos.COSNumber#intValue()
-	 */
-	@Override
-	public int intValue() {
-		return value;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.cos.COSNumber#intValue()
+     */
+    @Override
+    public int intValue() {
+        return value;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
-	 */
-	@Override
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
+     */
+    @Override
     public Object saveState() {
-		COSInteger result = new COSInteger(value);
-		result.container = this.container.saveStateContainer();
-		return result;
-	}
+        COSInteger result = new COSInteger(value);
+        result.container = this.container.saveStateContainer();
+        return result;
+    }
 }

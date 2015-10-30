@@ -44,65 +44,63 @@ import de.intarsys.pdf.st.STDocument;
  * With /V 4 encryption, the application may ask for "transparent"
  * de/encryption, in which case it is forwarded to the installed
  * {@link ISecurityHandler} itself.
- * 
  */
 public interface ISecurityHandler extends ICryptHandler {
 
-	/**
-	 * Associate this {@link ISecurityHandler} with a {@link STDocument}.
-	 * <p>
-	 * The {@link ISecurityHandler} should add all its private information to
-	 * the document structure, in particular to the /Encrypt dictionary.
-	 * 
-	 * @param doc
-	 */
-	public void attach(STDocument doc) throws COSSecurityException;
+    /**
+     * Associate this {@link ISecurityHandler} with a {@link STDocument}.
+     * <p>
+     * The {@link ISecurityHandler} should add all its private information to
+     * the document structure, in particular to the /Encrypt dictionary.
+     *
+     * @param doc
+     */
+    public void attach(STDocument doc) throws COSSecurityException;
 
-	/**
-	 * Perform an authentication.
-	 * 
-	 * @throws COSSecurityException
-	 */
-	public void authenticate() throws COSSecurityException;
+    /**
+     * Perform an authentication.
+     *
+     * @throws COSSecurityException
+     */
+    public void authenticate() throws COSSecurityException;
 
-	/**
-	 * Disassociate this {@link ISecurityHandler} from {@link STDocument}.
-	 * <p>
-	 * The {@link ISecurityHandler} should remove all its private information
-	 * from the document structure, in particular from the /Encrypt dictionary.
-	 * 
-	 * @param doc
-	 */
-	public void detach(STDocument doc) throws COSSecurityException;
+    /**
+     * Disassociate this {@link ISecurityHandler} from {@link STDocument}.
+     * <p>
+     * The {@link ISecurityHandler} should remove all its private information
+     * from the document structure, in particular from the /Encrypt dictionary.
+     *
+     * @param doc
+     */
+    public void detach(STDocument doc) throws COSSecurityException;
 
-	/**
-	 * The crypt key created by this {@link ISecurityHandler}. The crypt key is
-	 * used by the {@link ISystemSecurityHandler} (or the {@link ICryptHandler}
-	 * to initialize its cryptographic functions.
-	 * <p>
-	 * The crypt key is valid after the authentication.
-	 * 
-	 * @return The crypt key created by this {@link ISecurityHandler}.
-	 */
-	public byte[] getCryptKey();
+    /**
+     * The crypt key created by this {@link ISecurityHandler}. The crypt key is
+     * used by the {@link ISystemSecurityHandler} (or the {@link ICryptHandler}
+     * to initialize its cryptographic functions.
+     * <p>
+     * The crypt key is valid after the authentication.
+     *
+     * @return The crypt key created by this {@link ISecurityHandler}.
+     */
+    public byte[] getCryptKey();
 
-	/**
-	 * Initialize this {@link ISecurityHandler} with a {@link STDocument}.
-	 * <p>
-	 * The {@link ISecurityHandler} should initialize its state from the
-	 * information in the document structure, in particular from the /Encrypt
-	 * dictionary.
-	 * 
-	 * @param doc
-	 * @throws COSSecurityException
-	 */
-	public void initialize(STDocument doc) throws COSSecurityException;
+    /**
+     * Initialize this {@link ISecurityHandler} with a {@link STDocument}.
+     * <p>
+     * The {@link ISecurityHandler} should initialize its state from the
+     * information in the document structure, in particular from the /Encrypt
+     * dictionary.
+     *
+     * @param doc
+     * @throws COSSecurityException
+     */
+    public void initialize(STDocument doc) throws COSSecurityException;
 
-	/**
-	 * The associated {@link STDocument}.
-	 * 
-	 * @return The associated {@link STDocument}.
-	 */
-	public STDocument stGetDoc();
-
+    /**
+     * The associated {@link STDocument}.
+     *
+     * @return The associated {@link STDocument}.
+     */
+    public STDocument stGetDoc();
 }

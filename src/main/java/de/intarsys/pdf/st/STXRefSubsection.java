@@ -42,118 +42,115 @@ import java.util.List;
  * serialized form starts with 2 number, the object number of the first entry
  * and the number of entries. Following this there is one line for each entry in
  * the form
- * 
+ * <p>
  * In Use entry: <code>
  * offset[10] " " generation[5] " " n eol[2]
  * </code>
- * 
+ * <p>
  * Free entry: <code>
  * next free[10] " " generation[5] " " f eol[2]
  * </code>
  */
 public class STXRefSubsection {
-	private STXRefSubsection next;
+    private STXRefSubsection next;
 
-	private List entries;
+    private List entries;
 
-	private int start;
+    private int start;
 
-	// record size for performance sake
-	private int size;
+    // record size for performance sake
+    private int size;
 
-	private STXRefSection xRefSection;
+    private STXRefSection xRefSection;
 
-	protected STXRefSubsection(int start) {
-		this(null, start);
-	}
+    protected STXRefSubsection(int start) {
+        this(null, start);
+    }
 
-	public STXRefSubsection(STXRefSection xRefSection, int start) {
-		this.xRefSection = xRefSection;
-		this.start = start;
-		this.entries = new ArrayList();
-		this.size = 0;
-	}
+    public STXRefSubsection(STXRefSection xRefSection, int start) {
+        this.xRefSection = xRefSection;
+        this.start = start;
+        this.entries = new ArrayList();
+        this.size = 0;
+    }
 
-	protected void addEntry(STXRefEntry entry) {
-		int number = entry.getObjectNumber();
-		if (number < getStart()) {
-			throw new IllegalArgumentException("can't add object with number "
-					+ number);
-		}
-		int end = start + size;
-		if (start <= number && number < end) {
-			entries.set(number - start, entry);
-			return;
-		}
-		if (number == end) {
-			// fits to end of list
-			entries.add(entry);
-			size++;
-			checkNext();
-			return;
-		}
-		throw new IllegalArgumentException("can't add object with number "
-				+ number);
-	}
+    protected void addEntry(STXRefEntry entry) {
+        int number = entry.getObjectNumber();
+        if (number < getStart()) {
+            throw new IllegalArgumentException("can't add object with number " + number);
+        }
+        int end = start + size;
+        if (start <= number && number < end) {
+            entries.set(number - start, entry);
+            return;
+        }
+        if (number == end) {
+            // fits to end of list
+            entries.add(entry);
+            size++;
+            checkNext();
+            return;
+        }
+        throw new IllegalArgumentException("can't add object with number " + number);
+    }
 
-	protected void checkNext() {
-		if (getNext() == null) {
-			return;
-		}
-		if (getSize() == 0) {
-			start = getNext().getStart();
-			mergeWithNext();
-			return;
-		}
-		if ((start + getSize()) == getNext().getStart()) {
-			mergeWithNext();
-		}
-	}
+    protected void checkNext() {
+        if (getNext() == null) {
+            return;
+        }
+        if (getSize() == 0) {
+            start = getNext().getStart();
+            mergeWithNext();
+            return;
+        }
+        if ((start + getSize()) == getNext().getStart()) {
+            mergeWithNext();
+        }
+    }
 
-	protected List getEntries() {
-		return entries;
-	}
+    protected List getEntries() {
+        return entries;
+    }
 
-	protected STXRefEntry getEntry(int objectNumber) {
-		return (STXRefEntry) entries.get(objectNumber - start);
-	}
+    protected STXRefEntry getEntry(int objectNumber) {
+        return (STXRefEntry) entries.get(objectNumber - start);
+    }
 
-	protected STXRefSubsection getNext() {
-		return next;
-	}
+    protected STXRefSubsection getNext() {
+        return next;
+    }
 
-	public int getSize() {
-		return size;
-	}
+    public int getSize() {
+        return size;
+    }
 
-	public int getStart() {
-		return start;
-	}
+    public int getStart() {
+        return start;
+    }
 
-	public int getStop() {
-		return start + getSize();
-	}
+    public int getStop() {
+        return start + getSize();
+    }
 
-	protected STXRefSection getXRefSection() {
-		return xRefSection;
-	}
+    protected STXRefSection getXRefSection() {
+        return xRefSection;
+    }
 
-	protected boolean isInSection(int objectNumber) {
-		return ((objectNumber >= start) && (objectNumber < (start + getSize())));
-	}
+    protected boolean isInSection(int objectNumber) {
+        return ((objectNumber >= start) && (objectNumber < (start + getSize())));
+    }
 
-	protected void mergeWithNext() {
-		entries.addAll(getNext().getEntries());
-		size = entries.size();
-		setNext(getNext().getNext());
-	}
+    protected void mergeWithNext() {
+        entries.addAll(getNext().getEntries());
+        size = entries.size();
+        setNext(getNext().getNext());
+    }
 
-	protected void setNext(STXRefSubsection next) {
-		this.next = next;
-	}
+    protected void setNext(STXRefSubsection next) {
+        this.next = next;
+    }
 
-	protected void setXRefSection(STXRefSection xRefSection) {
-		this.xRefSection = xRefSection;
-	}
-
+    protected void setXRefSection(STXRefSection xRefSection) {
+        this.xRefSection = xRefSection;
+    }
 }

@@ -31,41 +31,40 @@ package de.intarsys.pdf.font;
 
 /**
  * A special map from a character code range to a character code range.
- * 
  */
 public class CMapBFRangeCodeMap extends CMapRangeMap {
 
-	final private int destination;
+    final private int destination;
 
-	public CMapBFRangeCodeMap(byte[] start, byte[] end, byte[] destination) {
-		super(start, end);
-		this.destination = CMap.toInt(destination);
-	}
+    public CMapBFRangeCodeMap(byte[] start, byte[] end, byte[] destination) {
+        super(start, end);
+        this.destination = CMap.toInt(destination);
+    }
 
-	@Override
-	public char[] toChars(int codepoint) {
-		if ((codepoint >= start) && (codepoint <= end)) {
-			return new char[] { (char) (codepoint - start + destination) };
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public char[] toChars(int codepoint) {
+        if ((codepoint >= start) && (codepoint <= end)) {
+            return new char[]{(char) (codepoint - start + destination)};
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public int toCID(int codepoint) {
-		if ((codepoint >= start) && (codepoint <= end)) {
-			return codepoint - start + destination;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCID(int codepoint) {
+        if ((codepoint >= start) && (codepoint <= end)) {
+            return codepoint - start + destination;
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public int toCodepoint(int cid) {
-		if ((cid >= destination) && (cid <= destination + end - start)) {
-			return start + cid - destination;
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public int toCodepoint(int cid) {
+        if ((cid >= destination) && (cid <= destination + end - start)) {
+            return start + cid - destination;
+        } else {
+            return 0;
+        }
+    }
 }

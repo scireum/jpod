@@ -35,48 +35,47 @@ import de.intarsys.pdf.font.PDFontStyle;
 
 /**
  * A "search" template or query to look up {@link PDFont} objects.
- * 
  */
 public interface IFontQuery {
 
-	public static final String TYPE_TRUETYPE = "TrueType"; //$NON-NLS-1$
-	public static final String TYPE_BUILTIN = "Builtin"; //$NON-NLS-1$
-	public static final String TYPE_TYPE1 = "Type1"; //$NON-NLS-1$
-	public static final String TYPE_ANY = "Any"; //$NON-NLS-1$
+    public static final String TYPE_TRUETYPE = "TrueType"; //$NON-NLS-1$
+    public static final String TYPE_BUILTIN = "Builtin"; //$NON-NLS-1$
+    public static final String TYPE_TYPE1 = "Type1"; //$NON-NLS-1$
+    public static final String TYPE_ANY = "Any"; //$NON-NLS-1$
 
-	/**
-	 * The desired encoding for the {@link PDFont}.
-	 * 
-	 * @return The desired encoding for the {@link PDFont}.
-	 */
-	public Encoding getEncoding();
+    /**
+     * The desired encoding for the {@link PDFont}.
+     *
+     * @return The desired encoding for the {@link PDFont}.
+     */
+    public Encoding getEncoding();
 
-	/**
-	 * The desired font family for the {@link PDFont}.
-	 * 
-	 * @return The desired font family for the {@link PDFont}.
-	 */
-	public String getFontFamilyName();
+    /**
+     * The desired font family for the {@link PDFont}.
+     *
+     * @return The desired font family for the {@link PDFont}.
+     */
+    public String getFontFamilyName();
 
-	/**
-	 * The desired font name for the {@link PDFont}.
-	 * 
-	 * @return The desired font name for the {@link PDFont}.
-	 */
-	public String getFontName();
+    /**
+     * The desired font name for the {@link PDFont}.
+     *
+     * @return The desired font name for the {@link PDFont}.
+     */
+    public String getFontName();
 
-	/**
-	 * The desired font style for the {@link PDFont}.
-	 * 
-	 * @return The desired font style for the {@link PDFont}.
-	 */
-	public PDFontStyle getFontStyle();
+    /**
+     * The desired font style for the {@link PDFont}.
+     *
+     * @return The desired font style for the {@link PDFont}.
+     */
+    public PDFontStyle getFontStyle();
 
-	/**
-	 * The desired font type for the {@link PDFont} (such as "Type1" or
-	 * "TrueType"). <code>null</code>indicates a font of any type.
-	 * 
-	 * @return The desired font type for the {@link PDFont}.
-	 */
-	public String getFontType();
+    /**
+     * The desired font type for the {@link PDFont} (such as "Type1" or
+     * "TrueType"). <code>null</code>indicates a font of any type.
+     *
+     * @return The desired font type for the {@link PDFont}.
+     */
+    public String getFontType();
 }

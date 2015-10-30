@@ -39,125 +39,142 @@ import de.intarsys.pdf.cos.COSObject;
  * The definition of a border style for an annotation.
  */
 public class PDBorderStyle extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDBorderStyle(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDBorderStyle(object);
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(
-			MetaClass.class.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** The width type. */
-	static public final COSName DK_W = COSName.constant("W");
+    /**
+     * The width type.
+     */
+    static public final COSName DK_W = COSName.constant("W");
 
-	/** The Style type. */
-	static public final COSName DK_S = COSName.constant("S");
+    /**
+     * The Style type.
+     */
+    static public final COSName DK_S = COSName.constant("S");
 
-	/** Style S: solid */
-	static public final COSName CN_S_S = COSName.constant("S");
+    /**
+     * Style S: solid
+     */
+    static public final COSName CN_S_S = COSName.constant("S");
 
-	/** Style D: dashed */
-	static public final COSName CN_S_D = COSName.constant("D");
+    /**
+     * Style D: dashed
+     */
+    static public final COSName CN_S_D = COSName.constant("D");
 
-	/** Style B: beveled */
-	static public final COSName CN_S_B = COSName.constant("B");
+    /**
+     * Style B: beveled
+     */
+    static public final COSName CN_S_B = COSName.constant("B");
 
-	/** Style I: Inset */
-	static public final COSName CN_S_I = COSName.constant("I");
+    /**
+     * Style I: Inset
+     */
+    static public final COSName CN_S_I = COSName.constant("I");
 
-	/** Style U: underlined */
-	static public final COSName CN_S_U = COSName.constant("U");
+    /**
+     * Style U: underlined
+     */
+    static public final COSName CN_S_U = COSName.constant("U");
 
-	/** The DashArray type. */
-	static public final COSName DK_D = COSName.constant("D"); //
+    /**
+     * The DashArray type.
+     */
+    static public final COSName DK_D = COSName.constant("D"); //
 
-	/** The border type name */
-	static public final COSName CN_Type_Border = COSName.constant("Border"); //
+    /**
+     * The border type name
+     */
+    static public final COSName CN_Type_Border = COSName.constant("Border"); //
 
-	protected PDBorderStyle(COSObject object) {
-		super(object);
-	}
+    protected PDBorderStyle(COSObject object) {
+        super(object);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
-	 */
-	@Override
-	protected COSName cosGetExpectedType() {
-		return CN_Type_Border;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
+     */
+    @Override
+    protected COSName cosGetExpectedType() {
+        return CN_Type_Border;
+    }
 
-	public int[] getDashArray() {
-		COSArray array = cosGetField(DK_D).asArray();
-		if (array != null) {
-			int[] result = new int[array.size()];
-			for (int i = 0; i < array.size(); i++) {
-				COSInteger value = array.get(i).asInteger();
-				if (value != null) {
-					result[i] = value.intValue();
-				} else {
-					// TODO 3 wrong default, maybe restrict
-					result[i] = 0;
-				}
-			}
-			return result;
-		}
-		return new int[] { 3 }; // default
-	}
+    public int[] getDashArray() {
+        COSArray array = cosGetField(DK_D).asArray();
+        if (array != null) {
+            int[] result = new int[array.size()];
+            for (int i = 0; i < array.size(); i++) {
+                COSInteger value = array.get(i).asInteger();
+                if (value != null) {
+                    result[i] = value.intValue();
+                } else {
+                    // TODO 3 wrong default, maybe restrict
+                    result[i] = 0;
+                }
+            }
+            return result;
+        }
+        return new int[]{3}; // default
+    }
 
-	public COSName getStyle() {
-		COSName style = cosGetField(DK_S).asName();
-		if (style != null) {
-			return style;
-		}
-		return CN_S_S;
-	}
+    public COSName getStyle() {
+        COSName style = cosGetField(DK_S).asName();
+        if (style != null) {
+            return style;
+        }
+        return CN_S_S;
+    }
 
-	public float getWidth() {
-		return getFieldFixed(DK_W, 1);
-	}
+    public float getWidth() {
+        return getFieldFixed(DK_W, 1);
+    }
 
-	public void setDashArray(int[] newDashArray) {
-		if ((newDashArray == null)
-				|| ((newDashArray.length == 1) && (newDashArray[0] == 3))) {
-			cosRemoveField(DK_D);
-			return;
-		}
+    public void setDashArray(int[] newDashArray) {
+        if ((newDashArray == null) || ((newDashArray.length == 1) && (newDashArray[0] == 3))) {
+            cosRemoveField(DK_D);
+            return;
+        }
 
-		COSArray a = COSArray.create(newDashArray.length);
-		cosSetField(DK_D, a); // overwrite existing array
+        COSArray a = COSArray.create(newDashArray.length);
+        cosSetField(DK_D, a); // overwrite existing array
 
-		for (int i = 0; i < newDashArray.length; i++) {
-			a.add(COSInteger.create(newDashArray[i]));
-		}
-	}
+        for (int i = 0; i < newDashArray.length; i++) {
+            a.add(COSInteger.create(newDashArray[i]));
+        }
+    }
 
-	public void setStyle(COSName newStyle) {
-		cosSetField(DK_S, newStyle);
-	}
+    public void setStyle(COSName newStyle) {
+        cosSetField(DK_S, newStyle);
+    }
 
-	/**
-	 * Set the style. If newWidth = 0, no border is drawn.
-	 * 
-	 * @param newWidth
-	 *            The new width.
-	 */
-	public void setWidth(float newWidth) {
-		if (newWidth != 1) {
-			setFieldFixed(DK_W, newWidth);
-		} else {
-			cosRemoveField(DK_W);
-		}
-	}
+    /**
+     * Set the style. If newWidth = 0, no border is drawn.
+     *
+     * @param newWidth The new width.
+     */
+    public void setWidth(float newWidth) {
+        if (newWidth != 1) {
+            setFieldFixed(DK_W, newWidth);
+        } else {
+            cosRemoveField(DK_W);
+        }
+    }
 }

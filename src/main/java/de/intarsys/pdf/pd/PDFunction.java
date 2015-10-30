@@ -42,115 +42,113 @@ import de.intarsys.pdf.cos.COSStream;
  * Abstract superclass for PDF function objects.
  */
 abstract public class PDFunction extends PDObject {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDObject.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDObject.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		public Class getRootClass() {
-			return PDFunction.class;
-		}
+        public Class getRootClass() {
+            return PDFunction.class;
+        }
 
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			COSDictionary dict = null;
-			if (object instanceof COSStream) {
-				dict = ((COSStream) object).getDict();
-			} else if (object instanceof COSDictionary) {
-				dict = (COSDictionary) object;
-			}
-			if (dict == null) {
-				throw new IllegalArgumentException(
-						"No Function dictionary available");
-			}
-			COSInteger type = dict.get(DK_FunctionType).asInteger();
-			if (type == null) {
-				throw new IllegalArgumentException(
-						"Function dictionary has no type");
-			}
-			if (type.intValue() == 0) {
-				return PDSampledFunction.META;
-			}
-			if (type.intValue() == 2) {
-				return PDInterpolationFunction.META;
-			}
-			if (type.intValue() == 3) {
-				return PDStitchingFunction.META;
-			}
-			if (type.intValue() == 4) {
-				return PDPostScriptFunction.META;
-			}
-			throw new IllegalArgumentException("Function type " + type
-					+ " not supported");
-		}
-	}
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            COSDictionary dict = null;
+            if (object instanceof COSStream) {
+                dict = ((COSStream) object).getDict();
+            } else if (object instanceof COSDictionary) {
+                dict = (COSDictionary) object;
+            }
+            if (dict == null) {
+                throw new IllegalArgumentException("No Function dictionary available");
+            }
+            COSInteger type = dict.get(DK_FunctionType).asInteger();
+            if (type == null) {
+                throw new IllegalArgumentException("Function dictionary has no type");
+            }
+            if (type.intValue() == 0) {
+                return PDSampledFunction.META;
+            }
+            if (type.intValue() == 2) {
+                return PDInterpolationFunction.META;
+            }
+            if (type.intValue() == 3) {
+                return PDStitchingFunction.META;
+            }
+            if (type.intValue() == 4) {
+                return PDPostScriptFunction.META;
+            }
+            throw new IllegalArgumentException("Function type " + type + " not supported");
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	/** Common names */
-	static public final COSName DK_FunctionType = COSName
-			.constant("FunctionType");
+    /**
+     * Common names
+     */
+    static public final COSName DK_FunctionType = COSName.constant("FunctionType");
 
-	static public final COSName DK_Domain = COSName.constant("Domain");
+    static public final COSName DK_Domain = COSName.constant("Domain");
 
-	static public final COSName DK_Range = COSName.constant("Range");
+    static public final COSName DK_Range = COSName.constant("Range");
 
-	protected PDFunction(COSObject object) {
-		super(object);
-	}
+    protected PDFunction(COSObject object) {
+        super(object);
+    }
 
-	abstract public float[] evaluate(float[] values);
+    abstract public float[] evaluate(float[] values);
 
-	public float getDomainMax(int dimension) {
-		return ((COSNumber) cosGetDomain().get((dimension * 2) + 1))
-				.floatValue();
-	}
+    public float getDomainMax(int dimension) {
+        return ((COSNumber) cosGetDomain().get((dimension * 2) + 1)).floatValue();
+    }
 
-	public float getDomainMin(int dimension) {
-		return ((COSNumber) cosGetDomain().get(dimension * 2)).floatValue();
-	}
+    public float getDomainMin(int dimension) {
+        return ((COSNumber) cosGetDomain().get(dimension * 2)).floatValue();
+    }
 
-	public int getInputSize() {
-		return cosGetDomain().size() / 2;
-	}
+    public int getInputSize() {
+        return cosGetDomain().size() / 2;
+    }
 
-	abstract public int getOutputSize();
+    abstract public int getOutputSize();
 
-	public COSArray cosGetDomain() {
-		return cosGetDict().get(DK_Domain).asArray();
-	}
+    public COSArray cosGetDomain() {
+        return cosGetDict().get(DK_Domain).asArray();
+    }
 
-	public COSArray getRange() {
-		return cosGetDict().get(DK_Range).asArray();
-	}
+    public COSArray getRange() {
+        return cosGetDict().get(DK_Range).asArray();
+    }
 
-	public float getRangeMax(int dimension) {
-		return ((COSNumber) getRange().get((dimension * 2) + 1)).floatValue();
-	}
+    public float getRangeMax(int dimension) {
+        return ((COSNumber) getRange().get((dimension * 2) + 1)).floatValue();
+    }
 
-	public float getRangeMin(int dimension) {
-		return ((COSNumber) getRange().get(dimension * 2)).floatValue();
-	}
+    public float getRangeMin(int dimension) {
+        return ((COSNumber) getRange().get(dimension * 2)).floatValue();
+    }
 
-	protected float clip(float x, float min, float max) {
-		if (x < min) {
-			return min;
-		}
-		if (x > max) {
-			return max;
-		}
-		return x;
-	}
+    protected float clip(float x, float min, float max) {
+        if (x < min) {
+            return min;
+        }
+        if (x > max) {
+            return max;
+        }
+        return x;
+    }
 
-	protected float[] dummyResult() {
-		float[] result = new float[getOutputSize()];
-		for (int i = 0; i < result.length; i++) {
-			result[i] = 0.5f;
-		}
-		return result;
-	}
+    protected float[] dummyResult() {
+        float[] result = new float[getOutputSize()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = 0.5f;
+        }
+        return result;
+    }
 }

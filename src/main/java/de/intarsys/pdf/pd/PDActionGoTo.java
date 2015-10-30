@@ -38,69 +38,68 @@ import de.intarsys.pdf.cos.COSObject;
  * The GoTo action.
  * <p>
  * When executed the action focuses a viewer to a new destination.
- * 
  */
 public class PDActionGoTo extends PDAction {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDAction.MetaClass {
-		protected MetaClass(Class instanceClass) {
-			super(instanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDAction.MetaClass {
+        protected MetaClass(Class instanceClass) {
+            super(instanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDActionGoTo(object);
-		}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDActionGoTo(object);
+        }
 
-		@Override
-		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
-			return PDActionGoTo.META;
-		}
-	}
+        @Override
+        protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+            return PDActionGoTo.META;
+        }
+    }
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	public static final COSName CN_ActionType_GoTo = COSName.constant("GoTo");
+    public static final COSName CN_ActionType_GoTo = COSName.constant("GoTo");
 
-	public static final COSName DK_D = COSName.constant("D");
+    public static final COSName DK_D = COSName.constant("D");
 
-	private PDDestination destination;
+    private PDDestination destination;
 
-	protected PDActionGoTo(COSObject object) {
-		super(object);
-	}
+    protected PDActionGoTo(COSObject object) {
+        super(object);
+    }
 
-	@Override
-	public COSName cosGetExpectedActionType() {
-		return CN_ActionType_GoTo;
-	}
+    @Override
+    public COSName cosGetExpectedActionType() {
+        return CN_ActionType_GoTo;
+    }
 
-	public PDDestination getDestination() {
-		if (destination == null) {
-			COSObject destObject;
-			if (cosGetObject() instanceof COSDictionary) {
-				destObject = cosGetField(DK_D);
-			} else {
-				destObject = cosGetObject();
-			}
-			destination = (PDDestination) PDDestination.META
-					.createFromCos(destObject);
-		}
-		return destination;
-	}
+    public PDDestination getDestination() {
+        if (destination == null) {
+            COSObject destObject;
+            if (cosGetObject() instanceof COSDictionary) {
+                destObject = cosGetField(DK_D);
+            } else {
+                destObject = cosGetObject();
+            }
+            destination = (PDDestination) PDDestination.META.createFromCos(destObject);
+        }
+        return destination;
+    }
 
-	@Override
-	protected void initializeFromCos() {
-		super.initializeFromCos();
-	}
+    @Override
+    protected void initializeFromCos() {
+        super.initializeFromCos();
+    }
 
-	@Override
-	public void invalidateCaches() {
-		destination = null;
-		super.invalidateCaches();
-	}
+    @Override
+    public void invalidateCaches() {
+        destination = null;
+        super.invalidateCaches();
+    }
 }

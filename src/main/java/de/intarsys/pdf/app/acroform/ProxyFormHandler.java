@@ -29,9 +29,9 @@
  */
 package de.intarsys.pdf.app.acroform;
 
-import java.util.List;
-
 import de.intarsys.pdf.pd.PDDocument;
+
+import java.util.List;
 
 /**
  * An abstract convenience implementation of an {@link IFormHandler}. This one
@@ -39,59 +39,58 @@ import de.intarsys.pdf.pd.PDDocument;
  */
 public abstract class ProxyFormHandler implements IFormHandler {
 
-	private IFormHandler delegate;
+    private IFormHandler delegate;
 
-	protected ProxyFormHandler(IFormHandler delegate) {
-		super();
-		this.delegate = delegate;
-	}
+    protected ProxyFormHandler(IFormHandler delegate) {
+        super();
+        this.delegate = delegate;
+    }
 
-	public IFormHandler getDelegate() {
-		return delegate;
-	}
+    public IFormHandler getDelegate() {
+        return delegate;
+    }
 
-	public PDDocument getDoc() {
-		return getDelegate().getDoc();
-	}
+    public PDDocument getDoc() {
+        return getDelegate().getDoc();
+    }
 
-	public String getFieldValue(Object fieldRef) {
-		return getDelegate().getFieldValue(fieldRef);
-	}
+    public String getFieldValue(Object fieldRef) {
+        return getDelegate().getFieldValue(fieldRef);
+    }
 
-	public boolean isCalculate() {
-		return getDelegate().isCalculate();
-	}
+    public boolean isCalculate() {
+        return getDelegate().isCalculate();
+    }
 
-	public boolean isValidate() {
-		return getDelegate().isValidate();
-	}
+    public boolean isValidate() {
+        return getDelegate().isValidate();
+    }
 
-	public void recalculate() {
-		getDelegate().recalculate();
-	}
+    public void recalculate() {
+        getDelegate().recalculate();
+    }
 
-	public void recalculate(Object fieldRef) {
-		getDelegate().recalculate(fieldRef);
-	}
+    public void recalculate(Object fieldRef) {
+        getDelegate().recalculate(fieldRef);
+    }
 
-	public void resetFields() {
-		getDelegate().resetFields();
-	}
+    public void resetFields() {
+        getDelegate().resetFields();
+    }
 
-	public void resetFields(List fieldNames, boolean invert) {
-		getDelegate().resetFields(fieldNames, invert);
-	}
+    public void resetFields(List fieldNames, boolean invert) {
+        getDelegate().resetFields(fieldNames, invert);
+    }
 
-	public void setCalculate(boolean calculate) {
-		getDelegate().setCalculate(calculate);
-	}
+    public void setCalculate(boolean calculate) {
+        getDelegate().setCalculate(calculate);
+    }
 
-	public void setFieldValue(Object fieldRef, Object value) {
-		getDelegate().setFieldValue(fieldRef, value);
-	}
+    public void setFieldValue(Object fieldRef, Object value) {
+        getDelegate().setFieldValue(fieldRef, value);
+    }
 
-	public void setValidate(boolean validate) {
-		getDelegate().setValidate(validate);
-	}
-
+    public void setValidate(boolean validate) {
+        getDelegate().setValidate(validate);
+    }
 }

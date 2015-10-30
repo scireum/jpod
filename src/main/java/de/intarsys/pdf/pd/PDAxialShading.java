@@ -38,100 +38,96 @@ import de.intarsys.pdf.cos.COSObject;
 
 /**
  * Use axial shading for filling the shape.
- * 
  */
 public class PDAxialShading extends PDShading {
-	/**
-	 * The meta class implementation
-	 */
-	static public class MetaClass extends PDShading.MetaClass {
-		protected MetaClass(Class paramInstanceClass) {
-			super(paramInstanceClass);
-		}
+    /**
+     * The meta class implementation
+     */
+    static public class MetaClass extends PDShading.MetaClass {
+        protected MetaClass(Class paramInstanceClass) {
+            super(paramInstanceClass);
+        }
 
-		@Override
-		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
-			return new PDAxialShading(object);
-		}
-	}
+        @Override
+        protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
+            return new PDAxialShading(object);
+        }
+    }
 
-	private static final COSName DK_Coords = COSName.constant("Coords"); //$NON-NLS-1$
+    private static final COSName DK_Coords = COSName.constant("Coords"); //$NON-NLS-1$
 
-	private static final COSName DK_Domain = COSName.constant("Domain"); //$NON-NLS-1$
+    private static final COSName DK_Domain = COSName.constant("Domain"); //$NON-NLS-1$
 
-	private static final COSName DK_Extend = COSName.constant("Extend"); //$NON-NLS-1$
+    private static final COSName DK_Extend = COSName.constant("Extend"); //$NON-NLS-1$
 
-	private static final COSName DK_Function = COSName.constant("Function"); //$NON-NLS-1$
+    private static final COSName DK_Function = COSName.constant("Function"); //$NON-NLS-1$
 
-	/** The meta class instance */
-	static public final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+    /**
+     * The meta class instance
+     */
+    static public final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-	private float[] coords;
+    private float[] coords;
 
-	private float[] domain;
+    private float[] domain;
 
-	private boolean[] extend;
+    private boolean[] extend;
 
-	private PDFunction function;
+    private PDFunction function;
 
-	protected PDAxialShading(COSObject object) {
-		super(object);
+    protected PDAxialShading(COSObject object) {
+        super(object);
 
-		COSArray cosCoords;
-		COSObject cosDomain;
-		COSObject cosExtend;
+        COSArray cosCoords;
+        COSObject cosDomain;
+        COSObject cosExtend;
 
-		cosCoords = object.asDictionary().get(DK_Coords).asArray();
-		coords = new float[4];
-		for (int index = 0; index < 4; index++) {
-			coords[index] = ((COSNumber) cosCoords.get(index)).floatValue();
-		}
+        cosCoords = object.asDictionary().get(DK_Coords).asArray();
+        coords = new float[4];
+        for (int index = 0; index < 4; index++) {
+            coords[index] = ((COSNumber) cosCoords.get(index)).floatValue();
+        }
 
-		cosDomain = object.asDictionary().get(DK_Domain);
-		if (cosDomain.isNull()) {
-			domain = new float[] { 0, 1 };
-		} else {
-			domain = new float[2];
-			for (int index = 0; index < 2; index++) {
-				domain[index] = ((COSNumber) cosDomain.asArray().get(index))
-						.floatValue();
-			}
-		}
+        cosDomain = object.asDictionary().get(DK_Domain);
+        if (cosDomain.isNull()) {
+            domain = new float[]{0, 1};
+        } else {
+            domain = new float[2];
+            for (int index = 0; index < 2; index++) {
+                domain[index] = ((COSNumber) cosDomain.asArray().get(index)).floatValue();
+            }
+        }
 
-		cosExtend = object.asDictionary().get(DK_Extend);
-		if (cosExtend.isNull()) {
-			extend = new boolean[] { false, false };
-		} else {
-			extend = new boolean[2];
-			for (int index = 0; index < 2; index++) {
-				extend[index] = cosExtend.asArray().get(index).asBoolean()
-						.booleanValue();
-			}
-		}
+        cosExtend = object.asDictionary().get(DK_Extend);
+        if (cosExtend.isNull()) {
+            extend = new boolean[]{false, false};
+        } else {
+            extend = new boolean[2];
+            for (int index = 0; index < 2; index++) {
+                extend[index] = cosExtend.asArray().get(index).asBoolean().booleanValue();
+            }
+        }
 
-		// function will be resolved lazily
-	}
+        // function will be resolved lazily
+    }
 
-	public float[] getCoords() {
-		return coords;
-	}
+    public float[] getCoords() {
+        return coords;
+    }
 
-	public float[] getDomain() {
-		return domain;
-	}
+    public float[] getDomain() {
+        return domain;
+    }
 
-	public PDFunction getFunction() {
-		if (function == null) {
-			function = (PDFunction) PDFunction.META
-					.createFromCos(((COSDictionary) cosGetObject())
-							.get(DK_Function));
-		}
-		return function;
-	}
+    public PDFunction getFunction() {
+        if (function == null) {
+            function = (PDFunction) PDFunction.META.createFromCos(((COSDictionary) cosGetObject()).get(DK_Function));
+        }
+        return function;
+    }
 
-	@Override
-	public int getShadingType() {
-		return SHADING_TYPE_AXIAL;
-	}
+    @Override
+    public int getShadingType() {
+        return SHADING_TYPE_AXIAL;
+    }
 }

@@ -31,99 +31,96 @@ package de.intarsys.pdf.content;
 
 /**
  * A common superclass for "text only" devices.
- * 
  */
 abstract public class CSTextDevice extends CSBasicDevice {
 
-	@Override
-	public void pathClipEvenOdd() {
-		// ignore
-	}
+    @Override
+    public void pathClipEvenOdd() {
+        // ignore
+    }
 
-	@Override
-	public void pathClipNonZero() {
-		// ignore
-	}
+    @Override
+    public void pathClipNonZero() {
+        // ignore
+    }
 
-	@Override
-	public void pathClose() {
-		// ignore
-	}
+    @Override
+    public void pathClose() {
+        // ignore
+    }
 
-	@Override
-	public void pathCloseFillStrokeEvenOdd() {
-		// ignore
-	}
+    @Override
+    public void pathCloseFillStrokeEvenOdd() {
+        // ignore
+    }
 
-	@Override
-	public void pathCloseFillStrokeNonZero() {
-		// ignore
-	}
+    @Override
+    public void pathCloseFillStrokeNonZero() {
+        // ignore
+    }
 
-	@Override
-	public void pathCloseStroke() {
-		// ignore
-	}
+    @Override
+    public void pathCloseStroke() {
+        // ignore
+    }
 
-	@Override
-	public void pathEnd() {
-		// ignore
-	}
+    @Override
+    public void pathEnd() {
+        // ignore
+    }
 
-	@Override
-	public void pathFillEvenOdd() {
-		// ignore
-	}
+    @Override
+    public void pathFillEvenOdd() {
+        // ignore
+    }
 
-	@Override
-	public void pathFillNonZero() {
-		// ignore
-	}
+    @Override
+    public void pathFillNonZero() {
+        // ignore
+    }
 
-	@Override
-	public void pathFillStrokeEvenOdd() {
-		// ignore
-	}
+    @Override
+    public void pathFillStrokeEvenOdd() {
+        // ignore
+    }
 
-	@Override
-	public void pathFillStrokeNonZero() {
-		// ignore
-	}
+    @Override
+    public void pathFillStrokeNonZero() {
+        // ignore
+    }
 
-	@Override
-	public void pathStroke() {
-		// ignore
-	}
+    @Override
+    public void pathStroke() {
+        // ignore
+    }
 
-	@Override
-	public void penCurveToC(float x1, float y1, float x2, float y2, float x3,
-			float y3) {
-		// ignore
-	}
+    @Override
+    public void penCurveToC(float x1, float y1, float x2, float y2, float x3, float y3) {
+        // ignore
+    }
 
-	@Override
-	public void penCurveToV(float x2, float y2, float x3, float y3) {
-		// ignore
-	}
+    @Override
+    public void penCurveToV(float x2, float y2, float x3, float y3) {
+        // ignore
+    }
 
-	@Override
-	public void penCurveToY(float x1, float y1, float x3, float y3) {
-		// ignore
-	}
+    @Override
+    public void penCurveToY(float x1, float y1, float x3, float y3) {
+        // ignore
+    }
 
-	@Override
-	public void penLineTo(float x, float y) {
-		// ignore
-	}
+    @Override
+    public void penLineTo(float x, float y) {
+        // ignore
+    }
 
-	@Override
-	public void penMoveTo(float x, float y) {
-		// ignore
-	}
+    @Override
+    public void penMoveTo(float x, float y) {
+        // ignore
+    }
 
-	@Override
-	public void penRectangle(float x, float y, float w, float h) {
-		// ignore
-	}
-
+    @Override
+    public void penRectangle(float x, float y, float w, float h) {
+        // ignore
+    }
 }
