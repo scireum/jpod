@@ -1,0 +1,24 @@
+<html>
+<body>
+The "content" package contains functionality to work on PDF content streams. 
+Content streams are the PDF way of expressing page or form visual content, expressed 
+using the PDF content stream operators.
+<p>
+Content streams define a page or form content, implemented using COSStreams 
+with a specific format. The stream data is built using a sequence of content
+stream operators. The stream dictionary additionally contains resources 
+referenced by these operators.
+</p>
+<p>
+This package contains higher level abstractions of the COSStream representing 
+a content stream, CSContent, CSOperation and CSOperator.
+</p>
+<p>
+A list of all known CSOperators is provided with CSOperators.
+</p>
+<p>
+A framework for interpreting content streams is provided with ICSInterpreter and
+ICSDevice.
+</p>
+</body>
+</html>
