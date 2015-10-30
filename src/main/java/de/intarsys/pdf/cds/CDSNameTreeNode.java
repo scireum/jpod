@@ -30,6 +30,7 @@
 package de.intarsys.pdf.cds;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -40,7 +41,6 @@ import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSNull;
 import de.intarsys.pdf.cos.COSObject;
 import de.intarsys.pdf.cos.COSString;
-import de.intarsys.tools.collection.EmptyIterator;
 
 /**
  * Implementation of the PDF name tree.
@@ -324,10 +324,11 @@ public class CDSNameTreeNode extends CDSTreeNode {
 		List tempKids = getKids();
 		if (tempKids != null) {
 			return new Iterator() {
-				private Iterator thisIterator = getKids().iterator();
+				private final Iterator thisIterator = getKids().iterator();
 
 				private Iterator childIterator;
 
+				@Override
 				public boolean hasNext() {
 					if ((childIterator != null) && childIterator.hasNext()) {
 						return true;
@@ -341,6 +342,7 @@ public class CDSNameTreeNode extends CDSTreeNode {
 					return false;
 				}
 
+				@Override
 				public Object next() {
 					if ((childIterator != null) && childIterator.hasNext()) {
 						return childIterator.next();
@@ -354,6 +356,7 @@ public class CDSNameTreeNode extends CDSTreeNode {
 					throw new NoSuchElementException();
 				}
 
+				@Override
 				public void remove() {
 					throw new UnsupportedOperationException();
 				}
@@ -363,7 +366,7 @@ public class CDSNameTreeNode extends CDSTreeNode {
 		if (tempEntries != null) {
 			return tempEntries.iterator();
 		}
-		return EmptyIterator.UNIQUE;
+		return Collections.emptyIterator();
 	}
 
 	/**

@@ -36,6 +36,7 @@ import java.util.List;
 import de.intarsys.pdf.cds.CDSDate;
 import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSBasedObject;
+import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSDocumentElement;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
@@ -63,11 +64,33 @@ public class PDSignature extends PDObject {
 		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
 			return new PDSignature(object);
 		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * de.intarsys.pdf.cos.COSBasedObject.MetaClass#doDetermineClass(de.
+		 * intarsys.pdf.cos.COSObject)
+		 */
+		@Override
+		protected COSBasedObject.MetaClass doDetermineClass(COSObject object) {
+			if (object instanceof COSDictionary) {
+				COSName type = ((COSDictionary) object).get(DK_Type).asName();
+				if (PDDocumentTimeStamp.CN_Type_DocTimeStamp.equals(type)) {
+					return PDDocumentTimeStamp.META;
+				}
+			}
+			return PDSignature.META;
+		}
+
+		@Override
+		public Class getRootClass() {
+			return PDSignature.class;
+		}
 	}
 
 	/** The meta class instance */
-	public static final MetaClass META = new MetaClass(MetaClass.class
-			.getDeclaringClass());
+	public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
 	public static final COSName CN_Type_Sig = COSName.constant("Sig"); //$NON-NLS-1$
 

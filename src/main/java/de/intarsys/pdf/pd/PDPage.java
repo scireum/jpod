@@ -71,9 +71,15 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	public static final COSName DK_Contents = COSName.constant("Contents"); //$NON-NLS-1$
 
-	public static final COSName DK_CropBox = COSName.constant("CropBox"); //$NON-NLS-1$
+    public static final COSName DK_MediaBox = COSName.constant("MediaBox"); //$NON-NLS-1$
 
-	public static final COSName DK_MediaBox = COSName.constant("MediaBox"); //$NON-NLS-1$
+    public static final COSName DK_CropBox = COSName.constant("CropBox"); //$NON-NLS-1$
+
+    public static final COSName DK_BleedBox = COSName.constant("BleedBox"); //$NON-NLS-1$
+
+    public static final COSName DK_TrimBox = COSName.constant("TrimBox"); //$NON-NLS-1$
+
+    public static final COSName DK_ArtBox = COSName.constant("ArtBox"); //$NON-NLS-1$
 
 	public static final COSName DK_Metadata = COSName.constant("Metadata"); //$NON-NLS-1$
 
@@ -106,7 +112,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 	/**
 	 * Create the receiver class from an already defined {@link COSDictionary}.
 	 * NEVER use the constructor directly.
-	 * 
+	 *
 	 * @param object
 	 *            the PDDocument containing the new object
 	 */
@@ -117,7 +123,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 	/**
 	 * Add a {@link PDAnnotation} to the collection of annotations on the
 	 * receiver page.
-	 * 
+	 *
 	 * @param annot
 	 *            The PDAnnotation to add to the page.
 	 */
@@ -135,7 +141,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * Add a {@link CSContent} stream to this.
-	 * 
+	 *
 	 * @param contentStream
 	 *            The new {@link CSContent}
 	 */
@@ -145,7 +151,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#collectAnnotations(java.util.List)
 	 */
 	@Override
@@ -157,7 +163,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * Append {@link COSStream} to the pages content
-	 * 
+	 *
 	 * @param content
 	 *            The {@link COSStream} to add to the page
 	 */
@@ -180,7 +186,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * The /Contents entry
-	 * 
+	 *
 	 * @return The /Contents entry
 	 */
 	public COSObject cosGetContents() {
@@ -189,7 +195,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedType()
 	 */
 	@Override
@@ -199,7 +205,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * The piece info dictionary of the document.
-	 * 
+	 *
 	 * @return The piece info dictionary of the document.
 	 */
 	public COSDictionary cosGetPieceInfo() {
@@ -212,7 +218,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * Prepend contents to the pages content.
-	 * 
+	 *
 	 * @param content
 	 *            The {@link COSStream} to add to the page
 	 */
@@ -235,10 +241,10 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * Set the /Contents for the page
-	 * 
+	 *
 	 * @param content
 	 *            the stream defining the page content
-	 * 
+	 *
 	 * @return The /Contents entry previously associated with this.
 	 */
 	public COSObject cosSetContents(COSObject content) {
@@ -247,10 +253,10 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * Set the piece info dictionary of the document.
-	 * 
+	 *
 	 * @param dict
 	 *            The piece info dictionary of the document.
-	 * 
+	 *
 	 * @return The /PieceInfo entry previously associated with this.
 	 */
 	public COSDictionary cosSetPieceInfo(COSDictionary dict) {
@@ -266,7 +272,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#dispose()
 	 */
 	@Override
@@ -286,7 +292,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 	 * A collection of all {@link PDAcroFormField}s that have
 	 * {@link PDAnnotation}s on the receiver that are children of
 	 * <code>parent</code>.
-	 * 
+	 *
 	 * @param parent
 	 *            The parent {@link PDAcroForm} or {@link PDAcroFormField}.
 	 * @param result
@@ -309,10 +315,11 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.IAdditionalActionSupport#getAdditionalActions()
 	 */
-	public PDAdditionalActions getAdditionalActions() {
+	@Override
+    public PDAdditionalActions getAdditionalActions() {
 		COSDictionary field = cosGetField(DK_AA).asDictionary();
 		return (PDAdditionalActions) PDAdditionalActions.META
 				.createFromCos(field);
@@ -321,7 +328,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 	/**
 	 * Get a list of all {@link PDAnnotation} objects that are referenced in
 	 * this page.
-	 * 
+	 *
 	 * @return A list of all {@link PDAnnotation} objects that are referenced in
 	 *         this page or null if none exist.
 	 */
@@ -347,7 +354,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 	/**
 	 * The {@link PDApplicationData} associated with <code>name</code> on the
 	 * page.
-	 * 
+	 *
 	 * @param name
 	 *            The name of the {@link PDApplicationData} to lookup.
 	 * @return The {@link PDApplicationData} associated with <code>name</code>
@@ -379,10 +386,11 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * The {@link CSContent} defining the visual content of the page.
-	 * 
+	 *
 	 * @return The {@link CSContent} defining the visual content of the page.
 	 */
-	public CSContent getContentStream() {
+	@Override
+    public CSContent getContentStream() {
 		CSContent contentStream = null;
 		if (cachedContentStream != null) {
 			contentStream = (CSContent) cachedContentStream.get();
@@ -408,7 +416,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#getCount()
 	 */
 	@Override
@@ -432,7 +440,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#getFirst()
 	 */
 	@Override
@@ -442,7 +450,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#getFirstPage()
 	 */
 	@Override
@@ -467,7 +475,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#getLast()
 	 */
 	@Override
@@ -477,7 +485,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#getLastPage()
 	 */
 	@Override
@@ -489,7 +497,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 	 * The {@link PDAnnotation} following the given {@link PDAnnotation} annot
 	 * or null, if <code>annot</code> was the last one in the list or does't
 	 * exist on this page.
-	 * 
+	 *
 	 * @param annot
 	 *            a PDAnnotation
 	 * @return a PDAnnotation or null
@@ -510,7 +518,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * The next page after the receiver.
-	 * 
+	 *
 	 * @return The next page after the receiver.
 	 */
 	public PDPage getNextPage() {
@@ -523,7 +531,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#getPageAt(int)
 	 */
 	@Override
@@ -538,7 +546,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 	 * Returns the {@link PDAnnotation} preceding the given {@link PDAnnotation}
 	 * annot or null, if annot was the first one in the list or does't exist on
 	 * this page.
-	 * 
+	 *
 	 * @param annot
 	 *            a PDAnnotation
 	 * @return a PDAnnotation or null
@@ -559,7 +567,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * Get the previous page before the receiver.
-	 * 
+	 *
 	 * @return Get the previous page before the receiver.
 	 */
 	public PDPage getPreviousPage() {
@@ -572,10 +580,11 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.IResourcesProvider#getResources()
 	 */
-	public PDResources getResources() {
+	@Override
+    public PDResources getResources() {
 		COSDictionary dict = cosGetFieldInheritable(DK_Resources)
 				.asDictionary();
 		return (PDResources) PDResources.META.createFromCos(dict);
@@ -583,17 +592,18 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * de.intarsys.pdf.pd.IAdditionalActionSupport#getSupportedTriggerEvents()
 	 */
-	public Set getSupportedTriggerEvents() {
+	@Override
+    public Set getSupportedTriggerEvents() {
 		return PAGE_ACTION_TRIGGERS;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDComplexBase#initializeFromScratch()
 	 */
 	@Override
@@ -605,7 +615,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#invalidateCaches()
 	 */
 	@Override
@@ -621,7 +631,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#isPage()
 	 */
 	@Override
@@ -631,7 +641,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.intarsys.pdf.pd.PDPageNode#isValid()
 	 */
 	@Override
@@ -645,7 +655,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * Prepend a {@link CSContent} stream to this.
-	 * 
+	 *
 	 * @param contentStream
 	 *            The new {@link CSContent}
 	 */
@@ -655,7 +665,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * Remove a {@link PDAnnotation} from the page.
-	 * 
+	 *
 	 * @param annot
 	 *            The {@link PDAnnotation} to remove from the page.
 	 */
@@ -672,7 +682,7 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 	/**
 	 * Remove the {@link PDApplicationData} associated with <code>name</code>
 	 * from this page.
-	 * 
+	 *
 	 * @param name
 	 *            The name of the application data object to be removed.
 	 */
@@ -687,19 +697,20 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * de.intarsys.pdf.pd.IAdditionalActionSupport#setActions(de.intarsys.pdf
 	 * .pd.PDAdditionalActions)
 	 */
-	public void setAdditionalActions(PDAdditionalActions actions) {
+	@Override
+    public void setAdditionalActions(PDAdditionalActions actions) {
 		setFieldObject(DK_AA, actions);
 	}
 
 	/**
 	 * Associate a {@link PDApplicationData} instance with this using
 	 * <code>name</code>.
-	 * 
+	 *
 	 * @param name
 	 *            The name for the {@link PDApplicationData} instance within
 	 *            this.
@@ -718,11 +729,12 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/**
 	 * Assign a new visual appearance to the page.
-	 * 
+	 *
 	 * @param contentStream
 	 *            The new visual appearance.
 	 */
-	public void setContentStream(CSContent contentStream) {
+	@Override
+    public void setContentStream(CSContent contentStream) {
 		if (contentStream != null) {
 			cosSetContents(contentStream.createStream());
 		} else {
@@ -732,12 +744,99 @@ public class PDPage extends PDPageNode implements IAdditionalActionSupport,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * de.intarsys.pdf.pd.IResourcesProvider#setResources(de.intarsys.pdf.pd
 	 * .PDResources)
 	 */
-	public void setResources(PDResources resources) {
+    @Override
+    public void setResources(PDResources resources) {
 		cosSetField(DK_Resources, resources.cosGetDict());
 	}
+
+    /**
+     * Sets the rectangle (in default user space units) that defines the region
+     * to which the contents of this page shall be clipped when output in a
+     * production environment (PDF 1.3). The default is the value of the crop
+     * box.
+     *
+     * @param rect the rectangle that defines the bleed box
+     */
+    public void setBleedBox(CDSRectangle rect) {
+        setFieldObject(DK_BleedBox, rect);
+    }
+
+    /**
+     * Returns the rectangle (in default user space units) defines the region to
+     * which the contents of this page shall be clipped when output in a
+     * production environment (PDF 1.3). The default is the value of the crop
+     * box.
+     *
+     * @return this page's bleed box or its crop box, if no bleed box is
+     *         defined
+     */
+    public CDSRectangle getBleedBox() {
+        COSArray array = cosGetField(DK_BleedBox).asArray();
+        if (array == null) {
+            return getCropBox();
+        }
+
+        return CDSRectangle.createFromCOS(array);
+    }
+
+    /**
+     * Sets the rectangle (in default user space units) that defines the
+     * intended dimensions of the finished page after trimming (PDF 1.3). The
+     * default is the value of the crop box.
+     *
+     * @param rect the rectangle that defines the trim box
+     */
+    public void setTrimBox(CDSRectangle rect) {
+        setFieldObject(DK_TrimBox, rect);
+    }
+
+    /**
+     * Returns the rectangle (in default user space units) defines the intended
+     * dimensions of the finished page after trimming (PDF 1.3). The default is
+     * the value of the crop box.
+     *
+     * @return this page's trim box or its crop box, if no trim box is defined
+     */
+    public CDSRectangle getTrimBox() {
+        COSArray array = cosGetField(DK_TrimBox).asArray();
+        if (array == null) {
+            return getCropBox();
+        }
+
+        return CDSRectangle.createFromCOS(array);
+    }
+
+    /**
+     * Sets the rectangle (in default user space units) that defines the extent
+     * of the page�s meaningful content (including potential white space) as
+     * intended by the page�s creator (PDF 1.3). The default is the value of the
+     * crop box.
+     *
+     * @param rect the rectangle that defines the art box
+     */
+    public void setArtBox(CDSRectangle rect) {
+        setFieldObject(DK_ArtBox, rect);
+    }
+
+    /**
+     * Returns the rectangle (in default user space units) defines defines the
+     * extent of the page�s meaningful content (including potential white space)
+     * as intended by the page�s creator (PDF 1.3). The default is the value of
+     * the crop box.
+     *
+     * @return this page's art box or its crop box, if no art box is defined
+     */
+    public CDSRectangle getArtBox() {
+        COSArray array = cosGetField(DK_ArtBox).asArray();
+        if (array == null) {
+            return getCropBox();
+        }
+
+        return CDSRectangle.createFromCOS(array);
+    }
 }

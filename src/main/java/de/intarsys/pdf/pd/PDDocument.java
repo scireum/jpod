@@ -58,6 +58,7 @@ import de.intarsys.pdf.crypt.ISystemSecurityHandler;
 import de.intarsys.pdf.parser.COSLoadException;
 import de.intarsys.pdf.st.EnumWriteMode;
 import de.intarsys.pdf.st.STDocument;
+import de.intarsys.pdf.writer.COSWriter;
 import de.intarsys.tools.attribute.IAttributeSupport;
 import de.intarsys.tools.locator.ILocator;
 import de.intarsys.tools.locator.ILocatorSupport;
@@ -560,13 +561,8 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport,
 		if (openAction.isNull()) {
 			return null;
 		}
-		if (openAction instanceof COSDictionary) {
-			return (PDAction) PDAction.META.createFromCos(openAction);
-		}
-		if (openAction instanceof COSArray) {
-			return (PDAction) PDActionGoTo.META.createFromCos(openAction);
-		}
-		return null;
+
+		return (PDAction) PDAction.META.createFromCos(openAction);
 	}
 
 	public PDOutline getOutline() {
@@ -713,6 +709,18 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport,
 			return false;
 		}
 		return getAcroForm().getSigFlags().isAppendOnly();
+	}
+
+	/**
+	 * When auto update is true, the {@link COSWriter} will automatically create
+	 * new values for the file modification date in the info dictionary and the
+	 * file id in the trailer. When false, these values are under client code
+	 * control.
+	 * 
+	 * @return
+	 */
+	public boolean isAutoUpdate() {
+		return cosDoc.isAutoUpdate();
 	}
 
 	public boolean isDirty() {
@@ -905,6 +913,15 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport,
 
 	public void setAuthor(String value) {
 		setDocumentInfo(COSInfoDict.DK_Author, value);
+	}
+
+	/**
+	 * @see PDDocument#isAutoUpdate()
+	 * 
+	 * @param autoUpdate
+	 */
+	public void setAutoUpdate(boolean autoUpdate) {
+		cosDoc.setAutoUpdate(autoUpdate);
 	}
 
 	public void setCollection(PDCollection collection) {

@@ -157,7 +157,7 @@ public class CSContent {
 
 	/**
 	 * Create a new PDCContentStream.
-	 * 
+	 *
 	 * @param resourceDict
 	 *            The dictionary defining the external references of the content
 	 *            stream.
@@ -238,9 +238,7 @@ public class CSContent {
 			System.arraycopy(operations, 0, newOperations, 0, size);
 			operations = newOperations;
 		}
-		System
-				.arraycopy(operations, index, operations, index + 1, size
-						- index);
+		System.arraycopy(operations, index, operations, index + 1, size - index);
 		size++;
 		operations[index] = op;
 	}
@@ -364,7 +362,8 @@ public class CSContent {
 	 * @return The byte representation from the list of operations.
 	 */
 	public byte[] toByteArray() {
-		RandomAccessByteArray randomAccess = new RandomAccessByteArray(null);
+		byte[] buffer = new byte[size() * 10];
+		RandomAccessByteArray randomAccess = new RandomAccessByteArray(buffer, 0);
 		COSWriter writer = new COSWriter(randomAccess, null);
 		try {
 			writer.writeContentStream(this);

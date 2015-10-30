@@ -422,7 +422,8 @@ public abstract class PDAnnotation extends PDObject implements
 	/**
 	 * The visual appearance of this.
 	 * 
-	 * @return The {@link PDAction} to be executed when this is "activated".
+	 * @return The {@link PDAppearance} of this annotation or null if this
+	 *         annotation has no appearance dictionary.
 	 */
 	public PDAppearance getAppearance() {
 		COSObject cosObject = cosGetField(DK_AP);

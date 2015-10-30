@@ -57,6 +57,7 @@ public class PDForm extends PDXObject implements IContentStreamProvider {
 			super(instanceClass);
 		}
 
+		@Override
 		protected COSBasedObject doCreateCOSBasedObject(COSObject object) {
 			return new PDForm(object);
 		}
@@ -80,6 +81,8 @@ public class PDForm extends PDXObject implements IContentStreamProvider {
 	public static final COSName DK_OPI = COSName.constant("OPI"); //$NON-NLS-1$
 
 	public static final COSName DK_PS = COSName.constant("PS"); //$NON-NLS-1$
+	
+	public static final COSName DK_Ref = COSName.constant("Ref"); //$NON-NLS-1$
 
 	public static final COSName DK_Subtype2 = COSName.constant("Subtype2"); //$NON-NLS-1$
 
@@ -152,6 +155,7 @@ public class PDForm extends PDXObject implements IContentStreamProvider {
 		return CDSRectangle.createFromCOS(array);
 	}
 
+	@Override
 	public CSContent getContentStream() {
 		if (cachedContent == null) {
 			cachedContent = CSContent.createFromCos(cosGetStream());
@@ -159,10 +163,12 @@ public class PDForm extends PDXObject implements IContentStreamProvider {
 		return cachedContent;
 	}
 
+	@Override
 	public void setContentStream(CSContent content) {
 		setBytes(content.toByteArray());
 	}
 
+	@Override
 	public boolean isForm() {
 		return true;
 	}
@@ -209,11 +215,13 @@ public class PDForm extends PDXObject implements IContentStreamProvider {
 	 * 
 	 * @return The resource dictionary of the receiver form.
 	 */
+	@Override
 	public PDResources getResources() {
 		COSDictionary r = cosGetField(DK_Resources).asDictionary();
 		return (PDResources) PDResources.META.createFromCos(r);
 	}
 
+	@Override
 	public void setResources(PDResources resources) {
 		setFieldObject(DK_Resources, resources);
 	}
@@ -223,6 +231,7 @@ public class PDForm extends PDXObject implements IContentStreamProvider {
 	 * 
 	 * @see de.intarsys.pdf.pd.PDObject#cosGetExpectedSubtype()
 	 */
+	@Override
 	protected COSName cosGetExpectedSubtype() {
 		return CN_Subtype_Form;
 	}
@@ -317,6 +326,7 @@ public class PDForm extends PDXObject implements IContentStreamProvider {
 		return cosSetField(DK_PieceInfo, dict).asDictionary();
 	}
 
+	@Override
 	public void invalidateCaches() {
 		super.invalidateCaches();
 		cachedContent = null;
@@ -328,6 +338,7 @@ public class PDForm extends PDXObject implements IContentStreamProvider {
 	 * 
 	 * @see de.intarsys.pdf.pd.PDObject#initializeFromScratch()
 	 */
+	@Override
 	protected void initializeFromScratch() {
 		super.initializeFromScratch();
 		setBoundingBox(new CDSRectangle());

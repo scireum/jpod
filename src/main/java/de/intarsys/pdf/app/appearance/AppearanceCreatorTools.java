@@ -46,6 +46,12 @@ public class AppearanceCreatorTools {
 	private static final Attribute ATTR_APPEARANCECREATOR = new Attribute(
 			"appearanceCreator");
 
+	private static final Attribute ATTR_PREVIOUSAPPEARANCECREATOR = new Attribute("previousAppearanceCreator");
+
+	private static final IAppearanceCreator APPEARANCECREATOR_IDENTITY = new IdentityAppearanceCreator();
+
+	private static final IAppearanceCreator APPEARANCECREATOR_NULL = new NullAppearanceCreator();
+
 	public static void createAppearance(PDAcroFormField field) {
 		IAppearanceCreator appearanceCreator = getAppearanceCreator(field);
 		for (Iterator i = field.getLogicalRoot().getAnnotations().iterator(); i
@@ -67,12 +73,14 @@ public class AppearanceCreatorTools {
 			appearanceCreator = AppearanceCreatorRegistry.get()
 					.lookupAppearanceCreator(type);
 			if (appearanceCreator == null) {
-				appearanceCreator = new NullAppearanceCreator();
+				appearanceCreator = APPEARANCECREATOR_NULL;
 			}
 		}
 		PDAppearance appearance = appearanceCreator.createAppearance(
 				annotation, null);
-		annotation.setAppearance(appearance);
+		if (appearance != annotation.getAppearance()) {
+			annotation.setAppearance(appearance);
+		}
 		return appearance;
 	}
 
@@ -82,9 +90,22 @@ public class AppearanceCreatorTools {
 				.getAttribute(ATTR_APPEARANCECREATOR);
 	}
 
+	static public void resumeAppearanceCreation(PDObject fieldOrAnntotation) {
+		IAppearanceCreator previousAppearanceCreator = (IAppearanceCreator) fieldOrAnntotation
+				.removeAttribute(ATTR_PREVIOUSAPPEARANCECREATOR);
+		setAppearanceCreator(fieldOrAnntotation, previousAppearanceCreator);
+	}
+
 	static public void setAppearanceCreator(PDObject fieldOrAnntotation,
 			IAppearanceCreator appearanceCreator) {
 		fieldOrAnntotation.setAttribute(ATTR_APPEARANCECREATOR,
 				appearanceCreator);
+	}
+
+	static public void suspendAppearanceCreation(PDObject fieldOrAnntotation) {
+		IAppearanceCreator currentAppearanceCreator = getAppearanceCreator(fieldOrAnntotation);
+		fieldOrAnntotation.setAttribute(ATTR_PREVIOUSAPPEARANCECREATOR,
+				currentAppearanceCreator);
+		setAppearanceCreator(fieldOrAnntotation, APPEARANCECREATOR_IDENTITY);
 	}
 }

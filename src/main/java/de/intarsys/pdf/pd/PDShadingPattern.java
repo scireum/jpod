@@ -30,13 +30,11 @@
 package de.intarsys.pdf.pd;
 
 import de.intarsys.pdf.cos.COSBasedObject;
-import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
 
 /**
  * A shading fill pattern.
- * 
  */
 public class PDShadingPattern extends PDPattern {
 	/**
@@ -72,9 +70,7 @@ public class PDShadingPattern extends PDPattern {
 
 	public PDShading getShading() {
 		if (shading == null) {
-			shading = (PDShading) PDObject.META
-					.createFromCos(((COSDictionary) cosGetObject())
-							.get(DK_Shading));
+			shading = (PDShading) PDShading.META.createFromCos(cosGetField(DK_Shading));
 		}
 		return shading;
 	}

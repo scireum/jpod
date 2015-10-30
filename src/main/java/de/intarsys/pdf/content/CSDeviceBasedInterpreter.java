@@ -280,7 +280,10 @@ public class CSDeviceBasedInterpreter extends CSInterpreter {
 	protected void render_cm(CSOperation operation) {
 		// if there's an "open" path simply keep it
 		if (frame.graphicsObjectState != PageLevel
-				&& frame.graphicsObjectState != PathObject) {
+				&& frame.graphicsObjectState != PathObject
+				&& frame.graphicsObjectState != TextObject) {
+			// We accept cm operations within BT...ET because of some non-conformant documents created by our clients (see JIRA PSL-100).
+			// Other viewers are rendering this, too...
 			throw new CSWarning("'cm' not allowed");
 		}
 		float a = ((COSNumber) operation.getOperand(0)).floatValue();

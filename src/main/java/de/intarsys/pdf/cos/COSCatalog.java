@@ -81,6 +81,8 @@ public class COSCatalog extends COSBasedObject {
 
 	public static final COSName DK_AA = COSName.constant("AA"); //$NON-NLS-1$
 
+	public static final COSName DK_AF = COSName.constant("AF"); //$NON-NLS-1$
+
 	public static final COSName DK_Lang = COSName.constant("Lang"); //$NON-NLS-1$
 
 	public static final COSName DK_SpiderInfo = COSName.constant("SpiderInfo"); //$NON-NLS-1$
@@ -107,6 +109,8 @@ public class COSCatalog extends COSBasedObject {
 
 	static public final COSName DK_Version = COSName.constant("Version"); //$NON-NLS-1$
 
+	public static final COSName DK_OCProperties = COSName.constant("OCProperties"); //$NON-NLS-1$
+
 	/** Well known attribute names */
 	static public final COSName CN_Version_1_4 = COSName.constant("1.4"); //$NON-NLS-1$
 
@@ -116,6 +120,15 @@ public class COSCatalog extends COSBasedObject {
 
 	protected COSCatalog(COSObject object) {
 		super(object);
+	}
+
+	/**
+	 * The /AF field in the document catalog.
+	 * 
+	 * @return The /AF field in the document catalog.
+	 */
+	public COSArray cosGetAF() {
+		return cosGetField(DK_AF).asArray();
 	}
 
 	/**

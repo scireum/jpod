@@ -29,6 +29,7 @@
  */
 package de.intarsys.pdf.pd;
 
+import de.intarsys.pdf.cos.COSArray;
 import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSObject;
 
@@ -58,5 +59,20 @@ public class PDCSPattern extends PDCSSpecial {
 	protected PDCSPattern(COSObject object) {
 		super(object);
 	}
-
+	
+	/**
+	 * Returns the underlying color space in which the actual color of the
+	 * pattern shall be specified, if this color space represents and uncolored
+	 * tiling pattern and null otherwise.
+	 * 
+	 * @see "ISO 32000-1:2008, 8.7.3.3 Uncoloured Tiling Patterns"
+	 */
+	public PDColorSpace getUnderlyingColorSpace() {
+		COSArray array = cosGetObject().asArray();
+		if (array == null || array.size() < 2) {
+			return null;
+		}
+		
+		return (PDColorSpace) PDColorSpace.META.createFromCos(array.get(1));
+	}
 }

@@ -130,8 +130,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
 	}
 
 	/**
-	 * Create a {@link COSString} from <code>string</code> in hex
-	 * representation.
+	 * Create a {@link COSString} from <code>string</code> in hex representation.
 	 * 
 	 * @param string
 	 * @return The new {@link COSString}
@@ -152,8 +151,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
 	}
 
 	/**
-	 * Create a {@link COSString} from <code>string</code> in hex
-	 * representation.
+	 * Create a {@link COSString} from <code>string</code> in hex representation.
 	 * 
 	 * @param string
 	 * @return The new {@link COSString}
@@ -168,8 +166,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
 	}
 
 	/**
-	 * Create a {@link COSString} from <code>string</code>, escaping all
-	 * newlines.
+	 * Create a {@link COSString} from <code>string</code>, escaping all newlines.
 	 * 
 	 * @param string
 	 * @return The new {@link COSString}
@@ -260,9 +257,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor
-	 * )
+	 * @see de.intarsys.pdf.cos.COSObject#accept(de.intarsys.pdf.cos.ICOSObjectVisitor )
 	 */
 	@Override
 	public java.lang.Object accept(ICOSObjectVisitor visitor)
@@ -335,6 +330,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
 	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
+	@Override
 	public int compareTo(Object o) {
 		if (!(o instanceof COSString)) {
 			throw new ClassCastException("must compare with a COSString"); //$NON-NLS-1$
@@ -532,6 +528,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
 	 * 
 	 * @see de.intarsys.tools.objectsession.ISaveStateSupport#saveState()
 	 */
+	@Override
 	public Object saveState() {
 		COSString result = new COSString();
 		result.bytes = this.bytes;

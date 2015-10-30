@@ -106,7 +106,8 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 
 	public static final byte[] FALSE = "false".getBytes(); //$NON-NLS-1$
 
-	public static final byte[] GARBAGE = "öäüß".getBytes(); //$NON-NLS-1$
+	public static final byte[] GARBAGE = new byte[] { (byte) 0xF6, (byte) 0xE4,
+			(byte) 0xFC, (byte) 0xDF };
 
 	/** Line feed character. */
 	public static final byte[] LF = "\n".getBytes(); //$NON-NLS-1$
@@ -149,24 +150,15 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 
 	public static final byte[] TRUE = "true".getBytes(); //$NON-NLS-1$
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#writeOn(java.io.OutputStream)
-	 */
-	public static void basicWriteFixed(IRandomAccess randomAccess, float value,
-			int precision) throws IOException {
-		NumberFormat format = NumberFormat.getIntegerInstance(Locale.US);
-		format.setMaximumFractionDigits(precision);
-		format.setGroupingUsed(false);
-		randomAccess.write(StringTools.toByteArray(format.format(value)));
+	private static final NumberFormat formatFixed = NumberFormat.getIntegerInstance(Locale.US);
+
+	synchronized public static void basicWriteFixed(IRandomAccess randomAccess,
+			float value, int precision) throws IOException {
+		formatFixed.setGroupingUsed(false);
+		formatFixed.setMaximumFractionDigits(precision);
+		randomAccess.write(StringTools.toByteArray(formatFixed.format(value)));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.intarsys.pdf.cos.COSObject#writeOn(java.io.OutputStream)
-	 */
 	public static void basicWriteInteger(IRandomAccess randomAccess, int value)
 			throws IOException {
 		randomAccess.write(StringTools.toByteArray(Integer.toString(value)));
@@ -187,8 +179,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 		randomAccess.write(NAME_PREFIX);
 		for (int i = 0; i < name.length; i++) {
 			int current = name[i] & 0xff; // convert to unsigned byte
-			if ((current <= 32) || (current >= 127)
-					|| PDFParser.isDelimiter(current) || (current == 35)) {
+			if (current <= 32 || current >= 127	|| PDFParser.isDelimiter(current) || current == 35) {
 				randomAccess.write(NAME_ESCAPE);
 				randomAccess.write(HexTools.ByteToHex[current]);
 			} else {
@@ -272,19 +263,21 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 
 	private COSIndirectObject currentObject;
 
-	private ISystemSecurityHandler securityHandler;
+	private final ISystemSecurityHandler securityHandler;
 
 	private boolean incremental = true;
+
+	private boolean autoUpdate = true;
 
 	/** flag to prevent generating two newlines in sequence */
 	private boolean onNewLine = false;
 
-	private List proxies = new ArrayList();
+	private final List proxies = new ArrayList();
 
 	/**
 	 * The IRandomAccess we write to.
 	 */
-	private IRandomAccess randomAccess;
+	private final IRandomAccess randomAccess;
 
 	public COSWriter(IRandomAccess randomAccess,
 			ISystemSecurityHandler securityHandler) {
@@ -293,7 +286,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	}
 
 	protected void basicWriteDocument(STDocument doc) throws IOException {
-		if (doc.isDirty()) {
+		if (doc.isDirty() && isAutoUpdate()) {
 			doc.updateModificationDate();
 			doc.getTrailer().updateFileID();
 		}
@@ -396,6 +389,18 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 		return securityHandler;
 	}
 
+	/**
+	 * When auto update is true, the {@link COSWriter} will automatically create
+	 * new values for the file modification date in the info dictionary and the
+	 * file id in the trailer. When false, these values are under client code
+	 * control.
+	 * 
+	 * @return
+	 */
+	public boolean isAutoUpdate() {
+		return autoUpdate;
+	}
+
 	public boolean isIncremental() {
 		return incremental;
 	}
@@ -418,6 +423,10 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 		reset();
 	}
 
+	public void setAutoUpdate(boolean autoUpdate) {
+		this.autoUpdate = autoUpdate;
+	}
+
 	protected void setCurrentObject(COSIndirectObject currentObject) {
 		this.currentObject = currentObject;
 	}
@@ -437,6 +446,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromArray(COSArray obj) throws COSVisitorException {
 		try {
 			if (getSecurityHandler() != null) {
@@ -479,6 +489,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromBoolean(COSBoolean obj) throws COSVisitorException {
 		try {
 			if (obj.booleanValue()) {
@@ -503,6 +514,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromDictionary(COSDictionary obj)
 			throws COSVisitorException {
 		try {
@@ -548,6 +560,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromFixed(COSFixed obj) throws COSVisitorException {
 		try {
 			basicWriteFixed(randomAccess, obj.floatValue(), obj.getPrecision());
@@ -566,6 +579,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromIndirectObject(COSIndirectObject obj)
 			throws COSVisitorException {
 		reset();
@@ -594,6 +608,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromInteger(COSInteger obj) throws COSVisitorException {
 		try {
 			basicWriteInteger(randomAccess, obj.intValue());
@@ -615,6 +630,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromName(COSName obj) throws COSVisitorException {
 		try {
 			basicWriteName(randomAccess, obj.byteValue());
@@ -636,6 +652,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromNull(COSNull obj) throws COSVisitorException {
 		try {
 			write(NULL);
@@ -645,6 +662,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 		return null;
 	}
 
+	@Override
 	public Object visitFromProxy(COSObjectProxy obj) throws COSVisitorException {
 		try {
 			obj.setPosition(getRandomAccess().getOffset());
@@ -668,6 +686,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromStream(COSStream obj) throws COSVisitorException {
 		try {
 			if (getSecurityHandler() != null) {
@@ -716,6 +735,7 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 	 * @throws COSVisitorException
 	 *             If there is an exception while visiting this object.
 	 */
+	@Override
 	public Object visitFromString(COSString obj) throws COSVisitorException {
 		try {
 			if (obj.isHexMode()) {
@@ -808,8 +828,8 @@ public class COSWriter implements ICOSObjectVisitor, ICOSProxyVisitor {
 
 	protected void writeEntry(STXRefSection xrefSection,
 			COSIndirectObject object) throws IOException {
-		STXRefEntryOccupied entry = new STXRefEntryOccupied(object
-				.getObjectNumber(), object.getGenerationNumber(),
+		STXRefEntryOccupied entry = new STXRefEntryOccupied(
+				object.getObjectNumber(), object.getGenerationNumber(),
 				getRandomAccess().getOffset());
 		xrefSection.addEntry(entry);
 		writeIndirectObject(object);
