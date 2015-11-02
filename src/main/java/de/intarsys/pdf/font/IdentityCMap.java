@@ -54,9 +54,6 @@ public class IdentityCMap extends CMap {
         }
     }
 
-    /**
-     * @param object
-     */
     protected IdentityCMap() {
         super(null);
     }

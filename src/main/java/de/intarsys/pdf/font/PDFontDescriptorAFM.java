@@ -76,7 +76,7 @@ public class PDFontDescriptorAFM extends PDFontDescriptor {
     /**
      * Create a font descriptor for a type 1 font.
      *
-     * @param newFont type 1 font containing the definitions.
+     * @param afm type 1 font containing the definitions.
      */
     protected PDFontDescriptorAFM(AFM afm) {
         super(null);

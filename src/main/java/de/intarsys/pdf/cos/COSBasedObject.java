@@ -567,7 +567,7 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
      * This method requires the base object to be a {@link COSDictionary}.
      *
      * @param key   The name of the field.
-     * @param value The new value of the field.
+     * @param array The new value of the field.
      * @return The previously associated COSObject is returned.
      */
     protected COSObject setFieldFixedArray(COSName key, float[] array) {
