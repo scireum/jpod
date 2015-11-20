@@ -49,9 +49,6 @@ public class NamedGIDMap extends CIDToGIDMap {
      */
     public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    /**
-     * @param object
-     */
     protected NamedGIDMap() {
         super(null);
     }

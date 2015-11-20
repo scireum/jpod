@@ -146,10 +146,7 @@ public class CSContent {
     private int size = 0;
 
     /**
-     * Create a new PDCContentStream.
-     *
-     * @param resourceDict The dictionary defining the external references of the content
-     *                     stream.
+     * Create a new CSContent.
      */
     protected CSContent() {
         super();

@@ -53,8 +53,8 @@ public class CSContentParser extends PDFParser {
      * operations. It is only used when parsing inline images to make some
      * assumptions about the image data end.
      *
-     * @param operation
-     * @return
+     * @param operation the operation to check
+     * @return Answer {@code true} if the operation is valid.
      */
     protected static boolean accepts(CSOperation operation) {
         byte[] token = operation.getOperatorToken();
@@ -328,8 +328,7 @@ public class CSContentParser extends PDFParser {
      * parse a valid COS object for use in stream context from the current
      * stream position see PDF Reference v1.4, chapter 3.7.1 Content Streams
      *
-     * @param streamContent The stream content object that defines the context of the
-     *                      stream.
+     * @param input The stream content object that defines the context of the stream.
      * @return The stream operation parsed.
      * @throws IOException
      * @throws COSLoadException

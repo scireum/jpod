@@ -72,9 +72,9 @@ public class PDFontDescriptorType3 extends PDFontDescriptor {
     private PDFontType3 font;
 
     /**
-     * Create a font descriptor for a type 1 font.
+     * Create a font descriptor for a type 3 font.
      *
-     * @param newFont type 1 font containing the definitions.
+     * @param font type 1 font containing the definitions.
      */
     protected PDFontDescriptorType3(PDFontType3 font) {
         super(null);

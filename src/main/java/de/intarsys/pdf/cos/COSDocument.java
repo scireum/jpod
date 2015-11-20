@@ -432,7 +432,7 @@ public class COSDocument implements ICOSContainer, ICOSExceptionHandler, IAttrib
      * file id in the trailer. When false, these values are under client code
      * control.
      *
-     * @return
+     * @return Answer {@code true} if the document has auto update enabled.
      */
     public boolean isAutoUpdate() {
         return stDoc.isAutoUpdate();
