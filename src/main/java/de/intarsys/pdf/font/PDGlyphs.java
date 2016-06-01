@@ -65,10 +65,14 @@ public class PDGlyphs implements IAttributeSupport {
 
     public char[] getChars() {
         CMap toUnicode = font.getToUnicode();
-        if (toUnicode == null) {
-            return new char[]{(char) font.getEncoding().getDecoded(codepoint)};
+        if (toUnicode != null) {
+            char[] chars = toUnicode.getChars(codepoint);
+            if (chars != null) {
+                return chars;
+            }
         }
-        return toUnicode.getChars(codepoint);
+
+        return new char[]{(char) font.getEncoding().getDecoded(codepoint)};
     }
 
     public int getCodepoint() {
