@@ -1574,12 +1574,11 @@ public abstract class PDFParser {
 
     protected byte[] readTokenElement(IRandomAccess input, int next) throws IOException {
         localStream.reset();
-        //
         localStream.write(next);
         do {
             next = input.read();
-            if ((next == ' ') || isWhitespace(next)) { // performance
-                // shortcut
+            if (next == -1 || (next == ' ') || isWhitespace(next)) {
+                // performance shortcut
                 break;
             }
             if (isDelimiter(next)) {
