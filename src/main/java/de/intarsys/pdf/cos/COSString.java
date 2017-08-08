@@ -35,6 +35,7 @@ import de.intarsys.tools.hex.HexTools;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * The string representation for a pdf document
@@ -333,8 +334,12 @@ public class COSString extends COSPrimitiveObject implements Comparable {
         if (!(o instanceof COSString)) {
             throw new ClassCastException("must compare with a COSString"); //$NON-NLS-1$
         }
+        COSString other = (COSString) o;
+        if (encoding == null || other.encoding == null || !encoding.equals(other.encoding)) {
+            return Objects.compare(stringValue(), other.stringValue(), String::compareTo);
+        }
         byte[] thisBytes = byteValue();
-        byte[] otherBytes = ((COSString) o).byteValue();
+        byte[] otherBytes = other.byteValue();
         for (int i = 0; (i < thisBytes.length) && (i < otherBytes.length); i++) {
             if (thisBytes[i] < otherBytes[i]) {
                 return -1;
@@ -441,7 +446,11 @@ public class COSString extends COSPrimitiveObject implements Comparable {
         if (!(o instanceof COSString)) {
             return false;
         }
-        return Arrays.equals(byteValue(), ((COSString) o).byteValue());
+        COSString other = (COSString) o;
+        if (encoding == null || other.encoding == null || !encoding.equals(other.encoding)) {
+            return Objects.equals(stringValue(), other.stringValue());
+        }
+        return Arrays.equals(byteValue(), other.byteValue());
     }
 
     /**
