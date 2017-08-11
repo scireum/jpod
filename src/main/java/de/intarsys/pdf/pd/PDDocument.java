@@ -757,11 +757,15 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
     }
 
     public COSObject lookupDestination(String name) {
+        return lookupDestination(COSString.create(name));
+    }
+
+    public COSObject lookupDestination(COSString destName) {
         COSCatalog catalog = getCatalog();
         COSObject destination = null;
         COSDictionary dests = catalog.cosGetDests();
         if (dests != null) {
-            destination = dests.get(COSName.createUTF8(name));
+            destination = dests.get(destName.asName());
         }
         if (destination == null) {
             COSDictionary names = catalog.cosGetNames();
@@ -769,7 +773,7 @@ public class PDDocument implements IAdditionalActionSupport, IAttributeSupport, 
                 COSDictionary destsDict = names.get(COSCatalog.DK_Dests).asDictionary();
                 if (destsDict != null) {
                     CDSNameTreeNode destsTree = CDSNameTreeNode.createFromCos(destsDict);
-                    destination = destsTree.get(COSString.create(name));
+                    destination = destsTree.get(destName);
                 }
             }
         }
