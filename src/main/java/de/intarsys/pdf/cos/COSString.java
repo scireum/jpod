@@ -334,27 +334,19 @@ public class COSString extends COSPrimitiveObject implements Comparable {
         if (!(o instanceof COSString)) {
             throw new ClassCastException("must compare with a COSString"); //$NON-NLS-1$
         }
-        COSString other = (COSString) o;
-        if (encoding == null || other.encoding == null || !encoding.equals(other.encoding)) {
-            return Objects.compare(stringValue(), other.stringValue(), String::compareTo);
-        }
         byte[] thisBytes = byteValue();
-        byte[] otherBytes = other.byteValue();
+        byte[] otherBytes = ((COSString) o).byteValue();
         for (int i = 0; (i < thisBytes.length) && (i < otherBytes.length); i++) {
-            if (thisBytes[i] < otherBytes[i]) {
+            char thisChar = (char) (thisBytes[i] & 0xFF);
+            char otherChar = (char) (otherBytes[i] & 0xFF);
+            if (thisChar < otherChar) {
                 return -1;
             }
-            if (thisBytes[i] > otherBytes[i]) {
+            if (thisChar > otherChar) {
                 return 1;
             }
         }
-        if (thisBytes.length < otherBytes.length) {
-            return -1;
-        }
-        if (thisBytes.length > otherBytes.length) {
-            return 1;
-        }
-        return 0;
+        return Integer.compare(thisBytes.length, otherBytes.length);
     }
 
     /*
@@ -446,11 +438,7 @@ public class COSString extends COSPrimitiveObject implements Comparable {
         if (!(o instanceof COSString)) {
             return false;
         }
-        COSString other = (COSString) o;
-        if (encoding == null || other.encoding == null || !encoding.equals(other.encoding)) {
-            return Objects.equals(stringValue(), other.stringValue());
-        }
-        return Arrays.equals(byteValue(), other.byteValue());
+        return Arrays.equals(byteValue(), ((COSString) o).byteValue());
     }
 
     /**
