@@ -47,6 +47,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -235,6 +236,8 @@ public abstract class PDFont extends PDObject {
     private PDFontDescriptor cachedFontDescriptor;
 
     private CMap cachedToUnicode = UNDEFINED;
+
+    private Integer cachedEstimatedAvgWidth;
 
     /**
      * Create the receiver class from an already defined {@link COSDictionary}.
@@ -565,6 +568,41 @@ public abstract class PDFont extends PDObject {
             return 0;
         }
         return getFontDescriptor().getMissingWidth();
+    }
+
+    /**
+     * @return the estimated width we should use for a missing/undefined glyph width
+     */
+    public int getEstimatedAvgCharWidth() {
+        if (cachedEstimatedAvgWidth == null) {
+            cachedEstimatedAvgWidth = estimateAvgCharWidth();
+        }
+        
+        return cachedEstimatedAvgWidth;
+    }
+
+    private int estimateAvgCharWidth() {
+        int result = getMissingWidth();
+        if (result > 0) {
+            return result;
+        }
+        result = Math.round(getFontDescriptor().getAvgWidth());
+        if (result > 0) {
+            return result;
+        }
+        result = (int) Math.round(Arrays.stream(createWidths()).average().getAsDouble());
+        if (result > 0) {
+            return result;
+        }
+        if (this instanceof PDFontType0) {
+            CIDWidthMap widths = ((PDFontType0) this).getDescendantFont().getCIDWidthMap();
+            result = (int) Math.round(widths.getEntries()
+                                            .stream()
+                                            .mapToInt(CIDWidthMapEntry::getWidth)
+                                            .average()
+                                            .getAsDouble());
+        }
+        return result;
     }
 
     /**

@@ -68,7 +68,7 @@ public class CIDWidthMap extends COSBasedObject {
      */
     public static final MetaClass META = new MetaClass(MetaClass.class.getDeclaringClass());
 
-    private List entries;
+    private List<CIDWidthMapEntry> entries;
 
     protected CIDWidthMap(COSObject object) {
         super(object);
@@ -82,7 +82,7 @@ public class CIDWidthMap extends COSBasedObject {
     }
 
     protected void createMap(COSArray array) {
-        entries = new ArrayList();
+        entries = new ArrayList<>();
         if (array != null) {
             for (Iterator itMap = array.iterator(); itMap.hasNext(); ) {
                 COSNumber element1 = ((COSObject) itMap.next()).asNumber();
@@ -118,8 +118,8 @@ public class CIDWidthMap extends COSBasedObject {
     }
 
     public int getWidth(int cid) {
-        for (Iterator it = entries.iterator(); it.hasNext(); ) {
-            CIDWidthMapEntry entry = (CIDWidthMapEntry) it.next();
+        for (Iterator<CIDWidthMapEntry> it = entries.iterator(); it.hasNext(); ) {
+            CIDWidthMapEntry entry = it.next();
             if (entry.getStart() <= cid) {
                 if (entry.getStop() >= cid) {
                     return entry.getWidth();
@@ -127,6 +127,10 @@ public class CIDWidthMap extends COSBasedObject {
             }
         }
         return -1;
+    }
+
+    public List<CIDWidthMapEntry> getEntries() {
+        return entries;
     }
 
     @Override

@@ -18,7 +18,7 @@
         <version>1.8</version>
     </parent>
     <artifactId>jpod</artifactId>
-    <version>1.1.3</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
     <name>jpod</name>
     <description>
