@@ -34,6 +34,7 @@ import de.intarsys.pdf.cos.COSBasedObject;
 import de.intarsys.pdf.cos.COSDictionary;
 import de.intarsys.pdf.cos.COSName;
 import de.intarsys.pdf.cos.COSObject;
+import de.intarsys.pdf.cos.COSString;
 
 /**
  * A destination within a document defined using a named destination. The
@@ -76,7 +77,13 @@ public class PDNamedDestination extends PDDestination {
      */
     @Override
     public PDExplicitDestination getResolvedDestination(PDDocument doc) {
-        COSObject resolvedDest = doc.lookupDestination(getName());
+        COSObject destObj = cosGetObject();
+        COSObject resolvedDest;
+        if (destObj instanceof COSString) {
+            resolvedDest = doc.lookupDestination((COSString) destObj);
+        } else {
+            resolvedDest = doc.lookupDestination(getName());
+        }
         if (resolvedDest instanceof COSDictionary) {
             COSObject destDict = ((COSDictionary) resolvedDest).get(COSName.create("D"));
             PDDestination newDest = (PDDestination) PDDestination.META.createFromCos(destDict);
