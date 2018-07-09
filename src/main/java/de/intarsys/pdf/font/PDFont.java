@@ -589,7 +589,7 @@ public abstract class PDFont extends PDObject {
         if (result > 0) {
             return result;
         }
-        result = (int) Math.round(Arrays.stream(createWidths()).average().orElse(0));
+        result = (int) Math.round(Arrays.stream(createWidths()).filter(width -> width > 0).average().orElse(0));
         if (result > 0) {
             return result;
         }
@@ -598,6 +598,7 @@ public abstract class PDFont extends PDObject {
             result = (int) Math.round(widths.getEntries()
                                             .stream()
                                             .mapToInt(CIDWidthMapEntry::getWidth)
+                                            .filter(width -> width > 0)
                                             .average()
                                             .orElse(0));
         }
