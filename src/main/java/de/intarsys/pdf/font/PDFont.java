@@ -577,7 +577,6 @@ public abstract class PDFont extends PDObject {
         if (cachedEstimatedAvgWidth == null) {
             cachedEstimatedAvgWidth = estimateAvgCharWidth();
         }
-        
         return cachedEstimatedAvgWidth;
     }
 
@@ -590,7 +589,7 @@ public abstract class PDFont extends PDObject {
         if (result > 0) {
             return result;
         }
-        result = (int) Math.round(Arrays.stream(createWidths()).average().getAsDouble());
+        result = (int) Math.round(Arrays.stream(createWidths()).average().orElse(0));
         if (result > 0) {
             return result;
         }
@@ -600,7 +599,7 @@ public abstract class PDFont extends PDObject {
                                             .stream()
                                             .mapToInt(CIDWidthMapEntry::getWidth)
                                             .average()
-                                            .getAsDouble());
+                                            .orElse(0));
         }
         return result;
     }
