@@ -1,0 +1,35 @@
+clone:
+  git:
+    image: plugins/git
+    volumes:
+    - /var/repos/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}:/drone/src/github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}
+pipeline:
+  compile:
+    image: scireum/sirius-build
+    commands:
+      - mvn clean compile
+    volumes:
+      - /root/.m2:/root/.m2
+      - /var/repos/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}:/drone/src/github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}
+    when:
+      event: push
+  test:
+    image: scireum/sirius-build
+    commands:
+      - mvn clean test
+    volumes:
+      - /root/.m2:/root/.m2
+      - /var/repos/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}:/drone/src/github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}
+    when:
+      event: [tag, pull_request]
+  deploy:
+    image: scireum/sirius-build
+    commands:
+      - sed -i 's/DEVELOPMENT-SNAPSHOT/${DRONE_TAG}/g' pom.xml
+      - mvn clean deploy -DskipTests
+    volumes:
+      - /root/.m2:/root/.m2
+      - /root/.gnupg:/root/.gnupg
+      - /var/repos/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}:/drone/src/github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}
+    when:
+      event: tag
