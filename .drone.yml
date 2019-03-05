@@ -1,25 +1,25 @@
+scireum_volumes: &scireum_volumes
+  - /var/run/docker.sock:/var/run/docker.sock
+  - /var/repos/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}:/drone/src/github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}
+  - /root/.m2:/root/.m2
+  - /root/.gnupg:/root/.gnupg
 clone:
   git:
     image: plugins/git
-    volumes:
-    - /var/repos/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}:/drone/src/github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}
+    volumes: *scireum_volumes
 pipeline:
   compile:
     image: scireum/sirius-build
     commands:
       - mvn clean compile
-    volumes:
-      - /root/.m2:/root/.m2
-      - /var/repos/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}:/drone/src/github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}
+    volumes: *scireum_volumes
     when:
       event: push
   test:
     image: scireum/sirius-build
     commands:
       - mvn clean test
-    volumes:
-      - /root/.m2:/root/.m2
-      - /var/repos/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}:/drone/src/github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}
+    volumes: *scireum_volumes
     when:
       event: [tag, pull_request]
   deploy:
@@ -27,9 +27,6 @@ pipeline:
     commands:
       - sed -i 's/DEVELOPMENT-SNAPSHOT/${DRONE_TAG}/g' pom.xml
       - mvn clean deploy -DskipTests
-    volumes:
-      - /root/.m2:/root/.m2
-      - /root/.gnupg:/root/.gnupg
-      - /var/repos/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}:/drone/src/github.com/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}
+    volumes: *scireum_volumes
     when:
       event: tag
