@@ -60,7 +60,7 @@ public class CMapBFRangeStringArrayMap extends CMapRangeMap {
                 int charIndex = 0;
                 while (byteIndex < destinationBytes.length) {
                     destinations[i][charIndex++] =
-                            (char) ((destinationBytes[byteIndex++] << 8) + destinationBytes[byteIndex++]);
+                            (char) ((destinationBytes[byteIndex++] << 8) + (destinationBytes[byteIndex++] & 0xff));
                 }
             }
             i++;
