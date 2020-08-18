@@ -25,6 +25,10 @@
         This is a fork of http://sourceforge.net/projects/jpodlib/ as development seems to be frozen.
         We're providing some bug fixes along with deployments to maven.
     </description>
+    <properties>
+        <!-- Force build to complete with warnings, e.g: while using deprecated code -->
+        <maven.compiler.warnings></maven.compiler.warnings>
+    </properties>
     <repositories>
         <repository>
             <id>scireum-mvn</id>
