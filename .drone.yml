@@ -4,8 +4,6 @@ scireum_volumes: &scireum_volumes
     path: /var/run/docker.sock
   - name: m2
     path: /root/.m2
-  - name: gnupg
-    path: /root/.gnupg
 
 kind: pipeline
 name: default
@@ -54,6 +52,3 @@ volumes:
   - name: m2
     host:
       path: /root/.m2
-  - name: gnupg
-    host:
-      path: /root/.gnupg
