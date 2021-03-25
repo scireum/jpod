@@ -239,6 +239,8 @@ public abstract class PDFont extends PDObject {
 
     private Integer cachedEstimatedAvgWidth;
 
+    private CMap rosToUnicode = UNDEFINED;
+
     /**
      * Create the receiver class from an already defined {@link COSDictionary}.
      * NEVER use the constructor directly.
@@ -628,7 +630,23 @@ public abstract class PDFont extends PDObject {
                 throw e;
             }
         }
-        return cachedToUnicode;
+        return cachedToUnicode == null ? getRosToUnicodeMap() : cachedToUnicode;
+    }
+
+    private CMap getRosToUnicodeMap() {
+        if (!(this instanceof PDFontType0)) {
+            return null;
+        }
+        if (rosToUnicode == UNDEFINED) {
+            String registry = ((PDFontType0) this).getDescendantFont()
+                                                  .getCIDSystemInfo()
+                                                  .getFieldString(CIDSystemInfo.DK_Registry, "");
+            String ordering = ((PDFontType0) this).getDescendantFont()
+                                                  .getCIDSystemInfo()
+                                                  .getFieldString(CIDSystemInfo.DK_Ordering, "");
+            rosToUnicode = NamedCMap.loadCMap(COSName.constant(registry + "-" + ordering + "-UCS2"));
+        }
+        return rosToUnicode;
     }
 
     @Override
