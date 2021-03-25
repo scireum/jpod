@@ -29,7 +29,13 @@
  */
 package de.intarsys.pdf.font;
 
-import de.intarsys.pdf.cos.*;
+import de.intarsys.pdf.cos.COSArray;
+import de.intarsys.pdf.cos.COSBasedObject;
+import de.intarsys.pdf.cos.COSDictionary;
+import de.intarsys.pdf.cos.COSName;
+import de.intarsys.pdf.cos.COSNumber;
+import de.intarsys.pdf.cos.COSObject;
+import de.intarsys.pdf.cos.COSString;
 import de.intarsys.pdf.encoding.Encoding;
 import de.intarsys.pdf.encoding.MacOSRomanEncoding;
 import de.intarsys.pdf.encoding.StandardEncoding;
@@ -592,11 +598,11 @@ public abstract class PDFont extends PDObject {
         if (this instanceof PDFontType0) {
             CIDWidthMap widths = ((PDFontType0) this).getDescendantFont().getCIDWidthMap();
             result = (int) Math.round(widths.getEntries()
-                    .stream()
-                    .mapToInt(CIDWidthMapEntry::getWidth)
-                    .filter(width -> width > 0)
-                    .average()
-                    .orElse(0));
+                                            .stream()
+                                            .mapToInt(CIDWidthMapEntry::getWidth)
+                                            .filter(width -> width > 0)
+                                            .average()
+                                            .orElse(0));
         }
         return result;
     }
@@ -632,10 +638,12 @@ public abstract class PDFont extends PDObject {
             return null;
         }
         if (rosToUnicode == UNDEFINED) {
-            String registry =
-                    ((PDFontType0) this).getDescendantFont().getCIDSystemInfo().getFieldString(CIDSystemInfo.DK_Registry, "");
-            String ordering =
-                    ((PDFontType0) this).getDescendantFont().getCIDSystemInfo().getFieldString(CIDSystemInfo.DK_Ordering, "");
+            String registry = ((PDFontType0) this).getDescendantFont()
+                                                  .getCIDSystemInfo()
+                                                  .getFieldString(CIDSystemInfo.DK_Registry, "");
+            String ordering = ((PDFontType0) this).getDescendantFont()
+                                                  .getCIDSystemInfo()
+                                                  .getFieldString(CIDSystemInfo.DK_Ordering, "");
             rosToUnicode = NamedCMap.loadCMap(COSName.constant(registry + "-" + ordering + "-UCS2"));
         }
         return rosToUnicode;
