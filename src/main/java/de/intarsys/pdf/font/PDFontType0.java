@@ -104,9 +104,24 @@ public class PDFontType0 extends PDFont {
      */
     public CMap getCMap() {
         if (cachedMap == null) {
-            cachedMap = (CMap) CMap.META.createFromCos(cosGetField(DK_Encoding));
+            if (isAdobeJapan1()) {
+                cachedMap = NamedCMap.loadCMap(COSName.constant("Adobe-Japan1-7"));
+            } else {
+                cachedMap = (CMap) CMap.META.createFromCos(cosGetField(DK_Encoding));
+            }
         }
         return cachedMap;
+    }
+
+    public boolean isAdobeJapan1() {
+        return "(Adobe)".equals(getDescendantFont().getCIDSystemInfo()
+                                                   .cosGetDict()
+                                                   .basicGet(COSName.constant("Registry"))
+                                                   .toString())
+               && "(Japan1)".equals(getDescendantFont().getCIDSystemInfo()
+                                                       .cosGetDict()
+                                                       .basicGet(COSName.constant("Ordering"))
+                                                       .toString());
     }
 
     /**

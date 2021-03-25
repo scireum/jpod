@@ -621,11 +621,15 @@ public abstract class PDFont extends PDObject {
 
     public CMap getToUnicode() {
         if (cachedToUnicode == UNDEFINED) {
-            try {
-                cachedToUnicode = (CMap) CMap.META.createFromCos(cosGetField(DK_ToUnicode));
-            } catch (RuntimeException e) {
-                cachedToUnicode = null;
-                throw e;
+            if (this instanceof PDFontType0 && ((PDFontType0) this).isAdobeJapan1()) {
+                cachedToUnicode = NamedCMap.loadCMap(COSName.constant("Adobe-Japan1-7"));
+            } else {
+                try {
+                    cachedToUnicode = (CMap) CMap.META.createFromCos(cosGetField(DK_ToUnicode));
+                } catch (RuntimeException e) {
+                    cachedToUnicode = null;
+                    throw e;
+                }
             }
         }
         return cachedToUnicode;
