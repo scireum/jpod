@@ -674,6 +674,10 @@ public abstract class COSBasedObject implements IAttributeSupport, ICOSObjectLis
      */
     @Override
     public String toString() {
-        return cosGetObject().toString();
+        if (cosGetObject() != null) {
+            return cosGetObject().toString();
+        } else {
+            return super.toString();
+        }
     }
 }
