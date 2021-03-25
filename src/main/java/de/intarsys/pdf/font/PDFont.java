@@ -29,13 +29,7 @@
  */
 package de.intarsys.pdf.font;
 
-import de.intarsys.pdf.cos.COSArray;
-import de.intarsys.pdf.cos.COSBasedObject;
-import de.intarsys.pdf.cos.COSDictionary;
-import de.intarsys.pdf.cos.COSName;
-import de.intarsys.pdf.cos.COSNumber;
-import de.intarsys.pdf.cos.COSObject;
-import de.intarsys.pdf.cos.COSString;
+import de.intarsys.pdf.cos.*;
 import de.intarsys.pdf.encoding.Encoding;
 import de.intarsys.pdf.encoding.MacOSRomanEncoding;
 import de.intarsys.pdf.encoding.StandardEncoding;
@@ -238,6 +232,8 @@ public abstract class PDFont extends PDObject {
     private CMap cachedToUnicode = UNDEFINED;
 
     private Integer cachedEstimatedAvgWidth;
+
+    private CMap rosToUnicode = UNDEFINED;
 
     /**
      * Create the receiver class from an already defined {@link COSDictionary}.
@@ -596,11 +592,11 @@ public abstract class PDFont extends PDObject {
         if (this instanceof PDFontType0) {
             CIDWidthMap widths = ((PDFontType0) this).getDescendantFont().getCIDWidthMap();
             result = (int) Math.round(widths.getEntries()
-                                            .stream()
-                                            .mapToInt(CIDWidthMapEntry::getWidth)
-                                            .filter(width -> width > 0)
-                                            .average()
-                                            .orElse(0));
+                    .stream()
+                    .mapToInt(CIDWidthMapEntry::getWidth)
+                    .filter(width -> width > 0)
+                    .average()
+                    .orElse(0));
         }
         return result;
     }
@@ -621,18 +617,28 @@ public abstract class PDFont extends PDObject {
 
     public CMap getToUnicode() {
         if (cachedToUnicode == UNDEFINED) {
-            if (this instanceof PDFontType0 && ((PDFontType0) this).isAdobeJapan1()) {
-                cachedToUnicode = NamedCMap.loadCMap(COSName.constant("Adobe-Japan1-7"));
-            } else {
-                try {
-                    cachedToUnicode = (CMap) CMap.META.createFromCos(cosGetField(DK_ToUnicode));
-                } catch (RuntimeException e) {
-                    cachedToUnicode = null;
-                    throw e;
-                }
+            try {
+                cachedToUnicode = (CMap) CMap.META.createFromCos(cosGetField(DK_ToUnicode));
+            } catch (RuntimeException e) {
+                cachedToUnicode = null;
+                throw e;
             }
         }
-        return cachedToUnicode;
+        return cachedToUnicode == null ? getRosToUnicodeMap() : cachedToUnicode;
+    }
+
+    private CMap getRosToUnicodeMap() {
+        if (!(this instanceof PDFontType0)) {
+            return null;
+        }
+        if (rosToUnicode == UNDEFINED) {
+            String registry =
+                    ((PDFontType0) this).getDescendantFont().getCIDSystemInfo().getFieldString(CIDSystemInfo.DK_Registry, "");
+            String ordering =
+                    ((PDFontType0) this).getDescendantFont().getCIDSystemInfo().getFieldString(CIDSystemInfo.DK_Ordering, "");
+            rosToUnicode = NamedCMap.loadCMap(COSName.constant(registry + "-" + ordering + "-UCS2"));
+        }
+        return rosToUnicode;
     }
 
     @Override
