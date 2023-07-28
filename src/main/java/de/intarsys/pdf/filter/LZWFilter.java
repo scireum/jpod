@@ -61,13 +61,14 @@ public class LZWFilter extends Filter {
      */
     @Override
     protected byte[] decode(byte[] source) throws IOException {
-        byte[] decoded;
-        IPrediction prediction;
-        decoded = new LZWDecoder().decode(source);
-        if (getOptions() == null) {
-            return decoded;
-        }
-        prediction = PredictionFactory.get().createPrediction(getOptions());
-        return prediction.decode(decoded);
+        byte[] decoded = new byte[0];
+//        IPrediction prediction;
+//        decoded = new LZWDecoder().decode(source);
+//        if (getOptions() == null) {
+//            return decoded;
+//        }
+//        prediction = PredictionFactory.get().createPrediction(getOptions());
+//        return prediction.decode(decoded);
+        return decoded;
     }
 }

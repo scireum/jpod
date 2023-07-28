@@ -99,23 +99,23 @@ public class CCITTFaxFilter extends Filter {
         int size = rows * ((columns + 7) >> 3);
         byte[] destination = new byte[size];
 
-        boolean align = getOption(DK_EncodedByteAlign).getValueBoolean(false);
-
-        CCITTFaxDecoder decoder = new CCITTFaxDecoder(1, columns, rows);
-        decoder.setAlign(align);
-        if (k == 0) {
-            decoder.decodeT41D(destination, source, 0, rows);
-        } else if (k > 0) {
-            decoder.decodeT42D(destination, source, 0, rows);
-        } else if (k < 0) {
-            decoder.decodeT6(destination, source, 0, rows);
-        }
-        if (!getOption(DK_BlackIs1).getValueBoolean(false)) {
-            for (int i = 0; i < destination.length; i++) {
-                // bitwise not
-                destination[i] = (byte) ~destination[i];
-            }
-        }
+//        boolean align = getOption(DK_EncodedByteAlign).getValueBoolean(false);
+//
+//        CCITTFaxDecoder decoder = new CCITTFaxDecoder(1, columns, rows);
+//        decoder.setAlign(align);
+//        if (k == 0) {
+//            decoder.decodeT41D(destination, source, 0, rows);
+//        } else if (k > 0) {
+//            decoder.decodeT42D(destination, source, 0, rows);
+//        } else if (k < 0) {
+//            decoder.decodeT6(destination, source, 0, rows);
+//        }
+//        if (!getOption(DK_BlackIs1).getValueBoolean(false)) {
+//            for (int i = 0; i < destination.length; i++) {
+//                // bitwise not
+//                destination[i] = (byte) ~destination[i];
+//            }
+//        }
         return destination;
     }
 
