@@ -131,30 +131,48 @@ public class GlyphNameMap {
     /**
      * Get the unicode code point for an Adobe glyph name.
      * <p>
+     * As defined by the Adobe glyph list specification, everything starting at the first period
+     * is a variant suffix and is ignored, so "zero.tnum" maps to the character of "zero".
+     * Names of the form "uniXXXX" denote the code point given in hex digits.
      * <p>
      * If the glyph name is unknown, -1 is returned.
-     * </p>
      *
      * @param glyphName An adobe glyph name.
      * @return The unicode code point for an Adobe glyph name or -1.
      */
     public int getUnicode(String glyphName) {
-        Integer result = (Integer) glyphNameToUnicode.get(glyphName);
-        if (result == null) {
-            // Allow direct access to unicode characters when prefixed by 'uni'.
-            if (glyphName != null && glyphName.startsWith(PREFIX_UNI)) {
-                try {
-                    result = Integer.parseInt(glyphName.substring(3), 16);
-                    addEntry(glyphName, result);
-                } catch (NumberFormatException e) {
-                    // this starts only by hazard with "uni.."
-                }
-            }
-        }
-        if (result == null) {
+        if (glyphName == null) {
             return -1;
         }
-        return result.intValue();
+        Integer result = (Integer) glyphNameToUnicode.get(glyphName);
+        if (result != null) {
+            return result.intValue();
+        }
+        int suffixStart = glyphName.indexOf('.');
+        if (suffixStart > 0) {
+            return getUnicode(glyphName.substring(0, suffixStart));
+        }
+        return parseUniName(glyphName);
+    }
+
+    /**
+     * Parses a name of the form "uniXXXX" without caching the result, as {@link #Standard} is
+     * shared between threads.
+     *
+     * @param glyphName the glyph name without variant suffix
+     * @return the denoted code point or -1, if the name isn't of that form
+     */
+    private int parseUniName(String glyphName) {
+        if (!glyphName.startsWith(PREFIX_UNI)) {
+            return -1;
+        }
+        try {
+            int codePoint = Integer.parseInt(glyphName.substring(PREFIX_UNI.length()), 16);
+            return Character.isValidCodePoint(codePoint) ? codePoint : -1;
+        } catch (NumberFormatException exception) {
+            // the name only starts with "uni" by chance, e.g. "unicorn"
+            return -1;
+        }
     }
 
     /**
