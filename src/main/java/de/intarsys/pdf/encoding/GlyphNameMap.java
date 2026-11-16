@@ -31,8 +31,13 @@ package de.intarsys.pdf.encoding;
 
 import de.intarsys.tools.logging.LogTools;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -42,15 +47,13 @@ import java.util.logging.Logger;
  * The mapping from Adobe glyph names to Unicode.
  * <p>
  * For a specification see
- * http://www.adobe.com/devnet/opentype/archives/glyph.html
+ * <a href="https://github.com/adobe-type-tools/agl-specification">Adobe glyph list specification</a>
  */
 public class GlyphNameMap {
     /**
-     * The number of 1:1 mappings from unicode to code points.
-     * <p>
+     * The number of 1:1 mappings from Unicode to code points.
      * <p>
      * This is done for the first 256 bytes to cache the most often used chars.
-     * </p>
      */
     private static final int ARRAY_MAPPING_SIZE = 256;
 
@@ -58,29 +61,26 @@ public class GlyphNameMap {
 
     public static final String GLYPH_NOTDEF = ".notdef"; //$NON-NLS-1$
 
-    private static Logger Log = LogTools.getLogger(GlyphNameMap.class);
+    private static final Logger LOG = LogTools.getLogger(GlyphNameMap.class);
 
-    private static final String AdobeGlyphList = "AdobeGlyphList.txt";
+    private static final String ADOBE_GLYPH_LIST = "AdobeGlyphList.txt";
 
     private static final String PREFIX_UNI = "uni";
 
-    private Map glyphNameToUnicode = new HashMap();
+    private final Map<String, Integer> glyphNameToUnicode = new HashMap<>();
 
-    private Map unicodeToGlyphName = new HashMap();
+    private final Map<Integer, String> unicodeToGlyphName = new HashMap<>();
 
     /**
-     * unicode to glyph name optimization: most chars will be in the ascii range
+     * Unicode to glyph name optimization: most chars will be in the ascii range
      */
-    private String[] asciiToGlyphName = new String[ARRAY_MAPPING_SIZE];
+    private final String[] asciiToGlyphName = new String[ARRAY_MAPPING_SIZE];
 
     /**
      * Create a GlyphNameMap.
      */
     protected GlyphNameMap() {
-        super();
-        for (int i = 0; i < asciiToGlyphName.length; i++) {
-            asciiToGlyphName[i] = GLYPH_NOTDEF;
-        }
+        Arrays.fill(asciiToGlyphName, GLYPH_NOTDEF);
         load();
     }
 
@@ -88,129 +88,133 @@ public class GlyphNameMap {
      * Add an entry to the collection of known mappings.
      *
      * @param glyphName The adobe glyph name.
-     * @param unicode   The unicode code point.
+     * @param unicode   The Unicode code point.
      */
     protected void addEntry(String glyphName, int unicode) {
-        glyphNameToUnicode.put(glyphName, Integer.valueOf(unicode));
-        unicodeToGlyphName.put(Integer.valueOf(unicode), glyphName);
-        if ((unicode >= 0) && (unicode < ARRAY_MAPPING_SIZE)) {
+        glyphNameToUnicode.put(glyphName, unicode);
+        unicodeToGlyphName.put(unicode, glyphName);
+        if (unicode >= 0 && unicode < ARRAY_MAPPING_SIZE) {
             asciiToGlyphName[unicode] = glyphName;
         }
     }
 
     /**
-     * Get the adobe glyph name for a unicode code point or ".notdef" if not
+     * Get the adobe glyph name for a Unicode code point or ".notdef" if not
      * available.
      *
-     * @param unicode The unicode code point to look up.
+     * @param unicode The Unicode code point to look up.
      * @return The adobe glyph name or ".notdef".
      */
     public String getGlyphName(int unicode) {
-        if ((unicode >= 0) && (unicode < ARRAY_MAPPING_SIZE)) {
+        if (unicode >= 0 && unicode < ARRAY_MAPPING_SIZE) {
             return asciiToGlyphName[unicode];
-        } else {
-            String glyphName = (String) unicodeToGlyphName.get(Integer.valueOf(unicode));
-            if (glyphName == null) {
-                return GLYPH_NOTDEF;
-            } else {
-                return glyphName;
-            }
         }
+        return unicodeToGlyphName.getOrDefault(unicode, GLYPH_NOTDEF);
     }
 
     /**
-     * The internal representation of the map from glyph names to unicode.
+     * A read-only view of the map from glyph names to Unicode.
      *
-     * @return The internal representation of the map from glyph names to
-     * unicode.
+     * @return A read-only view of the map from glyph names to Unicode.
      */
-    protected Map getGlyphNameToUnicode() {
-        return glyphNameToUnicode;
+    protected Map<String, Integer> getGlyphNameToUnicode() {
+        return Collections.unmodifiableMap(glyphNameToUnicode);
     }
 
     /**
-     * Get the unicode code point for an Adobe glyph name.
+     * Get the Unicode code point for an Adobe glyph name.
      * <p>
+     * As defined by the Adobe glyph list specification, everything starting at the first period
+     * is a variant suffix and is ignored, so "zero.tnum" maps to the character of "zero".
+     * Names of the form "uniXXXX" denote the code point given in hex digits.
      * <p>
      * If the glyph name is unknown, -1 is returned.
-     * </p>
      *
      * @param glyphName An adobe glyph name.
-     * @return The unicode code point for an Adobe glyph name or -1.
+     * @return The Unicode code point for an Adobe glyph name or -1.
      */
     public int getUnicode(String glyphName) {
-        Integer result = (Integer) glyphNameToUnicode.get(glyphName);
-        if (result == null) {
-            // Allow direct access to unicode characters when prefixed by 'uni'.
-            if (glyphName != null && glyphName.startsWith(PREFIX_UNI)) {
-                try {
-                    result = Integer.parseInt(glyphName.substring(3), 16);
-                    addEntry(glyphName, result);
-                } catch (NumberFormatException e) {
-                    // this starts only by hazard with "uni.."
-                }
-            }
-        }
-        if (result == null) {
+        if (glyphName == null) {
             return -1;
         }
-        return result.intValue();
+        Integer result = glyphNameToUnicode.get(glyphName);
+        if (result != null) {
+            return result;
+        }
+        int suffixStart = glyphName.indexOf('.');
+        if (suffixStart > 0) {
+            return getUnicode(glyphName.substring(0, suffixStart));
+        }
+        return parseUniName(glyphName);
     }
 
     /**
-     * The internal representation of the map from unicode to glyph names .
+     * Parses a name of the form "uniXXXX" without caching the result, as {@link #Standard} is
+     * shared between threads.
      *
-     * @return The internal representation of the map from unicode to glyph
-     * names .
+     * @param glyphName the glyph name without variant suffix
+     * @return the denoted code point or -1, if the name isn't of that form
      */
-    protected Map getUnicodeToGlyphName() {
-        return unicodeToGlyphName;
+    private int parseUniName(String glyphName) {
+        if (!glyphName.startsWith(PREFIX_UNI)) {
+            return -1;
+        }
+        try {
+            int codePoint = Integer.parseInt(glyphName.substring(PREFIX_UNI.length()), 16);
+            return Character.isValidCodePoint(codePoint) ? codePoint : -1;
+        } catch (NumberFormatException exception) {
+            // the name only starts with "uni" by chance, e.g. "unicorn"
+            return -1;
+        }
+    }
+
+    /**
+     * A read-only view of the map from Unicode to glyph names.
+     *
+     * @return A read-only view of the map from Unicode to glyph names.
+     */
+    protected Map<Integer, String> getUnicodeToGlyphName() {
+        return Collections.unmodifiableMap(unicodeToGlyphName);
     }
 
     protected void load() {
-        InputStream is = getClass().getResourceAsStream(AdobeGlyphList);
-        try {
+        try (InputStream is = getClass().getResourceAsStream(ADOBE_GLYPH_LIST)) {
+            if (is == null) {
+                LOG.log(Level.WARNING, "Adobe glyph list not found");
+                return;
+            }
             load(is);
-        } catch (IOException ignored) {
-            Log.log(Level.WARNING, "error loading Adobe glyph list");
+        } catch (IOException exception) {
+            LOG.log(Level.WARNING, "error loading Adobe glyph list", exception);
         }
     }
 
+    /**
+     * Loads the mappings of a glyph list.
+     * <p>
+     * Each line holds a glyph name and its code points in hex digits, separated by a semicolon,
+     * e.g. "A;0041". If several code points are given, only the first one is used. Empty lines
+     * and lines starting with "#" are skipped.
+     *
+     * @param is the stream to read the glyph list from
+     * @throws IOException in case of an error while reading the stream
+     */
     protected void load(InputStream is) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        String name = null;
-        String value = null;
-        int i = is.read();
-        while (i != -1) {
-            if (i == '\r' || i == '\n' || i == ' ') {
-                //
-            } else if (i == '#') {
-                i = is.read();
-                while (i != -1 && i != '\n') {
-                    // skip rest of line
-                    i = is.read();
-                }
-            } else {
-                while (i != -1) {
-                    if (i == ';') {
-                        name = sb.toString();
-                        sb.setLength(0);
-                    } else if (i == ' ' | i == '\r' || i == '\n') {
-                        value = sb.toString();
-                        sb.setLength(0);
-                        while (i != -1 && i != '\n') {
-                            // skip rest of line
-                            i = is.read();
-                        }
-                        break;
-                    } else {
-                        sb.append((char) i);
-                    }
-                    i = is.read();
-                }
-                addEntry(name, Integer.parseInt(value, 16));
-            }
-            i = is.read();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            loadLine(line.trim());
         }
+    }
+
+    private void loadLine(String line) {
+        int separatorIndex = line.indexOf(';');
+        if (line.startsWith("#") || separatorIndex < 0) {
+            return;
+        }
+        String codePoints = line.substring(separatorIndex + 1).trim();
+        int codePointsEnd = codePoints.indexOf(' ');
+        String firstCodePoint = codePointsEnd < 0 ? codePoints : codePoints.substring(0, codePointsEnd);
+        addEntry(line.substring(0, separatorIndex), Integer.parseInt(firstCodePoint, 16));
     }
 }
